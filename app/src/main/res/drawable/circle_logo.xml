@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/colorPrimaryDark"></solid>
+            <padding
+                android:bottom="16dp"
+                android:left="16dp"
+                android:right="16dp"
+                android:top="16dp" />
+            <size android:width="100dp"
+                android:height="100dp"/>
+        </shape>
+    </item>
+    <item>
+        <bitmap
+            android:tintMode="src_atop"
+            android:tint="#ffffff"
+            android:gravity="center_horizontal"
+            android:src="@drawable/logo">
+        </bitmap>
+
+    </item>
+</layer-list>

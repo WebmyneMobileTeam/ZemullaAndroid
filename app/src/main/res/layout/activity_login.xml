@@ -1,10 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zemulla.android.app.login.LoginActivity">
+    android:background="@drawable/startup_bg"
+    tools:context="com.zemulla.android.app.user.LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgLogo"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:transitionName="logo_trans"
+        android:layout_centerInParent="true"
+        android:src="@drawable/circle_logo"
+        android:layout_width="90dp"
+        android:layout_height="90dp" />
+
+   <LinearLayout
+       android:layout_marginTop="32dp"
+       android:layout_margin="16dp"
+       android:layout_below="@+id/imgLogo"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <net.rimoto.intlphoneinput.IntlPhoneInput
+           android:layout_margin="16dp"
+           android:id="@+id/etMobile"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+
+
+       <EditText
+           android:layout_margin="16dp"
+           android:id="@+id/etPassword"
+           android:inputType="textPassword"
+           android:textColorHint="@color/white"
+           android:hint="Password"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+
+       <TextView
+           android:id="@+id/txtLogin"
+           style="@style/textButton"
+           android:text="login"
+           android:layout_gravity="center"
+           android:layout_margin="16dp"
+           android:layout_width="300dp"
+           android:layout_height="wrap_content" />
+
+
+       <TextView
+           android:gravity="center"
+           android:id="@+id/txtBottom"
+           android:textSize="16dp"
+           android:padding="16dp"
+           android:layout_marginTop="32dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+
+   </LinearLayout>
+
+
+</RelativeLayout>

@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.AdvancedSpannableString;
 import com.zemulla.android.app.helper.Functions;
 
-import net.rimoto.intlphoneinput.IntlPhoneInput;
 
 public class LoginActivity extends AppCompatActivity {
     private ImageView imgLogo;
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
         etMobile = (IntlPhoneInput)findViewById(R.id.etMobile);
         etMobile.setDefault();
+
         etMobile.setNumber(etMobile.getNumber()+"");
 
         etPassword= (EditText)findViewById(R.id.etPassword);
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initApplyFont() {
+        etMobile.addFont();
         etPassword.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
         txtBottom.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
 

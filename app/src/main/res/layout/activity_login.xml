@@ -18,32 +18,51 @@
         android:layout_width="90dp"
         android:layout_height="90dp" />
 
+
+<android.support.v7.widget.CardView
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    android:layout_below="@+id/imgLogo"
+    cardView:cardBackgroundColor="#50178282"
+    cardView:cardCornerRadius="6dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
    <LinearLayout
-       android:background="@drawable/transp_bg"
        android:layout_marginTop="32dp"
-       android:layout_margin="16dp"
-       android:layout_below="@+id/imgLogo"
+
        android:orientation="vertical"
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-       <net.rimoto.intlphoneinput.IntlPhoneInput
+       <com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput
+           android:background="@null"
            android:layout_margin="16dp"
            android:id="@+id/etMobile"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
 
+       <View
+           android:layout_marginLeft="16dp"
+           android:layout_marginRight="16dp"
+           android:background="#fff"
+           android:layout_width="match_parent"
+           android:layout_height="0.5dp"/>
 
        <EditText
+           android:textSize="24sp"
+           android:background="@null"
+           android:gravity="center"
            android:layout_margin="16dp"
            android:id="@+id/etPassword"
            android:inputType="textPassword"
-           android:textColorHint="@color/white"
+           android:textColorHint="@color/colorPrimaryDark"
            android:hint="Password"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
 
        <TextView
+           android:visibility="gone"
            android:id="@+id/txtLogin"
            style="@style/textButton"
            android:text="login"
@@ -51,6 +70,13 @@
            android:layout_margin="16dp"
            android:layout_width="300dp"
            android:layout_height="wrap_content" />
+       <ImageView
+           android:layout_gravity="center"
+           android:src="@drawable/login"
+           android:tintMode="src_atop"
+           android:tint="#ffffff"
+           android:layout_width="48dp"
+           android:layout_height="48dp" />
 
 
        <TextView
@@ -63,6 +89,6 @@
            android:layout_height="wrap_content" />
 
    </LinearLayout>
-
+</android.support.v7.widget.CardView>
 
 </RelativeLayout>

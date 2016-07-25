@@ -19,6 +19,7 @@
         android:layout_height="90dp" />
 
    <LinearLayout
+       android:background="@drawable/transp_bg"
        android:layout_marginTop="32dp"
        android:layout_margin="16dp"
        android:layout_below="@+id/imgLogo"

@@ -81,7 +81,6 @@
            android:layout_height="48dp" />
 
        <TextView
-
            android:textColor="@color/colorExtraDark"
            android:text="@string/forgot_pass_msg"
            android:gravity="center"

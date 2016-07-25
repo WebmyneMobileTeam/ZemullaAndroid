@@ -7,14 +7,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <Spinner
-
         android:gravity="center"
         android:layout_width="50dp"
         android:paddingRight="1dp"
         android:paddingEnd="12dp"
         android:layout_height="50dp"
         android:id="@+id/intl_phone_edit__country"
-        android:dropDownWidth="300dp"
+        android:dropDownWidth="250dp"
         tools:ignore="RtlSymmetry" />
     <EditText
         android:textColorHint="@color/colorPrimaryDark"

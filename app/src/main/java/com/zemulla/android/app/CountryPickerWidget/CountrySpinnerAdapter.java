@@ -1,6 +1,7 @@
 package com.zemulla.android.app.CountryPickerWidget;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,8 +70,9 @@ public class CountrySpinnerAdapter extends ArrayAdapter<Country> {
             convertView = new ImageView(getContext());
         }
 
-        ((ImageView) convertView).setImageResource(getFlagResource(country));
 
+
+        ((ImageView) convertView).setImageResource(getFlagResource(country));
         return convertView;
     }
 

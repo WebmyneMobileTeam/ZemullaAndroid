@@ -18,7 +18,7 @@ import com.zemulla.android.app.helper.Functions;
 
 public class LoginActivity extends AppCompatActivity {
     private ImageView imgLogo;
-    private TextView txtLogin,txtBottom;
+    private TextView txtLogin,txtBottom,txtForgotPass;
     private EditText etPassword;
     private IntlPhoneInput etMobile;
 
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         txtLogin = (TextView)findViewById(R.id.txtLogin);
         imgLogo = (ImageView)findViewById(R.id.imgLogo);
         txtBottom= (TextView)findViewById(R.id.txtBottom);
-
+        txtForgotPass= (TextView)findViewById(R.id.txtForgotPass);
         txtLogin.setTypeface(Functions.getRegularTypeFace(LoginActivity.this), Typeface.BOLD);
 
         AdvancedSpannableString span = new AdvancedSpannableString(getResources().getString(R.string.signup_msg));
@@ -68,6 +68,6 @@ public class LoginActivity extends AppCompatActivity {
         etMobile.addFont();
         etPassword.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
         txtBottom.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
-
+        txtForgotPass.setTypeface(Functions.getRegularTypeFace(LoginActivity.this), Typeface.BOLD);
     }
 }

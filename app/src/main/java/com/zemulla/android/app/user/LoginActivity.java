@@ -5,9 +5,13 @@ import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,19 +26,22 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txtLogin,txtBottom,txtForgotPass;
     private EditText etPassword;
     private IntlPhoneInput etMobile;
+    private RelativeLayout mainRelative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         init();
+
     }
 
 
 
+
     private void init() {
+        mainRelative = (RelativeLayout)findViewById(R.id.mainRelative);
         etMobile = (IntlPhoneInput)findViewById(R.id.etMobile);
         etMobile.setDefault();
 
@@ -52,16 +59,18 @@ public class LoginActivity extends AppCompatActivity {
         span.setUnderLine("Signup");
         span.setColor(ContextCompat.getColor(this,R.color.yellow),"Signup");
         span.setColor(ContextCompat.getColor(this,R.color.colorDark),"Don't have an account?");
-/*
+
         span.setClickableSpanTo("Signup");
+
         span.setSpanClickListener(new AdvancedSpannableString.OnClickableSpanListner() {
             @Override
             public void onSpanClick() {
-                Toast.makeText(LoginActivity.this, "Krishna", Toast.LENGTH_SHORT).show();
+                Intent iHomeActivity = new Intent(LoginActivity.this,SignupActivity.class);
+                startActivity(iHomeActivity);
             }
-        });*/
+        });
         txtBottom.setText(span);
-
+        txtBottom.setMovementMethod(LinkMovementMethod.getInstance());
         initApplyFont();
     }
 

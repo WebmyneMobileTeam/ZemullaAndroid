@@ -9,101 +9,104 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imgLogo"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center_horizontal"
-        android:transitionName="logo_trans"
-        android:layout_centerInParent="true"
-        android:src="@drawable/logo"
         android:layout_width="90dp"
-        android:layout_height="90dp" />
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logo"
+        android:transitionName="logo_trans" />
 
 
-<android.support.v7.widget.CardView
-    xmlns:cardView="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="16dp"
-    android:layout_below="@+id/imgLogo"
-    cardView:cardBackgroundColor="#50178282"
-    cardView:cardCornerRadius="6dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout
+    <android.support.v7.widget.CardView xmlns:cardView="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imgLogo"
+        android:layout_margin="16dp"
+        cardView:cardBackgroundColor="#50178282"
+        cardView:cardCornerRadius="6dp">
 
-   <LinearLayout
-       android:layout_marginTop="32dp"
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-
-       <com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput
-           android:background="@null"
-           android:layout_margin="16dp"
-           android:id="@+id/etMobile"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content" />
-
-       <View
-           android:layout_marginLeft="16dp"
-           android:layout_marginRight="16dp"
-           android:background="#fff"
-           android:layout_width="match_parent"
-           android:layout_height="0.5dp"/>
-
-       <EditText
-           android:textSize="24sp"
-           android:background="@null"
-           android:gravity="center"
-           android:layout_margin="16dp"
-           android:id="@+id/etPassword"
-           android:inputType="textPassword"
-           android:textColorHint="@color/colorPrimaryDark"
-           android:hint="Password"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content" />
-
-       <TextView
-           android:visibility="gone"
-           android:id="@+id/txtLogin"
-           style="@style/textButton"
-           android:text="login"
-           android:layout_gravity="center"
-           android:layout_margin="16dp"
-           android:layout_width="300dp"
-           android:layout_height="wrap_content" />
-       <ImageView
-           android:layout_gravity="center"
-           android:src="@drawable/login"
-           android:tintMode="src_atop"
-           android:tint="#ffffff"
-           android:layout_width="48dp"
-           android:layout_height="48dp" />
-
-       <TextView
-           android:textColor="@color/colorExtraDark"
-           android:text="@string/forgot_pass_msg"
-           android:gravity="center"
-           android:id="@+id/txtForgotPass"
-           android:textSize="16dp"
-           android:padding="16dp"
-           android:layout_marginTop="32dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content" />
-
-
-   </LinearLayout>
-        <TextView
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:id="@+id/txtBottom"
-            android:textSize="16dp"
-            android:padding="16dp"
-            android:layout_marginTop="32dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
 
-    </RelativeLayout>
-</android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical">
+
+                <com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput
+                    android:id="@+id/etMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#fff" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/colorPrimaryDark"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/txtLogin"
+                    style="@style/textButton"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="login"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:onClick="loginClick"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/login"
+                    android:tint="#ffffff"
+                    android:tintMode="src_atop" />
+
+                <TextView
+                    android:id="@+id/txtForgotPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/forgot_pass_msg"
+                    android:textColor="@color/colorExtraDark"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

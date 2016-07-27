@@ -1,5 +1,6 @@
 package com.zemulla.android.app.user;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+
 
         init();
     }
@@ -69,5 +70,13 @@ public class LoginActivity extends AppCompatActivity {
         etPassword.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
         txtBottom.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
         txtForgotPass.setTypeface(Functions.getRegularTypeFace(LoginActivity.this), Typeface.BOLD);
+    }
+
+    public void loginClick(View view) {
+
+        Intent iHomeActivity = new Intent(LoginActivity.this,HomeActivity.class);
+        startActivity(iHomeActivity);
+        finish();
+
     }
 }

@@ -1,32 +1,14 @@
 package com.zemulla.android.app.helper;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.util.Base64;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class Functions {
@@ -38,6 +20,8 @@ public class Functions {
 
     public static String regularFont = "fonts/Roboto-Light.ttf";
 
+    public static String LATO_FONT = "fonts/Lato-Regular.ttf";
+
 
     public static DisplayMetrics getDeviceMetrics(Activity context) {
         DisplayMetrics metrics = new DisplayMetrics();
@@ -48,8 +32,13 @@ public class Functions {
     }
 
 
-  public static Typeface getRegularTypeFace(Context ctx) {
+    public static Typeface getRegularTypeFace(Context ctx) {
         Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), regularFont);
+        return typeface;
+    }
+
+    public static Typeface getLatoFont(Context ctx) {
+        Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), LATO_FONT);
         return typeface;
     }
 

@@ -81,7 +81,27 @@
         </LinearLayout>
 
 
+
     </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@drawable/circle_shape"
+        android:layout_above="@+id/gridHomeOptions"
+        android:layout_width="250dp"
+        android:layout_height="40dp">
+    <TextView
+        android:gravity="center"
+        android:id="@+id/txtViewTranscation"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:text="VIEW TRANSCATIONS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <GridLayout
         android:id="@+id/gridHomeOptions"

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
@@ -112,6 +113,9 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
 
     }
 

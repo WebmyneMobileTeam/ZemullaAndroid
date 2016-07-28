@@ -88,7 +88,7 @@
     <RelativeLayout
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:background="@drawable/circle_shape"
+        android:background="@drawable/semi_circle_shape"
         android:layout_above="@+id/gridHomeOptions"
         android:layout_width="250dp"
         android:layout_height="40dp">

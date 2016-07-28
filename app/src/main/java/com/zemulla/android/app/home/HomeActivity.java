@@ -1,5 +1,7 @@
 package com.zemulla.android.app.home;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
 
 import java.util.ArrayList;
@@ -78,6 +80,20 @@ public class HomeActivity extends AppCompatActivity {
                 switch (id) {
 
                     case VIEW_PROFILE:
+
+                        LinearLayout linearprofile_trans = (LinearLayout)drawerDialogView.findViewById(R.id.linearprofile_trans);
+
+
+                        Intent intent = new Intent(HomeActivity.this, UserProfileActivity.class);
+                        String transitionName = "profile_trans";
+
+                        if (android.os.Build.VERSION.SDK_INT >= 21) {
+                            ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this, linearprofile_trans, transitionName);
+                            startActivity(intent, transitionActivityOptions.toBundle());
+
+                        } else {
+                            startActivity(intent);
+                        }
 
                         break;
 

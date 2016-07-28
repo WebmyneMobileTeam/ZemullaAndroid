@@ -7,6 +7,7 @@
 
     <color name="colorDark">#0C4B52</color>
     <color name="yellow">#FFC107</color>
+    <color name="colorWebsiteDark">#018493</color>
     <color name="colorExtraDark">#0a545c</color>
 
 </resources>

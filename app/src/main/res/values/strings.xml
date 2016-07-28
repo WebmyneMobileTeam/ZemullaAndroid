@@ -5,9 +5,25 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="signup">Open An Account</string>
     <string name="signup_msg">Don\'t have an account? Signup</string>
     <string name="forgot_pass_msg">Forgot Password?</string>
     <string name="action_history">Transaction History</string>
+
+    <string name="hint_fname">First Name</string>
+    <string name="hint_lname">Last Name</string>
+    <string name="hint_email">Email</string>
+
+    <string name="hint_country">Country Name</string>
+    <string name="hint_state">State Name</string>
+    <string name="hint_city">City Name</string>
+
+    <string name="hint_pass">Password</string>
+    <string name="hint_cnf_pass">Confirm Password</string>
+
+    <string name="hint_add">Address</string>
+    <string name="hint_zipcode">ZipCode</string>
+
 
     <string-array name="colors">
         <item>#b71c1c</item>

@@ -13,12 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.AdvancedSpannableString;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.home.HomeActivity;
 
 
 public class LoginActivity extends AppCompatActivity {

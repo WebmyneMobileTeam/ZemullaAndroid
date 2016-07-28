@@ -6,17 +6,82 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    tools:context="com.zemulla.android.app.user.HomeActivity">
+    tools:context="com.zemulla.android.app.home.HomeActivity">
 
-    <include layout="@layout/app_bar"></include>
+    <View
+        android:id="@+id/fake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></View>
+    <LinearLayout
+        android:id="@+id/linearTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/app_bar"></include>
+    </LinearLayout>
 
-    <RelativeLayout
-
+    <LinearLayout
         android:id="@+id/container_balance"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/gridHomeOptions"
-        android:background="#e6e6e6"></RelativeLayout>
+        android:layout_below="@id/linearTop"
+        android:background="#e6e6e6"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Effective Balance:"
+                android:textColor="@color/colorExtraDark"
+                android:textSize="22sp" />
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="ZMW 122525.73"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_margin="16dp"
+            android:background="@color/colorExtraDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available Balance:"
+                android:textColor="@color/colorExtraDark"
+                android:textSize="16sp" />
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="ZMW 1525.73"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <GridLayout
         android:id="@+id/gridHomeOptions"

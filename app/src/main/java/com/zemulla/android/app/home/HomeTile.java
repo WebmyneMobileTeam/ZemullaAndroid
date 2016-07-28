@@ -37,7 +37,7 @@ public class HomeTile extends SquareLayout {
         inflater.inflate(R.layout.item_home_tile, this);
         txtView = (TextView) findViewById(R.id.txtHomeTileName);
         txtView.setTypeface(Functions.getLatoFont(_ctx));
-        imgHomeTileIcon = (ImageView)findViewById(R.id.imgHomeTileIcon);
+        imgHomeTileIcon = (ImageView) findViewById(R.id.imgHomeTileIcon);
     }
 
     public HomeTileBean getTile() {
@@ -51,6 +51,7 @@ public class HomeTile extends SquareLayout {
         imgHomeTileIcon.setImageResource(bean.getTileIcon());
         imgHomeTileIcon.setColorFilter(Color.parseColor(bean.getBackgroundColorDark()));
         txtView.setTextColor(Color.parseColor(bean.getBackgroundColorDark()));
+
     }
 
 

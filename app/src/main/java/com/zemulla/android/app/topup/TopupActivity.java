@@ -92,7 +92,6 @@ public class TopupActivity extends AppCompatActivity {
             TopupTile tile = (TopupTile) v;
 
             switch (tile.getTile().getId()) {
-
                 case CYBER_SOURCE:
                 case PAYPAL:
                 case MTN:
@@ -100,8 +99,9 @@ public class TopupActivity extends AppCompatActivity {
                 case BANK_TRANSFER:
                 case SUPPORTED_BANK:
                 case ZOONA:
-
-
+                    Intent iInitialTransactionActivity = new Intent(TopupActivity.this,TopupInitialTransactionActivity.class);
+                    iInitialTransactionActivity.putExtra("wayname",tile.getTile().getTileName());
+                    startActivity(iInitialTransactionActivity);
                     break;
 
             }

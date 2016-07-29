@@ -29,7 +29,8 @@
         <activity android:name=".user.SignupActivity" />
         <activity android:name=".user.UserProfileActivity" />
         <activity android:name=".transaction.TransactionHistoryActivity" />
-        <activity android:name=".topup.TopupActivity"></activity>
+        <activity android:name=".topup.TopupActivity" />
+        <activity android:name=".topup.TopupInitialTransactionActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_topup_initial_transaction"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zemulla.android.app.topup.TopupInitialTransactionActivity">
+
+    <include layout="@layout/app_bar"></include>
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/txtTopupWayName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorExtraDark"
+        android:gravity="center"
+        android:text="Cyber Source"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <FrameLayout
+        android:id="@+id/frameRootTopup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--initial view where user enter only amount-->
+        <LinearLayout
+            android:id="@+id/lineatInitialViewTopup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Topup Amount"
+                android:textSize="22sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:inputType="number|numberDecimal" />
+
+            <view
+                android:id="@+id/btnProcessInitialTransaction"
+                class="mbanje.kurt.fabbutton.FabButton"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:color="@color/colorPrimaryDark"
+                android:indeterminate="true"
+                android:max="100"
+                android:src="@drawable/ic_action_image_navigate_next"
+                android:visibility="visible"
+                app:fbb_autoStart="true"
+                app:fbb_endBitmap="@drawable/ic_action_history"
+                app:fbb_progressColor="@color/colorExtraDark"
+                app:fbb_progressWidthRatio="0.1"
+                app:fbb_showEndBitmap="false" />
+
+        </LinearLayout>
+
+        <!--view where all converted values and rate comes-->
+        <LinearLayout
+            android:id="@+id/linearTrnsViewTopup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Topup Amount : ZMW 1212"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Payable Amount"
+                    android:textSize="18sp" />
+
+                <com.zemulla.android.app.widgets.TfTextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ZMW 1122.32"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="32sp" />
+
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transaction Charge : 100"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <view
+                    android:id="@+id/btnProcessResetTransaction"
+                    class="mbanje.kurt.fabbutton.FabButton"
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:color="@color/colorPrimaryDark"
+                    android:indeterminate="true"
+                    android:max="100"
+                    android:src="@drawable/ic_action_content_clear"
+                    android:visibility="visible"
+                    app:fbb_autoStart="true"
+                    app:fbb_endBitmap="@drawable/ic_action_history"
+                    app:fbb_progressColor="@color/colorExtraDark"
+                    app:fbb_progressWidthRatio="0.1"
+                    app:fbb_showEndBitmap="false" />
+
+                <view
+                    android:id="@+id/btnProcessConfirmTransaction"
+                    class="mbanje.kurt.fabbutton.FabButton"
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="100dp"
+                    android:color="@color/colorPrimaryDark"
+                    android:indeterminate="true"
+                    android:max="100"
+                    android:src="@drawable/ic_action_image_navigate_next"
+                    android:visibility="visible"
+                    app:fbb_autoStart="true"
+                    app:fbb_endBitmap="@drawable/ic_action_history"
+                    app:fbb_progressColor="@color/colorExtraDark"
+                    app:fbb_progressWidthRatio="0.1"
+                    app:fbb_showEndBitmap="false" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+</LinearLayout>

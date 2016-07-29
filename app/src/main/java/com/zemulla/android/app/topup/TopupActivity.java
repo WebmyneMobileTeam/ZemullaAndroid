@@ -12,10 +12,12 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.helper.Serivces;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.HomeTile;
 import com.zemulla.android.app.home.HomeTileBean;
 import com.zemulla.android.app.home.HomeTileConfiguration;
+import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 
 import java.util.ArrayList;
 
@@ -75,6 +77,10 @@ public class TopupActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.action_history:
+                startActivity(new Intent(TopupActivity.this, TransactionHistoryActivity.class).putExtra("type", Serivces.TOPUP));
+
                 break;
         }
         return super.onOptionsItemSelected(item);

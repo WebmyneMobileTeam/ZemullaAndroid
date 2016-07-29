@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
@@ -68,10 +69,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tiles = configuration.getAllTiles();
 
         for (HomeTileBean bean : tiles) {
+
             HomeTile homeTile = new HomeTile(HomeActivity.this);
             homeTile.setupTile(bean);
             homeTile.setOnClickListener(tileClick);
             gridHomeOptions.addView(homeTile, params);
+
+
         }
 
         popup = MaryPopup.with(this)
@@ -87,7 +91,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 popup.content(drawerDialogView)
                         .from(toolbar)
@@ -163,12 +166,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             switch (tile.getTile().getId()) {
 
                 case TOPUP:
+
+                    Intent iTopUp = new Intent(HomeActivity.this, TopupActivity.class);
+                    startActivity(iTopUp);
                     break;
+
                 case FUND_TRANSFER:
+
                     break;
+
                 case EMARKET:
+
                     break;
+                
                 case REPORTS:
+
                     break;
             }
 

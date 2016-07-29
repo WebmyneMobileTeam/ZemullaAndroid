@@ -28,7 +28,8 @@
         <activity android:name=".home.HomeActivity" />
         <activity android:name=".user.SignupActivity" />
         <activity android:name=".user.UserProfileActivity" />
-        <activity android:name=".transaction.TransactionHistoryActivity"></activity>
+        <activity android:name=".transaction.TransactionHistoryActivity" />
+        <activity android:name=".topup.TopupActivity"></activity>
     </application>
 
 </manifest>

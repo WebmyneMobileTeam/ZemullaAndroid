@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/startup_bg"
     tools:context="com.zemulla.android.app.user.LoginActivity">
 
@@ -73,6 +74,25 @@
                     android:layout_margin="16dp"
                     android:text="login"
                     android:visibility="gone" />
+
+
+              <!--  <view
+                    android:id="@+id/btnProcessInitialTransaction"
+                    class="mbanje.kurt.fabbutton.FabButton"
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:color="@color/colorPrimaryDark"
+                    android:indeterminate="true"
+                    android:max="100"
+                    android:src="@drawable/login"
+                    android:visibility="visible"
+                    app:fbb_autoStart="true"
+                    app:fbb_endBitmap="@drawable/ic_action_history"
+                    app:fbb_progressColor="@color/colorExtraDark"
+                    app:fbb_progressWidthRatio="0.1"
+                    app:fbb_showEndBitmap="false" />-->
 
                 <ImageView
                     android:onClick="loginClick"

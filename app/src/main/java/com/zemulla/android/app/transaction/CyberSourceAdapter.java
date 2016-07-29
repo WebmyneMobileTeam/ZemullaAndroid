@@ -1,5 +1,6 @@
 package com.zemulla.android.app.transaction;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +34,19 @@ public class CyberSourceAdapter extends RecyclerView.Adapter<CyberSourceAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         CyberSourceBean data = mainBean.get(position);
-        holder.title.setText(data.getZemullaTransDate());
-        holder.genre.setText(data.amount);
-        holder.year.setText(data.getFirstName());
+        holder.txtName.setText(data.getFirstName()+" "+data.lastName);
+        holder.txtZemulaTransID.setText(data.amount);
+        holder.txtDate.setText(data.getZemullaTransDate());
+
+        holder.txtStatus.setText("Status: "+data.getPaymentStatus());
+        if(data.getPaymentStatus().toString().equalsIgnoreCase("Fail"))
+        holder.txtStatus.setTextColor(Color.RED);
+        else
+            holder.txtStatus.setTextColor(Color.parseColor("#0a545c"));
+
+        holder.txtAmount.setText("Amount: "+data.getAmount());
+        holder.txtCharge.setText("Charge: "+data.getCharge());
+        holder.txtTotalAmount.setText("TOTAL: "+data.getTotalAmount());
     }
 
     @Override
@@ -44,12 +55,16 @@ public class CyberSourceAdapter extends RecyclerView.Adapter<CyberSourceAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, year, genre;
+        public TextView txtName, txtZemulaTransID, txtDate,txtStatus,txtAmount,txtCharge,txtTotalAmount;
         public ViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            genre = (TextView) view.findViewById(R.id.genre);
-            year = (TextView) view.findViewById(R.id.year);
+            txtZemulaTransID= (TextView) view.findViewById(R.id.txtZemulaTransID);
+            txtName = (TextView) view.findViewById(R.id.txtName);
+            txtDate = (TextView) view.findViewById(R.id.txtDate);
+            txtStatus = (TextView) view.findViewById(R.id.txtStatus);
+            txtAmount= (TextView)view.findViewById(R.id.txtAmount);
+            txtCharge= (TextView)view.findViewById(R.id.txtCharge);
+            txtTotalAmount= (TextView)view.findViewById(R.id.txtTotalAmount);
         }
     }
 }

@@ -66,16 +66,16 @@ public class HistoryFragment extends Fragment {
         CyberSourceBean bean = new CyberSourceBean("101","16/07/2016","Krishna","Patel","ZMB 50.0","ZMB 5.0","ZMB 55.0","Success");
         cyberSourceBeanList.add(bean);
 
-        bean = new CyberSourceBean("102","10/07/2016","John","Doe","ZMB 100.0","ZMB 10.0","ZMB 110.0","Success");
+        bean = new CyberSourceBean("102","10/07/2016 23:15:45","John","Doe","ZMB 100.0","ZMB 10.0","ZMB 110.0","Success");
         cyberSourceBeanList.add(bean);
 
-        bean = new CyberSourceBean("103","12/07/2016","Mark","Smith","ZMB 20.0","ZMB 3.0","ZMB 23.0","Fail");
+        bean = new CyberSourceBean("103","12/07/2016 21:18:26","Mark","Smith","ZMB 20.0","ZMB 3.0","ZMB 23.0","Fail");
         cyberSourceBeanList.add(bean);
 
-        bean = new CyberSourceBean("104","15/05/2016","Daniel","Brick","ZMB 650.0","ZMB 70.0","ZMB 720.0","Sucess");
+        bean = new CyberSourceBean("104","15/05/2016 07:41:02","Daniel","Brick","ZMB 650.0","ZMB 70.0","ZMB 720.0","Sucess");
         cyberSourceBeanList.add(bean);
 
-        bean = new CyberSourceBean("105","01/06/2016","Zuze","Walter","ZMB 250.0","ZMB 45.0","ZMB 295.0","Fail");
+        bean = new CyberSourceBean("105","01/06/2016 15:50:54","Zuze","Walter","ZMB 250.0","ZMB 45.0","ZMB 295.0","Fail");
         cyberSourceBeanList.add(bean);
     }
 

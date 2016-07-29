@@ -191,7 +191,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.txtViewTranscation:
-                //TODO krishna
+                startActivity(new Intent(HomeActivity.this,TransactionHistoryActivity.class));
                 break;
         }
     }

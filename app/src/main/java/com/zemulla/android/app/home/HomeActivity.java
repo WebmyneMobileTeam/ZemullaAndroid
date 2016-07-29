@@ -27,7 +27,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
+public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private GridLayout gridHomeOptions;
@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     MaryPopup popup;
     private DrawerDialogView drawerDialogView;
     private RelativeLayout btnTransactionHistory;
-    private TextView txtViewTranscation;
+
 
 
     @Override
@@ -139,8 +139,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init(){
-        txtViewTranscation = (TextView)findViewById(R.id.txtViewTranscation);
-        txtViewTranscation.setOnClickListener(this);
+
     }
 
     @Override
@@ -187,12 +186,5 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.txtViewTranscation:
-                startActivity(new Intent(HomeActivity.this,TransactionHistoryActivity.class));
-                break;
-        }
-    }
+
 }

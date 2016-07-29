@@ -34,10 +34,9 @@ public class StartupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
 
-
         init();
 
-        new CountDownTimer(1000,1500){
+        new CountDownTimer(1000,1000){
 
             @Override
             public void onTick(long millisUntilFinished) {

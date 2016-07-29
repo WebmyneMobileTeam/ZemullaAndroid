@@ -18,5 +18,7 @@ public class UserProfileActivity extends AppCompatActivity {
         toolbar.setTitle("Dhruvil Patel");
         setSupportActionBar(toolbar);
 
+
+
     }
 }

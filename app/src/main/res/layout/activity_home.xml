@@ -86,6 +86,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/btnTransactionHistory"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:background="@drawable/semi_circle_shape"

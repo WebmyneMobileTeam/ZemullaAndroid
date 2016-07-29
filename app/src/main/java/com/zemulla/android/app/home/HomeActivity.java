@@ -12,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
 
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<HomeTileBean> tiles;
     MaryPopup popup;
     private DrawerDialogView drawerDialogView;
+    private RelativeLayout btnTransactionHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,14 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         gridHomeOptions = (GridLayout) findViewById(R.id.gridHomeOptions);
+        btnTransactionHistory = (RelativeLayout) findViewById(R.id.btnTransactionHistory);
+        btnTransactionHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent history = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
+                startActivity(history);
+            }
+        });
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         HomeTileConfiguration configuration = new HomeTileConfiguration();
@@ -82,7 +93,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     case VIEW_PROFILE:
 
-                        LinearLayout linearprofile_trans = (LinearLayout)drawerDialogView.findViewById(R.id.linearprofile_trans);
+                        LinearLayout linearprofile_trans = (LinearLayout) drawerDialogView.findViewById(R.id.linearprofile_trans);
 
 
                         Intent intent = new Intent(HomeActivity.this, UserProfileActivity.class);
@@ -115,8 +126,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     @Override
@@ -132,7 +141,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
-
 
 
     private View.OnClickListener tileClick = new View.OnClickListener() {

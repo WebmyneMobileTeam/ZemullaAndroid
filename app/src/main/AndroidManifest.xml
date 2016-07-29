@@ -27,7 +27,8 @@
         </activity>
         <activity android:name=".home.HomeActivity" />
         <activity android:name=".user.SignupActivity" />
-        <activity android:name=".user.UserProfileActivity"></activity>
+        <activity android:name=".user.UserProfileActivity" />
+        <activity android:name=".transaction.TransactionHistoryActivity"></activity>
     </application>
 
 </manifest>

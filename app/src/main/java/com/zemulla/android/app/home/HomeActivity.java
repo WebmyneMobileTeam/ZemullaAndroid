@@ -21,10 +21,12 @@ import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Toolbar toolbar;
     private GridLayout gridHomeOptions;
@@ -32,12 +34,19 @@ public class HomeActivity extends AppCompatActivity {
     MaryPopup popup;
     private DrawerDialogView drawerDialogView;
     private RelativeLayout btnTransactionHistory;
+    private TextView txtViewTranscation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        initToolbar_Drawer();
+        init();
+    }
+
+    private void initToolbar_Drawer(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dhruvil Patel");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
@@ -124,8 +133,11 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-
+    private void init(){
+        txtViewTranscation = (TextView)findViewById(R.id.txtViewTranscation);
+        txtViewTranscation.setOnClickListener(this);
     }
 
     @Override
@@ -162,4 +174,13 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.txtViewTranscation:
+                //TODO krishna
+                break;
+        }
+    }
 }

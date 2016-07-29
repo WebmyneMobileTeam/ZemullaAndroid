@@ -10,4 +10,15 @@
 
     <include layout="@layout/app_bar"></include>
 
+    <com.zemulla.android.app.widgets.TfTextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorExtraDark"
+        android:gravity="center"
+        android:text="Topup Wallet"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+
 </LinearLayout>

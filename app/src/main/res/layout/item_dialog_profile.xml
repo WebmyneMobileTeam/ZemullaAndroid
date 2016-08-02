@@ -11,7 +11,7 @@
         android:transitionName="profile_trans"
         android:layout_width="350dp"
         android:layout_height="130dp"
-        android:background="#42A5F5"
+        android:background="@color/cardview_shadow_start_color"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"

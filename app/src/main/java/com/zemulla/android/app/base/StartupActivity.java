@@ -43,7 +43,6 @@ public class StartupActivity extends AppCompatActivity {
 
             }
 
-
             @Override
             public void onFinish() {
                 Intent intent = new Intent(StartupActivity.this, LoginActivity.class);

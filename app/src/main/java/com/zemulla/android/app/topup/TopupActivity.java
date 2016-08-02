@@ -10,12 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-
 import com.zemulla.android.app.R;
-import com.zemulla.android.app.home.HomeActivity;
-import com.zemulla.android.app.home.HomeTile;
-import com.zemulla.android.app.home.HomeTileBean;
-import com.zemulla.android.app.home.HomeTileConfiguration;
 
 import java.util.ArrayList;
 
@@ -39,12 +34,10 @@ public class TopupActivity extends AppCompatActivity {
 
 
         for (TopupTileBean bean : tiles_topup) {
-
             TopupTile homeTile = new TopupTile(TopupActivity.this);
             homeTile.setupTile(bean);
             homeTile.setOnClickListener(tileClick);
             gridTopupOptions.addView(homeTile, params);
-
 
         }
 

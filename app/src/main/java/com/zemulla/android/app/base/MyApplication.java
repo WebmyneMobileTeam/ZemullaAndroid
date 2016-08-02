@@ -1,7 +1,6 @@
 package com.zemulla.android.app.base;
 
 import android.app.Application;
-
 import com.zemulla.android.app.R;
 
 /**

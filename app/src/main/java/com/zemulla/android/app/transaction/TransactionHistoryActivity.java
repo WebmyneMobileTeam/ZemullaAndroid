@@ -16,12 +16,17 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.Serivces;
+import com.zemulla.android.app.topup.TopupTileBean;
+import com.zemulla.android.app.topup.TopupTileConfiguration;
+
+import java.util.ArrayList;
 
 public class TransactionHistoryActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView txtMainTitle;
     private SmartTabLayout viewpagertab;
     private ViewPager viewpager;
+    private ArrayList<TopupTileBean> TILES;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +39,21 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     }
 
     private void setTab() {
-        /*FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        TopupTileConfiguration configuration = new TopupTileConfiguration();
+        TILES = configuration.getAllTopupOptions();
+
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.titleA, PageFragment.class)
-                .add(R.string.titleB, PageFragment.class)
-                .create());*/
+                .add(TILES.get(0).getTileName(), HistoryFragment.class)
+                .add(TILES.get(1).getTileName(), HistoryFragment.class)
+                .add(TILES.get(2).getTileName(), HistoryFragment.class)
+                .add(TILES.get(3).getTileName(), HistoryFragment.class)
+                .add(TILES.get(4).getTileName(), HistoryFragment.class)
+                .add(TILES.get(5).getTileName(), HistoryFragment.class)
+                .create());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        //viewPager.setAdapter(adapter);
+        viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);
@@ -77,12 +89,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

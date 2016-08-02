@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="8dp"
+    card_view:contentPadding="5dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="101"
+            android:textStyle="bold"
+            android:id="@+id/txtZemulaTransID"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+      <com.zemulla.android.app.widgets.TfTextView
+        android:text="ddsdqdw"
+        android:id="@+id/txtName"
+        android:textSize="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:text="12/07/2016 21:18:26"
+            android:id="@+id/txtDate"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:text="Status: Fail"
+            android:textStyle="bold"
+            android:id="@+id/txtStatus"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+<View
+    android:background="@drawable/dotted_line"
+    android:layout_width="2dp"
+    android:layout_height="80dp"/>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1.5"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/txtAmount"
+                android:gravity="right"
+                android:text="Amount: ZMB 50"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/txtCharge"
+                android:gravity="right"
+                android:text="Charge: ZMB 50"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/dotted_line_horz"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/txtTotalAmount"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="right"
+                android:text="TOTAL: ZMB 50"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

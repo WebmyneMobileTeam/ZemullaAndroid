@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Zemulla.iml" filepath="$PROJECT_DIR$/Zemulla.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ZemullaAndroid.iml" filepath="$PROJECT_DIR$/ZemullaAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

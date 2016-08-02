@@ -43,6 +43,10 @@ dependencies {
 
     compile 'mbanje.kurt:fabbutton:1.2.2@aar'
 
+    // retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    // dialog
+    compile 'com.afollestad.material-dialogs:core:0.8.6.2'
 }

@@ -11,10 +11,10 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.zemulla.android.app.widgets.TfEditText;
 
 
 public class Functions {
@@ -65,8 +65,7 @@ public class Functions {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    public static boolean isEmpty(TfEditText editText) {
-
+    public static boolean isEmpty(EditText editText) {
         if (TextUtils.isEmpty(editText.getText().toString().trim())) {
             return true;
         } else {

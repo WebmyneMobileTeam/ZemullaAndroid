@@ -10,7 +10,7 @@
 
     <include layout="@layout/app_bar" />
 
-    <com.zemulla.android.app.widgets.TfTextView
+    <TextView
         android:id="@+id/txtTopupWayName"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -34,22 +34,21 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <com.zemulla.android.app.widgets.TfTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Topup Amount"
-                android:textSize="22sp" />
-
-            <com.zemulla.android.app.widgets.TfEditText
-                android:id="@+id/edtAmount"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:inputType="number|numberDecimal" />
+                android:layout_margin="16dp">
 
-            <view
-                android:id="@+id/btnProcessInitialTransaction"
-                class="mbanje.kurt.fabbutton.FabButton"
+                <EditText
+                    android:id="@+id/edtAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Topup Amount"
+                    android:inputType="number|numberDecimal" />
+            </android.support.design.widget.TextInputLayout>
+
+            <mbanje.kurt.fabbutton.FabButton
+                android:id="@+id/paypalFabInit"
                 android:layout_width="@dimen/button_size"
                 android:layout_height="@dimen/button_size"
                 android:layout_centerInParent="true"
@@ -84,21 +83,21 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Topup Amount : ZMW 1212"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,20 +105,20 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Transaction Charge : 100"
                     android:textSize="14sp" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_16dp"
                     android:text="Conversion Rate : 1$ = 10.15 ZMW"
                     android:textSize="@dimen/XL_TEXT" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Payable Amount : 109.34 $"
@@ -133,9 +132,8 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <view
-                    android:id="@+id/btnProcessResetTransaction"
-                    class="mbanje.kurt.fabbutton.FabButton"
+                <mbanje.kurt.fabbutton.FabButton
+                    android:id="@+id/paypalResetFab"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -151,9 +149,8 @@
                     app:fbb_progressWidthRatio="0.1"
                     app:fbb_showEndBitmap="false" />
 
-                <view
-                    android:id="@+id/btnProcessConfirmTransaction"
-                    class="mbanje.kurt.fabbutton.FabButton"
+                <mbanje.kurt.fabbutton.FabButton
+                    android:id="@+id/paypalConfirmFab"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"

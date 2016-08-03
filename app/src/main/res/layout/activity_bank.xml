@@ -10,7 +10,7 @@
 
     <include layout="@layout/app_bar" />
 
-    <com.zemulla.android.app.widgets.TfTextView
+    <TextView
         android:id="@+id/txtTopupWayName"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -34,13 +34,15 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <com.zemulla.android.app.widgets.TfTextView
+            <TextView
+                android:id="@+id/txtEnterAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter Topup Amount"
+                android:text="Enter Amount"
                 android:textSize="22sp" />
 
-            <com.zemulla.android.app.widgets.TfEditText
+            <EditText
+                android:id="@+id/edtAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -73,49 +75,123 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:padding="@dimen/dimen_8dp"
             android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:orientation="vertical">
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
+                    android:id="@+id/txtTransferAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Topup Amount : ZMW 1212"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Payable Amount"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:text="Transfer Amount"
                     android:textSize="18sp" />
 
-                <com.zemulla.android.app.widgets.TfTextView
-
+                <TextView
+                    android:id="@+id/txtTransferAmountValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="ZMW 1122.32"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
+                    android:id="@+id/txtTransactionCharge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="Transaction Charge : 100"
-                    android:textSize="14sp" />
+                    android:textColor="@color/colorDark"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtEnterBankDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16dp"
+                    android:text="Please Enter Following Bank Details:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spinnerRecipientBankList"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_16dp"
+                            android:overScrollMode="never"
+                            android:overlapAnchor="false"
+                            android:prompt="@string/select_recipient_bank_prompt"
+                            android:spinnerMode="dropdown"></android.support.v7.widget.AppCompatSpinner>
+
+                        <EditText
+                            android:id="@+id/edtBranchName"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_16dp"
+                            android:hint="Enter Branch Name" />
+
+                        <EditText
+                            android:id="@+id/edtAccountName"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_16dp"
+                            android:hint="Enter Account Name" />
+
+                        <EditText
+                            android:id="@+id/edtAccountNumber"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_16dp"
+                            android:hint="Enter Account Number" />
+
+                        <EditText
+                            android:id="@+id/edtSwiftCode"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_16dp"
+                            android:hint="Enter Swift Code" />
+
+                        <EditText
+                            android:id="@+id/edtRemark"
+                            android:imeOptions="actionDone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_16dp"
+                            android:gravity="top|left"
+                            android:hint="Enter Remark"
+                            android:inputType="textMultiLine"
+                            android:lines="3" />
+
+                    </LinearLayout>
+                </ScrollView>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 

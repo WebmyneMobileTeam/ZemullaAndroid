@@ -35,7 +35,9 @@
         <activity android:name=".topup.mtn.MtnActivity" />
         <activity android:name=".topup.airtel.AirtelMoneyActivity" />
         <activity android:name=".topup.zoona.ZoonaActivity" />
-        <activity android:name=".topup.bank.BankActivity" />
+        <activity
+            android:name=".topup.bank.BankActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".topup.bank.SupportedBankListActivity" />
         <activity android:name=".topup.cyber.CyberSourceActivity"></activity>
         <activity android:name=".user.ForgotPasswordActivity"></activity>

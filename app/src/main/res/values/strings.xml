@@ -35,6 +35,8 @@
         <item>#0D47A1</item>
     </string-array>
 
+    <string name="select_recipient_bank_prompt">Select Recipient Bank</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

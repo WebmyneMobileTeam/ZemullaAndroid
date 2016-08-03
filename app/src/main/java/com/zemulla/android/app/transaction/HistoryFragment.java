@@ -39,6 +39,11 @@ public class HistoryFragment extends Fragment {
         return fragment;
     }
 
+    public static HistoryFragment newInstance() {
+        HistoryFragment fragment = new HistoryFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

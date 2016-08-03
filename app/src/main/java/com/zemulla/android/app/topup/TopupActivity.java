@@ -12,6 +12,7 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.helper.Serivces;
 import com.zemulla.android.app.topup.airtel.AirtelMoneyActivity;
 import com.zemulla.android.app.topup.bank.BankActivity;
 import com.zemulla.android.app.topup.bank.SupportedBankListActivity;
@@ -19,6 +20,7 @@ import com.zemulla.android.app.topup.cyber.CyberSourceActivity;
 import com.zemulla.android.app.topup.mtn.MtnActivity;
 import com.zemulla.android.app.topup.paypal.PaypalActivity;
 import com.zemulla.android.app.topup.zoona.ZoonaActivity;
+import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 
 import java.util.ArrayList;
 
@@ -62,6 +64,12 @@ public class TopupActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Dhruvil Patel");
         getSupportActionBar().setSubtitle("Effective Balance : ZMW 1222.5");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -74,8 +82,10 @@ public class TopupActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
+            case R.id.action_history:
+                Intent intent = new Intent(this, TransactionHistoryActivity.class);
+                intent.putExtra("type", Serivces.TOPUP);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

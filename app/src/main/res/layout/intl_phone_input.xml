@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:gravity="center"
     android:layout_height="?actionBarSize"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <Spinner
@@ -14,22 +14,19 @@
         android:gravity="center_vertical"
         tools:ignore="RtlSymmetry" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/intl_phone_edit__phone"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:hint="095 5123456"
-            android:inputType="phone"
-            android:maxLength="15"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/half_black" />
-    </android.support.design.widget.TextInputLayout>
+    <EditText
+        android:id="@+id/intl_phone_edit__phone"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_weight="1"
+        android:hint="095 5123456"
+        android:gravity="clip_vertical"
+        android:inputType="phone"
+        android:maxLength="15"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/half_black" />
+
 </LinearLayout>

@@ -45,10 +45,10 @@ public class SignupActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.countryPicker)
     CountryPickerView countryPicker;
-    Country mSelectedCountry = null;
+
     @BindView(R.id.backToLogin)
     Button backToLogin;
-
+    Country mSelectedCountry = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

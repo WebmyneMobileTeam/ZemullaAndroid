@@ -87,14 +87,18 @@ public class LoginActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
-                Intent iHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(iHomeActivity);
+                checkValidation();
                 break;
             case R.id.txtForgotPass:
                 Intent txtForgotPassActivity = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(txtForgotPassActivity);
                 break;
         }
+    }
+
+    private void checkValidation() {
+
+     
     }
 
     public void setSignUpText() {

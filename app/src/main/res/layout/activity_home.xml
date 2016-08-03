@@ -12,10 +12,12 @@
         android:id="@+id/fake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></View>
+
     <LinearLayout
         android:id="@+id/linearTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <include layout="@layout/app_bar"></include>
     </LinearLayout>
 
@@ -80,29 +82,28 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-
-
     </LinearLayout>
 
 
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/btnTransactionHistory"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:background="@drawable/semi_circle_shape"
-        android:layout_above="@+id/gridHomeOptions"
         android:layout_width="250dp"
-        android:layout_height="40dp">
-    <TextView
-        android:gravity="center"
-        android:id="@+id/txtViewTranscation"
+        android:layout_height="40dp"
+        android:layout_above="@+id/gridHomeOptions"
         android:layout_centerHorizontal="true"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:text="VIEW TRANSCATIONS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="@drawable/semi_circle_shape"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtViewTranscation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="VIEW TRANSCATIONS"
+            android:textColor="#fff"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <GridLayout

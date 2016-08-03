@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/startup_bg"
+    android:background="@color/white"
     tools:context="com.zemulla.android.app.user.LoginActivity">
-
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imgLogo"
@@ -19,14 +18,12 @@
         android:src="@drawable/logo"
         android:transitionName="logo_trans" />
 
-
-    <android.support.v7.widget.CardView xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/imgLogo"
         android:layout_margin="16dp"
-        cardView:cardBackgroundColor="#50178282"
-        cardView:cardCornerRadius="6dp">
+        cardView:cardBackgroundColor="@color/white">
 
         <RelativeLayout
             android:id="@+id/mainRelative"
@@ -40,7 +37,7 @@
                 android:orientation="vertical">
 
                 <com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput
-                    android:id="@+id/etMobile"
+                    android:id="@+id/edtMobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -53,8 +50,8 @@
                     android:layout_marginRight="16dp"
                     android:background="#fff" />
 
-                <EditText
-                    android:id="@+id/etPassword"
+                <com.zemulla.android.app.widgets.TfEditText
+                    android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -65,45 +62,18 @@
                     android:textColorHint="@color/colorPrimaryDark"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/txtLogin"
-                    style="@style/textButton"
-                    android:layout_width="300dp"
+                <com.zemulla.android.app.widgets.TfButton
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    android:text="login"
-                    android:visibility="gone" />
+                    android:layout_marginLeft="@dimen/dimen_16dp"
+                    android:layout_marginRight="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:background="@color/colorWebsiteDark"
+                    android:text="LOGIN"
+                    android:textColor="@color/white" />
 
-
-              <!--  <view
-                    android:id="@+id/btnProcessInitialTransaction"
-                    class="mbanje.kurt.fabbutton.FabButton"
-                    android:layout_width="@dimen/button_size"
-                    android:layout_height="@dimen/button_size"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:color="@color/colorPrimaryDark"
-                    android:indeterminate="true"
-                    android:max="100"
-                    android:src="@drawable/login"
-                    android:visibility="visible"
-                    app:fbb_autoStart="true"
-                    app:fbb_endBitmap="@drawable/ic_action_history"
-                    app:fbb_progressColor="@color/colorExtraDark"
-                    app:fbb_progressWidthRatio="0.1"
-                    app:fbb_showEndBitmap="false" />-->
-
-                <ImageView
-                    android:onClick="loginClick"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/login"
-                    android:tint="#ffffff"
-                    android:tintMode="src_atop" />
-
-                <TextView
+                <com.zemulla.android.app.widgets.TfTextView
                     android:id="@+id/txtForgotPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,7 +87,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <com.zemulla.android.app.widgets.TfTextView
                 android:id="@+id/txtBottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

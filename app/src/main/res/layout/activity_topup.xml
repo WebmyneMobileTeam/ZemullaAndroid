@@ -5,8 +5,8 @@
     android:id="@+id/activity_topup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#CFD8DC"
+    android:orientation="vertical"
     tools:context="com.zemulla.android.app.topup.TopupActivity">
 
     <include layout="@layout/app_bar"></include>
@@ -22,12 +22,11 @@
 
 
     <GridLayout
-
-        android:useDefaultMargins="true"
         android:id="@+id/gridTopupOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:columnCount="2"></GridLayout>
+        android:columnCount="2"
+        android:useDefaultMargins="true" />
 
 </LinearLayout>

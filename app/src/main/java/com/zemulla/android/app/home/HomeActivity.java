@@ -65,6 +65,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+
         HomeTileConfiguration configuration = new HomeTileConfiguration();
         tiles = configuration.getAllTiles();
 

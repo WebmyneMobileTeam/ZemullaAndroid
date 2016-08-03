@@ -16,7 +16,7 @@
         android:layout_height="48dp"
         android:background="@color/colorExtraDark"
         android:gravity="center"
-        android:text="Cyber Source"
+        android:text="Zoona Cash"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
@@ -40,7 +40,7 @@
                 android:text="Enter Topup Amount"
                 android:textSize="22sp" />
 
-            <EditText
+            <com.zemulla.android.app.widgets.TfEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"

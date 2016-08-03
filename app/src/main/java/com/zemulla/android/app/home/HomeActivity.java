@@ -6,14 +6,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
@@ -21,8 +18,6 @@ import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -37,7 +32,6 @@ public class HomeActivity extends AppCompatActivity {
     private RelativeLayout btnTransactionHistory;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         init();
     }
 
-    private void initToolbar_Drawer(){
+    private void initToolbar_Drawer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dhruvil Patel");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
@@ -140,7 +134,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void init(){
+    private void init() {
 
     }
 
@@ -167,7 +161,6 @@ public class HomeActivity extends AppCompatActivity {
             switch (tile.getTile().getId()) {
 
                 case TOPUP:
-
                     Intent iTopUp = new Intent(HomeActivity.this, TopupActivity.class);
                     startActivity(iTopUp);
                     break;
@@ -179,7 +172,7 @@ public class HomeActivity extends AppCompatActivity {
                 case EMARKET:
 
                     break;
-                
+
                 case REPORTS:
 
                     break;

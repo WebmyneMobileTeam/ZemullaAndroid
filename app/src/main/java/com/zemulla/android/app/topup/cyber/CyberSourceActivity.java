@@ -1,4 +1,4 @@
-package com.zemulla.android.app.topup;
+package com.zemulla.android.app.topup.cyber;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,13 +10,12 @@ import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
-import com.zemulla.android.app.widgets.TfTextView;
 
 import mbanje.kurt.fabbutton.FabButton;
 
-public class TopupInitialTransactionActivity extends AppCompatActivity {
+public class CyberSourceActivity extends AppCompatActivity {
+
     private Toolbar toolbar;
-    private TfTextView txtTopupWayName;
     private FabButton fabButton;
     private LinearLayout lineatInitialViewTopup;
     private LinearLayout linearTrnsViewTopup;
@@ -24,22 +23,17 @@ public class TopupInitialTransactionActivity extends AppCompatActivity {
     private FlipAnimation animation;
     FrameLayout rootLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topup_initial_transaction);
+        setContentView(R.layout.activity_cyber_source);
 
-        initToolbar();
         init();
-
     }
 
     private void init() {
-        txtTopupWayName = (TfTextView) findViewById(R.id.txtTopupWayName);
-        if (getIntent().getExtras() != null) {
-            txtTopupWayName.setText(getIntent().getStringExtra("wayname"));
-        }
+        initToolbar();
+
         lineatInitialViewTopup = (LinearLayout) findViewById(R.id.lineatInitialViewTopup);
         linearTrnsViewTopup = (LinearLayout) findViewById(R.id.linearTrnsViewTopup);
 
@@ -80,8 +74,6 @@ public class TopupInitialTransactionActivity extends AppCompatActivity {
                 rootLayout.startAnimation(animation);
             }
         });
-
-
     }
 
     private void initToolbar() {

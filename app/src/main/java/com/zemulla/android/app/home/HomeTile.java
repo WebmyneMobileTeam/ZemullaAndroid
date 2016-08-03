@@ -49,8 +49,8 @@ public class HomeTile extends SquareLayout {
         txtView.setText(bean.getTileName());
         setBackgroundColor(Color.parseColor(bean.getBackgroundColor()));
         imgHomeTileIcon.setImageResource(bean.getTileIcon());
-        imgHomeTileIcon.setColorFilter(Color.parseColor(bean.getBackgroundColorDark()));
-        txtView.setTextColor(Color.parseColor(bean.getBackgroundColorDark()));
+        imgHomeTileIcon.setColorFilter(Color.parseColor("#ffffff"));
+        txtView.setTextColor(Color.parseColor("#ffffff"));
 
     }
 

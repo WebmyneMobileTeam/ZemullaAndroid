@@ -1,4 +1,4 @@
-package com.zemulla.android.app.topup;
+package com.zemulla.android.app.topup.paypal;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,39 +10,56 @@ import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
-import com.zemulla.android.app.widgets.TfTextView;
+import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.widgets.TfEditText;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import mbanje.kurt.fabbutton.FabButton;
 
-public class TopupInitialTransactionActivity extends AppCompatActivity {
+public class PaypalActivity extends AppCompatActivity {
+
     private Toolbar toolbar;
-    private TfTextView txtTopupWayName;
-    private FabButton fabButton;
     private LinearLayout lineatInitialViewTopup;
     private LinearLayout linearTrnsViewTopup;
     private FabButton btnProcessResetTransaction;
     private FlipAnimation animation;
-    FrameLayout rootLayout;
+    private FrameLayout rootLayout;
 
+    @BindView(R.id.edtAmount)
+    TfEditText edtAmount;
+
+    @BindView(R.id.btnProcessInitialTransaction)
+    FabButton fabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topup_initial_transaction);
+        setContentView(R.layout.activity_paypal);
+        ButterKnife.bind(this);
 
-        initToolbar();
         init();
+    }
 
+    @OnClick({R.id.btnProcessInitialTransaction})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnProcessInitialTransaction:
+                if (Functions.isEmpty(edtAmount)) {
+                    Functions.showError(this, "Please Enter Amount", false);
+                } else {
+
+                }
+                break;
+        }
     }
 
     private void init() {
-        txtTopupWayName = (TfTextView) findViewById(R.id.txtTopupWayName);
-        if (getIntent().getExtras() != null) {
-            txtTopupWayName.setText(getIntent().getStringExtra("wayname"));
-        }
+        initToolbar();
+
         lineatInitialViewTopup = (LinearLayout) findViewById(R.id.lineatInitialViewTopup);
         linearTrnsViewTopup = (LinearLayout) findViewById(R.id.linearTrnsViewTopup);
-
 
         fabButton = (FabButton) findViewById(R.id.btnProcessInitialTransaction);
         rootLayout = (FrameLayout) findViewById(R.id.frameRootTopup);
@@ -50,6 +67,7 @@ public class TopupInitialTransactionActivity extends AppCompatActivity {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 fabButton.showProgress(true);
 
                 new CountDownTimer(3000, 1000) {
@@ -81,6 +99,10 @@ public class TopupInitialTransactionActivity extends AppCompatActivity {
             }
         });
 
+        actionListener();
+    }
+
+    private void actionListener() {
 
     }
 

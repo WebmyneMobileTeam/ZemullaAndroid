@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#65E4E4</color>
-    <color name="colorPrimaryDark">#178282</color>
+    <!--<color name="colorPrimary">#65E4E4</color>
+    <color name="colorPrimaryDark">#178282</color>-->
+
+    <color name="colorPrimary">#C17F3E</color>
+    <color name="colorPrimaryDark">#9a6531</color>
+
     <color name="colorAccent">#178282</color>
     <color name="white">#ffffff</color>
 
@@ -13,5 +17,11 @@
     <color name="black">#000000</color>
     <color name="half_black">#4c4c4c</color>
     <color name="orange">#99CC00</color>
+
+    <!--dashboard tile background colors-->
+    <color name="tile1">#4ca8b3</color>
+    <color name="tile2">#329ca8</color>
+    <color name="tile3">#19909d</color>
+    <color name="tile4">#008493</color>
 
 </resources>

@@ -79,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginClick(View view) {
-
         Intent iHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(iHomeActivity);
         finish();

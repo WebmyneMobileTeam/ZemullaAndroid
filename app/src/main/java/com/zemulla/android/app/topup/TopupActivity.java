@@ -1,8 +1,8 @@
 package com.zemulla.android.app.topup;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.topup.airtel.AirtelMoneyActivity;
+import com.zemulla.android.app.topup.bank.BankActivity;
+import com.zemulla.android.app.topup.bank.SupportedBankListActivity;
+import com.zemulla.android.app.topup.cyber.CyberSourceActivity;
+import com.zemulla.android.app.topup.mtn.MtnActivity;
+import com.zemulla.android.app.topup.paypal.PaypalActivity;
+import com.zemulla.android.app.topup.zoona.ZoonaActivity;
 
 import java.util.ArrayList;
 
@@ -80,19 +88,40 @@ public class TopupActivity extends AppCompatActivity {
 
             switch (tile.getTile().getId()) {
                 case CYBER_SOURCE:
-                case PAYPAL:
-                case MTN:
-                case AIRTEL_MONEY:
-                case BANK_TRANSFER:
-                case SUPPORTED_BANK:
-                case ZOONA:
-                    Intent iInitialTransactionActivity = new Intent(TopupActivity.this,TopupInitialTransactionActivity.class);
-                    iInitialTransactionActivity.putExtra("wayname",tile.getTile().getTileName());
-                    startActivity(iInitialTransactionActivity);
+                    Intent cyberIntent = new Intent(TopupActivity.this, CyberSourceActivity.class);
+                    startActivity(cyberIntent);
                     break;
 
-            }
+                case PAYPAL:
+                    Intent paypalIntent = new Intent(TopupActivity.this, PaypalActivity.class);
+                    startActivity(paypalIntent);
+                    break;
 
+                case MTN:
+                    Intent mtnIntent = new Intent(TopupActivity.this, MtnActivity.class);
+                    startActivity(mtnIntent);
+                    break;
+
+                case AIRTEL_MONEY:
+                    Intent airtelIntent = new Intent(TopupActivity.this, AirtelMoneyActivity.class);
+                    startActivity(airtelIntent);
+                    break;
+
+                case BANK_TRANSFER:
+                    Intent bankIntent = new Intent(TopupActivity.this, BankActivity.class);
+                    startActivity(bankIntent);
+                    break;
+
+                case SUPPORTED_BANK:
+                    Intent supportedBankIntent = new Intent(TopupActivity.this, SupportedBankListActivity.class);
+                    startActivity(supportedBankIntent);
+                    break;
+
+                case ZOONA:
+                    Intent zoonaIntent = new Intent(TopupActivity.this, ZoonaActivity.class);
+                    startActivity(zoonaIntent);
+                    break;
+            }
         }
     };
 }

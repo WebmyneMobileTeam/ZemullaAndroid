@@ -6,9 +6,15 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.zemulla.android.app.widgets.TfEditText;
 
 
 public class Functions {
@@ -59,5 +65,30 @@ public class Functions {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
+    public static boolean isEmpty(TfEditText editText) {
+
+        if (TextUtils.isEmpty(editText.getText().toString().trim())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void showError(final Context context, String errorMsg, final boolean isFinish) {
+        new MaterialDialog.Builder(context)
+                .title("Error")
+                .content(errorMsg)
+                .typeface(Functions.getLatoFont(context), Functions.getLatoFont(context))
+                .positiveText(android.R.string.ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        if (isFinish)
+                            ((Activity) context).finish();
+                    }
+                })
+                .show();
+    }
 
 }

@@ -40,7 +40,7 @@
                 android:text="Enter Topup Amount"
                 android:textSize="22sp" />
 
-            <EditText
+            <com.zemulla.android.app.widgets.TfEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"

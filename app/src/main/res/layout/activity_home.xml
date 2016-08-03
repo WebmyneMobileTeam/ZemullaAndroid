@@ -11,14 +11,14 @@
     <View
         android:id="@+id/fake"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></View>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/linearTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/app_bar"></include>
+        <include layout="@layout/app_bar" />
     </LinearLayout>
 
     <LinearLayout
@@ -110,7 +110,26 @@
         android:id="@+id/gridHomeOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:columnCount="2"></GridLayout>
+        android:layout_above="@+id/bottomLine"
+        android:columnCount="2" />
+
+    <LinearLayout
+        android:id="@+id/bottomLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_8dp"
+            android:layout_weight="1"
+            android:background="#004f58" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_8dp"
+            android:layout_weight="1"
+            android:background="#004249" />
+    </LinearLayout>
 
 </RelativeLayout>

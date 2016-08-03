@@ -30,7 +30,14 @@
         <activity android:name=".user.UserProfileActivity" />
         <activity android:name=".transaction.TransactionHistoryActivity" />
         <activity android:name=".topup.TopupActivity" />
-        <activity android:name=".topup.TopupInitialTransactionActivity"></activity>
+        <activity android:name=".topup.TopupInitialTransactionActivity" />
+        <activity android:name=".topup.paypal.PaypalActivity" />
+        <activity android:name=".topup.mtn.MtnActivity" />
+        <activity android:name=".topup.airtel.AirtelMoneyActivity" />
+        <activity android:name=".topup.zoona.ZoonaActivity" />
+        <activity android:name=".topup.bank.BankActivity" />
+        <activity android:name=".topup.bank.SupportedBankListActivity" />
+        <activity android:name=".topup.cyber.CyberSourceActivity"></activity>
     </application>
 
 </manifest>

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_topup_initial_transaction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.zemulla.android.app.topup.TopupInitialTransactionActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/app_bar" />
 
-    <com.zemulla.android.app.widgets.TfTextView
+    <TextView
         android:id="@+id/txtTopupWayName"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -34,21 +32,21 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <com.zemulla.android.app.widgets.TfTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Topup Amount"
-                android:textSize="22sp" />
-
-            <com.zemulla.android.app.widgets.TfEditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:inputType="number|numberDecimal" />
+                android:layout_margin="16dp">
 
-            <view
+                <EditText
+                    android:id="@+id/edtAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Topup Amount"
+                    android:inputType="number|numberDecimal" />
+            </android.support.design.widget.TextInputLayout>
+
+            <mbanje.kurt.fabbutton.FabButton
                 android:id="@+id/btnProcessInitialTransaction"
-                class="mbanje.kurt.fabbutton.FabButton"
                 android:layout_width="@dimen/button_size"
                 android:layout_height="@dimen/button_size"
                 android:layout_centerInParent="true"
@@ -81,35 +79,90 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_8dp">
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Topup Amount : ZMW 1212"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
-                <com.zemulla.android.app.widgets.TfTextView
-
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ZMW 1122.32"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
-                <com.zemulla.android.app.widgets.TfTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Transaction Charge : 100"
                     android:textSize="14sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/country_zm" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_4dp">
+
+                        <EditText
+                            android:id="@+id/edtNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/dimen_16dp"
+                            android:hint="Enter Number"
+                            android:inputType="number"
+                            android:maxLength="10" />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edtNationdID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/dimen_16dp"
+                        android:hint="Enter National ID"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edtPin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/dimen_16dp"
+                        android:hint="PIN"
+                        android:maxLength="4" />
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -119,9 +172,8 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <view
+                <mbanje.kurt.fabbutton.FabButton
                     android:id="@+id/btnProcessResetTransaction"
-                    class="mbanje.kurt.fabbutton.FabButton"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -137,9 +189,8 @@
                     app:fbb_progressWidthRatio="0.1"
                     app:fbb_showEndBitmap="false" />
 
-                <view
+                <mbanje.kurt.fabbutton.FabButton
                     android:id="@+id/btnProcessConfirmTransaction"
-                    class="mbanje.kurt.fabbutton.FabButton"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -158,9 +209,7 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
-
 
     </FrameLayout>
 </LinearLayout>

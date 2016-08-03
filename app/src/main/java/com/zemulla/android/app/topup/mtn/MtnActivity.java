@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
@@ -40,6 +41,10 @@ public class MtnActivity extends AppCompatActivity {
     LinearLayout activityTopupInitialTransaction;
     @BindView(R.id.edtAmount)
     EditText edtAmount;
+    @BindView(R.id.edtNumber)
+    EditText edtNumber;
+    @BindView(R.id.edtNationdID)
+    EditText edtNationdID;
 
     private FlipAnimation animation;
 
@@ -62,6 +67,9 @@ public class MtnActivity extends AppCompatActivity {
         btnProcessInitialTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // validations in if..else then method
+
                 if (Functions.isEmpty(edtAmount)) {
                     Functions.showError(MtnActivity.this, "Please Enter Amount", false);
                 } else {
@@ -75,6 +83,24 @@ public class MtnActivity extends AppCompatActivity {
             public void onClick(View v) {
                 animation.reverse();
                 frameRootTopup.startAnimation(animation);
+            }
+        });
+
+        btnProcessConfirmTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // validations in if..else then method
+
+                if (Functions.isEmpty(edtNumber)) {
+                    Functions.showError(MtnActivity.this, "Please Enter Number", false);
+                } else if (Functions.getLength(edtNumber) < 10) {
+                    Functions.showError(MtnActivity.this, "Please Enter Valid Number", false);
+                } else if (Functions.isEmpty(edtNationdID)) {
+                    Functions.showError(MtnActivity.this, "Please Enter National ID", false);
+                } else {
+                    Toast.makeText(MtnActivity.this, "Further Process", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

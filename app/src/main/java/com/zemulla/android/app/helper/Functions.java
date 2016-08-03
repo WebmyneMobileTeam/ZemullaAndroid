@@ -73,6 +73,10 @@ public class Functions {
         }
     }
 
+    public static int getLength(EditText editText){
+        return editText.getText().toString().trim().length();
+    }
+
     public static void showError(final Context context, String errorMsg, final boolean isFinish) {
         new MaterialDialog.Builder(context)
                 .title("Error")

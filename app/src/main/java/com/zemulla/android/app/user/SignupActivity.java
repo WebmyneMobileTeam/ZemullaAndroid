@@ -3,15 +3,19 @@ package com.zemulla.android.app.user;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-import com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.home.LogUtils;
+import com.zemulla.android.app.model.country.Country;
 import com.zemulla.android.app.widgets.TfButton;
 import com.zemulla.android.app.widgets.TfEditText;
+import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class SignupActivity extends AppCompatActivity {
@@ -26,8 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     TfEditText edtState;
     @BindView(R.id.edtCity)
     TfEditText edtCity;
-    @BindView(R.id.etMobile)
-    IntlPhoneInput etMobile;
+
     @BindView(R.id.edtPassword)
     TfEditText edtPassword;
     @BindView(R.id.edtConfirmPassword)
@@ -38,6 +41,13 @@ public class SignupActivity extends AppCompatActivity {
     TfEditText edtZip;
     @BindView(R.id.btnSignUp)
     TfButton btnSignUp;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.countryPicker)
+    CountryPickerView countryPicker;
+    Country mSelectedCountry = null;
+    @BindView(R.id.backToLogin)
+    Button backToLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +63,23 @@ public class SignupActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.signup);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.back_icon);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        initApplyFont();
+
+        countryPicker.fetchCountry();
+        countryPicker.setCountryPickerListener(new CountryPickerView.CountryPickerListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void OnFailed(Throwable t) {
+                Toast.makeText(SignupActivity.this, "Failed to load country.", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void OnSelected(Country country) {
+
+                mSelectedCountry = country;
+                LogUtils.LOGD("Selected Country", country.getCountryName());
+
             }
         });
-
-        initApplyFont();
     }
 
     private void initApplyFont() {
@@ -69,4 +87,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
+    @OnClick(R.id.backToLogin)
+    public void onClick() {
+        finish();
+    }
 }

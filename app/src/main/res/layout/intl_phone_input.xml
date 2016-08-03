@@ -3,27 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:gravity="center"
-    android:layout_gravity="center"
-    android:layout_height="wrap_content"
+    android:layout_height="?actionBarSize"
     android:orientation="horizontal">
+
     <Spinner
-        android:gravity="center"
-        android:layout_width="50dp"
-        android:paddingRight="1dp"
-        android:paddingEnd="12dp"
-        android:layout_height="50dp"
         android:id="@+id/intl_phone_edit__country"
-        android:dropDownWidth="250dp"
-        tools:ignore="RtlSymmetry" />
-    <EditText
-        android:textColorHint="@color/colorPrimaryDark"
-        android:background="@null"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:dropDownWidth="300dp"
         android:gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:id="@+id/intl_phone_edit__phone"
-        android:singleLine="true"
-        android:maxLength="15"
-        android:textSize="24sp"
-        android:inputType="phone" />
+        tools:ignore="RtlSymmetry" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/intl_phone_edit__phone"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:hint="095 5123456"
+            android:inputType="phone"
+            android:maxLength="15"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/half_black" />
+    </android.support.design.widget.TextInputLayout>
 </LinearLayout>

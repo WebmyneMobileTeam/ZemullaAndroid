@@ -1,55 +1,103 @@
 package com.zemulla.android.app.user;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.AdvancedSpannableString;
-import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.HomeActivity;
-import com.zemulla.android.app.widgets.TfButton;
-import com.zemulla.android.app.widgets.TfEditText;
-import com.zemulla.android.app.widgets.TfTextView;
+import com.zemulla.android.app.home.LogUtils;
+import com.zemulla.android.app.model.country.Country;
+import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private ImageView imgLogo;
-    private TfTextView txtBottom, txtForgotPass;
-    private TfEditText edtPassword;
-    private TfButton btnLogin;
-    private IntlPhoneInput edtMobile;
-    private RelativeLayout mainRelative;
+
+
+    @BindView(R.id.imgLogo)
+    AppCompatImageView imgLogo;
+    @BindView(R.id.countryPicker)
+    CountryPickerView countryPicker;
+
+    @BindView(R.id.headerView)
+    TextView headerView;
+    @BindView(R.id.edtFirstName)
+    EditText edtFirstName;
+    @BindView(R.id.btnLogin)
+    Button btnLogin;
+    @BindView(R.id.txtForgotPass)
+    Button txtForgotPass;
+    @BindView(R.id.txtBottom)
+    TextView txtBottom;
+
+
+    Country mSelectedCountry = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
         init();
 
     }
 
     private void init() {
-        mainRelative = (RelativeLayout) findViewById(R.id.mainRelative);
-        edtMobile = (IntlPhoneInput) findViewById(R.id.edtMobile);
-        edtMobile.setDefault();
 
-        edtMobile.setNumber(edtMobile.getNumber() + "");
+        setSignUpText();
 
-        edtPassword = (TfEditText) findViewById(R.id.edtPassword);
-        btnLogin = (TfButton) findViewById(R.id.btnLogin);
-        imgLogo = (ImageView) findViewById(R.id.imgLogo);
-        txtBottom = (TfTextView) findViewById(R.id.txtBottom);
-        txtForgotPass = (TfTextView) findViewById(R.id.txtForgotPass);
-        btnLogin.setTypeface(Functions.getRegularTypeFace(LoginActivity.this), Typeface.BOLD);
+        countryPicker.fetchCountry();
+        countryPicker.setCountryPickerListener(new CountryPickerView.CountryPickerListener() {
+            @Override
+            public void OnFailed(Throwable t) {
+                Toast.makeText(LoginActivity.this, "Failed to load country.", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void OnSelected(Country country) {
+
+                mSelectedCountry = country;
+                LogUtils.LOGD("Selected Country", country.getCountryName());
+
+            }
+        });
+
+    }
+
+    private void initApplyFont() {
+
+    }
+
+
+    @OnClick({R.id.btnLogin, R.id.txtForgotPass})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnLogin:
+                Intent iHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(iHomeActivity);
+                break;
+            case R.id.txtForgotPass:
+                Intent txtForgotPassActivity = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(txtForgotPassActivity);
+                break;
+        }
+    }
+
+    public void setSignUpText() {
 
         AdvancedSpannableString span = new AdvancedSpannableString(getResources().getString(R.string.signup_msg));
         span.setBold("Signup");
@@ -68,20 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         });
         txtBottom.setText(span);
         txtBottom.setMovementMethod(LinkMovementMethod.getInstance());
-        initApplyFont();
-    }
-
-    private void initApplyFont() {
-        edtMobile.addFont();
-        edtPassword.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
-        txtBottom.setTypeface(Functions.getRegularTypeFace(LoginActivity.this));
-        txtForgotPass.setTypeface(Functions.getRegularTypeFace(LoginActivity.this), Typeface.BOLD);
-    }
-
-    public void loginClick(View view) {
-        Intent iHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(iHomeActivity);
-        finish();
 
     }
 }

@@ -38,6 +38,7 @@
         <activity android:name=".topup.bank.BankActivity" />
         <activity android:name=".topup.bank.SupportedBankListActivity" />
         <activity android:name=".topup.cyber.CyberSourceActivity"></activity>
+        <activity android:name=".user.ForgotPasswordActivity"></activity>
     </application>
 
 </manifest>

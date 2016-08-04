@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -13,8 +15,10 @@ import com.zemulla.android.app.R;
 import com.zemulla.android.app.fundtransfer.airtelmoney.AirtelMoneyFundTransferActivity;
 import com.zemulla.android.app.fundtransfer.banktransfer.BankTransferActivity;
 import com.zemulla.android.app.fundtransfer.mtn.MTNFundTransferActivity;
+import com.zemulla.android.app.fundtransfer.transaction.FundTransferTransactionActivity;
 import com.zemulla.android.app.fundtransfer.zemullawallet.ZemullaWalletFundTransferActivity;
 import com.zemulla.android.app.fundtransfer.zoona.ZoonaCashTransferActivity;
+import com.zemulla.android.app.helper.Serivces;
 
 import java.util.ArrayList;
 
@@ -64,6 +68,26 @@ public class FundTransferActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_history:
+                Intent intent = new Intent(this, FundTransferTransactionActivity.class);
+                intent.putExtra("type", Serivces.TOPUP);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void initToolbar() {
 

@@ -13,14 +13,18 @@
 
     <string name="hint_fname">First Name</string>
     <string name="hint_lname">Last Name</string>
+    <string name="hint_subject">Subject</string>
     <string name="hint_email">Email</string>
+    <string name="hint_transaction_number">Zemulla Transaction Number</string>
     <string name="phone_Number">Phone Number</string>
+    <string name="hint_description">Description</string>
 
     <string name="hint_country">Country Name</string>
     <string name="hint_state">State Name</string>
     <string name="hint_city">City Name</string>
 
     <string name="hint_pass">Password</string>
+    <string name="old_hint_pass">Password</string>
     <string name="hint_cnf_pass">Confirm Password</string>
 
     <string name="hint_add">Address</string>

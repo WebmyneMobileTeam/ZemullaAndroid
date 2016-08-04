@@ -1,19 +1,16 @@
 package com.zemulla.android.app.widgets.countrypicker;
 
 import android.content.Context;
-import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.CountryAPI;
 import com.zemulla.android.app.model.country.Country;
 import com.zemulla.android.app.model.country.CountryResponse;
@@ -27,7 +24,7 @@ import retrofit2.Response;
 /**
  * Created by raghavthakkar on 03-08-2016.
  */
-public class CountryPickerView extends RelativeLayout {
+public class CountryPickerView extends RelativeLayout implements APIListener<CountryResponse> {
 
     @BindView(R.id.intl_phone_edit__country)
     Spinner spinner;
@@ -59,21 +56,7 @@ public class CountryPickerView extends RelativeLayout {
 
     public void fetchCountry() {
         countryAPI = new CountryAPI();
-        countryAPI.getCountryAPI(new CountryAPI.CountryListener() {
-            @Override
-            public void onResponse(Response<CountryResponse> response) {
-
-                if (response.isSuccessful()) {
-                    mCountryPickerAdapter.addAll(response.body().getResponseData().getData());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CountryResponse> call, Throwable t) {
-
-                countryPickerListener.OnFailed(t);
-            }
-        });
+        countryAPI.getCountryAPI(this);
     }
 
     private AdapterView.OnItemSelectedListener mCountrySpinnerListener = new AdapterView.OnItemSelectedListener() {
@@ -102,6 +85,18 @@ public class CountryPickerView extends RelativeLayout {
 
     public void setCountryPickerListener(CountryPickerListener countryPickerListener) {
         this.countryPickerListener = countryPickerListener;
+    }
+
+    @Override
+    public void onResponse(Response<CountryResponse> response) {
+        if (response.isSuccessful()) {
+            mCountryPickerAdapter.addAll(response.body().getResponseData().getData());
+        }
+    }
+
+    @Override
+    public void onFailure(Call<CountryResponse> call, Throwable t) {
+        countryPickerListener.OnFailed(t);
     }
 
     public interface CountryPickerListener {

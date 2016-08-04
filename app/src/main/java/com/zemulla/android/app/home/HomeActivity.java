@@ -18,6 +18,8 @@ import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
+import com.zemulla.android.app.user.ChangePasswordActivity;
+import com.zemulla.android.app.user.ContactUsActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
 
@@ -99,38 +101,44 @@ public class HomeActivity extends AppCompatActivity {
         drawerDialogView.setItemsClickListner(new DrawerDialogView.OnItemsClickListner() {
             @Override
             public void onClick(DrawerOptionsConfiguration.OptionID id) {
+
+                Intent intent = new Intent();
+
                 switch (id) {
 
                     case VIEW_PROFILE:
-
-                        LinearLayout linearprofile_trans = (LinearLayout) drawerDialogView.findViewById(R.id.linearprofile_trans);
-
-
-                        Intent intent = new Intent(HomeActivity.this, UserProfileActivity.class);
-                        String transitionName = "profile_trans";
-
-                        if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this, linearprofile_trans, transitionName);
-                            startActivity(intent, transitionActivityOptions.toBundle());
-
-                        } else {
-                            startActivity(intent);
-                        }
+                        intent.setClass(HomeActivity.this, UserProfileActivity.class);
 
                         break;
 
                     case UPDATE_KYC:
-
+                        intent.setClass(HomeActivity.this, UserProfileActivity.class);
                         break;
 
                     case CHANGE_PASSWORD:
+                        intent.setClass(HomeActivity.this, ChangePasswordActivity.class);
+                        break;
 
+                    case Conatct_Zemulla:
+                        intent.setClass(HomeActivity.this, ContactUsActivity.class);
                         break;
 
                     case LOGOUT:
-
+                        intent.setClass(HomeActivity.this, UserProfileActivity.class);
                         break;
 
+
+                }
+
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+
+                    LinearLayout linearprofile_trans = (LinearLayout) drawerDialogView.findViewById(R.id.linearprofile_trans);
+                    String transitionName = "profile_trans";
+                    ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this, linearprofile_trans, transitionName);
+                    startActivity(intent, transitionActivityOptions.toBundle());
+
+                } else {
+                    startActivity(intent);
                 }
             }
         });

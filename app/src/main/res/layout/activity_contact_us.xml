@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    tools:context="com.zemulla.android.app.user.ContactUsActivity">
+
+
+    <TextView
+        android:id="@+id/headerView"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:text="Contact Us"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/white" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headerView"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16dp">
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/inquireTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"></android.support.v7.widget.AppCompatSpinner>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/subjectEditText"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:digits="@string/textDigits"
+                android:hint="@string/hint_subject" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/transactionIdEditText"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:hint="@string/hint_transaction_number"
+                android:inputType="textWebEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/descriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:hint="@string/hint_description"
+                android:inputType="number"
+                android:minLines="3" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Submit"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

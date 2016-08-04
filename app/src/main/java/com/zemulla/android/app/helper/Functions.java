@@ -1,6 +1,7 @@
 package com.zemulla.android.app.helper;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -137,4 +138,10 @@ public class Functions {
         return advFullName;
     }
 
+    public static void initProgressDialog(Context context, ProgressDialog progressDialog) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Please Wait....");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+    }
 }

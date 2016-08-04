@@ -13,13 +13,13 @@ import retrofit2.Response;
 public class CountryAPI {
 
     private AccountAPI accountAPI;
-    private CountryListener countryListener;
+    private APIListener countryListener;
 
     public CountryAPI() {
         accountAPI = ZemullaApplication.getRetrofit().create(AccountAPI.class);
     }
 
-    public void getCountryAPI(final CountryListener countryListener) {
+    public void getCountryAPI(final APIListener countryListener) {
         Call<CountryResponse> countryResponseCall = accountAPI.GetCountryListAD();
         countryResponseCall.enqueue(new Callback<CountryResponse>() {
             @Override
@@ -35,7 +35,7 @@ public class CountryAPI {
         });
     }
 
-    public void setCountryListener(CountryListener countryListener) {
+    public void setCountryListener(APIListener countryListener) {
         this.countryListener = countryListener;
     }
 
@@ -49,9 +49,4 @@ public class CountryAPI {
     }
 
 
-    public interface CountryListener {
-        void onResponse(Response<CountryResponse> response);
-
-        void onFailure(Call<CountryResponse> call, Throwable t);
-    }
 }

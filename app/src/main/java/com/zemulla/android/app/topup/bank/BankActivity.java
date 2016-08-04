@@ -188,7 +188,6 @@ public class BankActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitle("Dhruvil Patel");
             toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
@@ -198,9 +197,22 @@ public class BankActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                checkVisibility();
             }
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        checkVisibility();
+    }
+
+    private void checkVisibility() {
+        if (lineatInitialViewTopup.isShown()) {
+            finish();
+        } else {
+            animation.reverse();
+            frameRootTopup.startAnimation(animation);
+        }
+    }
 }

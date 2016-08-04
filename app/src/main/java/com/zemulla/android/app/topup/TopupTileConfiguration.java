@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TopupTileConfiguration {
 
-    public String[] names = {"Cyber Source", "PayPal", "Mtn", "Airtel Money", "Zoona Cash", "Bank Transfer", "Our Supported Bank"};
+    public String[] names = {"Cyber Source", "PayPal", "MTN", "Airtel Money", "Zoona Cash", "Bank Transfer", "Our Supported Bank"};
     //    private String[] colors = {"#80CBC4", "#A5D6A7", "#C5E1A5", "#E6EE9C", "#80CBC4", "#A5D6A7", "#C5E1A5"};
 //    private String[] colorsDark = {"#00695C", "#2E7D32", "#558B2F", "#9E9D24", "#00695C", "#2E7D32", "#558B2F"};
     private String[] colors = {"#ffffff", "#EEEEEE", "#EEEEEE", "#ffffff", "#ffffff", "#EEEEEE", "#EEEEEE"};

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
@@ -170,7 +171,8 @@ public class HomeActivity extends AppCompatActivity {
                     break;
 
                 case EMARKET:
-
+                    Intent iMarket = new Intent(HomeActivity.this, MarketActivity.class);
+                    startActivity(iMarket);
                     break;
 
                 case REPORTS:

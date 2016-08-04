@@ -25,27 +25,106 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity" />
-        <activity android:name=".user.SignupActivity" />
-        <activity android:name=".user.UserProfileActivity" />
-        <activity android:name=".transaction.TransactionHistoryActivity" />
-        <activity android:name=".topup.TopupActivity" />
-        <activity android:name=".topup.TopupInitialTransactionActivity" />
-        <activity android:name=".topup.paypal.PaypalActivity" />
-        <activity android:name=".topup.mtn.MtnActivity" />
-        <activity android:name=".topup.airtel.AirtelMoneyActivity" />
-        <activity android:name=".topup.zoona.ZoonaActivity" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.SignupActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UserProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".transaction.TransactionHistoryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".topup.TopupActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".topup.TopupInitialTransactionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".topup.paypal.PaypalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".topup.mtn.MtnActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".topup.airtel.AirtelMoneyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".topup.zoona.ZoonaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".topup.bank.BankActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".topup.bank.SupportedBankListActivity" />
-        <activity android:name=".topup.cyber.CyberSourceActivity" />
-        <activity android:name=".user.ForgotPasswordActivity" />
-        <activity android:name=".emarket.MarketActivity" />
-        <activity android:name=".emarket.airtime.AirTimeActivity" />
-        <activity android:name=".emarket.electricity.ElectricityActivity" />
-        <activity android:name=".emarket.electricity.ConfirmationActivity" />
-        <activity android:name=".emarket.direct_recharge.DirectRechargeActivity"></activity>
+        <activity
+            android:name=".topup.bank.SupportedBankListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".topup.cyber.CyberSourceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".emarket.MarketActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".emarket.airtime.AirTimeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".fundtransfer.zemullawallet.ZemullaWalletFundTransferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".fundtransfer.mtn.MTNFundTransferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".fundtransfer.airtelmoney.AirtelMoneyFundTransferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".fundtransfer.banktransfer.BankTransferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".fundtransfer.zoona.ZoonaCashTransferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".fundtransfer.FundTransferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".emarket.electricity.ElectricityActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".emarket.electricity.ConfirmationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".emarket.direct_recharge.DirectRechargeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

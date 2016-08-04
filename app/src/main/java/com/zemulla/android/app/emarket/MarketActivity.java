@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.emarket.airtime.AirTimeActivity;
+import com.zemulla.android.app.emarket.electricity.ElectricityActivity;
 
 import java.util.ArrayList;
 
@@ -115,7 +116,8 @@ public class MarketActivity extends AppCompatActivity {
                     break;
 
                 case ELECTRICITY:
-
+                    Intent eleIntent = new Intent(MarketActivity.this, ElectricityActivity.class);
+                    startActivity(eleIntent);
                     break;
 
                 case DTH:

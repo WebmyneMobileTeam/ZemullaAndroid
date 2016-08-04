@@ -16,7 +16,7 @@
         android:layout_height="48dp"
         android:background="@color/colorExtraDark"
         android:gravity="center"
-        android:text="AirTime Topup"
+        android:text="ElectriCity Bill Payment"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
@@ -32,32 +32,37 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            android:padding="@dimen/dimen_16dp"
             android:visibility="visible">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinnerProvider"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp"
-                android:overScrollMode="never"
-                android:overlapAnchor="false"
-                android:prompt="@string/select_recipient_bank_prompt"
-                android:spinnerMode="dropdown" />
+                android:layout_height="wrap_content">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinnerPlan"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
+                <com.zemulla.android.app.widgets.TfEditText
+                    android:id="@+id/edtMeterNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:hint="Meter Number"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp"
-                android:overScrollMode="never"
-                android:overlapAnchor="false"
-                android:prompt="@string/select_recipient_bank_prompt"
-                android:spinnerMode="dropdown" />
+                android:layout_marginTop="@dimen/dimen_8dp">
+
+                <com.zemulla.android.app.widgets.TfEditText
+                    android:id="@+id/edtAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:hint="Enter Amount"
+                    android:inputType="number"
+                    android:visibility="gone" />
+            </android.support.design.widget.TextInputLayout>
 
             <mbanje.kurt.fabbutton.FabButton
-                android:id="@+id/paypalFabInit"
+                android:id="@+id/initFab"
                 android:layout_width="@dimen/button_size"
                 android:layout_height="@dimen/button_size"
                 android:layout_centerInParent="true"
@@ -130,7 +135,7 @@
                 android:orientation="horizontal">
 
                 <mbanje.kurt.fabbutton.FabButton
-                    android:id="@+id/paypalResetFab"
+                    android:id="@+id/resetFab"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -147,7 +152,7 @@
                     app:fbb_showEndBitmap="false" />
 
                 <mbanje.kurt.fabbutton.FabButton
-                    android:id="@+id/paypalConfirmFab"
+                    android:id="@+id/confirmFab"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -166,7 +171,9 @@
 
             </LinearLayout>
 
+
         </LinearLayout>
+
 
     </FrameLayout>
 </LinearLayout>

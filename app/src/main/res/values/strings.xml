@@ -51,4 +51,6 @@
     <string name="textDigits">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
 
     <string name="numberDigits">0123456789</string>
+
+    <string name="static_meter_info">Name : JACKSON MZEY\n\nAddress : 12747 PMPAKAS STREET,SITE AND SERVICE-1214,3484723\n\nOther Details : JACKSON MZEY 12747 PMPAKAS STREET, SITE AND SERVICE-1214, 3484723 ZESCO\n</string>
 </resources>

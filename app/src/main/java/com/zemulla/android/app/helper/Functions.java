@@ -2,6 +2,7 @@ package com.zemulla.android.app.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -46,6 +47,11 @@ public class Functions {
     public static Typeface getRegularTypeFace(Context ctx) {
         Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), regularFont);
         return typeface;
+    }
+
+    public static void fireIntent(Context context, Class cls) {
+        Intent i = new Intent(context, cls);
+        context.startActivity(i);
     }
 
     public static Typeface getLatoFont(Context ctx) {

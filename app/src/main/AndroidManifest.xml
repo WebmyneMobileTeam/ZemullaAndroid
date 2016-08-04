@@ -42,7 +42,10 @@
         <activity android:name=".topup.cyber.CyberSourceActivity" />
         <activity android:name=".user.ForgotPasswordActivity" />
         <activity android:name=".emarket.MarketActivity" />
-        <activity android:name=".emarket.airtime.AirTimeActivity"></activity>
+        <activity android:name=".emarket.airtime.AirTimeActivity" />
+        <activity android:name=".emarket.electricity.ElectricityActivity" />
+        <activity android:name=".emarket.electricity.ConfirmationActivity" />
+        <activity android:name=".emarket.direct_recharge.DirectRechargeActivity"></activity>
     </application>
 
 </manifest>

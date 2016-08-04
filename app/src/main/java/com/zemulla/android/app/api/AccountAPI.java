@@ -1,5 +1,6 @@
 package com.zemulla.android.app.api;
 
+import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.model.country.CountryResponse;
 
 import retrofit2.Call;
@@ -11,7 +12,7 @@ import retrofit2.http.GET;
 public interface AccountAPI {
 
 
-    @GET("Account.svc/json/GetCountryListAD")
+    @GET(AppConstant.GETCOUNTRYLISTAD)
     Call<CountryResponse> GetCountryListAD();
 
 

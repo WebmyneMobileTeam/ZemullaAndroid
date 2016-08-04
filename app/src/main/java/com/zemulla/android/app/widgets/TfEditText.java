@@ -1,6 +1,7 @@
 package com.zemulla.android.app.widgets;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
@@ -17,17 +18,18 @@ public class TfEditText extends EditText {
     public TfEditText(Context context) {
         super(context);
         this._ctx = context;
-        init();
+        init(context);
     }
 
     public TfEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         this._ctx = context;
-        init();
+        init(context);
     }
 
-    private void init() {
-        setTypeface(Functions.getLatoFont(_ctx));
+    private void init(Context context) {
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), Functions.LATO_FONT);
+        setTypeface(typeface);
     }
 
 

@@ -30,7 +30,7 @@ public class ZemullaApplication extends Application {
     private void initRetrofit() {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(AppConstant.basrUrl)
+                .baseUrl(AppConstant.BASEURLSERVICEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

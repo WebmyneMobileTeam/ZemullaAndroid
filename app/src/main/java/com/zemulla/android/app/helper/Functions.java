@@ -7,14 +7,19 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.zemulla.android.app.R;
 
 
 public class Functions {
@@ -73,8 +78,21 @@ public class Functions {
         }
     }
 
+    public static boolean emailValidation(String email) {
+        if (TextUtils.isEmpty(email)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
+    }
+
+
     public static int getLength(EditText editText) {
         return editText.getText().toString().trim().length();
+    }
+
+    public static String toStingEditText(EditText editText) {
+        return editText.getText().toString().trim();
     }
 
     public static void showError(final Context context, String errorMsg, final boolean isFinish) {
@@ -91,6 +109,26 @@ public class Functions {
                     }
                 })
                 .show();
+    }
+
+    public static AdvancedSpannableString getTermsAndConditionAndPrivacyAndContecPolicy(final String text, final String url, final Context context, TextView tv) {
+
+        String fullName = text.trim();
+        AdvancedSpannableString advFullName = new AdvancedSpannableString(fullName);
+        advFullName.setClickableSpanTo(fullName);
+        advFullName.setBold(fullName);
+        advFullName.setUnderLine(fullName);
+
+        advFullName.setColor(ContextCompat.getColor(context, R.color.colorPrimaryDark), fullName);
+        advFullName.setSpanClickListener(new AdvancedSpannableString.OnClickableSpanListner() {
+            @Override
+            public void onSpanClick() {
+
+                Toast.makeText(context, "text", Toast.LENGTH_LONG).show();
+            }
+        });
+        tv.setMovementMethod(LinkMovementMethod.getInstance());
+        return advFullName;
     }
 
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.AdvancedSpannableString;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.country.Country;
@@ -22,6 +23,7 @@ import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.headerView)
     TextView headerView;
-    @BindView(R.id.edtFirstName)
-    EditText edtFirstName;
+    @BindView(R.id.passwordEditText)
+    EditText passwordEditText;
     @BindView(R.id.btnLogin)
     Button btnLogin;
     @BindView(R.id.txtForgotPass)
@@ -45,12 +47,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
     Country mSelectedCountry = null;
+    Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         init();
 
@@ -97,6 +100,28 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkValidation() {
+
+        if (mSelectedCountry == null) {
+            Functions.showError(this, "Please Select Country.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(countryPicker.getEditText())) {
+            Functions.showError(this, "Please Enter Mobile Number.", false);
+            return;
+        }
+
+        if (countryPicker.getPhoneNumber().length() < 10) {
+            Functions.showError(this, "Invalid Mobile Number.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(passwordEditText)) {
+            Functions.showError(this, "Please Enter password.", false);
+            return;
+        }
+
+
         Intent txtForgotPassActivity = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(txtForgotPassActivity);
 
@@ -123,4 +148,12 @@ public class LoginActivity extends AppCompatActivity {
         txtBottom.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
 }

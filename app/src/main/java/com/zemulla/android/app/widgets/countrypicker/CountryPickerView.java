@@ -110,4 +110,12 @@ public class CountryPickerView extends RelativeLayout {
         void OnSelected(Country country);
     }
 
+
+    public EditText getEditText() {
+        return editText;
+    }
+
+    public String getPhoneNumber() {
+        return editText.getText().toString();
+    }
 }

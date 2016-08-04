@@ -53,10 +53,11 @@
             android:layout_marginTop="@dimen/dimen_8dp">
 
             <EditText
-                android:id="@+id/edtFirstName"
+                android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:hint="@string/hint_pass"
+                android:inputType="textPassword"
                 android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
 

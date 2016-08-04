@@ -14,6 +14,7 @@
     <string name="hint_fname">First Name</string>
     <string name="hint_lname">Last Name</string>
     <string name="hint_email">Email</string>
+    <string name="phone_Number">Phone Number</string>
 
     <string name="hint_country">Country Name</string>
     <string name="hint_state">State Name</string>
@@ -41,4 +42,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_bank_name">Bank Name</string>
+    <string name="hint_account_name">Account Name</string>
+    <string name="hint_account_number">Account Number</string>
+    <string name="hint_barnch_name">Branch Name</string>
+    <string name="hint_swift_code">Swift Code</string>
+
+    <string name="textDigits">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+
+    <string name="numberDigits">0123456789</string>
 </resources>

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.zemulla.android.app.R;
+
 import com.zemulla.android.app.user.LoginActivity;
 
 import java.io.BufferedInputStream;
@@ -28,6 +29,9 @@ import java.net.URL;
 public class StartupActivity extends AppCompatActivity {
     private AppCompatImageView imgLogo;
 
+
+
+
     ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class StartupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_startup);
 
         init();
+
 
         new CountDownTimer(1000,1000){
 

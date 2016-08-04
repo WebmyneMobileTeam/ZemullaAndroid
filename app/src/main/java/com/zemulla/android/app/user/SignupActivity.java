@@ -3,10 +3,15 @@ package com.zemulla.android.app.user;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.country.Country;
 import com.zemulla.android.app.widgets.TfButton;
@@ -30,7 +35,6 @@ public class SignupActivity extends AppCompatActivity {
     TfEditText edtState;
     @BindView(R.id.edtCity)
     TfEditText edtCity;
-
     @BindView(R.id.edtPassword)
     TfEditText edtPassword;
     @BindView(R.id.edtConfirmPassword)
@@ -49,6 +53,14 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.backToLogin)
     Button backToLogin;
     Country mSelectedCountry = null;
+    @BindView(R.id.imgLogo)
+    ImageView imgLogo;
+
+    @BindView(R.id.termsConditionCheckBox)
+    CheckBox termsConditionCheckBox;
+    @BindView(R.id.termsConditionTextView)
+    TextView termsConditionTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +92,14 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //I agree to all Terms &amp; Conditions, Privacy Policy
+        termsConditionTextView.setText(TextUtils.concat("I agree to all "
+                , Functions.getTermsAndConditionAndPrivacyAndContecPolicy("Terms & Conditions", "", this, termsConditionTextView)
+                , " , "
+                , Functions.getTermsAndConditionAndPrivacyAndContecPolicy("Privacy Policy", "", this, termsConditionTextView)
+        ));
     }
 
     private void initApplyFont() {
@@ -91,4 +111,90 @@ public class SignupActivity extends AppCompatActivity {
     public void onClick() {
         finish();
     }
+
+    @OnClick(R.id.btnSignUp)
+    public void btnSignUpClick() {
+
+        if (Functions.isEmpty(edtFirstName)) {
+            Functions.showError(this, "Please Enter First Name.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(edtLastName)) {
+            Functions.showError(this, "Please Enter Last Name.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(edtEmail)) {
+            Functions.showError(this, "Please Enter Email.", false);
+            return;
+        }
+
+        if (!Functions.emailValidation(Functions.toStingEditText(edtEmail))) {
+            Functions.showError(this, "Invalid e-mail.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(countryPicker.getEditText())) {
+            Functions.showError(this, "Please Enter Mobile Number.", false);
+            return;
+        }
+
+        if (countryPicker.getPhoneNumber().length() < 10) {
+            Functions.showError(this, "Invalid Mobile Number.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(edtState)) {
+            Functions.showError(this, "Please Enter State.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(edtCity)) {
+            Functions.showError(this, "Please Enter City.", false);
+            return;
+        }
+
+
+        if (Functions.isEmpty(edtPassword)) {
+            Functions.showError(this, "Please Enter Password.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(edtConfirmPassword)) {
+            Functions.showError(this, "Please Re-Enter Password.", false);
+            return;
+        }
+
+
+        if (!Functions.toStingEditText(edtPassword).equals(Functions.toStingEditText(edtConfirmPassword))) {
+            Functions.showError(this, "Entered Password did not match.", false);
+        }
+        if (Functions.isEmpty(edtAddress)) {
+            Functions.showError(this, "Please Enter Address.", false);
+            return;
+        }
+        if (Functions.isEmpty(edtZip)) {
+            Functions.showError(this, "Please Enter ZipCode.", false);
+            return;
+        }
+
+        if (mSelectedCountry == null) {
+            Functions.showError(this, "Please Select Country.", false);
+            return;
+        }
+
+        if (Functions.isEmpty(countryPicker.getEditText())) {
+            Functions.showError(this, "Please Enter Mobile Number.", false);
+            return;
+        }
+
+        if (!termsConditionCheckBox.isChecked()) {
+            Functions.showError(this, "Please Accept Terms & Conditions.", false);
+        }
+
+
+    }
+
+
 }

@@ -4,10 +4,11 @@
     android:id="@+id/activity_user_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.zemulla.android.app.user.UserProfileActivity">
 
-    <include layout="@layout/app_bar"></include>
+    <include layout="@layout/app_bar" />
 
     <TextView
         android:id="@+id/txtNoKYC"
@@ -20,22 +21,22 @@
         android:textColor="#bbffffff" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <!---main content-->
             <LinearLayout
-                android:transitionName="profile_trans"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:transitionName="profile_trans">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profile_image"
@@ -64,146 +65,254 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
-                    android:padding="12dp"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/personal_Information_textView"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:gravity="center"
+                        android:text="Personal Information"
+                        android:textColor="@color/colorPrimaryDark" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+                            android:id="@+id/firstNameEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_fname" />
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
+                            android:hint="@string/hint_fname"
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+                            android:id="@+id/lastNameEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
                             android:hint="@string/hint_lname" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+                            android:id="@+id/emailEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_email" />
+                            android:layout_height="?actionBarSize"
+                            android:hint="@string/hint_email"
+                            android:inputType="textWebEmailAddress" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+                            android:id="@+id/phoneNumberEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_country" />
+                            android:layout_height="?actionBarSize"
+                            android:hint="@string/phone_Number"
+                            android:inputType="number" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <TextView
+                        android:id="@+id/regionalInformationTextView"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:gravity="center"
+                        android:text="Regional Information"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/countryEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
+                            android:hint="@string/hint_country"
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+                            android:id="@+id/stateEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_state" />
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
+                            android:hint="@string/hint_state"
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+                            android:id="@+id/cityEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_city" />
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
+                            android:hint="@string/hint_city"
+                            android:inputType="text"
+                            android:textColor="#fff" />
                     </android.support.design.widget.TextInputLayout>
 
-
-                    <com.zemulla.android.app.CountryPickerWidget.IntlPhoneInput
-                        android:layout_gravity="left"
-                        android:id="@+id/etMobile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <EditText
-                            android:inputType="textPassword"
-                            android:textColor="#fff"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_pass" />
-                    </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <EditText
-                            android:inputType="textPassword"
-                            android:textColor="#fff"
+
+                            android:id="@+id/addressEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_cnf_pass" />
+                            android:layout_height="?actionBarSize"
+                            android:hint="@string/hint_add"
+                            android:inputType="text"
+                            android:textColor="#fff" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+
+                            android:id="@+id/zipCodeEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_add" />
+                            android:layout_height="?actionBarSize"
+                            android:hint="@string/hint_zipcode"
+                            android:inputType="text"
+                            android:textColor="#fff" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <TextView
+                        android:id="@+id/backDetailsTextView"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:gravity="center"
+                        android:text="Bank Details"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/bankNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
+                            android:hint="@string/hint_bank_name"
+                            android:inputType="text"
+                            android:textColor="#fff" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:textColor="#fff"
+                            android:id="@+id/accountNameEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_zipcode" />
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
+                            android:hint="@string/hint_account_name"
+                            android:inputType="text"
+                            android:textColor="#fff" />
                     </android.support.design.widget.TextInputLayout>
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+
+                            android:id="@+id/accountNumberEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:hint="@string/hint_account_number"
+                            android:inputType="text"
+                            android:textColor="#fff" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/branchNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:digits="@string/textDigits"
+                            android:hint="@string/hint_barnch_name"
+                            android:inputType="text"
+                            android:textColor="#fff" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+
+                            android:id="@+id/swiftCodeEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:hint="@string/hint_swift_code"
+                            android:inputType="text"
+                            android:textColor="#fff" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:text="Save"
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
             </ScrollView>
 
 
-
-
-
         </LinearLayout>
-
-        <Button
-            android:text="Save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
 
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

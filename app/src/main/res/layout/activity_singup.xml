@@ -64,8 +64,9 @@
                     android:id="@+id/edtFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:digits="@string/textDigits"
                     android:hint="@string/hint_fname"
-                    android:textColor="#fff" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -77,8 +78,9 @@
                     android:id="@+id/edtLastName"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:digits="@string/textDigits"
                     android:hint="@string/hint_lname"
-                    android:textColor="#fff" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -87,21 +89,11 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtEmail"
+
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_email"
-                    android:textColor="#fff" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:hint="@string/hint_country"
-                    android:textColor="#fff" />
+                    android:inputType="textWebEmailAddress" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -113,8 +105,9 @@
                     android:id="@+id/edtState"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:digits="@string/textDigits"
                     android:hint="@string/hint_state"
-                    android:textColor="#fff" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -125,8 +118,9 @@
                     android:id="@+id/edtCity"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:digits="@string/textDigits"
                     android:hint="@string/hint_city"
-                    android:textColor="#fff" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -145,8 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_pass"
-                    android:inputType="textPassword"
-                    android:textColor="#fff" />
+                    android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -158,8 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_cnf_pass"
-                    android:inputType="textPassword"
-                    android:textColor="#fff" />
+                    android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -168,10 +160,11 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtAddress"
+
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_add"
-                    android:textColor="#fff" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -180,11 +173,37 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtZip"
+
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_zipcode"
-                    android:textColor="#fff" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="?actionBarSize"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/termsConditionCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    />
+
+                <TextView
+                    android:id="@+id/termsConditionTextView"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:minHeight="?actionBarSize" />
+            </LinearLayout>
+
 
             <com.zemulla.android.app.widgets.TfButton
                 android:id="@+id/btnSignUp"

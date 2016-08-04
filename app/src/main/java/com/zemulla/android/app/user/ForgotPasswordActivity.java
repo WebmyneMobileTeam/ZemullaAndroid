@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.country.Country;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
@@ -22,12 +23,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button backToLogin;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.edtFirstName)
-    EditText edtFirstName;
+
     @BindView(R.id.countryPicker)
     CountryPickerView countryPicker;
-    @BindView(R.id.btnLogin)
-    Button btnLogin;
+
+    @BindView(R.id.submbitButton)
+    Button submbitButton;
+    @BindView(R.id.emailEditText)
+    EditText emailEditText;
     Country mSelectedCountry = null;
 
     @Override
@@ -67,7 +70,29 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.backToLogin)
-    public void onClick() {
+    public void onbackToLoginClick() {
         finish();
+    }
+
+    @OnClick(R.id.submbitButton)
+    public void onsubmbitButtonClick() {
+
+        if (Functions.isEmpty(emailEditText) && Functions.isEmpty(countryPicker.getEditText())) {
+            Functions.showError(this, "Enter EmailID or Mobile Number.", false);
+
+        } else if (!Functions.isEmpty(emailEditText)) {
+            if (!Functions.emailValidation(Functions.toStingEditText(emailEditText))) {
+                Functions.showError(this, "Invalid E-mail.", false);
+            }
+
+        } else if (!Functions.isEmpty(countryPicker.getEditText())) {
+            if (countryPicker.getPhoneNumber().length() < 10) {
+                Functions.showError(this, "Invalid Mobile Number.", false);
+                return;
+            }
+
+        }
+
+
     }
 }

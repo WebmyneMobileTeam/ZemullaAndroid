@@ -73,13 +73,12 @@ public class Functions {
         }
     }
 
-    public static int getLength(EditText editText){
+    public static int getLength(EditText editText) {
         return editText.getText().toString().trim().length();
     }
 
     public static void showError(final Context context, String errorMsg, final boolean isFinish) {
         new MaterialDialog.Builder(context)
-                .title("Error")
                 .content(errorMsg)
                 .typeface(Functions.getLatoFont(context), Functions.getLatoFont(context))
                 .positiveText(android.R.string.ok)

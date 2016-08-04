@@ -2,10 +2,10 @@ package com.zemulla.android.app.emarket.airtime;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -13,12 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.widgets.CustomSpinnerAdapter;
+import com.zemulla.android.app.widgets.TfButton;
+import com.zemulla.android.app.widgets.TfEditText;
 
 import java.util.ArrayList;
 
@@ -162,43 +163,32 @@ public class AirTimeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean wrapInScrollView = true;
 
-                MaterialDialog.Builder otpDialog = new MaterialDialog.Builder(AirTimeActivity.this).title("Enter OTP")
+                MaterialDialog otpDialog = new MaterialDialog.Builder(AirTimeActivity.this).title("Enter OTP")
                         .cancelable(false)
                         .canceledOnTouchOutside(false)
                         .typeface(Functions.getLatoFont(AirTimeActivity.this), Functions.getLatoFont(AirTimeActivity.this))
                         .customView(R.layout.dialog_otp, wrapInScrollView)
-                        .positiveText(android.R.string.ok)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
-                                Toast.makeText(AirTimeActivity.this, "Proceed", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                otpDialog.show();
+                        .show();
                 initDialog(otpDialog);
-
-               /* MaterialDialog otpDialog = new MaterialDialog.Builder(AirTimeActivity.this)
-                        .title("Enter OTP")
-                        .cancelable(false)
-                        .canceledOnTouchOutside(false)
-                        .typeface(Functions.getLatoFont(AirTimeActivity.this), Functions.getLatoFont(AirTimeActivity.this))
-                        .customView(R.layout.dialog_otp, wrapInScrollView)
-                        .positiveText(android.R.string.ok)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
-                                Toast.makeText(AirTimeActivity.this, "Proceed", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                otpDialog.show();*/
             }
         });
     }
 
-    private void initDialog(MaterialDialog.Builder otpDialog) {
+    private void initDialog(final MaterialDialog otpDialog) {
+        final TfEditText edtOTP = (TfEditText) otpDialog.getCustomView().findViewById(R.id.edtOTP);
+        TfButton btnOk = (TfButton) otpDialog.getCustomView().findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(edtOTP.getText().toString().trim())) {
+                    Functions.showError(AirTimeActivity.this, "Enter OTP", false);
 
+                } else {
+                    otpDialog.dismiss();
+                    Toast.makeText(AirTimeActivity.this, "Procced", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void calculateAmount() {

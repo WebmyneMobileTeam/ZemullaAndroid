@@ -9,11 +9,12 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zemulla.android.app.R;
-import com.zemulla.android.app.fundtransfer.mtn.MTNFundTransferActivity;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.widgets.OTPDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,7 +92,12 @@ public class AirtelMoneyFundTransferActivity extends AppCompatActivity {
         confitmAmountFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new OTPDialog(AirtelMoneyFundTransferActivity.this, new OTPDialog.onSubmitListener() {
+                    @Override
+                    public void onSubmit() {
+                        Toast.makeText(AirtelMoneyFundTransferActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
             }
         });
     }

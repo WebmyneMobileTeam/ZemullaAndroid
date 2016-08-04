@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.fundtransfer.zoona.ZoonaCashTransferActivity;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.country.Country;
+import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 
 import butterknife.BindView;
@@ -124,6 +126,13 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
         confitmAmountFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                new OTPDialog(ZemullaWalletFundTransferActivity.this, new OTPDialog.onSubmitListener() {
+                    @Override
+                    public void onSubmit() {
+                        Toast.makeText(ZemullaWalletFundTransferActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
 
             }
         });

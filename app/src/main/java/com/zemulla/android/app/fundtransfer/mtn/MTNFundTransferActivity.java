@@ -9,10 +9,13 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.fundtransfer.zemullawallet.ZemullaWalletFundTransferActivity;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.widgets.OTPDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,7 +93,12 @@ public class MTNFundTransferActivity extends AppCompatActivity {
         confitmAmountFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new OTPDialog(MTNFundTransferActivity.this, new OTPDialog.onSubmitListener() {
+                    @Override
+                    public void onSubmit() {
+                        Toast.makeText(MTNFundTransferActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
             }
         });
     }

@@ -11,15 +11,19 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.fundtransfer.FundTransferActivity;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.ChangePasswordActivity;
 import com.zemulla.android.app.user.ContactUsActivity;
+import com.zemulla.android.app.user.KYCActivity;
+import com.zemulla.android.app.user.LoginActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
 
@@ -108,40 +112,45 @@ public class HomeActivity extends AppCompatActivity {
 
                     case VIEW_PROFILE:
                         intent.setClass(HomeActivity.this, UserProfileActivity.class);
-
+                        redirectIntent(intent);
                         break;
 
                     case UPDATE_KYC:
-                        intent.setClass(HomeActivity.this, UserProfileActivity.class);
+                        intent.setClass(HomeActivity.this, KYCActivity.class);
+                        redirectIntent(intent);
                         break;
 
                     case CHANGE_PASSWORD:
                         intent.setClass(HomeActivity.this, ChangePasswordActivity.class);
+                        redirectIntent(intent);
                         break;
 
                     case Conatct_Zemulla:
                         intent.setClass(HomeActivity.this, ContactUsActivity.class);
+                        redirectIntent(intent);
                         break;
 
                     case LOGOUT:
-                        intent.setClass(HomeActivity.this, UserProfileActivity.class);
+                        intent.setClass(HomeActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
-
-
-                }
-
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-
-                    LinearLayout linearprofile_trans = (LinearLayout) drawerDialogView.findViewById(R.id.linearprofile_trans);
-                    String transitionName = "profile_trans";
-                    ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this, linearprofile_trans, transitionName);
-                    startActivity(intent, transitionActivityOptions.toBundle());
-
-                } else {
-                    startActivity(intent);
                 }
             }
         });
+    }
+
+    private void redirectIntent(Intent intent) {
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+
+            LinearLayout linearprofile_trans = (LinearLayout) drawerDialogView.findViewById(R.id.linearprofile_trans);
+            String transitionName = "profile_trans";
+            ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this, linearprofile_trans, transitionName);
+            startActivity(intent, transitionActivityOptions.toBundle());
+
+        } else {
+            startActivity(intent);
+        }
     }
 
     private void init() {

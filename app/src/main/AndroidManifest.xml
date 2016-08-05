@@ -17,18 +17,21 @@
             android:name=".base.DrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".user.LoginActivity" />
+        <activity android:name=".user.LoginActivity"></activity>
         <activity android:name=".base.StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
         <activity
             android:name=".user.SignupActivity"
             android:screenOrientation="portrait"
@@ -129,6 +132,7 @@
         <activity android:name=".fundtransfer.transaction.FundTransferTransactionActivity" />
         <activity android:name=".user.ChangePasswordActivity" />
         <activity android:name=".user.ContactUsActivity"></activity>
+        <activity android:name=".user.KYCActivity" />
     </application>
 
 </manifest>

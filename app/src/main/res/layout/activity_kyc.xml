@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zemulla.android.app.user.KYCActivity">
+
+    <include layout="@layout/app_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnUpload"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16dp">
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KYC Document Type" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_8dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radioNational"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_16dp"
+                android:text="National ID"
+                android:theme="@style/SwitchStyle" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radioPassport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Passport"
+                android:theme="@style/SwitchStyle" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.zemulla.android.app.widgets.TfButton
+                android:id="@+id/btnSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:paddingLeft="@dimen/dimen_16dp"
+                android:paddingRight="@dimen/dimen_16dp"
+                android:text="Select KYC Document"
+                android:textColor="@color/white" />
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/txtClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:text="Clear"
+                android:textSize="@dimen/M_TEXT" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgDocument"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <com.zemulla.android.app.widgets.TfButton
+        android:id="@+id/btnUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="@dimen/dimen_16dp"
+        android:paddingRight="@dimen/dimen_16dp"
+        android:text="Upload"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

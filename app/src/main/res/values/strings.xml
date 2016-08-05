@@ -25,6 +25,7 @@
 
     <string name="hint_pass">Password</string>
     <string name="old_hint_pass">Password</string>
+    <string name="new_pass">New Password</string>
     <string name="hint_cnf_pass">Confirm Password</string>
 
     <string name="hint_add">Address</string>
@@ -55,6 +56,11 @@
     <string name="textDigits">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
 
     <string name="numberDigits">0123456789</string>
+
+    <string-array name="items">
+        <item>Take Photo</item>
+        <item>Choose from Gallery</item>
+    </string-array>
 
     <string name="static_meter_info">Name : JACKSON MZEY\n\nAddress : 12747 PMPAKAS STREET,SITE AND SERVICE-1214,3484723\n\nOther Details : JACKSON MZEY 12747 PMPAKAS STREET, SITE AND SERVICE-1214, 3484723 ZESCO\n</string>
 </resources>

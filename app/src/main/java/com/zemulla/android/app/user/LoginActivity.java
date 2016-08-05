@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent txtForgotPassActivity = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(txtForgotPassActivity);
+        finish();
         //doLogin();
 
 

@@ -4,13 +4,14 @@
     android:id="@+id/activity_user_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.zemulla.android.app.user.UserProfileActivity">
 
     <include layout="@layout/app_bar" />
 
-    <TextView
+    <com.zemulla.android.app.widgets.TfTextView
         android:id="@+id/txtNoKYC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
             <!---main content-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="136dp"
                 android:orientation="horizontal"
                 android:transitionName="profile_trans">
 
@@ -43,7 +44,7 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="@dimen/dimen_16dp"
                     android:src="@drawable/tony"
                     app:civ_border_color="#bdffffff"
                     app:civ_border_width="1dp" />
@@ -308,11 +309,8 @@
                 </LinearLayout>
             </ScrollView>
 
-
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </LinearLayout>

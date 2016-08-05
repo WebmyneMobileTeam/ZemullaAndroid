@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.emarket.airtime.AirTimeActivity;
+import com.zemulla.android.app.emarket.direct_recharge.DirectRechargeActivity;
+import com.zemulla.android.app.emarket.dstv.DSTVEmarketActivity;
 import com.zemulla.android.app.emarket.electricity.ElectricityActivity;
 
 import java.util.ArrayList;
@@ -121,11 +123,13 @@ public class MarketActivity extends AppCompatActivity {
                     break;
 
                 case DTH:
-
+                    Intent dthIntent = new Intent(MarketActivity.this, DirectRechargeActivity.class);
+                    startActivity(dthIntent);
                     break;
 
                 case DSTV:
-
+                    Intent dstvIntent = new Intent(MarketActivity.this, DSTVEmarketActivity.class);
+                    startActivity(dstvIntent);
                     break;
             }
         }

@@ -1,29 +1,45 @@
 package com.zemulla.android.app.user;
 
+import android.Manifest;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.gun0912.tedpermission.PermissionListener;
+import com.mlsdev.rximagepicker.RxImageConverters;
+import com.mlsdev.rximagepicker.RxImagePicker;
+import com.mlsdev.rximagepicker.Sources;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.widgets.TfTextView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 public class UserProfileActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.txtNoKYC)
-    TextView txtNoKYC;
+    TfTextView txtNoKYC;
     @BindView(R.id.profile_image)
     CircleImageView profileImage;
     @BindView(R.id.personal_Information_textView)
@@ -65,7 +81,6 @@ public class UserProfileActivity extends AppCompatActivity {
     @BindView(R.id.activity_user_profile)
     LinearLayout activityUserProfile;
 
-
     Unbinder unbinder;
 
     @Override
@@ -73,10 +88,29 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         unbinder = ButterKnife.bind(this);
-        toolbar.setTitle("Dhruvil Patel");
+
+        init();
+
+        txtNoKYC.setText(Html.fromHtml("Please Upload KYC Document. " + "<u>" + "Click Here" + "</u>"));
+
+    }
+
+    private void init() {
+        initToolbar();
+    }
+
+    private void initToolbar() {
+        if (toolbar != null) {
+            toolbar.setTitle("Dhruvil Patel");
+        }
         setSupportActionBar(toolbar);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setUnderLineText(TextView textView) {
@@ -123,7 +157,6 @@ public class UserProfileActivity extends AppCompatActivity {
             return;
         }
 
-
         if (Functions.isEmpty(cityEditText)) {
             Functions.showError(this, "Please Enter City.", false);
             return;
@@ -144,7 +177,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 || !Functions.isEmpty(branchNameEditText)
                 || !Functions.isEmpty(swiftCodeEditText)) {
 
-
             if (Functions.isEmpty(bankNameEditText)
                     || Functions.isEmpty(accountNameEditText)
                     || Functions.isEmpty(accountNumberEditText)
@@ -154,10 +186,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 Functions.showError(this, "Please Enter all back details.", false);
                 return;
             }
-
-
         }
-
     }
 
     @Override
@@ -166,5 +195,74 @@ public class UserProfileActivity extends AppCompatActivity {
         unbinder.unbind();
     }
 
+    @OnClick(R.id.profile_image)
+    public void onProfileClick() {
+        Functions.setPermission(this,
+                new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        new MaterialDialog.Builder(UserProfileActivity.this)
+                                .title("Add Profile Photo")
+                                .items(R.array.items)
+                                .typeface(Functions.getLatoFont(UserProfileActivity.this), Functions.getLatoFont(UserProfileActivity.this))
+                                .itemsCallback(new MaterialDialog.ListCallback() {
+                                    @Override
+                                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                        if (which == 0) {
+                                            captureCam();
+                                        } else {
+                                            pickGallery();
+                                        }
+                                    }
+                                })
+                                .show();
+                    }
 
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> arrayList) {
+
+                        Toast.makeText(UserProfileActivity.this, "Permission Denied", Toast.LENGTH_SHORT);
+                    }
+                });
+    }
+
+    private void pickGallery() {
+        RxImagePicker.with(this).requestImage(Sources.GALLERY)
+                .flatMap(new Func1<Uri, Observable<Bitmap>>() {
+                    @Override
+                    public Observable<Bitmap> call(Uri uri) {
+                        return RxImageConverters.uriToBitmap(UserProfileActivity.this, uri);
+                    }
+                })
+                .subscribe(new Action1<Bitmap>() {
+                    @Override
+                    public void call(Bitmap bitmap) {
+                        // Do something with Bitmap
+                        profileImage.setImageBitmap(bitmap);
+                    }
+                });
+    }
+
+    private void captureCam() {
+        RxImagePicker.with(this).requestImage(Sources.CAMERA)
+                .flatMap(new Func1<Uri, Observable<Bitmap>>() {
+                    @Override
+                    public Observable<Bitmap> call(Uri uri) {
+                        return RxImageConverters.uriToBitmap(UserProfileActivity.this, uri);
+                    }
+                })
+                .subscribe(new Action1<Bitmap>() {
+                    @Override
+                    public void call(Bitmap bitmap) {
+                        // Do something with Bitmap
+                        profileImage.setImageBitmap(bitmap);
+                    }
+                });
+    }
+
+    @OnClick(R.id.txtNoKYC)
+    public void onKycClick() {
+        Functions.fireIntent(this, KYCActivity.class);
+    }
 }

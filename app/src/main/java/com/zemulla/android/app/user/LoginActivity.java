@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         loginAPI = new LoginAPI();
         loginRequest = new LoginRequest();
         setSignUpText();
-        Functions.initProgressDialog(this, progressDialog);
+        initProgressDialog();
         showProgressDialog();
 
         countryPicker.fetchCountry();
@@ -92,6 +92,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait....");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
     }
 
 

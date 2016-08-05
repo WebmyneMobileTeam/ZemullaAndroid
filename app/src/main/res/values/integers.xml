@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="maxLength50">50</integer>
+    <integer name="maxLength150">150</integer>
+    <integer name="maxLength10">10</integer>
+    <integer name="maxLength100">100</integer>
+    <integer name="maxLength500">500</integer>
+    <integer name="minLength6">6</integer>
+
+</resources>

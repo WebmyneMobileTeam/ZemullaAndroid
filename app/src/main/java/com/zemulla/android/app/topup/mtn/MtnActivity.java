@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.widgets.OTPDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +100,12 @@ public class MtnActivity extends AppCompatActivity {
                 } else if (Functions.isEmpty(edtNationdID)) {
                     Functions.showError(MtnActivity.this, "Please Enter National ID", false);
                 } else {
-                    Toast.makeText(MtnActivity.this, "Further Process", Toast.LENGTH_SHORT).show();
+                    new OTPDialog(MtnActivity.this, new OTPDialog.onSubmitListener() {
+                        @Override
+                        public void onSubmit() {
+                            Toast.makeText(MtnActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
                 }
             }
         });
@@ -136,8 +142,23 @@ public class MtnActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                checkVisibility();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        checkVisibility();
+    }
+
+    private void checkVisibility() {
+        if (lineatInitialViewTopup.isShown()) {
+            finish();
+        } else {
+            animation.reverse();
+            frameRootTopup.startAnimation(animation);
+        }
     }
 }

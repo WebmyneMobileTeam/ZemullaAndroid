@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.widgets.OTPDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,7 +115,12 @@ public class ZoonaActivity extends AppCompatActivity {
                 } else if (Functions.getLength(edtPin) < 4) {
                     Functions.showError(ZoonaActivity.this, "Please Enter Valid PIN", false);
                 } else {
-                    Toast.makeText(ZoonaActivity.this, "Further Process", Toast.LENGTH_SHORT).show();
+                    new OTPDialog(ZoonaActivity.this, new OTPDialog.onSubmitListener() {
+                        @Override
+                        public void onSubmit() {
+                            Toast.makeText(ZoonaActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
                 }
             }
         });
@@ -152,9 +158,22 @@ public class ZoonaActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                checkVisibility();
             }
         });
     }
 
+    private void checkVisibility() {
+        if (lineatInitialViewTopup.isShown()) {
+            finish();
+        } else {
+            animation.reverse();
+            frameRootTopup.startAnimation(animation);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        checkVisibility();
+    }
 }

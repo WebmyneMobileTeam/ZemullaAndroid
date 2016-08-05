@@ -20,8 +20,8 @@ import com.zemulla.android.app.model.registration.RegistrationRequest;
 import com.zemulla.android.app.model.registration.RegistrationResponse;
 import com.zemulla.android.app.model.resetpassword.ResetPasswordResponse;
 import com.zemulla.android.app.model.servicedropdownlist.ServiceDropDownListResponse;
-import com.zemulla.android.app.model.validatemoileemail.ValidateMoileEmailRequest;
-import com.zemulla.android.app.model.validatemoileemail.ValidateMoileEmailResponse;
+import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailRequest;
+import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -68,10 +68,10 @@ public interface AccountAPI {
     Call<ServiceDropDownListResponse> ServiceDropDownList(@Body RegistrationRequest registrationRequest);
 
     @POST(AppConstant.ValidateMoileEmail)
-    Call<ValidateMoileEmailResponse> ValidateMoileEmail(@Body ValidateMoileEmailRequest validateMoileEmailRequest);
+    Call<ValidateMobileEmailResponse> ValidateMoileEmail(@Body ValidateMobileEmailRequest validateMobileEmailRequest);
 
     @GET(AppConstant.VerifyEmail)
-    Call<ValidateMoileEmailResponse> VerifyEmail(@Body ValidateMoileEmailRequest validateMoileEmailRequest);
+    Call<ValidateMobileEmailResponse> VerifyEmail(@Body ValidateMobileEmailRequest validateMobileEmailRequest);
 
     @GET(AppConstant.UserProfile)
     Call<ProfileResponse> UserProfile(@Path("USERID") String USERID);

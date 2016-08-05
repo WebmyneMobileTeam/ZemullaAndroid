@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
@@ -67,9 +66,16 @@ public class ConfirmationActivity extends AppCompatActivity {
                 // call Api for requesting OTP
                 new OTPDialog(ConfirmationActivity.this, new OTPDialog.onSubmitListener() {
                     @Override
-                    public void onSubmit() {
-                        Toast.makeText(ConfirmationActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                    public void onSubmit(String OTP) {
+
                     }
+
+                    @Override
+                    public void onResend() {
+
+                    }
+
+
                 }).show();
             }
         });

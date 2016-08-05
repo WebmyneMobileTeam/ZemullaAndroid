@@ -7,46 +7,48 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8dp">
+        android:layout_height="?actionBarSize">
 
         <com.zemulla.android.app.widgets.TfTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:text="Enter OTP"
-            android:textSize="@dimen/M_TEXT"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
         <ImageView
             android:id="@+id/imgClose"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:padding="@dimen/dimen_2dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dimen_2dp"
             android:src="@drawable/ic_close_black_24dp" />
     </RelativeLayout>
 
     <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/displayTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_12dp"
+
         android:text="We have sent an OTP to your registered mobile number and email. Enter OTP below" />
 
     <com.zemulla.android.app.widgets.TfEditText
         android:id="@+id/edtOTP"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         android:layout_margin="@dimen/dimen_16dp"
         android:gravity="center"
-        android:maxLength="6"
         android:hint="Enter 6 Digit number"
         android:inputType="number"
+        android:maxLength="6"
         android:textSize="@dimen/XL_TEXT" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         android:gravity="right"
         android:orientation="horizontal">
 

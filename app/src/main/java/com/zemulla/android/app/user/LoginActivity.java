@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             public void OnSelected(Country country) {
                 mSelectedCountry = country;
                 hidProgressDialog();
-                LogUtils.LOGD("Selected Country", country.getCountryName());
+                LogUtils.LOGV("Selected Country", country.getCountryName());
 
             }
         });

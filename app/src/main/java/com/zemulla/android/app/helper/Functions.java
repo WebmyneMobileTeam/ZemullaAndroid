@@ -56,6 +56,7 @@ public class Functions {
         return metrics;
     }
 
+
     public static Typeface getRegularTypeFace(Context ctx) {
         Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), regularFont);
         return typeface;
@@ -183,6 +184,20 @@ public class Functions {
                 .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(permissions)
                 .check();
+    }
+
+    public static boolean isPhoneNumberValid(String phoneNumber) {
+        if (TextUtils.isEmpty(phoneNumber)) {
+            return false;
+        } else {
+            if (phoneNumber.trim().length() < 10) {
+                return false;
+            } else if (phoneNumber.trim().length() == 10) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public static void setImage(Context context, ImageView imgProfilePic, String s) {

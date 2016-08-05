@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zemulla.android.app.R;
-import com.zemulla.android.app.fundtransfer.zoona.ZoonaCashTransferActivity;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.LogUtils;
@@ -129,9 +128,15 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
 
                 new OTPDialog(ZemullaWalletFundTransferActivity.this, new OTPDialog.onSubmitListener() {
                     @Override
-                    public void onSubmit() {
-                        Toast.makeText(ZemullaWalletFundTransferActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                    public void onSubmit(String OTP) {
+
                     }
+
+                    @Override
+                    public void onResend() {
+
+                    }
+
                 }).show();
 
             }

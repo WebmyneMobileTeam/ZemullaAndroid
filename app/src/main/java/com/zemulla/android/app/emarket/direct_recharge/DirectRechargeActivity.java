@@ -130,9 +130,16 @@ public class DirectRechargeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new OTPDialog(DirectRechargeActivity.this, new OTPDialog.onSubmitListener() {
                     @Override
-                    public void onSubmit() {
+                    public void onSubmit(String OTP) {
                         Toast.makeText(DirectRechargeActivity.this, "Submit", Toast.LENGTH_SHORT).show();
                     }
+
+                    @Override
+                    public void onResend() {
+
+                    }
+
+
                 }).show();
             }
         });

@@ -1,11 +1,11 @@
 package com.zemulla.android.app.model.otpgenvaltemporary;
 
-import com.zemulla.android.app.model.base.BaseResponse;
+import com.zemulla.android.app.model.base.BaseSmallCaseResponse;
 
 /**
  * Created by raghavthakkar on 04-08-2016.
  */
-public class OTPGenValTemporaryResponse extends BaseResponse{
+public class OTPGenValTemporaryResponse extends BaseSmallCaseResponse{
 
 
 

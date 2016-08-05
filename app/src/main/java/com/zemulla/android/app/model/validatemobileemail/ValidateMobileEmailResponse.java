@@ -1,11 +1,11 @@
-package com.zemulla.android.app.model.validatemoileemail;
+package com.zemulla.android.app.model.validatemobileemail;
 
-import com.zemulla.android.app.model.base.BaseResponse;
+import com.zemulla.android.app.model.base.BaseSmallCaseResponse;
 
 /**
  * Created by raghavthakkar on 04-08-2016.
  */
-public class ValidateMoileEmailResponse extends BaseResponse {
+public class ValidateMobileEmailResponse extends BaseSmallCaseResponse {
 
 
     private boolean result;

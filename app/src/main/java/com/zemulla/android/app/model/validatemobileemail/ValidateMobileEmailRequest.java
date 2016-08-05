@@ -1,9 +1,9 @@
-package com.zemulla.android.app.model.validatemoileemail;
+package com.zemulla.android.app.model.validatemobileemail;
 
 /**
  * Created by raghavthakkar on 04-08-2016.
  */
-public class ValidateMoileEmailRequest {
+public class ValidateMobileEmailRequest {
 
 
     private String CallingCode;

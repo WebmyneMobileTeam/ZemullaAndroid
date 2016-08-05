@@ -159,9 +159,15 @@ public class AirTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new OTPDialog(AirTimeActivity.this, new OTPDialog.onSubmitListener() {
+
                     @Override
-                    public void onSubmit() {
-                        Toast.makeText(AirTimeActivity.this, "Submit", Toast.LENGTH_SHORT).show();
+                    public void onSubmit(String OTP) {
+
+                    }
+
+                    @Override
+                    public void onResend() {
+
                     }
                 }).show();
             }

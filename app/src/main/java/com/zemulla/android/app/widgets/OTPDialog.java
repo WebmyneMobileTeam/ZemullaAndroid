@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zemulla.android.app.R;
@@ -21,6 +21,8 @@ public class OTPDialog {
     private TfEditText edtOTP;
     private TfButton btnOk, btnResend;
     private onSubmitListener onSubmitListener;
+    private TextView displayTextView;
+
 
     public OTPDialog(Context context, onSubmitListener onSubmitListener) {
         this.context = context;
@@ -30,6 +32,7 @@ public class OTPDialog {
 
         materialDialog = new MaterialDialog.Builder(context)
                 .customView(customView, true)
+                .cancelable(false)
                 .build();
 
         init(customView);
@@ -41,6 +44,7 @@ public class OTPDialog {
         edtOTP = (TfEditText) customView.findViewById(R.id.edtOTP);
         btnOk = (TfButton) customView.findViewById(R.id.btnOk);
         btnResend = (TfButton) customView.findViewById(R.id.btnResend);
+        displayTextView = (TfTextView) customView.findViewById(R.id.displayTextView);
 
         actionListener();
 
@@ -50,7 +54,7 @@ public class OTPDialog {
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                materialDialog.dismiss();
+                disMissDiaLog();
             }
         });
 
@@ -64,9 +68,9 @@ public class OTPDialog {
                     Functions.showError(context, "Enter Valid OTP", false);
 
                 } else {
-                    materialDialog.dismiss();
+
                     if (onSubmitListener != null) {
-                        onSubmitListener.onSubmit();
+                        onSubmitListener.onSubmit(Functions.toStingEditText(edtOTP));
                     }
                 }
             }
@@ -75,7 +79,7 @@ public class OTPDialog {
         btnResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "OTP Resend", Toast.LENGTH_SHORT).show();
+                onSubmitListener.onResend();
             }
         });
     }
@@ -84,7 +88,35 @@ public class OTPDialog {
         materialDialog.show();
     }
 
-    public interface onSubmitListener {
-        void onSubmit();
+
+    public void setDisplayText(boolean isEmail, String PhoneNumber, String emailID) {
+
+        //We have sent an OTP to your registered mobile number and email. Enter OTP below.
+        if (isEmail) {
+            displayTextView.setText(String.format("We have sent an OTP to your registered mobile number %s.", replaceLastFour(PhoneNumber)));
+        } else {
+            displayTextView.setText(String.format("We have sent an OTP to your registered email %s.", replaceLastFour(PhoneNumber)));
+        }
     }
+
+    public interface onSubmitListener {
+        void onSubmit(String OTP);
+
+        void onResend();
+    }
+
+    public String replaceLastFour(String s) {
+        int length = s.length();
+        //Check whether or not the string contains at least four characters; if not, this method is useless
+        if (length < 4) {
+            return "Error: The provided string is not greater than four characters long.";
+        }
+        return s.substring(0, length - 4) + "****";
+    }
+
+    public void disMissDiaLog() {
+        materialDialog.dismiss();
+    }
+
+
 }

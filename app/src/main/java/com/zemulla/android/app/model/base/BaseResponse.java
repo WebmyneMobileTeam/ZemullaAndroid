@@ -13,7 +13,7 @@ public class BaseResponse {
     }
 
     public void setResponse(com.zemulla.android.app.model.base.Response response) {
-        Response = response;
+        this.Response = response;
     }
 
 }

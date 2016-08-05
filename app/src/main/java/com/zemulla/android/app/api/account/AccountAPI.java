@@ -1,6 +1,8 @@
 package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.home.model.FullProfile;
+import com.zemulla.android.app.home.model.ProfileResponse;
 import com.zemulla.android.app.model.changeemail.ChangeEmailRequest;
 import com.zemulla.android.app.model.changeemail.ChangeEmailResponse;
 import com.zemulla.android.app.model.contact.ContactUsRequest;
@@ -25,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by raghavthakkar on 02-08-2016.
@@ -70,5 +73,7 @@ public interface AccountAPI {
     @GET(AppConstant.VerifyEmail)
     Call<ValidateMoileEmailResponse> VerifyEmail(@Body ValidateMoileEmailRequest validateMoileEmailRequest);
 
+    @GET(AppConstant.UserProfile)
+    Call<ProfileResponse> UserProfile(@Path("USERID") String USERID);
 
 }

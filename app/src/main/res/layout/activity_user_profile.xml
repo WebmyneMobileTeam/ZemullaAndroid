@@ -36,46 +36,44 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
-                android:orientation="horizontal"
-                android:transitionName="profile_trans">
+                android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <ImageView
                     android:id="@+id/profile_image"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dimen_16dp"
-                    android:src="@drawable/tony"
-                    app:civ_border_color="#bdffffff"
-                    app:civ_border_width="1dp" />
+                    android:layout_marginLeft="@dimen/dimen_16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="@dimen/dimen_16dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <com.zemulla.android.app.widgets.TfTextView
+                        android:id="@+id/txtUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Dhruvil Patel"
                         android:textColor="#99000000"
-                        android:textSize="22sp" />
+                        android:textSize="@dimen/XXL_TEXT" />
 
                 </LinearLayout>
             </LinearLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
+                
                 android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:paddingLeft="@dimen/dimen_12dp"
+                    android:paddingRight="@dimen/dimen_12dp">
 
                     <TextView
                         android:id="@+id/personal_Information_textView"
@@ -183,8 +181,7 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_city"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -198,8 +195,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_add"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -212,8 +208,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_zipcode"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -236,8 +231,7 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_bank_name"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -250,8 +244,7 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_account_name"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -264,8 +257,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_account_number"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -278,8 +270,7 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_barnch_name"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -292,8 +283,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_swift_code"
-                            android:inputType="text"
-                            android:textColor="#fff" />
+                            android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <Button

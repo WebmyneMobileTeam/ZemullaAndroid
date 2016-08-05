@@ -5,7 +5,7 @@ import com.zemulla.android.app.model.base.BaseResponse;
 /**
  * Created by raghavthakkar on 02-08-2016.
  */
-public class LoginResponse extends BaseResponse{
+public class LoginResponse extends BaseResponse {
 
 
     private String CallingCode;
@@ -16,8 +16,17 @@ public class LoginResponse extends BaseResponse{
     private String LastName;
     private String Mobile;
     private String ProfilePic;
+    private String ProfilePicURL;
     private int RoleID;
     private int UserID;
+
+    public String getProfilePicURL() {
+        return ProfilePicURL;
+    }
+
+    public void setProfilePicURL(String profilePicURL) {
+        ProfilePicURL = profilePicURL;
+    }
 
     public String getCallingCode() {
         return CallingCode;

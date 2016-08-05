@@ -1,6 +1,7 @@
 package com.zemulla.android.app.user;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +22,15 @@ import com.mlsdev.rximagepicker.RxImageConverters;
 import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.api.APIListener;
+import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.home.LogUtils;
+import com.zemulla.android.app.home.model.FullProfile;
+import com.zemulla.android.app.home.model.ProfileAPI;
+import com.zemulla.android.app.home.model.ProfileResponse;
+import com.zemulla.android.app.model.login.LoginResponse;
 import com.zemulla.android.app.widgets.TfTextView;
 
 import java.util.ArrayList;
@@ -29,7 +39,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Response;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -41,7 +52,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @BindView(R.id.txtNoKYC)
     TfTextView txtNoKYC;
     @BindView(R.id.profile_image)
-    CircleImageView profileImage;
+    ImageView profileImage;
     @BindView(R.id.personal_Information_textView)
     TextView personalInformationTextView;
     @BindView(R.id.firstNameEditText)
@@ -82,6 +93,12 @@ public class UserProfileActivity extends AppCompatActivity {
     LinearLayout activityUserProfile;
 
     Unbinder unbinder;
+    @BindView(R.id.txtUsername)
+    TfTextView txtUsername;
+    private LoginResponse response;
+
+    private ProfileAPI profileAPI;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,19 +106,108 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         unbinder = ButterKnife.bind(this);
 
+        response = PrefUtils.getUserProfile(this);
+        initProgressDialog();
+
         init();
 
         txtNoKYC.setText(Html.fromHtml("Please Upload KYC Document. " + "<u>" + "Click Here" + "</u>"));
 
     }
 
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait....");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+    }
+
     private void init() {
+        profileAPI = new ProfileAPI();
+
         initToolbar();
+
+        fetchProfile();
+        //setProfileDetails();
+    }
+
+    private void fetchProfile() {
+
+        showProgressDialog();
+
+        LogUtils.LOGE("call", "WS");
+
+        profileAPI.getProfile(String.valueOf(PrefUtils.getUserID(this)), new APIListener<ProfileResponse>() {
+            @Override
+            public void onResponse(Response<ProfileResponse> response) {
+                hideProgressDialog();
+
+                LogUtils.LOGE("call", "HIDE");
+
+                try {
+                    if (response.isSuccessful()) {
+                        LogUtils.LOGE("call", "Success");
+                        ProfileResponse profileResponse = response.body();
+                        if (profileResponse != null) {
+                            LogUtils.LOGE("call", "not null");
+                            if (profileResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+                                setProfileDetails(profileResponse.getData());
+                            } else {
+                                Functions.showError(UserProfileActivity.this, profileResponse.getResponse().getResponseMsg(), false);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void showProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
+    }
+
+    private void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    private void setProfileDetails(FullProfile data) {
+        Functions.setRoundImage(this, profileImage, response.getProfilePicURL() + response.getProfilePic());
+        txtUsername.setText(String.format("%s %s", response.getFirstName(), response.getLastName()));
+        firstNameEditText.setText(String.format("%s", response.getFirstName()));
+        lastNameEditText.setText(String.format("%s", response.getLastName()));
+
+        toolbar.setTitle(String.format("%s %s", response.getFirstName(), response.getLastName()));
+
+        emailEditText.setText(String.format("%s", response.getEmail()));
+        phoneNumberEditText.setText(String.format("%s", response.getMobile()));
+
+        countryEditText.setText(data.getCountryName());
+        stateEditText.setText(data.getState());
+        cityEditText.setText(data.getCity());
+        addressEditText.setText(data.getAddress());
+        zipCodeEditText.setText(data.getZipCode());
+        bankNameEditText.setText(data.getBankName());
+        accountNameEditText.setText(data.getAccountName());
+        accountNumberEditText.setText(data.getAccountNumber());
+        branchNameEditText.setText(data.getBranchName());
+        swiftCodeEditText.setText(data.getSwiftCode());
     }
 
     private void initToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
+            toolbar.setTitle("");
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -111,11 +217,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private void setUnderLineText(TextView textView) {
-
-        textView.setText(Html.fromHtml(String.format("<p><u>%s</u></p>", textView.getText().toString())));
     }
 
     @OnClick(R.id.btnSave)

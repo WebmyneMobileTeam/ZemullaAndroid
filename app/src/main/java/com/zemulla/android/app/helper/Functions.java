@@ -5,25 +5,35 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.home.HomeActivity;
+import com.zemulla.android.app.model.login.LoginResponse;
+import com.zemulla.android.app.user.LoginActivity;
 
 
 public class Functions {
@@ -46,10 +56,23 @@ public class Functions {
         return metrics;
     }
 
-
     public static Typeface getRegularTypeFace(Context ctx) {
         Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), regularFont);
         return typeface;
+    }
+
+    public static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return px;
+    }
+
+    public static float convertPixelsToDp(float px, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / (metrics.densityDpi / 160f);
+        return dp;
     }
 
     public static void fireIntent(Context context, Class cls) {
@@ -161,4 +184,57 @@ public class Functions {
                 .setPermissions(permissions)
                 .check();
     }
+
+    public static void setImage(Context context, ImageView imgProfilePic, String s) {
+        Glide.with(context).load(s).asBitmap().into(imgProfilePic);
+    }
+
+    public static void setRoundImage(final Context context, final ImageView imageView, String url) {
+        Glide.with(context).load(url).asBitmap().into(new BitmapImageViewTarget(imageView) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                imageView.setImageDrawable(circularBitmapDrawable);
+            }
+        });
+    }
+
+    public static void showPromptDialog(final Context context, String errorMsg, final boolean isFinish) {
+        new MaterialDialog.Builder(context)
+                .content(errorMsg)
+                .typeface(Functions.getLatoFont(context), Functions.getLatoFont(context))
+                .positiveText("Yes")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        if (isFinish)
+                            ((Activity) context).finish();
+                    }
+                })
+                .negativeText("No")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    public static void closeSession(Context context) {
+        PrefUtils.setLoggedIn(context, false);
+
+        LoginResponse response = new LoginResponse();
+        PrefUtils.setUserProfile(context, response);
+
+        ((Activity) context).finish();
+
+        Intent loginIntent = new Intent(context, LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(loginIntent);
+    }
+
 }

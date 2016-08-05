@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:cardView="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -66,8 +65,8 @@
                     android:layout_height="?actionBarSize"
                     android:digits="@string/textDigits"
                     android:hint="@string/hint_fname"
-                    android:maxLength="@integer/maxLength50"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="@integer/maxLength50" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -77,12 +76,12 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtLastName"
-                    android:maxLength="@integer/maxLength50"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:digits="@string/textDigits"
                     android:hint="@string/hint_lname"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="@integer/maxLength50" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -91,11 +90,11 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtEmail"
-                    android:maxLength="@integer/maxLength150"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_email"
-                    android:inputType="textWebEmailAddress" />
+                    android:inputType="textWebEmailAddress"
+                    android:maxLength="@integer/maxLength150" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -105,12 +104,12 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtState"
-                    android:maxLength="@integer/maxLength50"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:digits="@string/textDigits"
                     android:hint="@string/hint_state"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="@integer/maxLength50" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -119,12 +118,12 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtCity"
-                    android:maxLength="@integer/maxLength50"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:digits="@string/textDigits"
                     android:hint="@string/hint_city"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="@integer/maxLength50" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -140,11 +139,11 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtPassword"
-                    android:maxLength="@integer/maxLength100"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_pass"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:maxLength="@integer/maxLength100" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -154,10 +153,10 @@
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtConfirmPassword"
                     android:layout_width="match_parent"
-                    android:maxLength="@integer/maxLength100"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_cnf_pass"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:maxLength="@integer/maxLength100" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -166,11 +165,11 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtAddress"
-                    android:maxLength="@integer/maxLength500"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_add"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="@integer/maxLength500" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -179,11 +178,11 @@
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtZip"
-                    android:maxLength="@integer/maxLength10"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_zipcode"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="@integer/maxLength10" />
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
@@ -196,9 +195,7 @@
                 <CheckBox
                     android:id="@+id/termsConditionCheckBox"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-
-                    />
+                    android:layout_height="match_parent" />
 
                 <TextView
                     android:id="@+id/termsConditionTextView"

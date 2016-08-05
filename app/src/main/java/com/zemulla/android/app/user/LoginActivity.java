@@ -19,6 +19,7 @@ import com.zemulla.android.app.api.account.LoginAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.AdvancedSpannableString;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.country.Country;
@@ -150,11 +151,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        Intent txtForgotPassActivity = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(txtForgotPassActivity);
-        finish();
-        //doLogin();
-
+        doLogin();
 
     }
 
@@ -163,7 +160,6 @@ public class LoginActivity extends AppCompatActivity {
         loginRequest.setUsername(Functions.toStingEditText(countryPicker.getEditText()));
         loginRequest.setPassword(Functions.toStingEditText(passwordEditText));
         loginRequest.setRoleID(AppConstant.ClientRoleID);
-
 
         showProgressDialog();
 
@@ -174,16 +170,25 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         LoginResponse loginResponse = response.body();
-                        if (loginResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
-                            Intent txtForgotPassActivity = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(txtForgotPassActivity);
-                        } else {
-                            Functions.showError(LoginActivity.this, loginResponse.getResponse().getResponseMsg(), false);
+                        if (loginResponse != null) {
+                            if (loginResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+
+                                PrefUtils.setUserProfile(LoginActivity.this, loginResponse);
+                                PrefUtils.setLoggedIn(LoginActivity.this, true);
+
+                                Intent txtForgotPassActivity = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(txtForgotPassActivity);
+                                finish();
+                                
+                                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Functions.showError(LoginActivity.this, loginResponse.getResponse().getResponseMsg(), false);
+                            }
                         }
 
                     }
-                } finally {
-
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }

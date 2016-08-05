@@ -10,6 +10,7 @@ public class AppConstant {
     public static final int ResponseSuccess = 1;
     public static final String BASEURL = "http://ws-srv-net.in.webmyne.com/Applications/Zemulla";
     public static final String BASEURLSERVICEURL = String.format("%s%s", BASEURL, "/WCF/Services/");
+    public static final String PROFILE_URL = String.format("%s%s", BASEURL, "/Admin/Upload/ProfilePic/");
     public static final String PrivacyPolicy = String.format("%s%s", BASEURL, "/Marketing/PrivacyPolicy/4");
     public static final String TermsAndConditions = String.format("%s%s", BASEURL, "/Marketing/TermsAndConditions/2");
 
@@ -29,5 +30,7 @@ public class AppConstant {
     public static final String ValidateMoileEmail = AccountSVC + "ValidateMoileEmailAD";
     public static final String VerifyEmail = AccountSVC + "VerifyEmail";
 
+    public static final String UserSVC = "Users.svc/json/";
+    public static final String UserProfile = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
 
 }

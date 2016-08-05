@@ -16,9 +16,20 @@
     <LinearLayout
         android:id="@+id/linearTop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProfilePic"
+            android:layout_width="@dimen/dimen_36dp"
+            android:layout_height="@dimen/dimen_36dp"
+            android:src="@drawable/tony" />
 
         <include layout="@layout/app_bar" />
+
     </LinearLayout>
 
     <LinearLayout

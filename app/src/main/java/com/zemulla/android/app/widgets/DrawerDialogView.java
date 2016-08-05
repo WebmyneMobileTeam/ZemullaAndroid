@@ -4,20 +4,22 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.home.DrawerOptionBean;
 import com.zemulla.android.app.home.DrawerOptionsConfiguration;
+import com.zemulla.android.app.model.login.LoginResponse;
 
 import java.util.ArrayList;
-
-import static android.R.attr.button;
-import static android.R.attr.state_drag_can_accept;
 
 /**
  * Created by dhruvil on 28-07-2016.
@@ -29,6 +31,8 @@ public class DrawerDialogView extends LinearLayout {
     private LayoutInflater inflater;
     private LinearLayout linearOptionLayout;
     private LayoutParams params;
+    private ImageView profile_image;
+    private TfTextView profileTextView, profileEmailTextView;
 
     public void setItemsClickListner(OnItemsClickListner itemsClickListner) {
         this.itemsClickListner = itemsClickListner;
@@ -51,7 +55,10 @@ public class DrawerDialogView extends LinearLayout {
     private void init() {
         inflater = (LayoutInflater) _ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.item_dialog_profile, this);
-        linearOptionLayout = (LinearLayout)findViewById(R.id.linearOptionLayout);
+        linearOptionLayout = (LinearLayout) findViewById(R.id.linearOptionLayout);
+        profile_image = (ImageView) findViewById(R.id.profile_image);
+        profileTextView = (TfTextView) findViewById(R.id.profileTextView);
+        profileEmailTextView = (TfTextView) findViewById(R.id.profileEmailTextView);
         params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         fillOptions();
@@ -59,22 +66,28 @@ public class DrawerDialogView extends LinearLayout {
 
     private void fillOptions() {
 
+        LoginResponse response = PrefUtils.getUserProfile(_ctx);
+        Functions.setRoundImage(_ctx, profile_image, response.getProfilePicURL() + response.getProfilePic());
+        profileTextView.setText(String.format("%s %s", response.getFirstName(), response.getLastName()));
+        profileEmailTextView.setText(String.format("%s", response.getEmail()));
+
         DrawerOptionsConfiguration configuration = new DrawerOptionsConfiguration();
         ArrayList<DrawerOptionBean> options = configuration.getAllOptions();
 
-        for(DrawerOptionBean option : options){
+        for (DrawerOptionBean option : options) {
 
             TfTextView txtView = new TfTextView(_ctx);
-            txtView.setPadding(12,12,12,12);
+            txtView.setPadding(16, 16, 16, 16);
+            txtView.setTextSize(TypedValue.COMPLEX_UNIT_SP, Functions.convertPixelsToDp(_ctx.getResources().getDimension(R.dimen.L_TEXT), _ctx));
             txtView.setGravity(Gravity.CENTER_VERTICAL);
             txtView.setCompoundDrawablePadding(22);
             txtView.setText(option.getOptionName());
             txtView.setTag(option.getId());
-            Drawable image = ContextCompat.getDrawable(_ctx,option.getIcon());
-            image.setBounds( 0, 0, 56, 56 );
-            txtView.setCompoundDrawables(image, null, null, null );
+            Drawable image = ContextCompat.getDrawable(_ctx, option.getIcon());
+            image.setBounds(0, 0, 56, 56);
+            txtView.setCompoundDrawables(image, null, null, null);
             txtView.setOnClickListener(itemClick);
-            linearOptionLayout.addView(txtView,params);
+            linearOptionLayout.addView(txtView, params);
         }
     }
 
@@ -85,7 +98,7 @@ public class DrawerDialogView extends LinearLayout {
         }
     };
 
-    public interface OnItemsClickListner{
-            public void onClick(DrawerOptionsConfiguration.OptionID id);
+    public interface OnItemsClickListner {
+        public void onClick(DrawerOptionsConfiguration.OptionID id);
     }
 }

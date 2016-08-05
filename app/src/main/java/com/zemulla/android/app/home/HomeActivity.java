@@ -3,34 +3,47 @@ package com.zemulla.android.app.home;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.model.login.LoginResponse;
 import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.ChangePasswordActivity;
 import com.zemulla.android.app.user.ContactUsActivity;
 import com.zemulla.android.app.user.KYCActivity;
-import com.zemulla.android.app.user.LoginActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 public class HomeActivity extends AppCompatActivity {
+
+    @BindView(R.id.linearTop)
+    LinearLayout linearTop;
 
     private Toolbar toolbar;
     private GridLayout gridHomeOptions;
@@ -38,22 +51,39 @@ public class HomeActivity extends AppCompatActivity {
     MaryPopup popup;
     private DrawerDialogView drawerDialogView;
     private RelativeLayout btnTransactionHistory;
+    private LoginResponse response;
+    private ImageView imgProfilePic;
 
+    Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        unbinder = ButterKnife.bind(this);
+
+        response = PrefUtils.getUserProfile(this);
 
         initToolbar_Drawer();
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
     private void initToolbar_Drawer() {
+        imgProfilePic = (ImageView) findViewById(R.id.imgProfilePic);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dhruvil Patel");
+
+        toolbar.setTitle(response.getFirstName() + " " + response.getLastName());
+
+        Functions.setRoundImage(this, imgProfilePic, response.getProfilePicURL() + response.getProfilePic());
+
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
-        toolbar.setNavigationIcon(R.drawable.ic_action_person);
         setSupportActionBar(toolbar);
 
         gridHomeOptions = (GridLayout) findViewById(R.id.gridHomeOptions);
@@ -79,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
             homeTile.setOnClickListener(tileClick);
             gridHomeOptions.addView(homeTile, params);
 
-
         }
 
         popup = MaryPopup.with(this)
@@ -92,12 +121,11 @@ public class HomeActivity extends AppCompatActivity {
                 .backgroundColor(Color.parseColor("#EFF4F5"));
 
         drawerDialogView = new DrawerDialogView(HomeActivity.this);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        linearTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 popup.content(drawerDialogView)
-                        .from(toolbar)
+                        .from(linearTop)
                         .show();
             }
         });
@@ -105,14 +133,14 @@ public class HomeActivity extends AppCompatActivity {
         drawerDialogView.setItemsClickListner(new DrawerDialogView.OnItemsClickListner() {
             @Override
             public void onClick(DrawerOptionsConfiguration.OptionID id) {
-
+                popup.close(true);
                 Intent intent = new Intent();
 
                 switch (id) {
-
                     case VIEW_PROFILE:
                         intent.setClass(HomeActivity.this, UserProfileActivity.class);
-                        redirectIntent(intent);
+                        startActivity(intent);
+//                        redirectIntent(intent);
                         break;
 
                     case UPDATE_KYC:
@@ -131,17 +159,37 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                     case LOGOUT:
-                        intent.setClass(HomeActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        promptLogout();
                         break;
                 }
             }
         });
     }
 
+    private void promptLogout() {
+        new MaterialDialog.Builder(HomeActivity.this)
+                .content("Are you sure want to logout?")
+                .typeface(Functions.getLatoFont(HomeActivity.this), Functions.getLatoFont(HomeActivity.this))
+                .positiveText("Yes")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        Functions.closeSession(HomeActivity.this);
+                    }
+                })
+                .negativeText("No")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
     private void redirectIntent(Intent intent) {
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
 
             LinearLayout linearprofile_trans = (LinearLayout) drawerDialogView.findViewById(R.id.linearprofile_trans);
             String transitionName = "profile_trans";
@@ -195,7 +243,7 @@ public class HomeActivity extends AppCompatActivity {
                     break;
 
                 case REPORTS:
-
+                    Toast.makeText(HomeActivity.this, "Report page(s) will come", Toast.LENGTH_SHORT).show();
                     break;
             }
 

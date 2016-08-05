@@ -11,7 +11,7 @@ import android.widget.Spinner;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
-import com.zemulla.android.app.api.CountryAPI;
+import com.zemulla.android.app.api.account.CountryAPI;
 import com.zemulla.android.app.model.country.Country;
 import com.zemulla.android.app.model.country.CountryResponse;
 
@@ -111,6 +111,6 @@ public class CountryPickerView extends RelativeLayout implements APIListener<Cou
     }
 
     public String getPhoneNumber() {
-        return editText.getText().toString();
+        return editText.getText().toString().trim();
     }
 }

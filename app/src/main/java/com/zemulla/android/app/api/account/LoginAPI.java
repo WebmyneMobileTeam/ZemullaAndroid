@@ -1,5 +1,7 @@
-package com.zemulla.android.app.api;
+package com.zemulla.android.app.api.account;
 
+import com.zemulla.android.app.api.APIListener;
+import com.zemulla.android.app.api.account.AccountAPI;
 import com.zemulla.android.app.base.ZemullaApplication;
 import com.zemulla.android.app.model.login.LoginRequest;
 import com.zemulla.android.app.model.login.LoginResponse;

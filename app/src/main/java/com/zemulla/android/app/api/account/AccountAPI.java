@@ -58,7 +58,6 @@ public interface AccountAPI {
     @POST(AppConstant.OTPGenVal)
     Call<OTPGenValResponse> OTPGenVal(@Body OTPGenValRequest otpGenValRequest);
 
-
     @POST(AppConstant.OTPGenValTemporary)
     Call<OTPGenValTemporaryResponse> OTPGenValTemporary(@Body OTPGenValTemporaryRequest otpGenValTemporaryRequest);
 

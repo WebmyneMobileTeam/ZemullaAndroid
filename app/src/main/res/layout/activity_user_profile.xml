@@ -65,7 +65,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                
+                android:layout_marginBottom="@dimen/dimen_8dp"
                 android:layout_height="match_parent">
 
                 <LinearLayout
@@ -75,7 +75,7 @@
                     android:paddingLeft="@dimen/dimen_12dp"
                     android:paddingRight="@dimen/dimen_12dp">
 
-                    <TextView
+                    <com.zemulla.android.app.widgets.TfTextView
                         android:id="@+id/personal_Information_textView"
                         style="@style/TextAppearance.AppCompat.Medium"
                         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/firstNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -102,7 +102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/lastNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -114,28 +114,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/emailEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
+                            android:enabled="false"
                             android:hint="@string/hint_email"
-                            android:inputType="textWebEmailAddress" />
+                            android:inputType="none" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/phoneNumberEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
+                            android:enabled="false"
                             android:hint="@string/phone_Number"
                             android:inputType="number" />
                     </android.support.design.widget.TextInputLayout>
 
 
-                    <TextView
+                    <com.zemulla.android.app.widgets.TfTextView
                         android:id="@+id/regionalInformationTextView"
                         style="@style/TextAppearance.AppCompat.Medium"
                         android:layout_width="match_parent"
@@ -148,9 +150,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/countryEditText"
                             android:layout_width="match_parent"
+                            android:enabled="false"
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_country"
@@ -162,7 +165,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/stateEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -175,7 +178,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/cityEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -189,8 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
-
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/addressEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -202,8 +204,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
-
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/zipCodeEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -212,7 +213,7 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-                    <TextView
+                    <com.zemulla.android.app.widgets.TfTextView
                         android:id="@+id/backDetailsTextView"
                         style="@style/TextAppearance.AppCompat.Medium"
                         android:layout_width="match_parent"
@@ -225,7 +226,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/bankNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -238,7 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/accountNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -251,8 +252,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
-
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/accountNumberEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -264,7 +264,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/branchNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -277,8 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
-
+                        <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/swiftCodeEditText"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -286,7 +285,7 @@
                             android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
 
-                    <Button
+                    <com.zemulla.android.app.widgets.TfButton
                         android:id="@+id/btnSave"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

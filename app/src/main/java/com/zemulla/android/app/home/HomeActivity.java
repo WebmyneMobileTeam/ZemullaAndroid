@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -81,7 +82,11 @@ public class HomeActivity extends AppCompatActivity {
 
         toolbar.setTitle(response.getFirstName() + " " + response.getLastName());
 
-        Functions.setRoundImage(this, imgProfilePic, response.getProfilePicURL() + response.getProfilePic());
+        if (TextUtils.isEmpty(response.getProfilePic())) {
+            imgProfilePic.setImageResource(R.drawable.default_user);
+        } else {
+            Functions.setRoundImage(this, imgProfilePic, response.getProfilePicURL() + response.getProfilePic());
+        }
 
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         setSupportActionBar(toolbar);

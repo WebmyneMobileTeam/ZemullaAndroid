@@ -3,6 +3,7 @@ package com.zemulla.android.app.widgets;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -67,7 +68,11 @@ public class DrawerDialogView extends LinearLayout {
     private void fillOptions() {
 
         LoginResponse response = PrefUtils.getUserProfile(_ctx);
-        Functions.setRoundImage(_ctx, profile_image, response.getProfilePicURL() + response.getProfilePic());
+        if (TextUtils.isEmpty(response.getProfilePic())) {
+            profile_image.setImageResource(R.drawable.default_user);
+        } else {
+            Functions.setRoundImage(_ctx, profile_image, response.getProfilePicURL() + response.getProfilePic());
+        }
         profileTextView.setText(String.format("%s %s", response.getFirstName(), response.getLastName()));
         profileEmailTextView.setText(String.format("%s", response.getEmail()));
 

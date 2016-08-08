@@ -28,8 +28,12 @@ public class TfEditText extends EditText {
     }
 
     private void init(Context context) {
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), Functions.LATO_FONT);
-        setTypeface(typeface);
+        try {
+            Typeface typeface = Typeface.createFromAsset(context.getAssets(), Functions.LATO_FONT);
+            setTypeface(typeface);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

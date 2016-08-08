@@ -1,9 +1,12 @@
 package com.zemulla.android.app.widgets;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.Functions;
 
 /**
@@ -13,21 +16,41 @@ import com.zemulla.android.app.helper.Functions;
 public class TfTextView extends TextView {
 
     private Context _ctx;
+    private boolean isBold;
+
     public TfTextView(Context context) {
         super(context);
-        this._ctx = context;
-        init();
+        if (!isInEditMode()) {
+            this._ctx = context;
+            init();
+        }
     }
 
     public TfTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this._ctx = context;
-        init();
+        if (!isInEditMode()) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TfTextView, 0, 0);
+            try {
+                isBold = a.getBoolean(R.styleable.TfTextView_isBold, false);
+            } finally {
+                a.recycle();
+            }
+
+            this._ctx = context;
+            init();
+        }
+
     }
 
     private void init() {
-        setTypeface(Functions.getLatoFont(_ctx));
+        try {
+            setTypeface(Functions.getLatoFont(_ctx));
+            if (isBold) {
+                setTypeface(getTypeface(), Typeface.BOLD);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 
 }

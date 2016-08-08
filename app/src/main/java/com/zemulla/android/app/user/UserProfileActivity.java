@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +30,11 @@ import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.home.model.FullProfile;
 import com.zemulla.android.app.home.model.ProfileAPI;
 import com.zemulla.android.app.home.model.ProfileResponse;
+import com.zemulla.android.app.home.model.UpdateProfileApi;
+import com.zemulla.android.app.home.model.UpdateProfileRequest;
 import com.zemulla.android.app.model.login.LoginResponse;
+import com.zemulla.android.app.widgets.TfButton;
+import com.zemulla.android.app.widgets.TfEditText;
 import com.zemulla.android.app.widgets.TfTextView;
 
 import java.util.ArrayList;
@@ -54,41 +58,41 @@ public class UserProfileActivity extends AppCompatActivity {
     @BindView(R.id.profile_image)
     ImageView profileImage;
     @BindView(R.id.personal_Information_textView)
-    TextView personalInformationTextView;
+    TfTextView personalInformationTextView;
     @BindView(R.id.firstNameEditText)
-    EditText firstNameEditText;
+    TfEditText firstNameEditText;
     @BindView(R.id.lastNameEditText)
-    EditText lastNameEditText;
+    TfEditText lastNameEditText;
     @BindView(R.id.emailEditText)
-    EditText emailEditText;
+    TfEditText emailEditText;
     @BindView(R.id.phoneNumberEditText)
-    EditText phoneNumberEditText;
+    TfEditText phoneNumberEditText;
     @BindView(R.id.regionalInformationTextView)
-    TextView regionalInformationTextView;
+    TfTextView regionalInformationTextView;
     @BindView(R.id.countryEditText)
-    EditText countryEditText;
+    TfEditText countryEditText;
     @BindView(R.id.stateEditText)
-    EditText stateEditText;
+    TfEditText stateEditText;
     @BindView(R.id.cityEditText)
     EditText cityEditText;
     @BindView(R.id.addressEditText)
-    EditText addressEditText;
+    TfEditText addressEditText;
     @BindView(R.id.zipCodeEditText)
-    EditText zipCodeEditText;
+    TfEditText zipCodeEditText;
     @BindView(R.id.backDetailsTextView)
     TextView backDetailsTextView;
     @BindView(R.id.bankNameEditText)
-    EditText bankNameEditText;
+    TfEditText bankNameEditText;
     @BindView(R.id.accountNameEditText)
-    EditText accountNameEditText;
+    TfEditText accountNameEditText;
     @BindView(R.id.accountNumberEditText)
-    EditText accountNumberEditText;
+    TfEditText accountNumberEditText;
     @BindView(R.id.branchNameEditText)
-    EditText branchNameEditText;
+    TfEditText branchNameEditText;
     @BindView(R.id.swiftCodeEditText)
-    EditText swiftCodeEditText;
+    TfEditText swiftCodeEditText;
     @BindView(R.id.btnSave)
-    Button btnSave;
+    TfButton btnSave;
     @BindView(R.id.activity_user_profile)
     LinearLayout activityUserProfile;
 
@@ -98,7 +102,11 @@ public class UserProfileActivity extends AppCompatActivity {
     private LoginResponse response;
 
     private ProfileAPI profileAPI;
+    private UpdateProfileApi updateProfileApi;
     private ProgressDialog progressDialog;
+    private UpdateProfileRequest request;
+    private ProfileResponse profileResponse;
+    private APIListener updateApiListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +116,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
         response = PrefUtils.getUserProfile(this);
         initProgressDialog();
+
+        request = new UpdateProfileRequest();
 
         init();
 
@@ -124,32 +134,62 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void init() {
         profileAPI = new ProfileAPI();
+        updateProfileApi = new UpdateProfileApi();
 
         initToolbar();
 
         fetchProfile();
+
+        actionListener();
         //setProfileDetails();
+    }
+
+    private void actionListener() {
+        updateApiListener = new APIListener() {
+            @Override
+            public void onResponse(Response response) {
+                hideProgressDialog();
+                try {
+                    if (response.isSuccessful()) {
+                        if (response.body() != null) {
+                            com.zemulla.android.app.model.base.Response baseResponse = (com.zemulla.android.app.model.base.Response) response.body();
+                            if (baseResponse.getResponseCode() == AppConstant.ResponseSuccess) {
+                                Toast.makeText(UserProfileActivity.this, "Profile Updates Successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Functions.showError(UserProfileActivity.this, baseResponse.getResponseMsg(), false);
+                            }
+                        } else {
+                            Functions.showError(UserProfileActivity.this, "Something went wrong. Please try again.", false);
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                hideProgressDialog();
+                Functions.showError(UserProfileActivity.this, t.getMessage(), false);
+
+            }
+        };
     }
 
     private void fetchProfile() {
 
         showProgressDialog();
 
-        LogUtils.LOGE("call", "WS");
-
         profileAPI.getProfile(String.valueOf(PrefUtils.getUserID(this)), new APIListener<ProfileResponse>() {
             @Override
             public void onResponse(Response<ProfileResponse> response) {
                 hideProgressDialog();
 
-                LogUtils.LOGE("call", "HIDE");
-
                 try {
                     if (response.isSuccessful()) {
-                        LogUtils.LOGE("call", "Success");
-                        ProfileResponse profileResponse = response.body();
+                        profileResponse = response.body();
                         if (profileResponse != null) {
-                            LogUtils.LOGE("call", "not null");
                             if (profileResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                                 setProfileDetails(profileResponse.getData());
                             } else {
@@ -183,7 +223,11 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void setProfileDetails(FullProfile data) {
-        Functions.setRoundImage(this, profileImage, response.getProfilePicURL() + response.getProfilePic());
+        if (TextUtils.isEmpty(response.getProfilePic())) {
+            profileImage.setImageResource(R.drawable.default_user);
+        } else {
+            Functions.setRoundImage(this, profileImage, response.getProfilePicURL() + response.getProfilePic());
+        }
         txtUsername.setText(String.format("%s %s", response.getFirstName(), response.getLastName()));
         firstNameEditText.setText(String.format("%s", response.getFirstName()));
         lastNameEditText.setText(String.format("%s", response.getLastName()));
@@ -222,6 +266,10 @@ public class UserProfileActivity extends AppCompatActivity {
     @OnClick(R.id.btnSave)
     public void onClick() {
 
+        validateProfile();
+    }
+
+    private void validateProfile() {
         if (Functions.isEmpty(firstNameEditText)) {
             Functions.showError(this, "Please Enter First Name.", false);
             return;
@@ -245,11 +293,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if (Functions.isEmpty(phoneNumberEditText)) {
             Functions.showError(this, "Please Enter phone Number.", false);
-            return;
-        }
-
-        if (Functions.isEmpty(countryEditText)) {
-            Functions.showError(this, "Please Enter Country.", false);
             return;
         }
 
@@ -288,12 +331,45 @@ public class UserProfileActivity extends AppCompatActivity {
                 return;
             }
         }
+
+        doUpdateProfile();
+    }
+
+    private void doUpdateProfile() {
+
+        showProgressDialog();
+
+        request.setFirstName(Functions.toStingEditText(firstNameEditText));
+        request.setLastName(Functions.toStingEditText(lastNameEditText));
+        request.setAccountName(Functions.toStingEditText(accountNameEditText));
+        request.setAccountNumber(Functions.toStingEditText(accountNumberEditText));
+        request.setAddress(Functions.toStingEditText(addressEditText));
+        request.setBankName(Functions.toStingEditText(bankNameEditText));
+        request.setBranchName(Functions.toStingEditText(branchNameEditText));
+        request.setCity(Functions.toStingEditText(cityEditText));
+        request.setCountryID(profileResponse.getData().getCountryID());
+        request.setState(Functions.toStingEditText(stateEditText));
+        request.setSwiftCode(Functions.toStingEditText(swiftCodeEditText));
+        request.setUserID(PrefUtils.getUserID(this));
+        request.setZipCode(Functions.toStingEditText(zipCodeEditText));
+
+        updateProfileApi.updateProfile(request, updateApiListener);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        try {
+            unbinder.unbind();
+            removeListener(updateApiListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeListener(APIListener updateApiListener) {
+        if (updateApiListener != null)
+            updateApiListener = null;
     }
 
     @OnClick(R.id.profile_image)

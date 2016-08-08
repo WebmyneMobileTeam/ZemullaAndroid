@@ -3,6 +3,8 @@ package com.zemulla.android.app.api.account;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.home.model.FullProfile;
 import com.zemulla.android.app.home.model.ProfileResponse;
+import com.zemulla.android.app.home.model.UpdateProfileRequest;
+import com.zemulla.android.app.model.base.Response;
 import com.zemulla.android.app.model.changeemail.ChangeEmailRequest;
 import com.zemulla.android.app.model.changeemail.ChangeEmailResponse;
 import com.zemulla.android.app.model.contact.ContactUsRequest;
@@ -22,6 +24,9 @@ import com.zemulla.android.app.model.resetpassword.ResetPasswordResponse;
 import com.zemulla.android.app.model.servicedropdownlist.ServiceDropDownListResponse;
 import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailRequest;
 import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailResponse;
+import com.zemulla.android.app.user.model.ChangePasswordRequest;
+import com.zemulla.android.app.user.model.ContactRequest;
+import com.zemulla.android.app.user.model.ServiceListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -76,4 +81,15 @@ public interface AccountAPI {
     @GET(AppConstant.UserProfile)
     Call<ProfileResponse> UserProfile(@Path("USERID") String USERID);
 
+    @POST(AppConstant.UpdateUserProfile)
+    Call<Response> updateProfile(@Body UpdateProfileRequest updateProfileRequest);
+
+    @GET(AppConstant.ServiceList)
+    Call<ServiceListResponse> getServiceList();
+
+    @POST(AppConstant.ContactZemulla)
+    Call<Response> contactZemulla(@Body ContactRequest contactRequest);
+
+    @POST(AppConstant.ChangePassword)
+    Call<Response> changePassword(@Body ChangePasswordRequest changePasswordRequest);
 }

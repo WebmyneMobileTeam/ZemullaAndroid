@@ -62,5 +62,8 @@
         <item>Choose from Gallery</item>
     </string-array>
 
+    <string-array name="contact_us">
+        <item>General</item>
+    </string-array>
     <string name="static_meter_info">Name : JACKSON MZEY\n\nAddress : 12747 PMPAKAS STREET,SITE AND SERVICE-1214,3484723\n\nOther Details : JACKSON MZEY 12747 PMPAKAS STREET, SITE AND SERVICE-1214, 3484723 ZESCO\n</string>
 </resources>

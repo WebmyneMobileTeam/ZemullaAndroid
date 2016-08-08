@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -31,7 +32,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.zemulla.android.app.R;
-import com.zemulla.android.app.home.HomeActivity;
+import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.model.login.LoginResponse;
 import com.zemulla.android.app.user.LoginActivity;
 
@@ -47,6 +48,8 @@ public class Functions {
 
     public static String LATO_FONT = "fonts/Lato-Regular.ttf";
 
+    private static int up = 0, low = 0, no = 0, spl = 0, xtra = 0, len = 0, points = 0;
+    private static char c;
 
     public static DisplayMetrics getDeviceMetrics(Activity context) {
         DisplayMetrics metrics = new DisplayMetrics();
@@ -250,6 +253,75 @@ public class Functions {
         Intent loginIntent = new Intent(context, LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(loginIntent);
+    }
+
+    public static PasswordTracker getPasswordStr(String pass) {
+
+        PasswordTracker tracker = new PasswordTracker();
+
+        int len = pass.length();
+        int passWordInt = 0;
+        String passwordType = "", color = "#000000";
+
+        if (len <= 5) points++;
+        else if (len <= 10) points += 2;
+        else
+            points += 3;
+        for (int i = 0; i < len; i++) {
+            c = pass.charAt(i);
+            if (c >= 'a' && c <= 'z') {
+                if (low == 0) points++;
+                low = 1;
+            } else {
+                if (c >= 'A' && c <= 'Z') {
+                    if (up == 0) points++;
+                    up = 1;
+                } else {
+                    if (c >= '0' && c <= '9') {
+                        if (no == 0) points++;
+                        no = 1;
+                    } else {
+                        if (c == '_' || c == '@') {
+                            if (spl == 0) points += 1;
+                            spl = 1;
+                        } else {
+                            if (xtra == 0) points += 2;
+                            xtra = 1;
+
+                        }
+                    }
+                }
+            }
+        }
+        if (points <= 3) {
+            passwordType = "WEAK";
+            color = "#FF0000";
+            passWordInt = AppConstant.WEAK;
+
+        } else if (points <= 6) {
+            passwordType = "MEDIUM";
+            color = "#FFA500";
+            passWordInt = AppConstant.MEDIUM;
+
+        } else if (points <= 9) {
+            passwordType = "HIGH";
+            color = "#008000";
+            passWordInt = AppConstant.HIGH;
+        }
+
+        points = 0;
+        len = 0;
+        up = 0;
+        low = 0;
+        no = 0;
+        xtra = 0;
+        spl = 0;
+
+        tracker.setText(passwordType);
+        tracker.setColor(Color.parseColor(color));
+        tracker.setPasswordType(passWordInt);
+
+        return tracker;
     }
 
 }

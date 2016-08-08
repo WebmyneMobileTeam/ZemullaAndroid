@@ -29,8 +29,18 @@ public class AppConstant {
     public static final String ServiceDropDownList = AccountSVC + "ServiceDropDownListAD";
     public static final String ValidateMoileEmail = AccountSVC + "ValidateMoileEmailAD";
     public static final String VerifyEmail = AccountSVC + "VerifyEmail";
+    public static final String ServiceList = AccountSVC + "ServiceDropDownListAD";
+    public static final String ContactZemulla = AccountSVC + "ContactMailAD";
+
 
     public static final String UserSVC = "Users.svc/json/";
     public static final String UserProfile = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
+    public static final String UpdateUserProfile = UserSVC + "UpdateUserProfileAD";
+    public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
+
+    // Password Tracker constants
+    public static final int WEAK = 1;
+    public static final int MEDIUM = 2;
+    public static final int HIGH = 3;
 }

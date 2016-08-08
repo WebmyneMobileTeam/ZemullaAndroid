@@ -27,7 +27,11 @@ public class TfButton extends Button {
     }
 
     private void init() {
-        setTypeface(Functions.getLatoFont(_ctx));
+        try {
+            setTypeface(Functions.getLatoFont(_ctx));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

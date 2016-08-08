@@ -38,6 +38,7 @@ public class AppConstant {
     public static final String UpdateUserProfile = UserSVC + "UpdateUserProfileAD";
     public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
+    public static long DebounceTime=800;
 
     // Password Tracker constants
     public static final int WEAK = 1;

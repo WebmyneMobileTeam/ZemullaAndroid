@@ -125,6 +125,11 @@ public class ZoonaActivity extends AppCompatActivity {
 
                         }
 
+                        @Override
+                        public void ChangeEmail() {
+
+                        }
+
                     }).show();
                 }
             }

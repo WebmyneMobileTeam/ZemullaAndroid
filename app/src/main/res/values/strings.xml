@@ -28,6 +28,10 @@
     <string name="new_pass">New Password</string>
     <string name="hint_cnf_pass">Confirm Password</string>
 
+    <string name="hint_old_email">Old Email</string>
+    <string name="hint_new_email">New Email</string>
+    <string name="hint_current_password">Current Password</string>
+
     <string name="hint_add">Address</string>
     <string name="hint_zipcode">ZipCode</string>
 

@@ -102,6 +102,11 @@ public class MTNFundTransferActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void ChangeEmail() {
+
+                    }
+
 
                 }).show();
             }

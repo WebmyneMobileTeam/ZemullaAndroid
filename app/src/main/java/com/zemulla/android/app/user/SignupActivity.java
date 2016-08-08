@@ -146,25 +146,34 @@ public class SignupActivity extends AppCompatActivity {
         otpDialog = new OTPDialog(this, new OTPDialog.onSubmitListener() {
             @Override
             public void onSubmit(String OTP) {
-                if (otpGenValTemporaryResponse != null) {
-                    otpGenValTemporaryRequest.setMobile(otpGenValTemporaryResponse.getHiddenMobile());
-                    otpGenValTemporaryRequest.setCallingCode(mSelectedCountry.getCallingCode());
-                    otpGenValTemporaryRequest.setEmail(Functions.toStingEditText(edtEmail));
-                    otpGenValTemporaryRequest.setEmailTempleteID(0);
-                    otpGenValTemporaryRequest.setVerificationCode(OTP);
-                    otpGenValTemporaryRequest.setUniqueID(otpGenValTemporaryResponse.getUniqueID());
-                    showProgressDialog();
-                    otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
-                }
+                submitOTP(OTP);
             }
 
             @Override
             public void onResend() {
                 GenerateOTP();
             }
+
+            @Override
+            public void ChangeEmail() {
+
+            }
         });
 
         otpDialog.setDisplayText(false, countryPicker.getPhoneNumber(), "");
+    }
+
+    private void submitOTP(String OTP) {
+        if (otpGenValTemporaryResponse != null) {
+            otpGenValTemporaryRequest.setMobile(otpGenValTemporaryResponse.getHiddenMobile());
+            otpGenValTemporaryRequest.setCallingCode(mSelectedCountry.getCallingCode());
+            otpGenValTemporaryRequest.setEmail(Functions.toStingEditText(edtEmail));
+            otpGenValTemporaryRequest.setEmailTempleteID(0);
+            otpGenValTemporaryRequest.setVerificationCode(OTP);
+            otpGenValTemporaryRequest.setUniqueID(otpGenValTemporaryResponse.getUniqueID());
+            showProgressDialog();
+            otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
+        }
     }
 
     private void initProgressDialog() {
@@ -213,10 +222,10 @@ public class SignupActivity extends AppCompatActivity {
 
         if (otpDialog == null) {
             initOTPDiaLog();
-            otpDialog.show();
-
 
         }
+
+        otpDialog.show();
     }
 
     private void hideOTPDialog() {
@@ -287,6 +296,7 @@ public class SignupActivity extends AppCompatActivity {
         otpGenValTemporaryRequest.setEmail(Functions.toStingEditText(edtEmail));
         otpGenValTemporaryRequest.setEmailTempleteID(0);
         otpGenValTemporaryRequest.setVerificationCode("");
+        otpGenValTemporaryRequest.setUniqueID("");
 
         showProgressDialog();
         otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, otpGenValTemporaryResponseAPIListener);
@@ -392,7 +402,7 @@ public class SignupActivity extends AppCompatActivity {
             try {
                 if (response.isSuccessful()) {
 
-                    OTPGenValTemporaryResponse otpGenValTemporaryResponse = response.body();
+                    otpGenValTemporaryResponse = response.body();
                     if (otpGenValTemporaryResponse != null && otpGenValTemporaryResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                         Toast.makeText(SignupActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                         otpDialog.disMissDiaLog();
@@ -528,6 +538,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if (!termsConditionCheckBox.isChecked()) {
             Functions.showError(this, "Please Accept Terms & Conditions.", false);
+            return;
         }
 
 

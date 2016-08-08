@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.account.LoginAPI;
+import com.zemulla.android.app.api.account.OTPGenValTemporaryAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.AdvancedSpannableString;
 import com.zemulla.android.app.helper.Functions;
@@ -25,6 +26,9 @@ import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.country.Country;
 import com.zemulla.android.app.model.login.LoginRequest;
 import com.zemulla.android.app.model.login.LoginResponse;
+import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryRequest;
+import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 
 import butterknife.BindView;
@@ -58,6 +62,12 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     LoginAPI loginAPI;
     LoginRequest loginRequest;
+    private OTPDialog otpDialog;
+    private OTPGenValTemporaryAPI otpGenValTemporaryAPI;
+    private OTPGenValTemporaryRequest otpGenValTemporaryRequest;
+    private OTPGenValTemporaryResponse otpGenValTemporaryResponse;
+    private LoginResponse loginResponse;
+    private int RequestCode = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,28 +82,33 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
         loginAPI = new LoginAPI();
         loginRequest = new LoginRequest();
+        otpGenValTemporaryAPI = new OTPGenValTemporaryAPI();
+        otpGenValTemporaryRequest = new OTPGenValTemporaryRequest();
         setSignUpText();
         initProgressDialog();
         showProgressDialog();
 
         countryPicker.fetchCountry();
-        countryPicker.setCountryPickerListener(new CountryPickerView.CountryPickerListener() {
-            @Override
-            public void OnFailed(Throwable t) {
-                Toast.makeText(LoginActivity.this, "Failed to load country.", Toast.LENGTH_LONG).show();
-                hidProgressDialog();
-            }
-
-            @Override
-            public void OnSelected(Country country) {
-                mSelectedCountry = country;
-                hidProgressDialog();
-                LogUtils.LOGV("Selected Country", country.getCountryName());
-
-            }
-        });
+        countryPicker.setCountryPickerListener(countryPickerListener);
 
     }
+
+
+    CountryPickerView.CountryPickerListener countryPickerListener = new CountryPickerView.CountryPickerListener() {
+        @Override
+        public void OnFailed(Throwable t) {
+            Toast.makeText(LoginActivity.this, "Failed to load country.", Toast.LENGTH_LONG).show();
+            hidProgressDialog();
+        }
+
+        @Override
+        public void OnSelected(Country country) {
+            mSelectedCountry = country;
+            hidProgressDialog();
+            LogUtils.LOGV("Selected Country", country.getCountryName());
+
+        }
+    };
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(this);
@@ -115,6 +130,138 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void initOTPDiaLog() {
+        otpDialog = new OTPDialog(this, new OTPDialog.onSubmitListener() {
+            @Override
+            public void onSubmit(String OTP) {
+                submitOTP(OTP);
+            }
+
+            @Override
+            public void onResend() {
+                GenerateOTP();
+            }
+
+            @Override
+            public void ChangeEmail() {
+
+                Intent intent = new Intent(LoginActivity.this, ChangeEmailActivity.class);
+                startActivityForResult(intent, RequestCode);
+
+
+            }
+        });
+
+    }
+
+    private void submitOTP(String OTP) {
+        try {
+            if (otpGenValTemporaryResponse != null && loginResponse != null) {
+                otpGenValTemporaryRequest.setMobile(loginResponse.getMobile());
+                otpGenValTemporaryRequest.setCallingCode(loginResponse.getMobile());
+                otpGenValTemporaryRequest.setEmail(loginResponse.getMobile());
+                otpGenValTemporaryRequest.setEmailTempleteID(0);
+                otpGenValTemporaryRequest.setVerificationCode(OTP);
+                otpGenValTemporaryRequest.setUniqueID(otpGenValTemporaryResponse.getUniqueID());
+                showProgressDialog();
+                otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showOTPDialog() {
+
+        if (otpDialog == null) {
+            initOTPDiaLog();
+        }
+
+        if (loginResponse != null) {
+            otpDialog.setDisplayText(true, loginResponse.getEmail(), "");
+            otpDialog.showChangeEmail();
+        }
+        otpDialog.show();
+    }
+
+    private void hideOTPDialog() {
+        otpDialog.disMissDiaLog();
+    }
+
+
+    APIListener<OTPGenValTemporaryResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+        @Override
+        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+            hidProgressDialog();
+            try {
+                if (response.isSuccessful()) {
+
+                    otpGenValTemporaryResponse = response.body();
+                    if (otpGenValTemporaryResponse != null && otpGenValTemporaryResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+                        Toast.makeText(LoginActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
+                        otpDialog.disMissDiaLog();
+                        saveDataAndLogin();
+
+                    } else {
+                        Toast.makeText(LoginActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+            hidProgressDialog();
+        }
+    };
+
+    private void GenerateOTP() {
+        try {
+            if (loginResponse != null) {
+                otpGenValTemporaryRequest.setMobile(loginResponse.getMobile());
+                otpGenValTemporaryRequest.setCallingCode(loginResponse.getCallingCode());
+                otpGenValTemporaryRequest.setEmail(loginResponse.getEmail());
+                otpGenValTemporaryRequest.setEmailTempleteID(0);
+                otpGenValTemporaryRequest.setUniqueID("");
+                otpGenValTemporaryRequest.setVerificationCode("");
+                showProgressDialog();
+                otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, otpGenValTemporaryResponseAPIListener);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    APIListener<OTPGenValTemporaryResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+        @Override
+        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+            hidProgressDialog();
+            try {
+                if (response.isSuccessful()) {
+                    showOTPDialog();
+                    otpGenValTemporaryResponse = response.body();
+                    if (otpGenValTemporaryResponse != null && otpGenValTemporaryResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+
+                        Toast.makeText(LoginActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+            hidProgressDialog();
+        }
+    };
 
     @OnClick({R.id.btnLogin, R.id.txtForgotPass})
     public void onClick(View view) {
@@ -169,20 +316,16 @@ public class LoginActivity extends AppCompatActivity {
                 hidProgressDialog();
                 try {
                     if (response.isSuccessful()) {
-                        LoginResponse loginResponse = response.body();
+                        loginResponse = response.body();
                         if (loginResponse != null) {
-                            if (loginResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+                            if (loginResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess && loginResponse.isIsEmailVerified() && loginResponse.isIsEmailVerified()) {
 
-                                PrefUtils.setUserProfile(LoginActivity.this, loginResponse);
-                                PrefUtils.setLoggedIn(LoginActivity.this, true);
-
-                                Intent txtForgotPassActivity = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(txtForgotPassActivity);
-                                finish();
-                                
-                                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                saveDataAndLogin();
+                            } else if (!loginResponse.isIsEmailVerified()) {
+                                GenerateOTP();
                             } else {
                                 Functions.showError(LoginActivity.this, loginResponse.getResponse().getResponseMsg(), false);
+
                             }
                         }
 
@@ -198,6 +341,16 @@ public class LoginActivity extends AppCompatActivity {
                 hidProgressDialog();
             }
         });
+    }
+
+    private void saveDataAndLogin() {
+        PrefUtils.setUserProfile(LoginActivity.this, loginResponse);
+        PrefUtils.setLoggedIn(LoginActivity.this, true);
+        Intent txtForgotPassActivity = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(txtForgotPassActivity);
+        finish();
+
+        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
     }
 
     public void setSignUpText() {
@@ -222,11 +375,38 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (otpDialog != null) {
+                hideOTPDialog();
+            }
+
+        }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        try {
+            unbinder.unbind();
+            otpGenValTemporaryAPI.onDestory();
+            loginAPI.onDestory();
+            removeListener(submitotpGenValTemporaryResponseAPIListener);
+            removeListener(otpGenValTemporaryResponseAPIListener);
+            countryPickerListener = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+
+    public void removeListener(APIListener<?> listener) {
+
+        if (listener != null) {
+            listener = null;
+        }
+
+    }
 }

@@ -24,4 +24,9 @@ public class ResetPasswordRequest {
     public void setToken(String Token) {
         this.Token = Token;
     }
+
+    public ResetPasswordRequest() {
+        Password = "";
+        Token = "";
+    }
 }

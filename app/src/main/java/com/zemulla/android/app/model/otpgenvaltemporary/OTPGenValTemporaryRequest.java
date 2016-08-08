@@ -61,4 +61,13 @@ public class OTPGenValTemporaryRequest {
         this.VerificationCode = VerificationCode;
     }
 
+
+    public OTPGenValTemporaryRequest() {
+        CallingCode = "";
+        Email = "";
+        EmailTempleteID = 0;
+        Mobile = "";
+        UniqueID = "";
+        VerificationCode = "";
+    }
 }

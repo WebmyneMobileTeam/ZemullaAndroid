@@ -75,6 +75,11 @@ public class ConfirmationActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void ChangeEmail() {
+
+                    }
+
 
                 }).show();
             }

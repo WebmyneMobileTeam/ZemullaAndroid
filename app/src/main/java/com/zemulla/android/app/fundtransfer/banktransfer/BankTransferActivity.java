@@ -100,6 +100,11 @@ public class BankTransferActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void ChangeEmail() {
+
+                    }
+
 
                 }).show();
             }

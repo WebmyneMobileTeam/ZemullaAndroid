@@ -19,7 +19,7 @@ public class OTPDialog {
     private Context context;
     private MaterialDialog materialDialog;
     private TfEditText edtOTP;
-    private TfButton btnOk, btnResend;
+    private TfButton btnOk, btnResend, btnChangeEmail;
     private onSubmitListener onSubmitListener;
     private TextView displayTextView;
 
@@ -43,9 +43,11 @@ public class OTPDialog {
         imgClose = (ImageView) customView.findViewById(R.id.imgClose);
         edtOTP = (TfEditText) customView.findViewById(R.id.edtOTP);
         btnOk = (TfButton) customView.findViewById(R.id.btnOk);
+        btnChangeEmail = (TfButton) customView.findViewById(R.id.changeEmail);
         btnResend = (TfButton) customView.findViewById(R.id.btnResend);
         displayTextView = (TfTextView) customView.findViewById(R.id.displayTextView);
 
+        btnChangeEmail.setVisibility(View.GONE);
         actionListener();
 
     }
@@ -82,6 +84,14 @@ public class OTPDialog {
                 onSubmitListener.onResend();
             }
         });
+
+
+        btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSubmitListener.ChangeEmail();
+            }
+        });
     }
 
     public void show() {
@@ -103,6 +113,8 @@ public class OTPDialog {
         void onSubmit(String OTP);
 
         void onResend();
+
+        void ChangeEmail();
     }
 
     public String replaceLastFour(String s) {
@@ -119,4 +131,7 @@ public class OTPDialog {
     }
 
 
+    public void showChangeEmail() {
+        btnChangeEmail.setVisibility(View.VISIBLE);
+    }
 }

@@ -1,7 +1,6 @@
 package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.constant.AppConstant;
-import com.zemulla.android.app.home.model.FullProfile;
 import com.zemulla.android.app.home.model.ProfileResponse;
 import com.zemulla.android.app.home.model.UpdateProfileRequest;
 import com.zemulla.android.app.model.base.Response;
@@ -20,6 +19,7 @@ import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryReques
 import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryResponse;
 import com.zemulla.android.app.model.registration.RegistrationRequest;
 import com.zemulla.android.app.model.registration.RegistrationResponse;
+import com.zemulla.android.app.model.resetpassword.ResetPasswordRequest;
 import com.zemulla.android.app.model.resetpassword.ResetPasswordResponse;
 import com.zemulla.android.app.model.servicedropdownlist.ServiceDropDownListResponse;
 import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailRequest;
@@ -67,7 +67,7 @@ public interface AccountAPI {
     Call<RegistrationResponse> Registration(@Body RegistrationRequest registrationRequest);
 
     @POST(AppConstant.ResetPassword)
-    Call<ResetPasswordResponse> ResetPassword(@Body RegistrationRequest registrationRequest);
+    Call<ResetPasswordResponse> ResetPassword(@Body ResetPasswordRequest resetPasswordRequest);
 
     @GET(AppConstant.ServiceDropDownList)
     Call<ServiceDropDownListResponse> ServiceDropDownList(@Body RegistrationRequest registrationRequest);

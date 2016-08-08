@@ -169,6 +169,11 @@ public class AirTimeActivity extends AppCompatActivity {
                     public void onResend() {
 
                     }
+
+                    @Override
+                    public void ChangeEmail() {
+
+                    }
                 }).show();
             }
         });

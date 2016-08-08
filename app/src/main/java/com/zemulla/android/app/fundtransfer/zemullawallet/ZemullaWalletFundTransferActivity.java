@@ -137,6 +137,11 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void ChangeEmail() {
+
+                    }
+
                 }).show();
 
             }

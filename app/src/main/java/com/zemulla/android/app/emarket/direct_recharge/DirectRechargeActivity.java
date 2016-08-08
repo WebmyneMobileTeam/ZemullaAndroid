@@ -139,6 +139,11 @@ public class DirectRechargeActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void ChangeEmail() {
+
+                    }
+
 
                 }).show();
             }

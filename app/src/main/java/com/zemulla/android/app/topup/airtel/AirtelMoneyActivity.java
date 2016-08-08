@@ -109,6 +109,11 @@ public class AirtelMoneyActivity extends AppCompatActivity {
 
                         }
 
+                        @Override
+                        public void ChangeEmail() {
+
+                        }
+
 
                     }).show();
                 }

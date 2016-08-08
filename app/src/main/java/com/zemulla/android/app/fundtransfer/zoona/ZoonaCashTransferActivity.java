@@ -101,6 +101,11 @@ public class ZoonaCashTransferActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void ChangeEmail() {
+
+                    }
+
 
                 }).show();
             }

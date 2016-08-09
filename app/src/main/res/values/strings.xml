@@ -10,6 +10,7 @@
     <string name="signup_msg">Don\'t have an account? Signup</string>
     <string name="forgot_pass_msg">Forgot Password?</string>
     <string name="action_history">Transaction History</string>
+    <string name="action_refresh">Refresh Balance</string>
 
     <string name="hint_fname">First Name</string>
     <string name="hint_lname">Last Name</string>

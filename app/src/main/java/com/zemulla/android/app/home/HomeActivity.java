@@ -9,8 +9,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,6 +71,9 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView imgProfilePic;
     Unbinder unbinder;
     private GetWalletDetailAPI getWalletDetailAPI;
+    private float IMAGE_SCALE = 1.5f;
+    private Animation rotation;
+    private ImageView refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +191,29 @@ public class HomeActivity extends AppCompatActivity {
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.home_balance, menu);
+
+        refresh = (ImageView) menu.findItem(R.id.action_refresh).getActionView();
+        if (refresh != null) {
+            refresh.setImageResource(R.drawable.ic_autorenew_white_24dp);
+
+            refresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.startAnimation(rotation);
+                    getWalletDetail();
+
+                }
+            });
+        }
+        return true;
+
+    }
+
+
+    @Override
     protected void onResume() {
         super.onResume();
         LogUtils.LOGE("UserID", PrefUtils.getUserID(this) + "");
@@ -210,6 +240,7 @@ public class HomeActivity extends AppCompatActivity {
                     effectiveBalance.setText(String.format("%s %.2f", AppConstant.ZMW, getWalletDetailResponse.getEffectiveBalance()));
                     availableBalance.setText(String.format("%s %.2f", AppConstant.ZMW, getWalletDetailResponse.getAvailableBalance()));
                     PrefUtils.setBALANCE(HomeActivity.this, getWalletDetailResponse);
+                    rotation.cancel();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -260,6 +291,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private void init() {
         getWalletDetailAPI = new GetWalletDetailAPI();
+        rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
+        rotation.setRepeatCount(Animation.INFINITE);
     }
 
     @Override

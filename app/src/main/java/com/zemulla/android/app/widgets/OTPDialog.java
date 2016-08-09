@@ -63,6 +63,8 @@ public class OTPDialog {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Functions.hideKeyPad(context, v);
+
                 if (TextUtils.isEmpty(edtOTP.getText().toString().trim())) {
                     Functions.showError(context, "Enter OTP", false);
 
@@ -81,6 +83,7 @@ public class OTPDialog {
         btnResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Functions.hideKeyPad(context, v);
                 onSubmitListener.onResend();
             }
         });
@@ -102,7 +105,7 @@ public class OTPDialog {
     public void setDisplayText(boolean isEmail, String PhoneNumber, String emailID) {
 
         //We have sent an OTP to your registered mobile number and email. Enter OTP below.
-        if (isEmail) {
+        if (!isEmail) {
             displayTextView.setText(String.format("We have sent an OTP to your registered mobile number %s.", replaceLastFour(PhoneNumber)));
         } else {
             displayTextView.setText(String.format("We have sent an OTP to your registered email %s.", replaceLastFour(PhoneNumber)));

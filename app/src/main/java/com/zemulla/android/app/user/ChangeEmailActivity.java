@@ -22,8 +22,8 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.model.account.changeemail.ChangeEmailRequest;
 import com.zemulla.android.app.model.account.changeemail.ChangeEmailResponse;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValResponse;
 import com.zemulla.android.app.model.account.validatemobileemail.ValidateMobileEmailRequest;
 import com.zemulla.android.app.model.account.validatemobileemail.ValidateMobileEmailResponse;
 import com.zemulla.android.app.widgets.OTPDialog;
@@ -55,8 +55,8 @@ public class ChangeEmailActivity extends AppCompatActivity {
     EditText currentPasswordEditText;
     private OTPDialog otpDialog;
     private OTPGenValTemporaryAPI otpGenValTemporaryAPI;
-    private OTPGenValTemporaryRequest otpGenValTemporaryRequest;
-    private OTPGenValTemporaryResponse otpGenValTemporaryResponse;
+    private OTPGenValRequest otpGenValTemporaryRequest;
+    private OTPGenValResponse otpGenValTemporaryResponse;
     private ChangeEmailRequest changeEmailRequest;
     private ChangeEmailAPI changeEmailAPI;
     private ChangeEmailResponse changeEmailResponse;
@@ -82,7 +82,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
         changeEmailAPI = new ChangeEmailAPI();
         changeEmailRequest = new ChangeEmailRequest();
         otpGenValTemporaryAPI = new OTPGenValTemporaryAPI();
-        otpGenValTemporaryRequest = new OTPGenValTemporaryRequest();
+        otpGenValTemporaryRequest = new OTPGenValRequest();
         validateMobileEmailAPI = new ValidateMobileEmailAPI();
         validateMobileEmailRequest = new ValidateMobileEmailRequest();
 
@@ -322,9 +322,9 @@ public class ChangeEmailActivity extends AppCompatActivity {
         }
     }
 
-    APIListener<OTPGenValTemporaryResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+    APIListener<OTPGenValResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
-        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+        public void onResponse(Response<OTPGenValResponse> response) {
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
@@ -344,19 +344,19 @@ public class ChangeEmailActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+        public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
         }
     };
 
-    APIListener<OTPGenValTemporaryResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+    APIListener<OTPGenValResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
-        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+        public void onResponse(Response<OTPGenValResponse> response) {
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
 
-                    OTPGenValTemporaryResponse otpGenValTemporaryResponse = response.body();
+                    OTPGenValResponse otpGenValTemporaryResponse = response.body();
                     if (otpGenValTemporaryResponse != null && otpGenValTemporaryResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                         Toast.makeText(ChangeEmailActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                         otpDialog.disMissDiaLog();
@@ -372,7 +372,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+        public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
         }
     };

@@ -8,7 +8,7 @@
 
     <include layout="@layout/app_bar" />
 
-    <TextView
+    <com.zemulla.android.app.widgets.TfTextView
         android:id="@+id/txtTopupWayName"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -18,51 +18,65 @@
         android:textColor="@color/white"
         android:textSize="18sp" />
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/frameRootTopup"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!--initial view where user enter only amount-->
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/lineatInitialViewTopup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical"
             android:visibility="visible">
 
-            <android.support.design.widget.TextInputLayout
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/txtDynamic"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:gravity="center"
+                android:text="GetDynamicText"
+                android:textSize="@dimen/M_TEXT" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp">
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/edtAmount"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Topup Amount"
-                    android:inputType="numberDecimal" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_margin="16dp">
 
-            <mbanje.kurt.fabbutton.FabButton
-                android:id="@+id/btnProcessInitialTransaction"
-                android:layout_width="@dimen/button_size"
-                android:layout_height="@dimen/button_size"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:color="@color/colorPrimaryDark"
-                android:indeterminate="true"
-                android:max="100"
-                android:src="@drawable/ic_action_image_navigate_next"
-                android:visibility="visible"
-                app:fbb_autoStart="true"
-                app:fbb_endBitmap="@drawable/ic_action_history"
-                app:fbb_progressColor="@color/colorExtraDark"
-                app:fbb_progressWidthRatio="0.1"
-                app:fbb_showEndBitmap="false" />
+                    <EditText
+                        android:id="@+id/edtAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Topup Amount"
+                        android:inputType="numberDecimal" />
+                </android.support.design.widget.TextInputLayout>
 
-        </LinearLayout>
+                <mbanje.kurt.fabbutton.FabButton
+                    android:id="@+id/btnProcessInitialTransaction"
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:color="@color/colorPrimaryDark"
+                    android:indeterminate="true"
+                    android:max="100"
+                    android:src="@drawable/ic_action_image_navigate_next"
+                    android:visibility="visible"
+                    app:fbb_autoStart="true"
+                    app:fbb_endBitmap="@drawable/ic_action_history"
+                    app:fbb_progressColor="@color/colorExtraDark"
+                    app:fbb_progressWidthRatio="0.1"
+                    app:fbb_showEndBitmap="false" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <!--view where all converted values and rate comes-->
         <LinearLayout
@@ -83,6 +97,7 @@
                 android:padding="@dimen/dimen_8dp">
 
                 <TextView
+                    android:id="@+id/txtTopupAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Topup Amount : ZMW 1212"
@@ -97,13 +112,15 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/txtPayableAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ZMW 1122.32"
+                    android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
                 <TextView
+                    android:id="@+id/txtTransactionCharge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Transaction Charge : 100"
@@ -133,7 +150,7 @@
                             android:drawablePadding="@dimen/dimen_16dp"
                             android:hint="Enter Number"
                             android:inputType="number"
-                            android:maxLength="10" />
+                            android:maxLength="@integer/maxLength10" />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -148,8 +165,24 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/dimen_16dp"
                         android:hint="Enter National ID"
-                        android:inputType="number" />
+                        android:inputType="text"
+                        android:maxLength="@integer/maxLength50" />
                 </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edtPin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/dimen_16dp"
+                        android:hint="PIN"
+                        android:maxLength="4"
+                        android:visibility="gone" />
+                </android.support.design.widget.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -198,5 +231,6 @@
 
         </LinearLayout>
 
-    </FrameLayout>
+    </RelativeLayout>
+
 </LinearLayout>

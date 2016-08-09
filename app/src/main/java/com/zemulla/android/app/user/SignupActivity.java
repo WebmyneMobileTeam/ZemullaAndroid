@@ -23,8 +23,8 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.country.Country;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValResponse;
 import com.zemulla.android.app.model.account.registration.RegistrationRequest;
 import com.zemulla.android.app.model.account.registration.RegistrationResponse;
 import com.zemulla.android.app.model.account.validatemobileemail.ValidateMobileEmailRequest;
@@ -88,8 +88,8 @@ public class SignupActivity extends AppCompatActivity {
     private ValidateMobileEmailAPI validateMobileEmailAPI;
     private ValidateMobileEmailRequest validateMobileEmailRequest;
     private OTPGenValTemporaryAPI otpGenValTemporaryAPI;
-    private OTPGenValTemporaryRequest otpGenValTemporaryRequest;
-    private OTPGenValTemporaryResponse otpGenValTemporaryResponse;
+    private OTPGenValRequest otpGenValTemporaryRequest;
+    private OTPGenValResponse otpGenValTemporaryResponse;
     private OTPDialog otpDialog;
     private RegistrationRequest registrationRequest;
     private SignUpAPI signUpAPI;
@@ -114,7 +114,7 @@ public class SignupActivity extends AppCompatActivity {
         validateMobileEmailAPI = new ValidateMobileEmailAPI();
         validateMobileEmailRequest = new ValidateMobileEmailRequest();
         otpGenValTemporaryAPI = new OTPGenValTemporaryAPI();
-        otpGenValTemporaryRequest = new OTPGenValTemporaryRequest();
+        otpGenValTemporaryRequest = new OTPGenValRequest();
         registrationRequest = new RegistrationRequest();
         signUpAPI = new SignUpAPI();
 
@@ -369,9 +369,9 @@ public class SignupActivity extends AppCompatActivity {
             hidProgressDialog();
         }
     };
-    APIListener<OTPGenValTemporaryResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+    APIListener<OTPGenValResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
-        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+        public void onResponse(Response<OTPGenValResponse> response) {
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
@@ -391,13 +391,13 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+        public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
         }
     };
-    APIListener<OTPGenValTemporaryResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+    APIListener<OTPGenValResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
-        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+        public void onResponse(Response<OTPGenValResponse> response) {
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
@@ -418,7 +418,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+        public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
         }
     };

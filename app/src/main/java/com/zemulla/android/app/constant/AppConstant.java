@@ -5,10 +5,16 @@ package com.zemulla.android.app.constant;
  */
 public class AppConstant {
 
+
+    public static final int MAX_DIGITS_BEFORE_DECIMAL_POINT = 7;
+    public static final int MAX_DIGITS_AFTER_DECIMAL_POINT = 2;
+
+
     public static final int ClientRoleID = 3;
     public static final String ZMW = "ZMW";
     public static final int ResponseFailed = 0;
     public static final int ResponseSuccess = 1;
+    public static final int OTPResponseSuccess = 4;
     public static final String BASEURL = "http://ws-srv-net.in.webmyne.com/Applications/Zemulla";
     public static final String BASEURLSERVICEURL = String.format("%s%s", BASEURL, "/WCF/Services/");
     public static final String PROFILE_URL = String.format("%s%s", BASEURL, "/Admin/Upload/ProfilePic/");
@@ -43,6 +49,11 @@ public class AppConstant {
     public static final String PaymentSVC = "Payment.svc/json/";
     public static final String TopUpTransactionChargeCalculation = PaymentSVC + "TopUpTransactionChargeCalculationAD";
     public static long DebounceTime = 800;
+
+    public static final String ZWalletSVC = "ZWallet.svc/json/";
+    public static final String TopupAPIWallet = ZWalletSVC + "TopupAPIWalletAD";
+    public static final String GetDynamicText = ZWalletSVC + "GetDynamicTextAD/{APIMASTERID}";
+
 
     // Password Tracker constants
     public static final int WEAK = 1;

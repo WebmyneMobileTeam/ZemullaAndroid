@@ -13,10 +13,8 @@ import com.zemulla.android.app.model.account.forgotpassword.ForgotPasswordReques
 import com.zemulla.android.app.model.account.forgotpassword.ForgotPasswordResponse;
 import com.zemulla.android.app.model.account.login.LoginRequest;
 import com.zemulla.android.app.model.account.login.LoginResponse;
-import com.zemulla.android.app.model.account.optgenval.OTPGenValRequest;
-import com.zemulla.android.app.model.account.optgenval.OTPGenValResponse;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValResponse;
 import com.zemulla.android.app.model.account.registration.RegistrationRequest;
 import com.zemulla.android.app.model.account.registration.RegistrationResponse;
 import com.zemulla.android.app.model.account.resetpassword.ResetPasswordRequest;
@@ -56,10 +54,10 @@ public interface AccountAPI {
     Call<LoginResponse> Login(@Body LoginRequest loginRequest);
 
     @POST(AppConstant.OTPGenVal)
-    Call<OTPGenValResponse> OTPGenVal(@Body OTPGenValRequest otpGenValRequest);
+    Call<com.zemulla.android.app.model.account.optgenval.OTPGenValResponse> OTPGenVal(@Body com.zemulla.android.app.model.account.optgenval.OTPGenValRequest otpGenValRequest);
 
     @POST(AppConstant.OTPGenValTemporary)
-    Call<OTPGenValTemporaryResponse> OTPGenValTemporary(@Body OTPGenValTemporaryRequest otpGenValTemporaryRequest);
+    Call<OTPGenValResponse> OTPGenValTemporary(@Body OTPGenValRequest otpGenValTemporaryRequest);
 
 
     @POST(AppConstant.Registration)

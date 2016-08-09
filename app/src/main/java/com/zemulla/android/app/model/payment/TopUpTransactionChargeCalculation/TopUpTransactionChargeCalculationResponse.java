@@ -60,4 +60,15 @@ public class TopUpTransactionChargeCalculationResponse extends BaseResponse {
     public void setTotalCharge(double TotalCharge) {
         this.TotalCharge = TotalCharge;
     }
+
+    @Override
+    public String toString() {
+        return "TopUpTransactionChargeCalculationResponse{" +
+                "Amount=" + Amount +
+                ", FixedAmount=" + FixedAmount +
+                ", Percentage=" + Percentage +
+                ", TopUpAmount=" + TopUpAmount +
+                ", TotalCharge=" + TotalCharge +
+                '}';
+    }
 }

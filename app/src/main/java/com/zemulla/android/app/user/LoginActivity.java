@@ -26,8 +26,8 @@ import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.country.Country;
 import com.zemulla.android.app.model.account.login.LoginRequest;
 import com.zemulla.android.app.model.account.login.LoginResponse;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValResponse;
 import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 
@@ -64,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
     LoginRequest loginRequest;
     private OTPDialog otpDialog;
     private OTPGenValTemporaryAPI otpGenValTemporaryAPI;
-    private OTPGenValTemporaryRequest otpGenValTemporaryRequest;
-    private OTPGenValTemporaryResponse otpGenValTemporaryResponse;
+    private OTPGenValRequest otpGenValTemporaryRequest;
+    private OTPGenValResponse otpGenValTemporaryResponse;
     private LoginResponse loginResponse;
     private int RequestCode = 1001;
 
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         loginAPI = new LoginAPI();
         loginRequest = new LoginRequest();
         otpGenValTemporaryAPI = new OTPGenValTemporaryAPI();
-        otpGenValTemporaryRequest = new OTPGenValTemporaryRequest();
+        otpGenValTemporaryRequest = new OTPGenValRequest();
         setSignUpText();
         initProgressDialog();
         showProgressDialog();
@@ -189,9 +189,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    APIListener<OTPGenValTemporaryResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+    APIListener<OTPGenValResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
-        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+        public void onResponse(Response<OTPGenValResponse> response) {
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
@@ -213,7 +213,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+        public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
         }
     };
@@ -236,9 +236,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    APIListener<OTPGenValTemporaryResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValTemporaryResponse>() {
+    APIListener<OTPGenValResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
-        public void onResponse(Response<OTPGenValTemporaryResponse> response) {
+        public void onResponse(Response<OTPGenValResponse> response) {
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
@@ -258,7 +258,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<OTPGenValTemporaryResponse> call, Throwable t) {
+        public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
         }
     };

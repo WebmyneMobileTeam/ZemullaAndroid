@@ -186,6 +186,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        LogUtils.LOGE("UserID", PrefUtils.getUserID(this) + "");
+
         getWalletDetail();
     }
 

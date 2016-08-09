@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by raghavthakkar on 04-08-2016.
  */
-public class OTPGenValTemporaryResponse extends BaseSmallCaseResponse implements Serializable{
+public class OTPGenValResponse extends BaseSmallCaseResponse implements Serializable{
 
 
 

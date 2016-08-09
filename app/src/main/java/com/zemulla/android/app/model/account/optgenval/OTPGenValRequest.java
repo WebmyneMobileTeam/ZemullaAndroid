@@ -51,4 +51,12 @@ public class OTPGenValRequest {
     public void setVerificationCode(String VerificationCode) {
         this.VerificationCode = VerificationCode;
     }
+
+    public OTPGenValRequest() {
+        CallingCode = "";
+        Email = "";
+        Mobile = "";
+        UserID = 0;
+        VerificationCode = "";
+    }
 }

@@ -12,7 +12,10 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.constant.IntentConstant;
+import com.zemulla.android.app.helper.DynamicMasterId;
 import com.zemulla.android.app.helper.Serivces;
+import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.topup.airtel.AirtelMoneyActivity;
 import com.zemulla.android.app.topup.bank.BankActivity;
 import com.zemulla.android.app.topup.bank.SupportedBankListActivity;
@@ -131,11 +134,16 @@ public class TopupActivity extends AppCompatActivity {
 
                 case MTN:
                     Intent mtnIntent = new Intent(TopupActivity.this, MtnActivity.class);
+                    mtnIntent.putExtra(IntentConstant.INTENT_EXTRA_MASTER_ID, DynamicMasterId.MTN.getId());
+                    mtnIntent.putExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, ServiceDetails.MTNCredit.getId());
                     startActivity(mtnIntent);
                     break;
 
                 case AIRTEL_MONEY:
-                    Intent airtelIntent = new Intent(TopupActivity.this, AirtelMoneyActivity.class);
+                    Intent airtelIntent = new Intent(TopupActivity.this, MtnActivity.class);
+                    airtelIntent.putExtra(IntentConstant.INTENT_EXTRA_MASTER_ID, DynamicMasterId.Airtel.getId());
+                    airtelIntent.putExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, ServiceDetails.AirtelCredit.getId());
+
                     startActivity(airtelIntent);
                     break;
 
@@ -150,7 +158,9 @@ public class TopupActivity extends AppCompatActivity {
                     break;
 
                 case ZOONA:
-                    Intent zoonaIntent = new Intent(TopupActivity.this, ZoonaActivity.class);
+                    Intent zoonaIntent = new Intent(TopupActivity.this, MtnActivity.class);
+                    zoonaIntent.putExtra(IntentConstant.INTENT_EXTRA_MASTER_ID, DynamicMasterId.Zoona.getId());
+                    zoonaIntent.putExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, ServiceDetails.ZoonaCredit.getId());
                     startActivity(zoonaIntent);
                     break;
             }

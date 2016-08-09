@@ -3,7 +3,7 @@ package com.zemulla.android.app.model.account.otpgenvaltemporary;
 /**
  * Created by raghavthakkar on 04-08-2016.
  */
-public class OTPGenValTemporaryRequest {
+public class OTPGenValRequest {
 
 
     private String CallingCode;
@@ -62,7 +62,7 @@ public class OTPGenValTemporaryRequest {
     }
 
 
-    public OTPGenValTemporaryRequest() {
+    public OTPGenValRequest() {
         CallingCode = "";
         Email = "";
         EmailTempleteID = 0;

@@ -40,6 +40,8 @@ public class AppConstant {
     public static final String GetWalletDetail = UserSVC + "GetWalletDetailAD/{USERID}";
     public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
+    public static final String PaymentSVC = "Payment.svc/json/";
+    public static final String TopUpTransactionChargeCalculation = PaymentSVC + "TopUpTransactionChargeCalculationAD";
     public static long DebounceTime = 800;
 
     // Password Tracker constants

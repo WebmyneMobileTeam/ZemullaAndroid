@@ -11,13 +11,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.api.APIListener;
+import com.zemulla.android.app.api.payment.GetTopupTransactionApi;
+import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationRequest;
+import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.widgets.OTPDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import mbanje.kurt.fabbutton.FabButton;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class MtnActivity extends AppCompatActivity {
 
@@ -47,23 +59,45 @@ public class MtnActivity extends AppCompatActivity {
     EditText edtNationdID;
 
     private FlipAnimation animation;
+    Unbinder unbinder;
+    private GetTopupTransactionApi transactionApi;
+    private TopUpTransactionChargeCalculationRequest request;
+    private TopUpTransactionChargeCalculationResponse topUpResponse;
+    private GetWalletDetailResponse walletResponse;
+    private LoginResponse loginResponse;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mtn);
-        ButterKnife.bind(this);
+
+        unbinder = ButterKnife.bind(this);
+        transactionApi = new GetTopupTransactionApi();
+        request = new TopUpTransactionChargeCalculationRequest();
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
 
         init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     private void init() {
         initToolbar();
 
         actionListener();
+
+        animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
     }
 
     private void actionListener() {
+
+
         btnProcessInitialTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,8 +106,12 @@ public class MtnActivity extends AppCompatActivity {
 
                 if (Functions.isEmpty(edtAmount)) {
                     Functions.showError(MtnActivity.this, "Please Enter Amount", false);
+
+                } else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
+                    Functions.showError(MtnActivity.this, "Enter Valid Amount", false);
+
                 } else {
-                    calculateAmount();
+                    callApi();
                 }
             }
         });
@@ -122,6 +160,43 @@ public class MtnActivity extends AppCompatActivity {
         });
     }
 
+    private void callApi() {
+        btnProcessInitialTransaction.showProgress(true);
+
+        request.setServiceDetailsID(ServiceDetails.MTNCredit.getId());
+        request.setAmount(Double.parseDouble(Functions.toStingEditText(edtAmount)));
+
+        transactionApi.getTopupCharge(request, topupApiListener);
+
+    }
+
+    APIListener<TopUpTransactionChargeCalculationResponse> topupApiListener = new APIListener<TopUpTransactionChargeCalculationResponse>() {
+        @Override
+        public void onResponse(Response<TopUpTransactionChargeCalculationResponse> response) {
+            btnProcessInitialTransaction.hideProgressOnComplete(true);
+            btnProcessInitialTransaction.onProgressCompleted();
+            try {
+                if (response.isSuccessful() && response.body() != null) {
+                    topUpResponse = response.body();
+                    if (topUpResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+                        frameRootTopup.startAnimation(animation);
+
+                    } else {
+                        Functions.showError(MtnActivity.this, topUpResponse.getResponse().getResponseMsg(), false);
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<TopUpTransactionChargeCalculationResponse> call, Throwable t) {
+
+        }
+    };
+
     private void calculateAmount() {
         btnProcessInitialTransaction.showProgress(true);
 
@@ -145,8 +220,11 @@ public class MtnActivity extends AppCompatActivity {
 
     private void initToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+            try {
+                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

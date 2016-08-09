@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
@@ -35,6 +36,7 @@ import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.user.LoginActivity;
 
 
@@ -255,6 +257,7 @@ public class Functions {
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(loginIntent);
     }
+
     public static void removeListener(APIListener<?> listener) {
 
         if (listener != null) {
@@ -262,6 +265,7 @@ public class Functions {
         }
 
     }
+
     public static PasswordTracker getPasswordStr(String pass) {
 
         PasswordTracker tracker = new PasswordTracker();
@@ -331,4 +335,11 @@ public class Functions {
         return tracker;
     }
 
+    public static void setToolbarWallet(Toolbar toolbar, GetWalletDetailResponse walletResponse, LoginResponse loginResponse) {
+        if (toolbar != null) {
+            toolbar.setTitle(String.format("%s %s", loginResponse.getFirstName(), loginResponse.getLastName()));
+            toolbar.setSubtitle(String.format("Effective Balance: %s %.2f", AppConstant.ZMW, walletResponse.getEffectiveBalance()));
+        }
+
+    }
 }

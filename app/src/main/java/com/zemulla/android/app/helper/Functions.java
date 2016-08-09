@@ -34,7 +34,7 @@ import com.gun0912.tedpermission.TedPermission;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
-import com.zemulla.android.app.model.login.LoginResponse;
+import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.user.LoginActivity;
 
 

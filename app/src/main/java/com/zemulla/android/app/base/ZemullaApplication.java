@@ -2,7 +2,7 @@ package com.zemulla.android.app.base;
 
 import android.app.Application;
 
-import com.zemulla.android.app.R;
+import com.google.gson.Gson;
 import com.zemulla.android.app.constant.AppConstant;
 
 import retrofit2.Retrofit;
@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ZemullaApplication extends Application {
     private static ZemullaApplication zemullaApplication;
     private static Retrofit retrofit;
+    private static Gson gson;
 
     public static ZemullaApplication getZemullaApplication() {
         return zemullaApplication;
@@ -24,7 +25,15 @@ public class ZemullaApplication extends Application {
         super.onCreate();
         zemullaApplication = this;
         initRetrofit();
+        initGson();
 
+    }
+
+    private void initGson() {
+        gson=new Gson();
+    }
+    public static Gson getGson(){
+        return gson;
     }
 
     private void initRetrofit() {

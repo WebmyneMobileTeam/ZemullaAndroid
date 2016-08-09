@@ -14,8 +14,8 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.account.ResetPasswordAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
-import com.zemulla.android.app.model.resetpassword.ResetPasswordRequest;
-import com.zemulla.android.app.model.resetpassword.ResetPasswordResponse;
+import com.zemulla.android.app.model.account.resetpassword.ResetPasswordRequest;
+import com.zemulla.android.app.model.account.resetpassword.ResetPasswordResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

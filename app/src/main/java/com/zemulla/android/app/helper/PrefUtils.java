@@ -3,7 +3,9 @@ package com.zemulla.android.app.helper;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.zemulla.android.app.model.login.LoginResponse;
+import com.zemulla.android.app.base.ZemullaApplication;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 
 /**
  * Created by xitij on 17-03-2015.
@@ -13,6 +15,8 @@ public class PrefUtils {
     private static final String USER_PROFILE = "USER_PROFILE";
     private static final String USER_ID = "USER_ID";
     private static final String IS_LOGGED_IN = "IS_LOGGED_IN";
+
+    private static final String BALANCE = "BALANCE";
 
 
     public static void setLoggedIn(Context context, boolean isLoggedIn) {
@@ -24,7 +28,7 @@ public class PrefUtils {
     }
 
     public static void setUserProfile(Context context, LoginResponse response) {
-        String toJson = new Gson().toJson(response);
+        String toJson = ZemullaApplication.getGson().toJson(response);
         setUserID(context, response.getUserID());
         Prefs.with(context).save(USER_PROFILE, toJson);
     }
@@ -38,7 +42,7 @@ public class PrefUtils {
     }
 
     public static LoginResponse getUserProfile(Context context) {
-        Gson gson = new Gson();
+        Gson gson =ZemullaApplication.getGson();
         LoginResponse response = null;
 
         String jsonString = Prefs.with(context).getString(USER_PROFILE, "");
@@ -51,5 +55,23 @@ public class PrefUtils {
         return response;
     }
 
+    public static void setBALANCE(Context context, GetWalletDetailResponse getWalletDetailResponse) {
+        String toJson =ZemullaApplication.getGson().toJson(getWalletDetailResponse);
+        Prefs.with(context).save(BALANCE, toJson);
+    }
+
+    public static GetWalletDetailResponse getBALANCE(Context context) {
+        Gson gson = ZemullaApplication.getGson();
+        GetWalletDetailResponse response = null;
+
+        String jsonString = Prefs.with(context).getString(BALANCE, "");
+        try {
+            response = gson.fromJson(jsonString, GetWalletDetailResponse.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
 
 }

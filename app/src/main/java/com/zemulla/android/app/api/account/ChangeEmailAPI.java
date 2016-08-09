@@ -2,8 +2,8 @@ package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.base.ZemullaApplication;
-import com.zemulla.android.app.model.changeemail.ChangeEmailRequest;
-import com.zemulla.android.app.model.changeemail.ChangeEmailResponse;
+import com.zemulla.android.app.model.account.changeemail.ChangeEmailRequest;
+import com.zemulla.android.app.model.account.changeemail.ChangeEmailResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

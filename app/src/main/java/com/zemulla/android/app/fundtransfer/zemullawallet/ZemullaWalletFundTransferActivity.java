@@ -15,7 +15,7 @@ import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.LogUtils;
-import com.zemulla.android.app.model.country.Country;
+import com.zemulla.android.app.model.account.country.Country;
 import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 

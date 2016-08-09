@@ -2,8 +2,8 @@ package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.base.ZemullaApplication;
-import com.zemulla.android.app.model.forgotpassword.ForgotPasswordRequest;
-import com.zemulla.android.app.model.forgotpassword.ForgotPasswordResponse;
+import com.zemulla.android.app.model.account.forgotpassword.ForgotPasswordRequest;
+import com.zemulla.android.app.model.account.forgotpassword.ForgotPasswordResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -12,8 +12,8 @@ import android.widget.Spinner;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.account.CountryAPI;
-import com.zemulla.android.app.model.country.Country;
-import com.zemulla.android.app.model.country.CountryResponse;
+import com.zemulla.android.app.model.account.country.Country;
+import com.zemulla.android.app.model.account.country.CountryResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

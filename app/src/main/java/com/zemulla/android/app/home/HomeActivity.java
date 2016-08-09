@@ -21,11 +21,15 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.meetic.marypopup.MaryPopup;
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.api.APIListener;
+import com.zemulla.android.app.api.user.GetWalletDetailAPI;
+import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
-import com.zemulla.android.app.model.login.LoginResponse;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 import com.zemulla.android.app.user.ChangePasswordActivity;
@@ -33,18 +37,25 @@ import com.zemulla.android.app.user.ContactUsActivity;
 import com.zemulla.android.app.user.KYCActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
+import com.zemulla.android.app.widgets.TfTextView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.linearTop)
     LinearLayout linearTop;
+    @BindView(R.id.effectiveBalance)
+    TfTextView effectiveBalance;
+    @BindView(R.id.availableBalance)
+    TfTextView availableBalance;
 
     private Toolbar toolbar;
     private GridLayout gridHomeOptions;
@@ -52,10 +63,10 @@ public class HomeActivity extends AppCompatActivity {
     MaryPopup popup;
     private DrawerDialogView drawerDialogView;
     private RelativeLayout btnTransactionHistory;
-    private LoginResponse response;
+    private LoginResponse loginResponse;
     private ImageView imgProfilePic;
-
     Unbinder unbinder;
+    private GetWalletDetailAPI getWalletDetailAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         unbinder = ButterKnife.bind(this);
 
-        response = PrefUtils.getUserProfile(this);
+        loginResponse = PrefUtils.getUserProfile(this);
 
         initToolbar_Drawer();
         init();
@@ -80,12 +91,12 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dhruvil Patel");
 
-        toolbar.setTitle(response.getFirstName() + " " + response.getLastName());
+        toolbar.setTitle(loginResponse.getFirstName() + " " + loginResponse.getLastName());
 
-        if (TextUtils.isEmpty(response.getProfilePic())) {
+        if (TextUtils.isEmpty(loginResponse.getProfilePic())) {
             imgProfilePic.setImageResource(R.drawable.default_user);
         } else {
-            Functions.setRoundImage(this, imgProfilePic, response.getProfilePicURL() + response.getProfilePic());
+            Functions.setRoundImage(this, imgProfilePic, loginResponse.getProfilePicURL() + loginResponse.getProfilePic());
         }
 
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
@@ -171,6 +182,45 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWalletDetail();
+    }
+
+    private void getWalletDetail() {
+
+        if (loginResponse != null && loginResponse.getUserID() != 0) {
+
+            getWalletDetailAPI.getWalletDetail(String.valueOf(loginResponse.getUserID()), getWalletDetailResponseAPIListener);
+        }
+    }
+
+
+    APIListener<GetWalletDetailResponse> getWalletDetailResponseAPIListener = new APIListener<GetWalletDetailResponse>() {
+        @Override
+        public void onResponse(Response<GetWalletDetailResponse> response) {
+
+            try {
+                if (response.isSuccessful()) {
+                    GetWalletDetailResponse getWalletDetailResponse = response.body();
+                    effectiveBalance.setText(String.format("%s %.2f", AppConstant.ZMW, getWalletDetailResponse.getEffectiveBalance()));
+                    availableBalance.setText(String.format("%s %.2f", AppConstant.ZMW, getWalletDetailResponse.getAvailableBalance()));
+                    PrefUtils.setBALANCE(HomeActivity.this, getWalletDetailResponse);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<GetWalletDetailResponse> call, Throwable t) {
+
+        }
+    };
+
     private void promptLogout() {
         new MaterialDialog.Builder(HomeActivity.this)
                 .content("Are you sure want to logout?")
@@ -207,7 +257,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void init() {
-
+        getWalletDetailAPI = new GetWalletDetailAPI();
     }
 
     @Override

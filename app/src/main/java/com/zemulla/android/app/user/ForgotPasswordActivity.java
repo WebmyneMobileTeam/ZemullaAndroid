@@ -16,11 +16,11 @@ import com.zemulla.android.app.api.account.OTPGenValTemporaryAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.home.LogUtils;
-import com.zemulla.android.app.model.country.Country;
-import com.zemulla.android.app.model.forgotpassword.ForgotPasswordRequest;
-import com.zemulla.android.app.model.forgotpassword.ForgotPasswordResponse;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.country.Country;
+import com.zemulla.android.app.model.account.forgotpassword.ForgotPasswordRequest;
+import com.zemulla.android.app.model.account.forgotpassword.ForgotPasswordResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
 import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 

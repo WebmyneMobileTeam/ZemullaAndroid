@@ -23,11 +23,11 @@ import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
-import com.zemulla.android.app.model.country.Country;
-import com.zemulla.android.app.model.login.LoginRequest;
-import com.zemulla.android.app.model.login.LoginResponse;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.country.Country;
+import com.zemulla.android.app.model.account.login.LoginRequest;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
 import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 

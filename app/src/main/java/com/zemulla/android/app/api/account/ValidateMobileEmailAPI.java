@@ -2,8 +2,8 @@ package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.base.ZemullaApplication;
-import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailRequest;
-import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailResponse;
+import com.zemulla.android.app.model.account.validatemobileemail.ValidateMobileEmailRequest;
+import com.zemulla.android.app.model.account.validatemobileemail.ValidateMobileEmailResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

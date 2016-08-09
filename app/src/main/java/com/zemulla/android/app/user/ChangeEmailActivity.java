@@ -20,12 +20,12 @@ import com.zemulla.android.app.api.account.OTPGenValTemporaryAPI;
 import com.zemulla.android.app.api.account.ValidateMobileEmailAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
-import com.zemulla.android.app.model.changeemail.ChangeEmailRequest;
-import com.zemulla.android.app.model.changeemail.ChangeEmailResponse;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryResponse;
-import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailRequest;
-import com.zemulla.android.app.model.validatemobileemail.ValidateMobileEmailResponse;
+import com.zemulla.android.app.model.account.changeemail.ChangeEmailRequest;
+import com.zemulla.android.app.model.account.changeemail.ChangeEmailResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.validatemobileemail.ValidateMobileEmailRequest;
+import com.zemulla.android.app.model.account.validatemobileemail.ValidateMobileEmailResponse;
 import com.zemulla.android.app.widgets.OTPDialog;
 
 import java.util.concurrent.TimeUnit;

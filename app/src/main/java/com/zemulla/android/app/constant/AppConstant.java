@@ -6,6 +6,7 @@ package com.zemulla.android.app.constant;
 public class AppConstant {
 
     public static final int ClientRoleID = 3;
+    public static final String ZMW = "ZMW";
     public static final int ResponseFailed = 0;
     public static final int ResponseSuccess = 1;
     public static final String BASEURL = "http://ws-srv-net.in.webmyne.com/Applications/Zemulla";
@@ -36,9 +37,10 @@ public class AppConstant {
     public static final String UserSVC = "Users.svc/json/";
     public static final String UserProfile = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
     public static final String UpdateUserProfile = UserSVC + "UpdateUserProfileAD";
+    public static final String GetWalletDetail = UserSVC + "GetWalletDetailAD/{USERID}";
     public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
-    public static long DebounceTime=800;
+    public static long DebounceTime = 800;
 
     // Password Tracker constants
     public static final int WEAK = 1;

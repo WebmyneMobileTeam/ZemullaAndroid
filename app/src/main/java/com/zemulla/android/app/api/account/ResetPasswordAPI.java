@@ -2,8 +2,8 @@ package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.base.ZemullaApplication;
-import com.zemulla.android.app.model.resetpassword.ResetPasswordRequest;
-import com.zemulla.android.app.model.resetpassword.ResetPasswordResponse;
+import com.zemulla.android.app.model.account.resetpassword.ResetPasswordRequest;
+import com.zemulla.android.app.model.account.resetpassword.ResetPasswordResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

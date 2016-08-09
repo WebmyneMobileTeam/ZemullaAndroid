@@ -2,8 +2,8 @@ package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.base.ZemullaApplication;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryRequest;
-import com.zemulla.android.app.model.otpgenvaltemporary.OTPGenValTemporaryResponse;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryRequest;
+import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValTemporaryResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

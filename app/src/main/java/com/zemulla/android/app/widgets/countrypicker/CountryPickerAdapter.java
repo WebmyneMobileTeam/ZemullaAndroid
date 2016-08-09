@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zemulla.android.app.R;
-import com.zemulla.android.app.model.country.Country;
+import com.zemulla.android.app.model.account.country.Country;
 
 
 public class CountryPickerAdapter extends ArrayAdapter<Country> {

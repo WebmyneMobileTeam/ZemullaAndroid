@@ -18,7 +18,7 @@ import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.home.DrawerOptionBean;
 import com.zemulla.android.app.home.DrawerOptionsConfiguration;
-import com.zemulla.android.app.model.login.LoginResponse;
+import com.zemulla.android.app.model.account.login.LoginResponse;
 
 import java.util.ArrayList;
 

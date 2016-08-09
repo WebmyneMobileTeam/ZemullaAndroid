@@ -1,10 +1,9 @@
 package com.zemulla.android.app.api.account;
 
 import com.zemulla.android.app.api.APIListener;
-import com.zemulla.android.app.api.account.AccountAPI;
 import com.zemulla.android.app.base.ZemullaApplication;
-import com.zemulla.android.app.model.registration.RegistrationRequest;
-import com.zemulla.android.app.model.registration.RegistrationResponse;
+import com.zemulla.android.app.model.account.registration.RegistrationRequest;
+import com.zemulla.android.app.model.account.registration.RegistrationResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

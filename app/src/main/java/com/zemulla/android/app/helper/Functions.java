@@ -34,6 +34,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
@@ -349,6 +350,15 @@ public class Functions {
         InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(view.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    public static PayPalConfiguration getPayPalConfig() {
+        PayPalConfiguration config = new PayPalConfiguration()
+                // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
+                // or live (ENVIRONMENT_PRODUCTION)
+                .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+                .clientId(PayPalConfig.PAYPAL_CLIENT_ID);
+        return config;
     }
 
 }

@@ -74,4 +74,8 @@
     <string name="static_meter_info">Name : JACKSON MZEY\n\nAddress : 12747 PMPAKAS STREET,SITE AND SERVICE-1214,3484723\n\nOther Details : JACKSON MZEY 12747 PMPAKAS STREET, SITE AND SERVICE-1214, 3484723 ZESCO\n</string>
 
     <string name="try_agian">Error while procesing. Please try after sometime.</string>
+
+    <string name="paypal_client_id">AYoYhvUgiTrWJt_CF1QnY0B8vlqSfE5EvHDEo9ZtkKjvursSb6kmh6uQtKoJP_Zde_9RoW8SnzzQ56BU</string>
+    <string name="paypal_secret_id">EOCyRt9JVvOHBogO7bZihoUJBVmWl9QILK32ljQE-CC0aYY2OdIaEeKJEFlEweHla9c6io9M9Iww8oTR</string>
+
 </resources>

@@ -1,6 +1,10 @@
 package com.zemulla.android.app.api.payment;
 
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment1Request;
+import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment1Response;
+import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Request;
+import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Response;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationRequest;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationResponse;
 
@@ -15,5 +19,11 @@ public interface PaymentAPI {
 
     @POST(AppConstant.TopUpTransactionChargeCalculation)
     Call<TopUpTransactionChargeCalculationResponse> GetTopUpCharge(@Body TopUpTransactionChargeCalculationRequest request);
+
+    @POST(AppConstant.PaypalPayment1)
+    Call<PaypalPayment1Response> GetPayPalCharge(@Body PaypalPayment1Request request);
+
+    @POST(AppConstant.PaypalPayment2)
+    Call<PaypalPayment2Response> ProcessPaypal(@Body PaypalPayment2Request request);
 
 }

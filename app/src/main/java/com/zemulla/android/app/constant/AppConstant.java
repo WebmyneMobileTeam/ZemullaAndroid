@@ -48,6 +48,8 @@ public class AppConstant {
 
     public static final String PaymentSVC = "Payment.svc/json/";
     public static final String TopUpTransactionChargeCalculation = PaymentSVC + "TopUpTransactionChargeCalculationAD";
+    public static final String PaypalPayment1 = PaymentSVC + "PaypalPayment1AD";
+    public static final String PaypalPayment2 = PaymentSVC + "PaypalPayment2AD";
     public static long DebounceTime = 800;
 
     public static final String ZWalletSVC = "ZWallet.svc/json/";

@@ -74,7 +74,7 @@ public class CountryPickerAdapter extends ArrayAdapter<Country> {
             convertView = new ImageView(getContext());
         }
         ((ImageView) convertView).setImageResource(getFlagResource(country));
-        return convertView;
+        return                  convertView;
     }
 
     /**

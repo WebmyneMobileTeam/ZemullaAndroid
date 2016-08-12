@@ -3,26 +3,28 @@ package com.zemulla.android.app.topup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.constant.IntentConstant;
 import com.zemulla.android.app.helper.DynamicMasterId;
+import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.Serivces;
 import com.zemulla.android.app.helper.ServiceDetails;
-import com.zemulla.android.app.topup.airtel.AirtelMoneyActivity;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.topup.bank.BankActivity;
 import com.zemulla.android.app.topup.bank.SupportedBankListActivity;
 import com.zemulla.android.app.topup.cyber.CyberSourceActivity;
 import com.zemulla.android.app.topup.mtn.MtnActivity;
 import com.zemulla.android.app.topup.paypal.PaypalActivity;
-import com.zemulla.android.app.topup.zoona.ZoonaActivity;
 import com.zemulla.android.app.transaction.TransactionHistoryActivity;
 
 import java.util.ArrayList;
@@ -40,7 +42,8 @@ public class TopupActivity extends AppCompatActivity {
     @BindView(R.id.activity_topup)
     LinearLayout activityTopup;
     Unbinder unbinder;
-
+    private LoginResponse loginResponse;
+    private GetWalletDetailResponse walletResponse;
     private ArrayList<TopupTileBean> tiles_topup;
 
     @Override
@@ -53,15 +56,12 @@ public class TopupActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-    }
+
 
     private void init() {
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
         initToolbar();
-
         setupGridView();
     }
 
@@ -84,8 +84,11 @@ public class TopupActivity extends AppCompatActivity {
     private void initToolbar() {
 
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+            try {
+                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -166,4 +169,10 @@ public class TopupActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 }

@@ -1,6 +1,7 @@
 package com.zemulla.android.app.api.user;
 
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.model.user.getuserdetailidwise.GetUserDetailIDWiseResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 
 import retrofit2.Call;
@@ -14,5 +15,8 @@ public interface UserAPI {
 
     @GET(AppConstant.GetWalletDetail)
     Call<GetWalletDetailResponse> GetWalletDetail(@Path("USERID") String USERID);
+
+    @GET(AppConstant.GetUserDetailIDWise)
+    Call<GetUserDetailIDWiseResponse> GetUserDetailIDWise(@Path("USERID") String USERID);
 
 }

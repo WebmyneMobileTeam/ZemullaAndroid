@@ -52,6 +52,7 @@
         android:orientation="horizontal">
 
         <com.zemulla.android.app.widgets.TfButton
+
             android:id="@+id/changeEmail"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
@@ -59,7 +60,7 @@
             android:layout_weight="1"
             android:text="Change Email"
             android:textStyle="bold"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <com.zemulla.android.app.widgets.TfButton
             android:id="@+id/btnOk"

@@ -41,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dimen_8dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/applogo"
         android:transitionName="logo_trans" />
 
     <ScrollView

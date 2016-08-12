@@ -78,4 +78,10 @@
     <string name="paypal_client_id">AYoYhvUgiTrWJt_CF1QnY0B8vlqSfE5EvHDEo9ZtkKjvursSb6kmh6uQtKoJP_Zde_9RoW8SnzzQ56BU</string>
     <string name="paypal_secret_id">EOCyRt9JVvOHBogO7bZihoUJBVmWl9QILK32ljQE-CC0aYY2OdIaEeKJEFlEweHla9c6io9M9Iww8oTR</string>
 
+
+    <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="LOADING">Loading...</string>
+
 </resources>

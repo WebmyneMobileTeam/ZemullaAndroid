@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 public class HomeTileConfiguration {
 
-    private String[] names = {"Topup", "Fund Transfer", "E-Market", "Reports"};
+    private static String[] names = {"Topup", "Fund Transfer", "E-Market", "Reports"};
     //private String[] colors = {"#80CBC4","#A5D6A7","#C5E1A5","#E6EE9C"};
-    private String[] colors = {"#4ca8b3", "#329ca8", "#19909d", "#008493"};
-    private String[] colorsDark = {"#00695C", "#2E7D32", "#558B2F", "#9E9D24"};
+    private static String[] colors = {"#4ca8b3", "#329ca8", "#19909d", "#008493"};
+    private static String[] colorsDark = {"#00695C", "#2E7D32", "#558B2F", "#9E9D24"};
 //    private String[] colorsDark = {"#ffffff","#ffffff","#ffffff","#ffffff"};
 
-    private IDTILE[] ids = {IDTILE.TOPUP, IDTILE.FUND_TRANSFER, IDTILE.EMARKET, IDTILE.REPORTS};
-    private int[] icons = {R.drawable.ic_action_account_balance_wallet, R.drawable.ic_action_account_balance_wallet, R.drawable.ic_action_account_balance_wallet, R.drawable.ic_action_account_balance_wallet};
+    private static IDTILE[] ids = {IDTILE.TOPUP, IDTILE.FUND_TRANSFER, IDTILE.EMARKET, IDTILE.REPORTS};
+    private static int[] icons = {R.drawable.ic_action_account_balance_wallet, R.drawable.ic_action_account_balance_wallet, R.drawable.ic_action_account_balance_wallet, R.drawable.ic_action_account_balance_wallet};
 
     public enum IDTILE {
         TOPUP,
@@ -30,7 +30,7 @@ public class HomeTileConfiguration {
     public HomeTileConfiguration() {
     }
 
-    public ArrayList<HomeTileBean> getAllTiles() {
+    public static ArrayList<HomeTileBean> getAllTiles() {
         ArrayList<HomeTileBean> arr = new ArrayList<>();
 
         for (int i = 0; i < names.length; i++) {

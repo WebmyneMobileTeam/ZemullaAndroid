@@ -20,8 +20,8 @@ public class OTPDialog {
     private MaterialDialog materialDialog;
     private TfEditText edtOTP;
     private TfButton btnOk, btnResend, btnChangeEmail;
-    private onSubmitListener onSubmitListener;
     private TextView displayTextView;
+    private onSubmitListener onSubmitListener;
 
 
     public OTPDialog(Context context, onSubmitListener onSubmitListener) {
@@ -99,6 +99,7 @@ public class OTPDialog {
 
     public void show() {
         materialDialog.show();
+
     }
 
 
@@ -118,7 +119,9 @@ public class OTPDialog {
         void onResend();
 
         void ChangeEmail();
+
     }
+
 
     public String replaceLastFour(String s) {
         int length = s.length();
@@ -126,7 +129,7 @@ public class OTPDialog {
         if (length < 4) {
             return "Error: The provided string is not greater than four characters long.";
         }
-        return s.substring(0, length - 4) + "****";
+        return "*****" + s.substring(length - 5, length);
     }
 
     public void disMissDiaLog() {
@@ -136,5 +139,9 @@ public class OTPDialog {
 
     public void showChangeEmail() {
         btnChangeEmail.setVisibility(View.VISIBLE);
+    }
+
+    public boolean isShowing() {
+        return materialDialog.isShowing();
     }
 }

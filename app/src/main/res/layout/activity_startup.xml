@@ -12,7 +12,7 @@
         android:id="@+id/imgLogo"
         android:transitionName="logo_trans"
         android:layout_centerInParent="true"
-        android:src="@drawable/logo"
+        android:src="@drawable/applogo"
         android:layout_width="160dp"
         android:layout_height="160dp" />
 

@@ -76,6 +76,21 @@
             android:padding="16dp"
             android:visibility="gone">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:gravity="center"
+                android:text="Note : This Conversion Rate May Very With PayPal Conversoion Rate"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:textColor="@color/red" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_marginRight="@dimen/dimen_16dp"
+                android:background="@color/colorPrimaryDark" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

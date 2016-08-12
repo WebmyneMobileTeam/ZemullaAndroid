@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bankDetailsHolder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_4dp"
+        android:gravity="center"
+        android:text="Bank Details"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/dimen_4dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/bankNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="@dimen/dimen_4dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+
+
+    <com.zemulla.android.app.widgets.TfTextView
+
+        android:id="@+id/branchNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_4dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/accountName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_4dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/accountNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_4dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/swiftCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_4dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+
+
+</LinearLayout>
+

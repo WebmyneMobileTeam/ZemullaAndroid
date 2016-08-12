@@ -22,7 +22,7 @@ public class DynamicTextAPI {
     }
 
     public void getDynamicText(final int apiMasterId, final APIListener apiListener) {
-        Call<DynamicTextResponse> loginResponseCall = zWalletAPI.GetDynamicText(apiMasterId);
+        Call<DynamicTextResponse> loginResponseCall = zWalletAPI.getDynamicText(apiMasterId);
         loginResponseCall.enqueue(new Callback<DynamicTextResponse>() {
             @Override
             public void onResponse(Call<DynamicTextResponse> call, Response<DynamicTextResponse> response) {

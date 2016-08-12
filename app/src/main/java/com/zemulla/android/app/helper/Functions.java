@@ -41,6 +41,7 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.user.LoginActivity;
+import com.zemulla.android.app.widgets.customdialog.SweetAlertDialog;
 
 
 public class Functions {
@@ -151,6 +152,22 @@ public class Functions {
                     }
                 })
                 .show();
+    }
+
+
+    public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish) {
+        new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText(msg)
+                .showContentText(false)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        if (isFinish) {
+                            activity.finish();
+                        }
+                    }
+                }).show();
     }
 
     public static AdvancedSpannableString getTermsAndConditionAndPrivacyAndContecPolicy(final String text, final String url, final Context context, TextView tv) {

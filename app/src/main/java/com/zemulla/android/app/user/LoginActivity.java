@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginResponse loginResponse;
     private int RequestCode = 1001;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +140,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResend() {
+
                 GenerateOTP();
+
             }
 
             @Override
@@ -181,7 +184,9 @@ public class LoginActivity extends AppCompatActivity {
             otpDialog.setDisplayText(true, loginResponse.getEmail(), "");
             otpDialog.showChangeEmail();
         }
-        otpDialog.show();
+        if (!otpDialog.isShowing()) {
+            otpDialog.show();
+        }
     }
 
     private void hideOTPDialog() {
@@ -242,6 +247,7 @@ public class LoginActivity extends AppCompatActivity {
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
+
                     showOTPDialog();
                     otpGenValTemporaryResponse = response.body();
                     if (otpGenValTemporaryResponse != null && otpGenValTemporaryResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
-import com.zemulla.android.app.widgets.CustomSpinnerAdapter;
 import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.TfEditText;
 
@@ -81,22 +79,22 @@ public class DirectRechargeActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             products.add("Product " + i);
         }
-        CustomSpinnerAdapter providerAdapter = new CustomSpinnerAdapter(DirectRechargeActivity.this, products);
-        spinnerProduct.setAdapter(providerAdapter);
-        spinnerProduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                productPosition = position;
-                String item = parent.getItemAtPosition(position).toString();
-                if (!item.equals(getResources().getString(R.string.select_provider_prompt)))
-                    Toast.makeText(parent.getContext(), item + " selected", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        CustomSpinnerAdapter providerAdapter = new CustomSpinnerAdapter(DirectRechargeActivity.this, products);
+//        spinnerProduct.setAdapter(providerAdapter);
+//        spinnerProduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                productPosition = position;
+//                String item = parent.getItemAtPosition(position).toString();
+//                if (!item.equals(getResources().getString(R.string.select_provider_prompt)))
+//                    Toast.makeText(parent.getContext(), item + " selected", Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
     private void actionListener() {

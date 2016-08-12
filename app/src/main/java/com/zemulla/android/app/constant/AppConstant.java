@@ -44,17 +44,25 @@ public class AppConstant {
     public static final String UserProfile = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
     public static final String UpdateUserProfile = UserSVC + "UpdateUserProfileAD";
     public static final String GetWalletDetail = UserSVC + "GetWalletDetailAD/{USERID}";
+    public static final String GetUserDetailIDWise = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
     public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
     public static final String PaymentSVC = "Payment.svc/json/";
     public static final String TopUpTransactionChargeCalculation = PaymentSVC + "TopUpTransactionChargeCalculationAD";
+    public static final String TransactionChargeCalculation = PaymentSVC + "TransactionChargeCalculationAD";
+    public static final String GetSupportedBankDetails = PaymentSVC + "GetSupportedBankDetailsAD";
     public static final String PaypalPayment1 = PaymentSVC + "PaypalPayment1AD";
     public static final String PaypalPayment2 = PaymentSVC + "PaypalPayment2AD";
     public static long DebounceTime = 800;
 
     public static final String ZWalletSVC = "ZWallet.svc/json/";
     public static final String TopupAPIWallet = ZWalletSVC + "TopupAPIWalletAD";
+    public static final String SendMoneyToAPIWallet = ZWalletSVC + "SendMoneyToAPIWalletAD";
     public static final String GetDynamicText = ZWalletSVC + "GetDynamicTextAD/{APIMASTERID}";
+    public static final String TopUpWalletBankTransfer = ZWalletSVC + "TopUpWalletBankTransferAD";
+    public static final String SendMoneyBantTransfer = ZWalletSVC + "SendMoneyBantTransferAD";
+    public static final String IsValidSendWallet = ZWalletSVC + "IsValidSendWalletAD";
+    public static final String SendMoneyW2W = ZWalletSVC + "SendMoneyW2WAD";
 
 
     // Password Tracker constants

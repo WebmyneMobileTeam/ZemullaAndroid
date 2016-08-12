@@ -6,16 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
-import com.zemulla.android.app.widgets.CustomSpinnerAdapter;
 import com.zemulla.android.app.widgets.OTPDialog;
 
 import java.util.ArrayList;
@@ -52,7 +49,7 @@ public class AirTimeActivity extends AppCompatActivity {
 
     private Unbinder unbinder;
     private ArrayList<String> provider;
-    private ArrayList<String> plans;
+
     private int providerPosition = 0, planPosition = 0;
     private FlipAnimation animation;
 
@@ -88,45 +85,45 @@ public class AirTimeActivity extends AppCompatActivity {
         provider.add("BSNL");
         provider.add("Tata Docomo");
         provider.add("Telenor");
-        CustomSpinnerAdapter providerAdapter = new CustomSpinnerAdapter(AirTimeActivity.this, provider);
-        spinnerProvider.setAdapter(providerAdapter);
-        spinnerProvider.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                providerPosition = position;
-                String item = parent.getItemAtPosition(position).toString();
-                if (!item.equals(getResources().getString(R.string.select_provider_prompt)))
-                    Toast.makeText(parent.getContext(), item + " selected", Toast.LENGTH_LONG).show();
-            }
+       // CustomSpinnerAdapter providerAdapter = new CustomSpinnerAdapter(AirTimeActivity.this, provider);
+      //  spinnerProvider.setAdapter(providerAdapter);
+//        spinnerProvider.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                providerPosition = position;
+//                String item = parent.getItemAtPosition(position).toString();
+//                if (!item.equals(getResources().getString(R.string.select_provider_prompt)))
+//                    Toast.makeText(parent.getContext(), item + " selected", Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        plans = new ArrayList<>();
-        plans.add(getResources().getString(R.string.select_plan_prompt));
-        plans.add("Recharge Amount of ZMW 10.0");
-        plans.add("Recharge Amount of ZMW 20.0");
-        plans.add("Recharge Amount of ZMW 50.0");
-        plans.add("Recharge Amount of ZMW 100.0");
-        CustomSpinnerAdapter plansAdapter = new CustomSpinnerAdapter(AirTimeActivity.this, plans);
-        spinnerPlan.setAdapter(plansAdapter);
-        spinnerPlan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                planPosition = position;
-                String item = parent.getItemAtPosition(position).toString();
-                if (!item.equals(getResources().getString(R.string.select_plan_prompt)))
-                    Toast.makeText(parent.getContext(), item + " selected", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        plans = new ArrayList<>();
+//        plans.add(getResources().getString(R.string.select_plan_prompt));
+//        plans.add("Recharge Amount of ZMW 10.0");
+//        plans.add("Recharge Amount of ZMW 20.0");
+//        plans.add("Recharge Amount of ZMW 50.0");
+//        plans.add("Recharge Amount of ZMW 100.0");
+//        CustomSpinnerAdapter plansAdapter = new CustomSpinnerAdapter(AirTimeActivity.this, plans);
+//        spinnerPlan.setAdapter(plansAdapter);
+//        spinnerPlan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                planPosition = position;
+//                String item = parent.getItemAtPosition(position).toString();
+//                if (!item.equals(getResources().getString(R.string.select_plan_prompt)))
+//                    Toast.makeText(parent.getContext(), item + " selected", Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
     }
 

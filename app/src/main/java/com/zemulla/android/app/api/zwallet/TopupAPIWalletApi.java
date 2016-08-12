@@ -23,7 +23,7 @@ public class TopupAPIWalletApi {
     }
 
     public void getTopupCharge(final TopUpRequest request, final APIListener apiListener) {
-        Call<TopUpResponse> loginResponseCall = paymentAPI.GetTopUpCharge(request);
+        Call<TopUpResponse> loginResponseCall = paymentAPI.getTopUpCharge(request);
         loginResponseCall.enqueue(new Callback<TopUpResponse>() {
             @Override
             public void onResponse(Call<TopUpResponse> call, Response<TopUpResponse> response) {

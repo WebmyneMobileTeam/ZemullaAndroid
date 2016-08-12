@@ -12,13 +12,17 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
-import com.zemulla.android.app.fundtransfer.airtelmoney.AirtelMoneyFundTransferActivity;
+import com.zemulla.android.app.constant.IntentConstant;
 import com.zemulla.android.app.fundtransfer.banktransfer.BankTransferActivity;
 import com.zemulla.android.app.fundtransfer.mtn.MTNFundTransferActivity;
 import com.zemulla.android.app.fundtransfer.transaction.FundTransferTransactionActivity;
 import com.zemulla.android.app.fundtransfer.zemullawallet.ZemullaWalletFundTransferActivity;
-import com.zemulla.android.app.fundtransfer.zoona.ZoonaCashTransferActivity;
+import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.Serivces;
+import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 
 import java.util.ArrayList;
 
@@ -35,7 +39,8 @@ public class FundTransferActivity extends AppCompatActivity {
     @BindView(R.id.fundTransferholder)
     LinearLayout fundTransferholder;
     Unbinder unbinder;
-
+    private LoginResponse loginResponse;
+    private GetWalletDetailResponse walletResponse;
     private ArrayList<FundTransferTileBean> tiles_topup;
 
     @Override
@@ -48,6 +53,8 @@ public class FundTransferActivity extends AppCompatActivity {
     }
 
     private void init() {
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
         initToolbar();
 
         setupGridView();
@@ -92,8 +99,11 @@ public class FundTransferActivity extends AppCompatActivity {
     private void initToolbar() {
 
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+            try {
+                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,18 +128,21 @@ public class FundTransferActivity extends AppCompatActivity {
                     break;
 
                 case MTN:
-                    Intent paypalIntent = new Intent(FundTransferActivity.this, MTNFundTransferActivity.class);
-                    startActivity(paypalIntent);
+                    Intent mtnintent = new Intent(FundTransferActivity.this, MTNFundTransferActivity.class);
+                    mtnintent.putExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, ServiceDetails.MTNDebit.getId());
+                    startActivity(mtnintent);
                     break;
 
                 case Airtel_Money:
-                    Intent mtnIntent = new Intent(FundTransferActivity.this, AirtelMoneyFundTransferActivity.class);
+                    Intent mtnIntent = new Intent(FundTransferActivity.this, MTNFundTransferActivity.class);
+                    mtnIntent.putExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, ServiceDetails.AirtelDebit.getId());
                     startActivity(mtnIntent);
                     break;
 
                 case Zoona_Cash:
-                    Intent airtelIntent = new Intent(FundTransferActivity.this, ZoonaCashTransferActivity.class);
-                    startActivity(airtelIntent);
+                    Intent zoonaIntent = new Intent(FundTransferActivity.this, MTNFundTransferActivity.class);
+                    zoonaIntent.putExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, ServiceDetails.ZoonaDebit.getId());
+                    startActivity(zoonaIntent);
                     break;
 
                 case Bank_Transfer:

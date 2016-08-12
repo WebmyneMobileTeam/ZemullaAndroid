@@ -5,8 +5,10 @@ package com.zemulla.android.app.helper;
  */
 public enum ServiceDetails {
 
+    //TopUp by bank
     TopUpByAdmin(1),
 
+    //Withdrawal by bank
     WithdrawalByAdmin(2),
 
     TopUpByGetway(3),

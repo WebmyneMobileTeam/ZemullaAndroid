@@ -20,12 +20,12 @@
         android:textColor="@color/white"
         android:textSize="18sp" />
 
-    <GridLayout
+    <android.support.v7.widget.GridLayout
         android:id="@+id/gridTopupOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:columnCount="2"
-        android:useDefaultMargins="true" />
+        app:columnCount="2"
+        app:useDefaultMargins="true" />
 
 </LinearLayout>

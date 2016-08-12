@@ -15,6 +15,7 @@ import retrofit2.Response;
 public class OTPGenValAPI {
     private AccountAPI accountAPI;
     private APIListener apiListener;
+    Call<OTPGenValResponse> loginResponseCall;
 
     public OTPGenValAPI() {
 
@@ -22,7 +23,7 @@ public class OTPGenValAPI {
     }
 
     public void otpGenVal(final OTPGenValRequest otpGenValRequest, final APIListener apiListener) {
-        Call<OTPGenValResponse> loginResponseCall = accountAPI.OTPGenVal(otpGenValRequest);
+        loginResponseCall = accountAPI.OTPGenVal(otpGenValRequest);
         loginResponseCall.enqueue(new Callback<OTPGenValResponse>() {
             @Override
             public void onResponse(Call<OTPGenValResponse> call, Response<OTPGenValResponse> response) {
@@ -44,6 +45,12 @@ public class OTPGenValAPI {
         }
         if (apiListener != null) {
             apiListener = null;
+        }
+    }
+
+    public void cancelRequest() {
+        if (loginResponseCall != null) {
+            loginResponseCall.cancel();
         }
     }
 }

@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
@@ -94,6 +93,7 @@ public class MtnActivity extends AppCompatActivity {
     private LoginResponse loginResponse;
     private OTPGenValAPI otpGenValAPI;
     private OTPGenValRequest otpGenValRequest;
+
 
     private ProgressDialog progressDialog;
 
@@ -193,9 +193,8 @@ public class MtnActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful() && response.body() != null) {
                         if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
-                            Toast.makeText(MtnActivity.this, response.body().getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                             otpDialog.disMissDiaLog();
-                            finish();
+                            Functions.showSuccessMsg(MtnActivity.this, response.body().getResponse().getResponseMsg(), true);
 
                         } else {
                             Functions.showError(MtnActivity.this, response.body().getResponse().getResponseMsg(), false);

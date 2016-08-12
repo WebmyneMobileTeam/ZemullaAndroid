@@ -82,23 +82,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtTransferAmount"
+                    android:id="@+id/txtTopupAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="Transfer Amount"
+                    android:text="Topup Amount : ZMW 1212"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Payable Amount"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/txtTransferAmountValue"
+                    android:id="@+id/txtPayableAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="ZMW 1122.32"
+                    android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
@@ -106,10 +112,9 @@
                     android:id="@+id/txtTransactionCharge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="Transaction Charge : 100"
-                    android:textColor="@color/colorDark"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
+
 
                 <TextView
                     android:id="@+id/txtEnterBankDetails"
@@ -143,46 +148,52 @@
 
                         <EditText
                             android:id="@+id/edtBranchName"
-                            android:imeOptions="actionNext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dimen_16dp"
-                            android:hint="Enter Branch Name" />
+                            android:hint="Enter Branch Name"
+                            android:imeOptions="actionNext"
+                            android:maxLength="@integer/maxLength150" />
 
                         <EditText
                             android:id="@+id/edtAccountName"
-                            android:imeOptions="actionNext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dimen_16dp"
-                            android:hint="Enter Account Name" />
+                            android:hint="Enter Account Name"
+                            android:imeOptions="actionNext"
+                            android:maxLength="@integer/maxLength150" />
 
                         <EditText
                             android:id="@+id/edtAccountNumber"
-                            android:imeOptions="actionNext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dimen_16dp"
-                            android:hint="Enter Account Number" />
+                            android:hint="Enter Account Number"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="@integer/maxLength150" />
 
                         <EditText
                             android:id="@+id/edtSwiftCode"
-                            android:imeOptions="actionNext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dimen_16dp"
-                            android:hint="Enter Swift Code" />
+                            android:hint="Enter Swift Code"
+                            android:imeOptions="actionNext"
+                            android:maxLength="@integer/maxLength150" />
 
                         <EditText
                             android:id="@+id/edtRemark"
-                            android:imeOptions="actionDone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dimen_16dp"
                             android:gravity="top|left"
                             android:hint="Enter Remark"
+                            android:imeOptions="actionDone"
                             android:inputType="textMultiLine"
-                            android:lines="3" />
+                            android:lines="3"
+                            android:maxLength="@integer/maxLength500" />
 
                     </LinearLayout>
                 </ScrollView>

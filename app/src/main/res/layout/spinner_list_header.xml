@@ -6,9 +6,10 @@
 
     <com.zemulla.android.app.widgets.TfTextView
         android:id="@+id/txtTitle"
+        android:gravity="center_vertical"
         android:textSize="@dimen/L_TEXT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
         android:padding="@dimen/dimen_5dp"
         android:text="Select Bank" />
 </LinearLayout>

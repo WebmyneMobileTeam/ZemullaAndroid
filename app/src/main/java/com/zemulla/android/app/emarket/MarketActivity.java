@@ -16,6 +16,10 @@ import com.zemulla.android.app.emarket.airtime.AirTimeActivity;
 import com.zemulla.android.app.emarket.direct_recharge.DirectRechargeActivity;
 import com.zemulla.android.app.emarket.dstv.DSTVEmarketActivity;
 import com.zemulla.android.app.emarket.electricity.ElectricityActivity;
+import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 
 import java.util.ArrayList;
 
@@ -32,6 +36,8 @@ public class MarketActivity extends AppCompatActivity {
     @BindView(R.id.activity_topup)
     LinearLayout activityTopup;
     Unbinder unbinder;
+    private GetWalletDetailResponse walletResponse;
+    private LoginResponse loginResponse;
 
     private ArrayList<MarketTileBean> tiles_topup;
 
@@ -46,6 +52,9 @@ public class MarketActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
         initToolbar();
 
         setupGridView();
@@ -68,8 +77,11 @@ public class MarketActivity extends AppCompatActivity {
 
     private void initToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+            try {
+                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,6 +89,7 @@ public class MarketActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }
@@ -132,6 +145,8 @@ public class MarketActivity extends AppCompatActivity {
                     startActivity(dstvIntent);
                     break;
             }
+
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     };
 }

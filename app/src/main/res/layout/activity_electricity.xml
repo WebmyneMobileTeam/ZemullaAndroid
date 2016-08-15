@@ -37,18 +37,6 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfEditText
-                    android:id="@+id/edtMeterNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:hint="Meter Number"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_8dp">
 
@@ -57,9 +45,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="Enter Amount"
-                    android:inputType="number"
-                    android:visibility="gone" />
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.zemulla.android.app.widgets.TfEditText
+                    android:id="@+id/edtMeterNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:hint="Meter Number"
+                    android:inputType="number"
+                    android:maxLength="@integer/maxLength11" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <mbanje.kurt.fabbutton.FabButton
                 android:id="@+id/initFab"
@@ -98,9 +100,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtTopupAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recharge Amount : ZMW 1212"
+                    android:text="Topup Amount : ZMW 1212"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -112,14 +115,15 @@
                     android:textSize="18sp" />
 
                 <TextView
-
+                    android:id="@+id/txtPayableAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ZMW 1122.32"
+                    android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
                 <TextView
+                    android:id="@+id/txtTransactionCharge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Transaction Charge : 100"

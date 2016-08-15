@@ -1,9 +1,11 @@
 package com.zemulla.android.app.model.base;
 
+import java.io.Serializable;
+
 /**
  * Created by raghavthakkar on 02-08-2016.
  */
-public class BaseResponse {
+public class BaseResponse implements Serializable{
 
     Response Response;
 

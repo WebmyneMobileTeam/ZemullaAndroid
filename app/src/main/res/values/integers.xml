@@ -6,5 +6,7 @@
     <integer name="maxLength100">100</integer>
     <integer name="maxLength500">500</integer>
     <integer name="minLength6">6</integer>
+    <integer name="duration_animation">400</integer>
+    <integer name="maxLength11">11</integer>
 
 </resources>

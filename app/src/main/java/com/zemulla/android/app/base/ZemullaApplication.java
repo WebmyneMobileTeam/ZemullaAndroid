@@ -3,8 +3,12 @@ package com.zemulla.android.app.base;
 import android.app.Application;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.zemulla.android.app.constant.AppConstant;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -24,23 +28,31 @@ public class ZemullaApplication extends Application {
     public void onCreate() {
         super.onCreate();
         zemullaApplication = this;
-        initRetrofit();
         initGson();
+        initRetrofit();
 
     }
 
     private void initGson() {
-        gson=new Gson();
+        gson = new GsonBuilder()
+                .setLenient()
+                .create();
     }
-    public static Gson getGson(){
+
+    public static Gson getGson() {
         return gson;
     }
 
     private void initRetrofit() {
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(120, TimeUnit.SECONDS)
+                .connectTimeout(120, TimeUnit.SECONDS)
+                .build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(AppConstant.BASEURLSERVICEURL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 

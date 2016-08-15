@@ -111,6 +111,7 @@ public class FundTransferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }
@@ -152,6 +153,8 @@ public class FundTransferActivity extends AppCompatActivity {
 
 
             }
+
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     };
 }

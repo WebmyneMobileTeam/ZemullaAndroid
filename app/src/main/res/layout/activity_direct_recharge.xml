@@ -54,7 +54,7 @@
                     <EditText
                         android:id="@+id/edtNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="?actionBarSize"
                         android:drawablePadding="@dimen/dimen_16dp"
                         android:hint="Enter Number"
                         android:inputType="number"
@@ -67,8 +67,8 @@
                 android:id="@+id/spinnerProduct"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_4dp"
                 android:overScrollMode="never"
                 android:overlapAnchor="false"
                 android:prompt="@string/select_recipient_bank_prompt"
@@ -76,7 +76,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_4dp">
 
                 <com.zemulla.android.app.widgets.TfEditText
                     android:id="@+id/edtAmount"
@@ -122,10 +123,12 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+
                 <TextView
+                    android:id="@+id/txtTopupAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recharge Amount : ZMW 1212"
+                    android:text="Topup Amount : ZMW 1212"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -137,14 +140,15 @@
                     android:textSize="18sp" />
 
                 <TextView
-
+                    android:id="@+id/txtPayableAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ZMW 1122.32"
+                    android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
                 <TextView
+                    android:id="@+id/txtTransactionCharge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Transaction Charge : 100"

@@ -43,6 +43,8 @@ import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailRespons
 import com.zemulla.android.app.user.LoginActivity;
 import com.zemulla.android.app.widgets.customdialog.SweetAlertDialog;
 
+import java.lang.reflect.Field;
+
 
 public class Functions {
 
@@ -89,6 +91,10 @@ public class Functions {
     public static void fireIntent(Context context, Class cls) {
         Intent i = new Intent(context, cls);
         context.startActivity(i);
+    }
+
+    public static void fireIntent(Context context, Intent intent) {
+        context.startActivity(intent);
     }
 
     public static Typeface getLatoFont(Context ctx) {
@@ -165,6 +171,22 @@ public class Functions {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
                             activity.finish();
+                        }
+                    }
+                }).show();
+    }
+
+    public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+        new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText(msg)
+                .showContentText(false)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        if (isFinish) {
+                            Intent intent = new Intent(activity, cls);
+                            activity.startActivity(intent);
                         }
                     }
                 }).show();
@@ -359,6 +381,24 @@ public class Functions {
         if (toolbar != null) {
             toolbar.setTitle(String.format("%s %s", loginResponse.getFirstName(), loginResponse.getLastName()));
             toolbar.setSubtitle(String.format("Effective Balance: %s %.2f", AppConstant.ZMW, walletResponse.getEffectiveBalance()));
+            try {
+                Field f = toolbar.getClass().getDeclaredField("mSubtitleTextView");
+                f.setAccessible(true);
+                TextView toolbarTextView = (TextView) f.get(toolbar);
+                toolbarTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                toolbarTextView.setFocusable(true);
+                toolbarTextView.setFocusableInTouchMode(true);
+                toolbarTextView.requestFocus();
+                toolbarTextView.setSingleLine(true);
+                toolbarTextView.setSelected(true);
+                toolbarTextView.setMarqueeRepeatLimit(-1);
+
+            } catch (NoSuchFieldException e) {
+
+            } catch (IllegalAccessException e) {
+            }
+
+
         }
 
     }

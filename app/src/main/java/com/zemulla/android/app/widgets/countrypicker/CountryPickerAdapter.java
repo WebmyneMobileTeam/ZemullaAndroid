@@ -13,7 +13,7 @@ import com.zemulla.android.app.R;
 import com.zemulla.android.app.model.account.country.Country;
 
 
-public class CountryPickerAdapter extends ArrayAdapter<Country> {
+    public class CountryPickerAdapter extends ArrayAdapter<Country> {
     private LayoutInflater mLayoutInflater;
 
     /**
@@ -48,7 +48,7 @@ public class CountryPickerAdapter extends ArrayAdapter<Country> {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            Country country = getItem(position);
+                Country country = getItem(position);
             viewHolder.mImageView.setImageResource(getFlagResource(country));
             viewHolder.mNameView.setText(country.getCountryName());
             viewHolder.mDialCode.setText(String.format("+%s", country.getCallingCode()));

@@ -334,7 +334,10 @@ public class HomeActivity extends AppCompatActivity {
                 case REPORTS:
                     Toast.makeText(HomeActivity.this, "Report page(s) will come", Toast.LENGTH_SHORT).show();
                     break;
+
+
             }
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         }
     };

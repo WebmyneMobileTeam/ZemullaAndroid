@@ -35,17 +35,26 @@
             android:padding="@dimen/dimen_24dp"
             android:visibility="visible">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/edtMeterNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/static_meter_info"
-                    android:textSize="@dimen/M_TEXT" />
-            </android.support.design.widget.TextInputLayout>
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/M_TEXT" />
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:textSize="@dimen/M_TEXT" />
+
+            <com.zemulla.android.app.widgets.TfTextView
+                android:id="@+id/edtOtherDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:textSize="@dimen/M_TEXT" />
 
             <mbanje.kurt.fabbutton.FabButton
                 android:id="@+id/initFab"

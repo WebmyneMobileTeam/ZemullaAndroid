@@ -32,14 +32,14 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            android:padding="@dimen/dimen_16dp"
             android:visibility="visible">
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinnerProvider"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp"
+                android:layout_height="?actionBarSize"
                 android:overScrollMode="never"
                 android:overlapAnchor="false"
                 android:prompt="@string/select_recipient_bank_prompt"
@@ -49,12 +49,25 @@
                 android:id="@+id/spinnerPlan"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_8dp"
                 android:overScrollMode="never"
                 android:overlapAnchor="false"
                 android:prompt="@string/select_recipient_bank_prompt"
                 android:spinnerMode="dropdown" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp">
+
+                <com.zemulla.android.app.widgets.TfEditText
+                    android:id="@+id/rechargeAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:enabled="false"
+                    android:hint="Recharge Amount" />
+            </android.support.design.widget.TextInputLayout>
 
             <mbanje.kurt.fabbutton.FabButton
                 android:id="@+id/paypalFabInit"
@@ -72,6 +85,7 @@
                 app:fbb_progressColor="@color/colorExtraDark"
                 app:fbb_progressWidthRatio="0.1"
                 app:fbb_showEndBitmap="false" />
+
 
         </LinearLayout>
 
@@ -93,9 +107,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtTopupAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recharge Amount : ZMW 1212"
+                    android:text="Topup Amount : ZMW 1212"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -107,18 +122,20 @@
                     android:textSize="18sp" />
 
                 <TextView
-
+                    android:id="@+id/txtPayableAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ZMW 1122.32"
+                    android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
                 <TextView
+                    android:id="@+id/txtTransactionCharge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Transaction Charge : 100"
                     android:textSize="14sp" />
+
 
             </LinearLayout>
 

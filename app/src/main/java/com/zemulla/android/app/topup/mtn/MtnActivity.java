@@ -470,6 +470,7 @@ public class MtnActivity extends AppCompatActivity {
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);

@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
     private final Context context;
-
     public void setAsr(List<GetSupportedBankDetails> asr) {
         this.asr = asr;
         asr.add(0, new GetSupportedBankDetails(true));

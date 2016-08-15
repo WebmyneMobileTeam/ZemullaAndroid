@@ -325,8 +325,9 @@ public class LoginActivity extends AppCompatActivity {
                         loginResponse = response.body();
                         if (loginResponse != null) {
                             if (loginResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess && loginResponse.isIsEmailVerified() && loginResponse.isIsEmailVerified()) {
-
                                 saveDataAndLogin();
+                            } else if (loginResponse.getUserID() == 0 && loginResponse.getResponse().getResponseCode() == AppConstant.WorngCredential) {
+                                Functions.showError(LoginActivity.this, loginResponse.getResponse().getResponseMsg(), false);
                             } else if (!loginResponse.isIsEmailVerified()) {
                                 GenerateOTP();
                             } else {

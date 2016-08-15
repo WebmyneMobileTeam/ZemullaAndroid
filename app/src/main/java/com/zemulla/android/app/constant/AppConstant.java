@@ -15,6 +15,7 @@ public class AppConstant {
     public static final int ResponseFailed = 0;
     public static final int ResponseSuccess = 1;
     public static final int OTPResponseSuccess = 4;
+    public static final int WorngCredential = 4;
     public static final String BASEURL = "http://ws-srv-net.in.webmyne.com/Applications/Zemulla";
     public static final String BASEURLSERVICEURL = String.format("%s%s", BASEURL, "/WCF/Services/");
     public static final String PROFILE_URL = String.format("%s%s", BASEURL, "/Admin/Upload/ProfilePic/");
@@ -63,6 +64,15 @@ public class AppConstant {
     public static final String SendMoneyBantTransfer = ZWalletSVC + "SendMoneyBantTransferAD";
     public static final String IsValidSendWallet = ZWalletSVC + "IsValidSendWalletAD";
     public static final String SendMoneyW2W = ZWalletSVC + "SendMoneyW2WAD";
+
+
+    public static final String KazangSVC = "Kazang.svc/json/";
+    public static final String GetKazangProductProvider = KazangSVC + "GetKazangProductProviderAD/{PRODUCTCATEGORY}";
+    public static final String GetKazangProductPlan = KazangSVC + "GetKazangProductPlanAD";
+    public static final String KazangAirtime = KazangSVC + "KazangAirtimeAD";
+    public static final String KazangDirectRecharge = KazangSVC + "KazangDirectRechargeAD";
+    public static final String KazangTestElectricity = KazangSVC + "KazangTestElectricityAD/{METERNUMBER}";
+    public static final String KazangElectricity = KazangSVC + "KazangElectricityAD";
 
 
     // Password Tracker constants

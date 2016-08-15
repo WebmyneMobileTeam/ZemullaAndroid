@@ -12,7 +12,7 @@ public class HomeTileConfiguration {
 
     private static String[] names = {"Topup", "Fund Transfer", "E-Market", "Reports"};
     //private String[] colors = {"#80CBC4","#A5D6A7","#C5E1A5","#E6EE9C"};
-    private static String[] colors = {"#4ca8b3", "#329ca8", "#19909d", "#008493"};
+    private static String[] colors = {"#4ca8b3", "#329ca8", "#329ca8", "#4ca8b3"};
     private static String[] colorsDark = {"#00695C", "#2E7D32", "#558B2F", "#9E9D24"};
 //    private String[] colorsDark = {"#ffffff","#ffffff","#ffffff","#ffffff"};
 

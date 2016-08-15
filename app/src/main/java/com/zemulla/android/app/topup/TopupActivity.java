@@ -57,7 +57,6 @@ public class TopupActivity extends AppCompatActivity {
     }
 
 
-
     private void init() {
         walletResponse = PrefUtils.getBALANCE(this);
         loginResponse = PrefUtils.getUserProfile(this);
@@ -96,6 +95,7 @@ public class TopupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }
@@ -166,7 +166,11 @@ public class TopupActivity extends AppCompatActivity {
                     zoonaIntent.putExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, ServiceDetails.ZoonaCredit.getId());
                     startActivity(zoonaIntent);
                     break;
+
+
             }
+
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     };
 

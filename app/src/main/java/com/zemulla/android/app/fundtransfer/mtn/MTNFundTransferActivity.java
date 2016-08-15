@@ -75,12 +75,12 @@ public class MTNFundTransferActivity extends AppCompatActivity {
     private GetFundTransferTransactionCalApi getFundTransferTransactionCalApi;
     private TopUpTransactionChargeCalculationRequest topUpTransactionChargeCalculationRequest;
     private FundTransferTransactionChargeCalculationResponse fundTransferTransactionChargeCalculationResponse;
-    Unbinder unbinder;
     private ProgressDialog progressDialog;
 
     private SendMoneyToAPIWalletAPI sendMoneyToAPIWalletAPI;
     private SendMoneyToAPIWalletRequest sendMoneyToAPIWalletRequest;
     private int serviceID = 0;
+    Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,6 +240,7 @@ public class MTNFundTransferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }
@@ -262,7 +263,7 @@ public class MTNFundTransferActivity extends AppCompatActivity {
 
             try {
                 if (response.isSuccessful() && response.body() != null) {
-                    fundTransferTransactionChargeCalculationResponse = response.body();
+                            fundTransferTransactionChargeCalculationResponse = response.body();
                     if (fundTransferTransactionChargeCalculationResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                         txtPayableAmount.setText(String.format("%s %.2f", AppConstant.ZMW, fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount()));
                         txtTopupAmount.setText(String.format("Topup Amount : %s %.2f", AppConstant.ZMW, fundTransferTransactionChargeCalculationResponse.getAmount()));

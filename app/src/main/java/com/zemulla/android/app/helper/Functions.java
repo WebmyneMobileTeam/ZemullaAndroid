@@ -38,6 +38,7 @@ import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.user.LoginActivity;
@@ -91,6 +92,12 @@ public class Functions {
     public static void fireIntent(Context context, Class cls) {
         Intent i = new Intent(context, cls);
         context.startActivity(i);
+    }
+
+    public static void fireIntentWithClearFlag(Context context, Class cls) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        context.startActivity(intent);
     }
 
     public static void fireIntent(Context context, Intent intent) {
@@ -153,8 +160,33 @@ public class Functions {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
-                        if (isFinish)
-                            ((Activity) context).finish();
+                        if (isFinish) {
+                            Activity activity = (Activity) context;
+                            activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
+                    }
+                })
+                .show();
+    }
+
+
+    public static void showError(final Activity activity, String errorMsg, final boolean isFinish, final Class<?> cls) {
+        new MaterialDialog.Builder(activity)
+                .content(errorMsg)
+                .typeface(Functions.getLatoFont(activity), Functions.getLatoFont(activity))
+                .positiveText(android.R.string.ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        if (isFinish) {
+                            Intent intent = new Intent(activity, cls);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            activity.startActivity(intent);
+                            activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
                     }
                 })
                 .show();
@@ -171,6 +203,7 @@ public class Functions {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
                             activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }
                     }
                 }).show();
@@ -186,10 +219,35 @@ public class Functions {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
                             Intent intent = new Intent(activity, cls);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
                             activity.startActivity(intent);
+                            activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }
                     }
                 }).show();
+    }
+
+    public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish, final Intent intent) {
+        new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText(msg)
+                .showContentText(false)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        if (isFinish) {
+                            activity.startActivity(intent);
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+                        }
+                    }
+                }).show();
+    }
+
+
+    public static String setEmptyString(String test) {
+        return test == null ? "" : test;
     }
 
     public static AdvancedSpannableString getTermsAndConditionAndPrivacyAndContecPolicy(final String text, final String url, final Context context, TextView tv) {

@@ -100,6 +100,7 @@ public class ElectricityActivity extends AppCompatActivity {
         edtAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter()});
         init();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -155,7 +156,6 @@ public class ElectricityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (Functions.isEmpty(edtAmount)) {
                     Functions.showError(ElectricityActivity.this, "Please Enter Amount", false);
-
                 } else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
                     Functions.showError(ElectricityActivity.this, "Enter Valid Amount", false);
                 } else if (!isValidMeterNumber) {

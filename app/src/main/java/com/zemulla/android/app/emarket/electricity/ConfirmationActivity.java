@@ -15,11 +15,13 @@ import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.kazang.KazangElectricityAPI;
 import com.zemulla.android.app.constant.AppConstant;
-import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.kazang.kazangtestelectricity.KazangElectricityRequest;
 import com.zemulla.android.app.model.kazang.kazangtestelectricity.KazangElectricityResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.widgets.OTPDialogAfterLogin;
 import com.zemulla.android.app.widgets.TfTextView;
 
@@ -57,13 +59,14 @@ public class ConfirmationActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private KazangElectricityAPI kazangElectricityAPI;
     private KazangElectricityRequest kazangElectricityRequest;
+    private LoginResponse loginResponse;
+    private GetWalletDetailResponse walletResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
         unbinder = ButterKnife.bind(this);
-
         init();
         getDataFromIntent();
     }
@@ -75,10 +78,13 @@ public class ConfirmationActivity extends AppCompatActivity {
         edtAddress.setText(String.format("Address : %s", kazangElectricityResponse.getCustomer_address()));
         edtName.setText(String.format("Name : %s", kazangElectricityResponse.getCustomer_name()));
         edtOtherDetails.setText(String.format("Other Details : %s", kazangElectricityResponse.getConfirmation_message()));
+
     }
 
 
     private void init() {
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
         initObject();
         initToolbar();
         actionListener();
@@ -99,9 +105,10 @@ public class ConfirmationActivity extends AppCompatActivity {
     }
 
     private void showProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.show();
+        if (progressDialog == null) {
+            initProgressDialog();
         }
+        progressDialog.show();
     }
 
     private void hidProgressDialog() {
@@ -152,9 +159,10 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     private void initToolbar() {
 
-        if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+        try {
+            Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -174,7 +182,10 @@ public class ConfirmationActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     KazangElectricityResponse kazangElectricityResponse = response.body();
                     if (kazangElectricityResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
-                        Functions.showSuccessMsg(ConfirmationActivity.this, kazangElectricityResponse.getResponse().getResponseMsg(), true, MarketActivity.class);
+                        mOtpDialogAfterLogin.dismiss();
+                        Intent intent = new Intent(ConfirmationActivity.this, ElectriCityBillReicptActivity.class);
+                        intent.putExtra(Intent.EXTRA_REFERRER, kazangElectricityResponse);
+                        Functions.showSuccessMsg(ConfirmationActivity.this, kazangElectricityResponse.getResponse().getResponseMsg(), true, intent);
                     } else {
                         Functions.showError(ConfirmationActivity.this, kazangElectricityResponse.getResponse().getResponseMsg(), false);
                     }
@@ -188,7 +199,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<KazangElectricityResponse> call, Throwable t) {
-
+            hidProgressDialog();
         }
     };
 

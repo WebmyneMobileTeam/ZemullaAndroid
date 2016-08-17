@@ -107,6 +107,7 @@ public class OTPDialogAfterLogin extends MaterialDialog {
     }
 
     public void show() {
+
         materialDialog.show();
     }
 
@@ -132,15 +133,20 @@ public class OTPDialogAfterLogin extends MaterialDialog {
                 if (response.isSuccessful() && response.body() != null) {
                     onSubmitListener.OTPReceived();
                     //Todo remove this OTPResponseSuccess oon release time
-                    if (response.body().getResponse().getResponseCode() == AppConstant.OTPResponseSuccess) {
-                        if (!isShowing()) {
+                    try {
+                        if (response.body().getResponse().getResponseCode() == AppConstant.OTPResponseSuccess) {
+                            if (!isShowing()) {
+                                edtOTP.setText("");
                                 show();
-                            setDisplayText(false, otpGenValRequest.getMobile(), "");
+                                setDisplayText(false, otpGenValRequest.getMobile(), "");
+                            }
+
+                        } else {
+                            Functions.showError(getContext(), response.body().getResponse().getResponseMsg(), false);
+
                         }
-
-                    } else {
-                        Functions.showError(getContext(), response.body().getResponse().getResponseMsg(), false);
-
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     onSubmitListener.OTPReceived();

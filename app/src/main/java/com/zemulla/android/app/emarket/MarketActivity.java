@@ -18,6 +18,7 @@ import com.zemulla.android.app.emarket.dstv.DSTVEmarketActivity;
 import com.zemulla.android.app.emarket.electricity.ElectricityActivity;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 
@@ -88,10 +89,18 @@ public class MarketActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                Functions.fireIntentWithClearFlag(MarketActivity.this, HomeActivity.class);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlag(MarketActivity.this, HomeActivity.class);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
@@ -118,6 +127,7 @@ public class MarketActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private View.OnClickListener tileClick = new View.OnClickListener() {
         @Override

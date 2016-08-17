@@ -9,6 +9,7 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="signup_msg">Don\'t have an account? Signup</string>
     <string name="forgot_pass_msg">Forgot Password?</string>
+    <string name="create_account_msg">Create an Account</string>
     <string name="action_history">Transaction History</string>
     <string name="action_refresh">Refresh Balance</string>
 

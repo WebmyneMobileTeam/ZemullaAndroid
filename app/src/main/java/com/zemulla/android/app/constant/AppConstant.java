@@ -68,11 +68,15 @@ public class AppConstant {
 
     public static final String KazangSVC = "Kazang.svc/json/";
     public static final String GetKazangProductProvider = KazangSVC + "GetKazangProductProviderAD/{PRODUCTCATEGORY}";
+    public static final String GetProductAPIProdMasterIDWise = KazangSVC + "GetProductAPIProdMasterIDWiseAD/{APIPRODUCTMASTERID}";
     public static final String GetKazangProductPlan = KazangSVC + "GetKazangProductPlanAD";
     public static final String KazangAirtime = KazangSVC + "KazangAirtimeAD";
     public static final String KazangDirectRecharge = KazangSVC + "KazangDirectRechargeAD";
     public static final String KazangTestElectricity = KazangSVC + "KazangTestElectricityAD/{METERNUMBER}";
     public static final String KazangElectricity = KazangSVC + "KazangElectricityAD";
+    public static final String DSTVPayment1= KazangSVC + "DSTVPayment1AD";
+    public static final String DSTVPayment2= KazangSVC + "DSTVPayment2AD";
+    public static final String DSTVPayment3= KazangSVC + "DSTVPayment3AD";
 
 
     // Password Tracker constants

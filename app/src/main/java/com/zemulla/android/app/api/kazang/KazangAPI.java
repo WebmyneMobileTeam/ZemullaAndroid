@@ -1,9 +1,16 @@
 package com.zemulla.android.app.api.kazang;
 
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.model.kazang.dstvpayment1.DSTVPayment1Request;
+import com.zemulla.android.app.model.kazang.dstvpayment1.DSTVPayment1Response;
+import com.zemulla.android.app.model.kazang.dstvpayment2.DSTVPayment2Request;
+import com.zemulla.android.app.model.kazang.dstvpayment2.DSTVPayment2Response;
+import com.zemulla.android.app.model.kazang.dstvpayment3.DSTVPayment3Request;
+import com.zemulla.android.app.model.kazang.dstvpayment3.DSTVPayment3Response;
 import com.zemulla.android.app.model.kazang.getkazangproductplan.GetKazangProductPlanRequest;
 import com.zemulla.android.app.model.kazang.getkazangproductplan.GetKazangProductPlanResponse;
 import com.zemulla.android.app.model.kazang.getkazangproductprovider.GetKazangProductProviderResponse;
+import com.zemulla.android.app.model.kazang.getproductapiprodmasteridwise.GetProductAPIProdMasterIDWiseResponse;
 import com.zemulla.android.app.model.kazang.kazangairtime.KazangAirtimeRequest;
 import com.zemulla.android.app.model.kazang.kazangairtime.KazangAirtimeResponse;
 import com.zemulla.android.app.model.kazang.kazangdirectrecharge.KazangDirectRechargeRequest;
@@ -26,6 +33,9 @@ public interface KazangAPI {
     @GET(AppConstant.GetKazangProductProvider)
     Call<GetKazangProductProviderResponse> getKazangProductProvider(@Path("PRODUCTCATEGORY") String PRODUCTCATEGORY);
 
+    @GET(AppConstant.GetProductAPIProdMasterIDWise)
+    Call<GetProductAPIProdMasterIDWiseResponse> getProductAPIProdMasterIDWise(@Path("APIPRODUCTMASTERID") String PRODUCTCATEGORY);
+
     @POST(AppConstant.GetKazangProductPlan)
     Call<GetKazangProductPlanResponse> getKazangProductPlan(@Body GetKazangProductPlanRequest getKazangProductPlanRequest);
 
@@ -40,6 +50,16 @@ public interface KazangAPI {
 
     @POST(AppConstant.KazangElectricity)
     Call<KazangElectricityResponse> getKazangElectricity(@Body KazangElectricityRequest kazangElectricityRequest);
+
+
+    @POST(AppConstant.DSTVPayment1)
+    Call<DSTVPayment1Response> getDSTVPayment1(@Body DSTVPayment1Request dstvPayment1Request);
+
+    @POST(AppConstant.DSTVPayment2)
+    Call<DSTVPayment2Response> getDSTVPayment2(@Body DSTVPayment2Request dstvPayment2Request);
+
+    @POST(AppConstant.DSTVPayment3)
+    Call<DSTVPayment3Response> getDSTVPayment3(@Body DSTVPayment3Request dstvPayment3Request);
 
 
 }

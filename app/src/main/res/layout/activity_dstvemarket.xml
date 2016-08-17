@@ -6,29 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zemulla.android.app.fundtransfer.airtelmoney.AirtelMoneyFundTransferActivity">
+    tools:context="com.zemulla.android.app.topup.TopupInitialTransactionActivity">
 
     <include layout="@layout/app_bar" />
 
     <TextView
-        android:id="@+id/txtFundTransferName"
+        android:id="@+id/txtTopupWayName"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/colorExtraDark"
         android:gravity="center"
-        android:text="DSTV Payment"
+        android:text="DSTV"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
     <FrameLayout
         android:id="@+id/frameRootTopup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/dimen_16dp">
+        android:layout_height="match_parent">
 
         <!--initial view where user enter only amount-->
         <LinearLayout
-            android:id="@+id/fundTransferHolder"
+            android:id="@+id/lineatInitialViewTopup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -36,32 +35,49 @@
             android:padding="@dimen/dimen_16dp"
             android:visibility="visible">
 
-
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/selectProductSpinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize" />
-
+                android:layout_height="?actionBarSize"
+                android:overScrollMode="never"
+                android:overlapAnchor="false"
+                android:prompt="@string/select_recipient_bank_prompt"
+                android:spinnerMode="dropdown" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/selectMonthSpinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize" />
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:overScrollMode="never"
+                android:overlapAnchor="false"
+                android:prompt="@string/select_recipient_bank_prompt"
+                android:spinnerMode="dropdown" />
+
 
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/rdsmartcard"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
                     android:text="SMART CARD" />
 
 
                 <RadioButton
+                    android:id="@+id/rdcustomer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="CUSTOMER" />
 
             </RadioGroup>
@@ -69,16 +85,75 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp">
 
-                <EditText
-                    android:id="@+id/edtNumber"
+                <com.zemulla.android.app.widgets.TfEditText
+                    android:id="@+id/edtCustomerNumber"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:hint="SmartCard Or Customer Number"
-                    android:inputType="text" />
+                    android:hint="SmartCard Or Customer Number" />
             </android.support.design.widget.TextInputLayout>
 
+
+            <mbanje.kurt.fabbutton.FabButton
+                android:id="@+id/initFab"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:color="@color/colorPrimaryDark"
+                android:indeterminate="true"
+                android:max="100"
+                android:src="@drawable/ic_action_image_navigate_next"
+                android:visibility="visible"
+                app:fbb_autoStart="true"
+                app:fbb_endBitmap="@drawable/ic_action_history"
+                app:fbb_progressColor="@color/colorExtraDark"
+                app:fbb_progressWidthRatio="0.1"
+                app:fbb_showEndBitmap="false" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/customerDetailsHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/totalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Payable Amount"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/customerDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:text="Transaction Charge : 100"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,7 +163,7 @@
                 android:orientation="horizontal">
 
                 <mbanje.kurt.fabbutton.FabButton
-                    android:id="@+id/resetAmountFabButton"
+                    android:id="@+id/cancelInfo"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -105,7 +180,7 @@
                     app:fbb_showEndBitmap="false" />
 
                 <mbanje.kurt.fabbutton.FabButton
-                    android:id="@+id/confitmAmountFabButton"
+                    android:id="@+id/confirmInfo"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -124,145 +199,187 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+
+
+        <!--view where all converted values and rate comes-->
+        <LinearLayout
+            android:id="@+id/linearTrnsViewTopup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtTopupAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Topup Amount : ZMW 1212"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Payable Amount"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txtPayableAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ZMW 0.00"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:id="@+id/txtTransactionCharge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transaction Charge : 100"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <mbanje.kurt.fabbutton.FabButton
+                    android:id="@+id/resetFab"
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:color="@color/colorPrimaryDark"
+                    android:indeterminate="true"
+                    android:max="100"
+                    android:src="@drawable/ic_action_content_clear"
+                    android:visibility="visible"
+                    app:fbb_autoStart="true"
+                    app:fbb_endBitmap="@drawable/ic_action_history"
+                    app:fbb_progressColor="@color/colorExtraDark"
+                    app:fbb_progressWidthRatio="0.1"
+                    app:fbb_showEndBitmap="false" />
+
+                <mbanje.kurt.fabbutton.FabButton
+                    android:id="@+id/confirmFab"
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="100dp"
+                    android:color="@color/colorPrimaryDark"
+                    android:indeterminate="true"
+                    android:max="100"
+                    android:src="@drawable/ic_action_image_navigate_next"
+                    android:visibility="visible"
+                    app:fbb_autoStart="true"
+                    app:fbb_endBitmap="@drawable/ic_action_history"
+                    app:fbb_progressColor="@color/colorExtraDark"
+                    app:fbb_progressWidthRatio="0.1"
+                    app:fbb_showEndBitmap="false" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        // view where all converted values and rate comes
-        <!--<LinearLayout-->
-        <!--android:id="@+id/rateHolder"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical"-->
-        <!--android:visibility="gone">-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Fund Transfer Amount : ZMW 1212"-->
-        <!--android:textSize="18sp"-->
-        <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:text="Payable Amount"-->
-        <!--android:textSize="18sp" />-->
-
-        <!--<TextView-->
-
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="ZMW 1122.32"-->
-        <!--android:textColor="@color/colorPrimaryDark"-->
-        <!--android:textSize="32sp" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Transaction Charge : 100"-->
-        <!--android:textSize="14sp" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/dimen_16dp"-->
-        <!--android:text="Conversion Rate : 1$ = 10.15 ZMW"-->
-        <!--android:textSize="@dimen/XL_TEXT" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Payable Amount : 109.34 $"-->
-        <!--android:textSize="@dimen/XL_TEXT" />-->
-        <!--</LinearLayout>-->
-
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<ImageView-->
-        <!--android:layout_width="36dp"-->
-        <!--android:layout_height="36dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:layout_marginTop="@dimen/dimen_8dp"-->
-        <!--android:src="@drawable/country_zm" />-->
-
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/dimen_4dp">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/edtNumber"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?actionBarSize"-->
-        <!--android:drawablePadding="@dimen/dimen_16dp"-->
-        <!--android:hint="Enter Number"-->
-        <!--android:inputType="number"-->
-        <!--android:maxLength="10" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<mbanje.kurt.fabbutton.FabButton-->
-        <!--android:id="@+id/resetAmountFabButton"-->
-        <!--android:layout_width="@dimen/button_size"-->
-        <!--android:layout_height="@dimen/button_size"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:color="@color/colorPrimaryDark"-->
-        <!--android:indeterminate="true"-->
-        <!--android:max="100"-->
-        <!--android:src="@drawable/ic_action_content_clear"-->
-        <!--android:visibility="visible"-->
-        <!--app:fbb_autoStart="true"-->
-        <!--app:fbb_endBitmap="@drawable/ic_action_history"-->
-        <!--app:fbb_progressColor="@color/colorExtraDark"-->
-        <!--app:fbb_progressWidthRatio="0.1"-->
-        <!--app:fbb_showEndBitmap="false" />-->
-
-        <!--<mbanje.kurt.fabbutton.FabButton-->
-        <!--android:id="@+id/confitmAmountFabButton"-->
-        <!--android:layout_width="@dimen/button_size"-->
-        <!--android:layout_height="@dimen/button_size"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginLeft="100dp"-->
-        <!--android:color="@color/colorPrimaryDark"-->
-        <!--android:indeterminate="true"-->
-        <!--android:max="100"-->
-        <!--android:src="@drawable/ic_action_image_navigate_next"-->
-        <!--android:visibility="visible"-->
-        <!--app:fbb_autoStart="true"-->
-        <!--app:fbb_endBitmap="@drawable/ic_action_history"-->
-        <!--app:fbb_progressColor="@color/colorExtraDark"-->
-        <!--app:fbb_progressWidthRatio="0.1"-->
-        <!--app:fbb_showEndBitmap="false" />-->
-
-        <!--</LinearLayout>-->
-
-
-        <!--</LinearLayout>-->
-
-
     </FrameLayout>
 </LinearLayout>
+
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:id="@+id/activity_topup_initial_transaction"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:focusableInTouchMode="true"--><!--android:orientation="vertical"--><!--tools:context="com.zemulla.android.app.fundtransfer.airtelmoney.AirtelMoneyFundTransferActivity">-->
+
+    <!--<include layout="@layout/app_bar" />-->
+
+    <!--<TextView--><!--android:id="@+id/txtFundTransferName"--><!--android:layout_width="match_parent"--><!--android:layout_height="48dp"--><!--android:background="@color/colorExtraDark"--><!--android:gravity="center"--><!--android:text="DSTV Payment"--><!--android:textColor="@color/white"--><!--android:textSize="18sp" />-->
+
+    <!--<FrameLayout--><!--android:id="@+id/frameRootTopup"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:padding="@dimen/dimen_16dp">-->
+
+    <!--&lt;!&ndash;initial view where user enter only amount&ndash;&gt;--><!--<LinearLayout--><!--android:id="@+id/fundTransferHolder"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:gravity="center"--><!--android:orientation="vertical"--><!--android:padding="@dimen/dimen_16dp"--><!--android:visibility="visible">-->
+
+    <!--<android.support.v7.widget.AppCompatSpinner--><!--android:id="@+id/selectProductSpinner"--><!--android:layout_width="match_parent"--><!--android:layout_height="?actionBarSize" />-->
+
+
+    <!--<android.support.v7.widget.AppCompatSpinner--><!--android:id="@+id/selectMonthSpinner"--><!--android:layout_width="match_parent"--><!--android:layout_height="?actionBarSize"--><!--android:layout_marginTop="@dimen/dimen_8dp" />-->
+
+    <!--<RadioGroup--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:orientation="horizontal">-->
+
+    <!--<RadioButton--><!--android:layout_width="wrap_content"--><!--android:layout_height="match_parent"--><!--android:checked="true"--><!--android:text="SMART CARD" />-->
+
+
+    <!--<RadioButton--><!--android:layout_width="wrap_content"--><!--android:layout_height="match_parent"--><!--android:text="CUSTOMER" />-->
+
+    <!--</RadioGroup>--><!---->
+
+
+    <!--<TextView--><!--android:id="@+id/txtAmount"--><!--android:layout_width="match_parent"--><!--android:layout_height="?actionBarSize"--><!--android:visibility="gone" />-->
+
+    <!--<TextView--><!--android:id="@+id/customerInfo"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:minHeight="150dp"--><!--android:visibility="gone" />-->
+
+    <!--<LinearLayout--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="16dp"--><!--android:gravity="center"--><!--android:orientation="horizontal">-->
+
+    <!--<mbanje.kurt.fabbutton.FabButton-->
+
+    <!--android:id="@+id/resetAmountFabButton"--><!--android:layout_width="@dimen/button_size"--><!--android:layout_height="@dimen/button_size"--><!--android:layout_centerInParent="true"--><!--android:layout_gravity="center"--><!--android:color="@color/colorPrimaryDark"--><!--android:indeterminate="true"--><!--android:max="100"--><!--android:src="@drawable/ic_action_content_clear"--><!--android:visibility="gone"--><!--app:fbb_autoStart="true"--><!--app:fbb_endBitmap="@drawable/ic_action_history"--><!--app:fbb_progressColor="@color/colorExtraDark"--><!--app:fbb_progressWidthRatio="0.1"--><!--app:fbb_showEndBitmap="false" />-->
+
+    <!--<Space--><!--android:id="@+id/space"--><!--android:layout_width="100dp"--><!--android:layout_height="match_parent"--><!--android:visibility="gone" />-->
+
+    <!--<mbanje.kurt.fabbutton.FabButton--><!--android:id="@+id/confitmAmountFabButton"--><!--android:layout_width="@dimen/button_size"--><!--android:layout_height="@dimen/button_size"--><!--android:layout_centerInParent="true"--><!--android:layout_gravity="center"--><!--android:color="@color/colorPrimaryDark"--><!--android:indeterminate="true"--><!--android:max="100"--><!--android:src="@drawable/ic_action_image_navigate_next"--><!--android:visibility="visible"--><!--app:fbb_autoStart="true"--><!--app:fbb_endBitmap="@drawable/ic_action_history"--><!--app:fbb_progressColor="@color/colorExtraDark"--><!--app:fbb_progressWidthRatio="0.1"--><!--app:fbb_showEndBitmap="false" />-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout--><!--android:id="@+id/rateHolder"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:gravity="center"--><!--android:orientation="vertical"--><!--android:visibility="gone">-->
+
+    <!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="0dp"--><!--android:layout_weight="1"--><!--android:gravity="center"--><!--android:orientation="vertical">-->
+
+    <!--<TextView--><!--android:id="@+id/txtTopupAmount"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="Topup Amount : ZMW 1212"--><!--android:textSize="18sp"--><!--android:textStyle="bold" />-->
+
+    <!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="16dp"--><!--android:text="Payable Amount"--><!--android:textSize="18sp" />-->
+
+    <!--<TextView--><!--android:id="@+id/txtPayableAmount"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="ZMW 0.00"--><!--android:textColor="@color/colorPrimaryDark"--><!--android:textSize="32sp" />-->
+
+    <!--<TextView--><!--android:id="@+id/txtTransactionCharge"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="Transaction Charge : 100"--><!--android:textSize="14sp" />--><!--</LinearLayout>-->
+
+
+    <!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:gravity="center"--><!--android:orientation="horizontal">-->
+
+    <!--<ImageView--><!--android:layout_width="36dp"--><!--android:layout_height="36dp"--><!--android:layout_gravity="center_vertical"--><!--android:layout_marginTop="@dimen/dimen_8dp"--><!--android:src="@drawable/country_zm" />-->
+
+    <!--<android.support.design.widget.TextInputLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_marginLeft="@dimen/dimen_4dp">-->
+
+    <!--<EditText--><!--android:id="@+id/edtNumber"--><!--android:layout_width="match_parent"--><!--android:layout_height="?actionBarSize"--><!--android:drawablePadding="@dimen/dimen_16dp"--><!--android:hint="Enter Number"--><!--android:inputType="number"--><!--android:maxLength="10" />--><!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="16dp"--><!--android:gravity="center"--><!--android:orientation="horizontal">-->
+
+    <!--<mbanje.kurt.fabbutton.FabButton--><!--android:id="@+id/resetAmountFabButton"--><!--android:layout_width="@dimen/button_size"--><!--android:layout_height="@dimen/button_size"--><!--android:layout_centerInParent="true"--><!--android:layout_gravity="center"--><!--android:color="@color/colorPrimaryDark"--><!--android:indeterminate="true"--><!--android:max="100"--><!--android:src="@drawable/ic_action_content_clear"--><!--android:visibility="visible"--><!--app:fbb_autoStart="true"--><!--app:fbb_endBitmap="@drawable/ic_action_history"--><!--app:fbb_progressColor="@color/colorExtraDark"--><!--app:fbb_progressWidthRatio="0.1"--><!--app:fbb_showEndBitmap="false" />-->
+
+    <!--<mbanje.kurt.fabbutton.FabButton--><!--android:id="@+id/confitmAmountFabButton"--><!--android:layout_width="@dimen/button_size"--><!--android:layout_height="@dimen/button_size"--><!--android:layout_centerInParent="true"--><!--android:layout_gravity="center"--><!--android:layout_marginLeft="100dp"--><!--android:color="@color/colorPrimaryDark"--><!--android:indeterminate="true"--><!--android:max="100"--><!--android:src="@drawable/ic_action_image_navigate_next"--><!--android:visibility="visible"--><!--app:fbb_autoStart="true"--><!--app:fbb_endBitmap="@drawable/ic_action_history"--><!--app:fbb_progressColor="@color/colorExtraDark"--><!--app:fbb_progressWidthRatio="0.1"--><!--app:fbb_showEndBitmap="false" />-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <!--</FrameLayout>--><!--</LinearLayout>-->

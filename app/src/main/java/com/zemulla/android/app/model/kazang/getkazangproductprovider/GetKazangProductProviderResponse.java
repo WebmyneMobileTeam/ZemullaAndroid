@@ -12,7 +12,7 @@ public class GetKazangProductProviderResponse extends BaseResponse {
 
     private List<String> ProductProvider;
 
-    public List<String> getProductProvider() {
+    public List<String>     getProductProvider() {
         return ProductProvider;
     }
 

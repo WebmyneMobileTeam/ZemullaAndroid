@@ -22,11 +22,18 @@
             android:launchMode="singleTask" />
         <activity android:name=".base.StartupActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity android:name=".user.TempActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
         <activity
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait"
@@ -155,6 +162,7 @@
             android:name=".user.ChangeForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".emarket.electricity.ElectriCityBillReicptActivity"></activity>
     </application>
 
 </manifest>

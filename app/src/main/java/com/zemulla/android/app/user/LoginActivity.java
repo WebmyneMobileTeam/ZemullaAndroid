@@ -10,6 +10,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,21 +48,28 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.countryPicker)
     CountryPickerView countryPicker;
 
-    @BindView(R.id.headerView)
-    TextView headerView;
-    @BindView(R.id.passwordEditText)
-    EditText passwordEditText;
+    //    @BindView(R.id.headerView)
+//    TextView headerView;
+
     @BindView(R.id.btnLogin)
     Button btnLogin;
     @BindView(R.id.txtForgotPass)
     Button txtForgotPass;
-    @BindView(R.id.txtBottom)
-    TextView txtBottom;
+
     Country mSelectedCountry = null;
     Unbinder unbinder;
     ProgressDialog progressDialog;
     LoginAPI loginAPI;
     LoginRequest loginRequest;
+    @BindView(R.id.passwordEditText)
+    EditText passwordEditText;
+
+    @BindView(R.id.mainHolder)
+    FrameLayout mainHolder;
+    @BindView(R.id.txtBottom)
+    TextView txtBottom;
+
+
     private OTPDialog otpDialog;
     private OTPGenValTemporaryAPI otpGenValTemporaryAPI;
     private OTPGenValRequest otpGenValTemporaryRequest;
@@ -94,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
     CountryPickerView.CountryPickerListener countryPickerListener = new CountryPickerView.CountryPickerListener() {
         @Override
         public void OnFailed(Throwable t) {
@@ -117,7 +124,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(false);
     }
-
 
     private void showProgressDialog() {
         if (progressDialog != null) {
@@ -193,7 +199,6 @@ public class LoginActivity extends AppCompatActivity {
         otpDialog.disMissDiaLog();
     }
 
-
     APIListener<OTPGenValResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
         public void onResponse(Response<OTPGenValResponse> response) {
@@ -239,7 +244,6 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
     APIListener<OTPGenValResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
@@ -415,5 +419,8 @@ public class LoginActivity extends AppCompatActivity {
             listener = null;
         }
 
+    }
+
+    public void createAccountClick(View view) {
     }
 }

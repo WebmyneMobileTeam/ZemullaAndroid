@@ -79,6 +79,14 @@ public class AppConstant {
     public static final String DSTVPayment3= KazangSVC + "DSTVPayment3AD";
 
 
+    public static final String ReportsSVC = "Reports.svc/json/";
+    public static final String GetCyberSourceReportDetails = ReportsSVC + "GetCyberSourceReportDetailsAD";
+    public static final String GetPayPalReportDetails = ReportsSVC + "GetPayPalReportDetailsAD";
+    public static final String GetTopUpBankTransferReportDetails = ReportsSVC + "GetTopUpBankTransferReportDetailsAD";
+    public static final String GetTopUpApiReportDetails = ReportsSVC + "GetTopUpApiReportDetailsAD";
+    public static final String GetSendMoneyApiReportDetails = ReportsSVC + "GetSendMoneyApiReportDetailsAD";
+
+
     // Password Tracker constants
     public static final int WEAK = 1;
     public static final int MEDIUM = 2;

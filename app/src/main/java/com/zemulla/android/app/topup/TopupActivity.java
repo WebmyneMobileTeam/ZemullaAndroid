@@ -25,7 +25,7 @@ import com.zemulla.android.app.topup.bank.SupportedBankListActivity;
 import com.zemulla.android.app.topup.cyber.CyberSourceActivity;
 import com.zemulla.android.app.topup.mtn.MtnActivity;
 import com.zemulla.android.app.topup.paypal.PaypalActivity;
-import com.zemulla.android.app.transaction.TransactionHistoryActivity;
+import com.zemulla.android.app.transaction.topup.TopUpTransactionHistoryActivity;
 
 import java.util.ArrayList;
 
@@ -111,9 +111,10 @@ public class TopupActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_history:
-                Intent intent = new Intent(this, TransactionHistoryActivity.class);
+                Intent intent = new Intent(this, TopUpTransactionHistoryActivity.class);
                 intent.putExtra("type", Serivces.TOPUP);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }
         return super.onOptionsItemSelected(item);

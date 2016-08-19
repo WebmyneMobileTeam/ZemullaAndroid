@@ -35,7 +35,7 @@ import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.topup.TopupActivity;
-import com.zemulla.android.app.transaction.TransactionHistoryActivity;
+import com.zemulla.android.app.transaction.topup.TopUpTransactionHistoryActivity;
 import com.zemulla.android.app.user.ChangePasswordActivity;
 import com.zemulla.android.app.user.ContactUsActivity;
 import com.zemulla.android.app.user.KYCActivity;
@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity {
         btnTransactionHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent history = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
+                Intent history = new Intent(HomeActivity.this, TopUpTransactionHistoryActivity.class);
                 startActivity(history);
             }
         });

@@ -120,7 +120,7 @@ public class MarketActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_history:
-               /* Intent intent = new Intent(this, TransactionHistoryActivity.class);
+               /* Intent intent = new Intent(this, TopUpTransactionHistoryActivity.class);
                 intent.putExtra("type", Serivces.TOPUP);
                 startActivity(intent);*/
                 break;

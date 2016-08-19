@@ -15,7 +15,7 @@ import com.zemulla.android.app.R;
 import com.zemulla.android.app.constant.IntentConstant;
 import com.zemulla.android.app.fundtransfer.banktransfer.BankTransferActivity;
 import com.zemulla.android.app.fundtransfer.mtn.MTNFundTransferActivity;
-import com.zemulla.android.app.fundtransfer.transaction.FundTransferTransactionActivity;
+import com.zemulla.android.app.fundtransfer.transaction.FundTransferHistoryActivity;
 import com.zemulla.android.app.fundtransfer.zemullawallet.ZemullaWalletFundTransferActivity;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
@@ -87,7 +87,7 @@ public class FundTransferActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_history:
-                Intent intent = new Intent(this, FundTransferTransactionActivity.class);
+                Intent intent = new Intent(this, FundTransferHistoryActivity.class);
                 intent.putExtra("type", Serivces.TOPUP);
                 startActivity(intent);
                 break;

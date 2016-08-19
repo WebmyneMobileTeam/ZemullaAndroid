@@ -22,18 +22,19 @@
             android:launchMode="singleTask" />
         <activity android:name=".base.StartupActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".user.TempActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!-- <activity android:name=".user.TempActivity"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait"
@@ -47,7 +48,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".transaction.TransactionHistoryActivity"
+            android:name=".transaction.topup.TopUpTransactionHistoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -139,10 +140,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".fundtransfer.transaction.FundTransferTransactionActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".user.ChangePasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -162,7 +159,8 @@
             android:name=".user.ChangeForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".emarket.electricity.ElectriCityBillReicptActivity"></activity>
+        <activity android:name=".emarket.electricity.ElectriCityBillReicptActivity" />
+        <activity android:name=".fundtransfer.transaction.FundTransferHistoryActivity"></activity>
     </application>
 
 </manifest>

@@ -90,6 +90,7 @@ public class FundTransferActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, FundTransferHistoryActivity.class);
                 intent.putExtra("type", Serivces.TOPUP);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }
         return super.onOptionsItemSelected(item);

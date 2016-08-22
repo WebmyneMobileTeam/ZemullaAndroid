@@ -16,8 +16,10 @@ import com.zemulla.android.app.emarket.airtime.AirTimeActivity;
 import com.zemulla.android.app.emarket.direct_recharge.DirectRechargeActivity;
 import com.zemulla.android.app.emarket.dstv.DSTVEmarketActivity;
 import com.zemulla.android.app.emarket.electricity.ElectricityActivity;
+import com.zemulla.android.app.emarket.transaction.EmarketTransactionActivity;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.Serivces;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
@@ -63,8 +65,7 @@ public class MarketActivity extends AppCompatActivity {
 
     private void setupGridView() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        MarketConfiguration configuration = new MarketConfiguration();
-        tiles_topup = configuration.getAllMarketOptions();
+        tiles_topup = MarketConfiguration.getAllMarketOptions();
 
 
         for (MarketTileBean bean : tiles_topup) {
@@ -120,9 +121,10 @@ public class MarketActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_history:
-               /* Intent intent = new Intent(this, TopUpTransactionHistoryActivity.class);
+               Intent intent = new Intent(this, EmarketTransactionActivity.class);
                 intent.putExtra("type", Serivces.TOPUP);
-                startActivity(intent);*/
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }
         return super.onOptionsItemSelected(item);

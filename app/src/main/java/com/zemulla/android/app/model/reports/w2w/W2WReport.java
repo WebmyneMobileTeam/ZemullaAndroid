@@ -1,45 +1,20 @@
-package com.zemulla.android.app.topup.transaction.bank;
+package com.zemulla.android.app.model.reports.w2w;
 
 /**
- * Created by raghavthakkar on 19-08-2016.
+ * Created by raghavthakkar on 22-08-2016.
  */
-public class TopUpBankTransferReport {
+public class W2WReport {
 
-    private String AccountName;
-    private String AccountNumber;
-    private String BankName;
+
     private String CreatedDate;
     private String FirstName;
-    private String IsPaidSuccess;
     private String LastName;
     private String PayableAmount;
+    private String ReceiverMobileNumber;
+    private String ReceiverName;
     private String RequestedAmount;
     private String TransactionCharge;
     private String ZemullaTransactionID;
-
-    public String getAccountName() {
-        return AccountName;
-    }
-
-    public void setAccountName(String AccountName) {
-        this.AccountName = AccountName;
-    }
-
-    public String getAccountNumber() {
-        return AccountNumber;
-    }
-
-    public void setAccountNumber(String AccountNumber) {
-        this.AccountNumber = AccountNumber;
-    }
-
-    public String getBankName() {
-        return BankName;
-    }
-
-    public void setBankName(String BankName) {
-        this.BankName = BankName;
-    }
 
     public String getCreatedDate() {
         return CreatedDate;
@@ -57,14 +32,6 @@ public class TopUpBankTransferReport {
         this.FirstName = FirstName;
     }
 
-    public String getIsPaidSuccess() {
-        return IsPaidSuccess;
-    }
-
-    public void setIsPaidSuccess(String IsPaidSuccess) {
-        this.IsPaidSuccess = IsPaidSuccess;
-    }
-
     public String getLastName() {
         return LastName;
     }
@@ -79,6 +46,22 @@ public class TopUpBankTransferReport {
 
     public void setPayableAmount(String PayableAmount) {
         this.PayableAmount = PayableAmount;
+    }
+
+    public String getReceiverMobileNumber() {
+        return ReceiverMobileNumber;
+    }
+
+    public void setReceiverMobileNumber(String ReceiverMobileNumber) {
+        this.ReceiverMobileNumber = ReceiverMobileNumber;
+    }
+
+    public String getReceiverName() {
+        return ReceiverName;
+    }
+
+    public void setReceiverName(String ReceiverName) {
+        this.ReceiverName = ReceiverName;
     }
 
     public String getRequestedAmount() {

@@ -85,5 +85,7 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="LOADING">Loading...</string>
     <string name="Select_Provider">Select Provider</string>
+    <string name="title_activity_emarket_transaction">EmarketTransactionActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

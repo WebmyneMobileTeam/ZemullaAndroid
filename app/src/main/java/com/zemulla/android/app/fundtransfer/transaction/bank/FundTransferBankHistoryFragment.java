@@ -1,4 +1,4 @@
-package com.zemulla.android.app.transaction.topup;
+package com.zemulla.android.app.fundtransfer.transaction.bank;
 
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -16,13 +16,13 @@ import android.widget.TextView;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
-import com.zemulla.android.app.api.reports.GetCyberSourceReportDetailsAPI;
+import com.zemulla.android.app.api.reports.GetFundTransferBankReportAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
-import com.zemulla.android.app.model.reports.gettopupapireportdetails.TopUpApiReportDetails;
-import com.zemulla.android.app.topup.transaction.cybersource.GetCyberSourceReportDetailsResponse;
+import com.zemulla.android.app.topup.transaction.bank.GetTopUpBankTransferReportDetailsResponse;
+import com.zemulla.android.app.transaction.topup.TopupHistoryRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class CyberSourceHistoryFragment extends Fragment {
+public class FundTransferBankHistoryFragment extends Fragment {
 
 
     @BindView(R.id.mainRecyler)
@@ -47,15 +47,15 @@ public class CyberSourceHistoryFragment extends Fragment {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-
     private Unbinder unbinder;
     private TopupHistoryRecyclerViewAdapter historyRecyclerViewAdapter;
-    private List<TopUpApiReportDetails> items;
+    private List<Object> items;
     private ReportRequest reportRequest;
-    private GetCyberSourceReportDetailsAPI getCyberSourceReportDetailsAPI;
+    private GetFundTransferBankReportAPI getFundTransferBankReportAPI;
 
+    private int serviceDetails;
 
-    public CyberSourceHistoryFragment() {
+    public FundTransferBankHistoryFragment() {
 
     }
 
@@ -66,15 +66,15 @@ public class CyberSourceHistoryFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static CyberSourceHistoryFragment newInstance() {
-        CyberSourceHistoryFragment fragment = new CyberSourceHistoryFragment();
+    public static FundTransferBankHistoryFragment newInstance() {
+        FundTransferBankHistoryFragment fragment = new FundTransferBankHistoryFragment();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getCyberSourceReportDetailsAPI = new GetCyberSourceReportDetailsAPI();
+        getFundTransferBankReportAPI = new GetFundTransferBankReportAPI();
         reportRequest = new ReportRequest();
         items = new ArrayList<>();
         historyRecyclerViewAdapter = new TopupHistoryRecyclerViewAdapter(items, getActivity());
@@ -98,11 +98,10 @@ public class CyberSourceHistoryFragment extends Fragment {
                 outRect.set(pixelPadding, pixelPadding, pixelPadding, pixelPadding);
             }
         });
-        setData();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData();
+                setData(ServiceDetails.WithdrawalByAdmin.getId());
             }
         });
         return fragmentView;
@@ -116,29 +115,31 @@ public class CyberSourceHistoryFragment extends Fragment {
     }
 
 
-    public void setData() {
+    public void setData(int ServiceDetailsID) {
         hidEmptyView();
+        this.serviceDetails = ServiceDetailsID;
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
-        reportRequest.setServiceDetailID(ServiceDetails.CyberSource.getId());
+        reportRequest.setServiceDetailID(ServiceDetailsID);
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
-        getCyberSourceReportDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
+
+        getFundTransferBankReportAPI.getFundTransferBankReportAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
 
     }
 
-    APIListener<GetCyberSourceReportDetailsResponse> getTopUpApiReportDetailsResponseAPIListener = new APIListener<GetCyberSourceReportDetailsResponse>() {
+    APIListener<GetTopUpBankTransferReportDetailsResponse> getTopUpApiReportDetailsResponseAPIListener = new APIListener<GetTopUpBankTransferReportDetailsResponse>() {
         @Override
-        public void onResponse(Response<GetCyberSourceReportDetailsResponse> response) {
+        public void onResponse(Response<GetTopUpBankTransferReportDetailsResponse> response) {
 
-            progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
             if (response.isSuccessful() && response.body() != null) {
-                GetCyberSourceReportDetailsResponse getCyberSourceReportDetailsResponse = response.body();
-                if (getCyberSourceReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.CyberSource.getId());
-                    historyRecyclerViewAdapter.setItems(getCyberSourceReportDetailsResponse.getResponseData().getData());
-                    if (getCyberSourceReportDetailsResponse.getResponseData().getData().size() == 0) {
+                GetTopUpBankTransferReportDetailsResponse getTopUpApiReportDetailsResponse = response.body();
+                if (getTopUpApiReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
+                    historyRecyclerViewAdapter.setServiceDetailsId(serviceDetails);
+                    historyRecyclerViewAdapter.setItems(getTopUpApiReportDetailsResponse.getResponseData().getData());
+                    if (getTopUpApiReportDetailsResponse.getResponseData().getData().size() == 0) {
                         showEmptyView();
                     }
                 } else {
@@ -151,9 +152,8 @@ public class CyberSourceHistoryFragment extends Fragment {
         }
 
         @Override
-        public void onFailure(Call<GetCyberSourceReportDetailsResponse> call, Throwable t) {
+        public void onFailure(Call<GetTopUpBankTransferReportDetailsResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
-            swipeRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -166,6 +166,4 @@ public class CyberSourceHistoryFragment extends Fragment {
         emptyImageView.setVisibility(View.GONE);
         emptyTextView.setVisibility(View.GONE);
     }
-
-
 }

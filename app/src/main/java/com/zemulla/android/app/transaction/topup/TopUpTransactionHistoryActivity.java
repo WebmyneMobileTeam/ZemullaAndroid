@@ -11,11 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.zemulla.android.app.R;
-import com.zemulla.android.app.helper.Functions;
-import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
-import com.zemulla.android.app.model.account.login.LoginResponse;
-import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.topup.TopupTileBean;
 import com.zemulla.android.app.topup.TopupTileConfiguration;
 import com.zemulla.android.app.widgets.TfTextView;
@@ -36,8 +32,8 @@ public class TopUpTransactionHistoryActivity extends AppCompatActivity {
     TabLayout viewpagertab;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-    private LoginResponse loginResponse;
-    private GetWalletDetailResponse walletResponse;
+    //  private LoginResponse loginResponse;
+    //  private GetWalletDetailResponse walletResponse;
     private TopupHistoryPageAdapter historyPageAdapter;
     private static ArrayList<TopupTileBean> topupTileBeen;
 
@@ -47,8 +43,7 @@ public class TopUpTransactionHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_history);
         ButterKnife.bind(this);
         init();
-        initToolbar();
-        initTabs();
+
 
     }
 
@@ -65,14 +60,16 @@ public class TopUpTransactionHistoryActivity extends AppCompatActivity {
 
     private void init() {
 
-        walletResponse = PrefUtils.getBALANCE(this);
-        loginResponse = PrefUtils.getUserProfile(this);
+        //  walletResponse = PrefUtils.getBALANCE(this);
+        // loginResponse = PrefUtils.getUserProfile(this);
+        initToolbar();
+        initTabs();
     }
 
     private void initToolbar() {
         if (toolbar != null) {
             try {
-                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+                toolbar.setTitle(String.format("%s", "Topup Transcations"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -102,6 +99,7 @@ public class TopUpTransactionHistoryActivity extends AppCompatActivity {
         historyPageAdapter.addPage(TopUpBankHistoryFragment.newInstance(), topupTileBeen.get(5).getTileName());
         viewpager.setAdapter(historyPageAdapter);
         viewpagertab.setupWithViewPager(viewpager);
+        viewpager.setOffscreenPageLimit(3);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

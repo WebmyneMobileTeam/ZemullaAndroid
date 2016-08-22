@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.fundtransfer.FundTransferConfiguration;
 import com.zemulla.android.app.fundtransfer.FundTransferTileBean;
-import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.fundtransfer.transaction.bank.FundTransferBankHistoryFragment;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -49,8 +49,7 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fund_transfer_history);
         ButterKnife.bind(this);
         init();
-        initToolbar();
-        initTabs();
+
     }
 
     @Override
@@ -68,12 +67,14 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
 
         walletResponse = PrefUtils.getBALANCE(this);
         loginResponse = PrefUtils.getUserProfile(this);
+        initToolbar();
+        initTabs();
     }
 
     private void initToolbar() {
         if (toolbar != null) {
             try {
-                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+                toolbar.setTitle(String.format("%s", "Fund Transfer"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -95,13 +96,14 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
         fundTransferTileBeen = FundTransferConfiguration.getAllFundTransferOptions();
 
         historyPageAdapter = new TopupHistoryPageAdapter(getSupportFragmentManager());
-        historyPageAdapter.addPage(FundTransferHistoryFragment.newInstance(), fundTransferTileBeen.get(0).getTileName());
+        historyPageAdapter.addPage(W2WFundTransferHistoryFragment.newInstance(), fundTransferTileBeen.get(0).getTileName());
         historyPageAdapter.addPage(FundTransferHistoryFragment.newInstance(), fundTransferTileBeen.get(1).getTileName());
         historyPageAdapter.addPage(FundTransferHistoryFragment.newInstance(), fundTransferTileBeen.get(2).getTileName());
         historyPageAdapter.addPage(FundTransferHistoryFragment.newInstance(), fundTransferTileBeen.get(3).getTileName());
-        historyPageAdapter.addPage(FundTransferHistoryFragment.newInstance(), fundTransferTileBeen.get(4).getTileName());
+        historyPageAdapter.addPage(FundTransferBankHistoryFragment.newInstance(), fundTransferTileBeen.get(4).getTileName());
         viewpager.setAdapter(historyPageAdapter);
         viewpagertab.setupWithViewPager(viewpager);
+        viewpager.setOffscreenPageLimit(3);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -113,8 +115,7 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
 
                 Fragment fragment = historyPageAdapter.getRegisteredFragment(position);
 
-                if (position == 0) {
-                } else if (position == 1) {
+                if (position == 1) {
                     FundTransferHistoryFragment fundTransferHistoryFragment = (FundTransferHistoryFragment) fragment;
                     fundTransferHistoryFragment.setData(ServiceDetails.MTNDebit.getId());
                 } else if (position == 2) {
@@ -124,6 +125,8 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
                     FundTransferHistoryFragment fundTransferHistoryFragment = (FundTransferHistoryFragment) fragment;
                     fundTransferHistoryFragment.setData(ServiceDetails.ZoonaDebit.getId());
                 } else if (position == 4) {
+                    FundTransferBankHistoryFragment fundTransferBankHistoryFragment= (FundTransferBankHistoryFragment) fragment;
+                    fundTransferBankHistoryFragment.setData(ServiceDetails.WithdrawalByAdmin.getId());
                 }
 
             }

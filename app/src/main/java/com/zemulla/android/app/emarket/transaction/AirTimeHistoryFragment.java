@@ -1,4 +1,4 @@
-package com.zemulla.android.app.transaction.topup;
+package com.zemulla.android.app.emarket.transaction;
 
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -16,13 +16,13 @@ import android.widget.TextView;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
-import com.zemulla.android.app.api.reports.GetCyberSourceReportDetailsAPI;
+import com.zemulla.android.app.api.reports.GetKazangAirtimeDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.model.reports.getkazangairtimedetails.AirtimeDetailsResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
-import com.zemulla.android.app.model.reports.gettopupapireportdetails.TopUpApiReportDetails;
-import com.zemulla.android.app.topup.transaction.cybersource.GetCyberSourceReportDetailsResponse;
+import com.zemulla.android.app.transaction.topup.TopupHistoryRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class CyberSourceHistoryFragment extends Fragment {
+public class AirTimeHistoryFragment extends Fragment {
 
 
     @BindView(R.id.mainRecyler)
@@ -50,12 +50,12 @@ public class CyberSourceHistoryFragment extends Fragment {
 
     private Unbinder unbinder;
     private TopupHistoryRecyclerViewAdapter historyRecyclerViewAdapter;
-    private List<TopUpApiReportDetails> items;
+    private List<Object> items;
     private ReportRequest reportRequest;
-    private GetCyberSourceReportDetailsAPI getCyberSourceReportDetailsAPI;
+    private GetKazangAirtimeDetailsAPI getKazangAirtimeDetailsAPI;
 
 
-    public CyberSourceHistoryFragment() {
+    public AirTimeHistoryFragment() {
 
     }
 
@@ -66,15 +66,15 @@ public class CyberSourceHistoryFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static CyberSourceHistoryFragment newInstance() {
-        CyberSourceHistoryFragment fragment = new CyberSourceHistoryFragment();
+    public static AirTimeHistoryFragment newInstance() {
+        AirTimeHistoryFragment fragment = new AirTimeHistoryFragment();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getCyberSourceReportDetailsAPI = new GetCyberSourceReportDetailsAPI();
+        getKazangAirtimeDetailsAPI = new GetKazangAirtimeDetailsAPI();
         reportRequest = new ReportRequest();
         items = new ArrayList<>();
         historyRecyclerViewAdapter = new TopupHistoryRecyclerViewAdapter(items, getActivity());
@@ -98,13 +98,16 @@ public class CyberSourceHistoryFragment extends Fragment {
                 outRect.set(pixelPadding, pixelPadding, pixelPadding, pixelPadding);
             }
         });
-        setData();
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 setData();
             }
         });
+
+        hidEmptyView();
+        setData();
         return fragmentView;
     }
 
@@ -117,28 +120,27 @@ public class CyberSourceHistoryFragment extends Fragment {
 
 
     public void setData() {
-        hidEmptyView();
+
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
-        reportRequest.setServiceDetailID(ServiceDetails.CyberSource.getId());
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
-        getCyberSourceReportDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
+        getKazangAirtimeDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
 
     }
 
-    APIListener<GetCyberSourceReportDetailsResponse> getTopUpApiReportDetailsResponseAPIListener = new APIListener<GetCyberSourceReportDetailsResponse>() {
+    APIListener<AirtimeDetailsResponse> getTopUpApiReportDetailsResponseAPIListener = new APIListener<AirtimeDetailsResponse>() {
         @Override
-        public void onResponse(Response<GetCyberSourceReportDetailsResponse> response) {
+        public void onResponse(Response<AirtimeDetailsResponse> response) {
 
-            progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
             if (response.isSuccessful() && response.body() != null) {
-                GetCyberSourceReportDetailsResponse getCyberSourceReportDetailsResponse = response.body();
-                if (getCyberSourceReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.CyberSource.getId());
-                    historyRecyclerViewAdapter.setItems(getCyberSourceReportDetailsResponse.getResponseData().getData());
-                    if (getCyberSourceReportDetailsResponse.getResponseData().getData().size() == 0) {
+                AirtimeDetailsResponse airtimeDetailsResponse = response.body();
+                if (airtimeDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
+                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.AirtimeByVoucher.getId());
+                    historyRecyclerViewAdapter.setItems(airtimeDetailsResponse.getResponseData().getData());
+                    if (airtimeDetailsResponse.getResponseData().getData().size() == 0) {
                         showEmptyView();
                     }
                 } else {
@@ -151,7 +153,7 @@ public class CyberSourceHistoryFragment extends Fragment {
         }
 
         @Override
-        public void onFailure(Call<GetCyberSourceReportDetailsResponse> call, Throwable t) {
+        public void onFailure(Call<AirtimeDetailsResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -166,6 +168,4 @@ public class CyberSourceHistoryFragment extends Fragment {
         emptyImageView.setVisibility(View.GONE);
         emptyTextView.setVisibility(View.GONE);
     }
-
-
 }

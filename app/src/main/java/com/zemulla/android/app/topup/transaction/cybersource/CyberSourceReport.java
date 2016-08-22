@@ -1,20 +1,16 @@
-package com.zemulla.android.app.model.reports.gettopupapireportdetails;
+package com.zemulla.android.app.topup.transaction.cybersource;
 
 /**
- * Created by raghavthakkar on 19-08-2016.
+ * Created by raghavthakkar on 22-08-2016.
  */
-public class TopUpApiReportDetails {
-
+public class CyberSourceReport {
 
     private String Amount;
     private String CreatedDate;
     private String FirstName;
     private String IsPaidSuccess;
     private String LastName;
-    private String MobileNo;
-    private String NationalID;
-    private String PIN;
-    private String TotalCharge  ;
+    private String TotalCharge;
     private String TotalPayableAmount;
     private String ZemullaTransactionID;
 
@@ -56,30 +52,6 @@ public class TopUpApiReportDetails {
 
     public void setLastName(String LastName) {
         this.LastName = LastName;
-    }
-
-    public String getMobileNo() {
-        return MobileNo;
-    }
-
-    public void setMobileNo(String MobileNo) {
-        this.MobileNo = MobileNo;
-    }
-
-    public String getNationalID() {
-        return NationalID;
-    }
-
-    public void setNationalID(String NationalID) {
-        this.NationalID = NationalID;
-    }
-
-    public String getPIN() {
-        return PIN;
-    }
-
-    public void setPIN(String PIN) {
-        this.PIN = PIN;
     }
 
     public String getTotalCharge() {

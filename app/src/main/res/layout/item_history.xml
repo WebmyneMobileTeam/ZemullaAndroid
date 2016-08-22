@@ -2,80 +2,64 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="horizontal"
-    android:padding="@dimen/dimen_8dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/txtZemulaTransID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:text="101"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtZemulaTransID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="101"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/txtDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="12/07/2016 21:18:26"
-            android:textSize="14dp" />
-
-        <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/txtStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status: Fail"
-            android:textSize="14dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-
-    <LinearLayout
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/txtDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:text="12/07/2016 21:18:26"
+        android:textSize="14dp"
 
-        <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/txtAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="Amount: ZMB 50"
-            android:textSize="14dp"
-            android:textStyle="bold" />
+        app:layout_columnWeight="1" />
 
-        <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/txtCharge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="Charge: ZMB 50"
-            android:textSize="14dp"
-            android:textStyle="bold" />
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/txtStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Fail"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/txtAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount: ZMB 50"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/txtCharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Charge: ZMB 50"
+        android:textSize="14dp"
+        android:textStyle="bold" />
 
 
-        <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/txtTotalAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="TOTAL: ZMB 50"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14dp"
-            android:textStyle="bold" />
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/txtTotalAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-    </LinearLayout>
+        android:text="TOTAL: ZMB 50"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14dp"
+        android:textStyle="bold" />
 </LinearLayout>
+
+
 

@@ -2,8 +2,8 @@ package com.zemulla.android.app.api.reports;
 
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.base.ZemullaApplication;
+import com.zemulla.android.app.model.reports.getkazangdstvpaymentdetails.DSTVPaymentDetailsReportResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
-import com.zemulla.android.app.topup.transaction.cybersource.GetCyberSourceReportDetailsResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,28 +12,28 @@ import retrofit2.Response;
 /**
  * Created by raghavthakkar on 04-08-2016.
  */
-public class GetCyberSourceReportDetailsAPI {
+public class GetKazangDSTVPaymentDetailsAPI {
 
     private ReportsAPI paymentAPI;
     private APIListener apiListener;
-    Call<GetCyberSourceReportDetailsResponse> call;
+    Call<DSTVPaymentDetailsReportResponse> call;
 
-    public GetCyberSourceReportDetailsAPI() {
+    public GetKazangDSTVPaymentDetailsAPI() {
 
         paymentAPI = ZemullaApplication.getRetrofit().create(ReportsAPI.class);
     }
 
     public void getSendMoneyApiReportDetailsAPI(final ReportRequest reportRequest, final APIListener apiListener) {
         this.apiListener = apiListener;
-        call = paymentAPI.getCyberSourceReportDetails(reportRequest);
-        call.enqueue(new Callback<GetCyberSourceReportDetailsResponse>() {
+        call = paymentAPI.getKazangDSTVPaymentDetails(reportRequest);
+        call.enqueue(new Callback<DSTVPaymentDetailsReportResponse>() {
             @Override
-            public void onResponse(Call<GetCyberSourceReportDetailsResponse> call, Response<GetCyberSourceReportDetailsResponse> response) {
+            public void onResponse(Call<DSTVPaymentDetailsReportResponse> call, Response<DSTVPaymentDetailsReportResponse> response) {
                 apiListener.onResponse(response);
             }
 
             @Override
-            public void onFailure(Call<GetCyberSourceReportDetailsResponse> call, Throwable t) {
+            public void onFailure(Call<DSTVPaymentDetailsReportResponse> call, Throwable t) {
                 apiListener.onFailure(call, t);
             }
         });

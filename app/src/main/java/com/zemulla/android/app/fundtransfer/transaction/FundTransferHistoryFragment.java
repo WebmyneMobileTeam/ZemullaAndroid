@@ -3,6 +3,7 @@ package com.zemulla.android.app.fundtransfer.transaction;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,12 +44,14 @@ public class FundTransferHistoryFragment extends Fragment {
     ImageView emptyImageView;
     @BindView(R.id.emptyTextView)
     TextView emptyTextView;
-
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private Unbinder unbinder;
     private TopupHistoryRecyclerViewAdapter historyRecyclerViewAdapter;
     private List<TopUpApiReportDetails> items;
     private ReportRequest reportRequest;
     private GetSendMoneyApiReportDetailsAPI getTopUpApiReportDetailsAPI;
+    private int serviceDetailsID = 0;
 
 
     public FundTransferHistoryFragment() {
@@ -90,6 +93,14 @@ public class FundTransferHistoryFragment extends Fragment {
             }
         });
         hidEmptyView();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setData(serviceDetailsID);
+            }
+        });
+
+
         return fragmentView;
     }
 
@@ -103,6 +114,7 @@ public class FundTransferHistoryFragment extends Fragment {
 
     public void setData(int serviceDetailsID) {
         hidEmptyView();
+        this.serviceDetailsID = serviceDetailsID;
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
         reportRequest.setServiceDetailID(serviceDetailsID);
@@ -121,6 +133,7 @@ public class FundTransferHistoryFragment extends Fragment {
             if (response.isSuccessful() && response.body() != null) {
                 GetTopUpApiReportDetailsResponse getTopUpApiReportDetailsResponse = response.body();
                 if (getTopUpApiReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
+                    historyRecyclerViewAdapter.setServiceDetailsId(serviceDetailsID);
                     historyRecyclerViewAdapter.setItems(getTopUpApiReportDetailsResponse.getResponseData().getData());
                     if (getTopUpApiReportDetailsResponse.getResponseData().getData().size() == 0) {
                         showEmptyView();

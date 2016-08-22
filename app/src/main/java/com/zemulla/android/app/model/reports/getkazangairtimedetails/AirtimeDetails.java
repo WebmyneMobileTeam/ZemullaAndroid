@@ -1,21 +1,21 @@
-package com.zemulla.android.app.model.reports.gettopupapireportdetails;
+package com.zemulla.android.app.model.reports.getkazangairtimedetails;
 
 /**
- * Created by raghavthakkar on 19-08-2016.
+ * Created by raghavthakkar on 22-08-2016.
  */
-public class TopUpApiReportDetails {
+public class AirtimeDetails {
 
 
     private String Amount;
     private String CreatedDate;
     private String FirstName;
-    private String IsPaidSuccess;
     private String LastName;
-    private String MobileNo;
-    private String NationalID;
-    private String PIN;
-    private String TotalCharge  ;
+    private String Pin;
+    private String Product;
+    private String Response_Code;
+    private String TotalCharge;
     private String TotalPayableAmount;
+    private String Transaction_reference;
     private String ZemullaTransactionID;
 
     public String getAmount() {
@@ -42,14 +42,6 @@ public class TopUpApiReportDetails {
         this.FirstName = FirstName;
     }
 
-    public String getIsPaidSuccess() {
-        return IsPaidSuccess;
-    }
-
-    public void setIsPaidSuccess(String IsPaidSuccess) {
-        this.IsPaidSuccess = IsPaidSuccess;
-    }
-
     public String getLastName() {
         return LastName;
     }
@@ -58,28 +50,28 @@ public class TopUpApiReportDetails {
         this.LastName = LastName;
     }
 
-    public String getMobileNo() {
-        return MobileNo;
+    public String getPin() {
+        return Pin;
     }
 
-    public void setMobileNo(String MobileNo) {
-        this.MobileNo = MobileNo;
+    public void setPin(String Pin) {
+        this.Pin = Pin;
     }
 
-    public String getNationalID() {
-        return NationalID;
+    public String getProduct() {
+        return Product;
     }
 
-    public void setNationalID(String NationalID) {
-        this.NationalID = NationalID;
+    public void setProduct(String Product) {
+        this.Product = Product;
     }
 
-    public String getPIN() {
-        return PIN;
+    public String getResponse_Code() {
+        return Response_Code;
     }
 
-    public void setPIN(String PIN) {
-        this.PIN = PIN;
+    public void setResponse_Code(String Response_Code) {
+        this.Response_Code = Response_Code;
     }
 
     public String getTotalCharge() {
@@ -96,6 +88,14 @@ public class TopUpApiReportDetails {
 
     public void setTotalPayableAmount(String TotalPayableAmount) {
         this.TotalPayableAmount = TotalPayableAmount;
+    }
+
+    public String getTransaction_reference() {
+        return Transaction_reference;
+    }
+
+    public void setTransaction_reference(String Transaction_reference) {
+        this.Transaction_reference = Transaction_reference;
     }
 
     public String getZemullaTransactionID() {

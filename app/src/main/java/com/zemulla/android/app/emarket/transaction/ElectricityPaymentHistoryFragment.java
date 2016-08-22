@@ -1,4 +1,4 @@
-package com.zemulla.android.app.transaction.topup;
+package com.zemulla.android.app.emarket.transaction;
 
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -16,13 +16,12 @@ import android.widget.TextView;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
-import com.zemulla.android.app.api.reports.GetCyberSourceReportDetailsAPI;
+import com.zemulla.android.app.api.reports.GetKazangElectricityDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
-import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.model.reports.getkazangelectricitydetails.ElectricityDetailsReportResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
-import com.zemulla.android.app.model.reports.gettopupapireportdetails.TopUpApiReportDetails;
-import com.zemulla.android.app.topup.transaction.cybersource.GetCyberSourceReportDetailsResponse;
+import com.zemulla.android.app.transaction.topup.TopupHistoryRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class CyberSourceHistoryFragment extends Fragment {
+public class ElectricityPaymentHistoryFragment extends Fragment {
 
 
     @BindView(R.id.mainRecyler)
@@ -46,16 +45,16 @@ public class CyberSourceHistoryFragment extends Fragment {
     TextView emptyTextView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-
+    int serviceId = 0;
 
     private Unbinder unbinder;
     private TopupHistoryRecyclerViewAdapter historyRecyclerViewAdapter;
-    private List<TopUpApiReportDetails> items;
+    private List<Object> items;
     private ReportRequest reportRequest;
-    private GetCyberSourceReportDetailsAPI getCyberSourceReportDetailsAPI;
+    private GetKazangElectricityDetailsAPI getKazangElectricityDetailsAPI;
 
 
-    public CyberSourceHistoryFragment() {
+    public ElectricityPaymentHistoryFragment() {
 
     }
 
@@ -66,15 +65,15 @@ public class CyberSourceHistoryFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static CyberSourceHistoryFragment newInstance() {
-        CyberSourceHistoryFragment fragment = new CyberSourceHistoryFragment();
+    public static ElectricityPaymentHistoryFragment newInstance() {
+        ElectricityPaymentHistoryFragment fragment = new ElectricityPaymentHistoryFragment();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getCyberSourceReportDetailsAPI = new GetCyberSourceReportDetailsAPI();
+        getKazangElectricityDetailsAPI = new GetKazangElectricityDetailsAPI();
         reportRequest = new ReportRequest();
         items = new ArrayList<>();
         historyRecyclerViewAdapter = new TopupHistoryRecyclerViewAdapter(items, getActivity());
@@ -98,11 +97,11 @@ public class CyberSourceHistoryFragment extends Fragment {
                 outRect.set(pixelPadding, pixelPadding, pixelPadding, pixelPadding);
             }
         });
-        setData();
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData();
+                setData(serviceId);
             }
         });
         return fragmentView;
@@ -116,29 +115,29 @@ public class CyberSourceHistoryFragment extends Fragment {
     }
 
 
-    public void setData() {
+    public void setData(int serviceID) {
         hidEmptyView();
+        this.serviceId = serviceID;
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
-        reportRequest.setServiceDetailID(ServiceDetails.CyberSource.getId());
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
-        getCyberSourceReportDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
+        getKazangElectricityDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
 
     }
 
-    APIListener<GetCyberSourceReportDetailsResponse> getTopUpApiReportDetailsResponseAPIListener = new APIListener<GetCyberSourceReportDetailsResponse>() {
+    APIListener<ElectricityDetailsReportResponse> getTopUpApiReportDetailsResponseAPIListener = new APIListener<ElectricityDetailsReportResponse>() {
         @Override
-        public void onResponse(Response<GetCyberSourceReportDetailsResponse> response) {
+        public void onResponse(Response<ElectricityDetailsReportResponse> response) {
 
-            progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
             if (response.isSuccessful() && response.body() != null) {
-                GetCyberSourceReportDetailsResponse getCyberSourceReportDetailsResponse = response.body();
-                if (getCyberSourceReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.CyberSource.getId());
-                    historyRecyclerViewAdapter.setItems(getCyberSourceReportDetailsResponse.getResponseData().getData());
-                    if (getCyberSourceReportDetailsResponse.getResponseData().getData().size() == 0) {
+                ElectricityDetailsReportResponse electricityDetailsReportResponse = response.body();
+                if (electricityDetailsReportResponse.getResponseCode() == AppConstant.ResponseSuccess) {
+                    historyRecyclerViewAdapter.setServiceDetailsId(serviceId);
+                    historyRecyclerViewAdapter.setItems(electricityDetailsReportResponse.getResponseData().getData());
+                    if (electricityDetailsReportResponse.getResponseData().getData().size() == 0) {
                         showEmptyView();
                     }
                 } else {
@@ -151,7 +150,7 @@ public class CyberSourceHistoryFragment extends Fragment {
         }
 
         @Override
-        public void onFailure(Call<GetCyberSourceReportDetailsResponse> call, Throwable t) {
+        public void onFailure(Call<ElectricityDetailsReportResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -166,6 +165,4 @@ public class CyberSourceHistoryFragment extends Fragment {
         emptyImageView.setVisibility(View.GONE);
         emptyTextView.setVisibility(View.GONE);
     }
-
-
 }

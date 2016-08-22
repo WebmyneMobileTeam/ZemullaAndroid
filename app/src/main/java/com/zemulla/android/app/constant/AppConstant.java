@@ -85,6 +85,12 @@ public class AppConstant {
     public static final String GetTopUpBankTransferReportDetails = ReportsSVC + "GetTopUpBankTransferReportDetailsAD";
     public static final String GetTopUpApiReportDetails = ReportsSVC + "GetTopUpApiReportDetailsAD";
     public static final String GetSendMoneyApiReportDetails = ReportsSVC + "GetSendMoneyApiReportDetailsAD";
+    public static final String GetSendMoneyW2WReportDetails = ReportsSVC + "GetSendMoneyW2WReportDetailsAD";
+    public static final String GetSendMoneyBTReportDetails = ReportsSVC + "GetSendMoneyBTReportDetailsAD";
+    public static final String GetKazangAirtimeDetails = ReportsSVC + "GetKazangAirtimeDetailsAD";
+    public static final String GetKazangDirectRechargeDetails = ReportsSVC + "GetKazangDirectRechargeDetailsAD";
+    public static final String GetKazangDSTVPaymentDetails = ReportsSVC + "GetKazangDSTVPaymentDetailsAD";
+    public static final String GetKazangElectricityDetails = ReportsSVC + "GetKazangElectricityDetailsAD";
 
 
     // Password Tracker constants

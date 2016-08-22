@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:alignmentMode="alignBounds"
+    app:columnCount="2"
+    app:columnOrderPreserved="false"
+    app:useDefaultMargins="true">
+
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/transactionIdText"
+        style="@style/transaction_history_left_primary_color"
+        android:text="Transaction ID "
+        android:textSize="16sp"
+        app:layout_gravity="fill_horizontal" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/transactionIdValue"
+        style="@style/transaction_history_primary_color"
+        android:text="ZMW037017756784"
+        android:textSize="16dp" />
+
+    <View
+
+        android:layout_height="1dp"
+        android:background="@color/grey_line"
+        app:layout_columnSpan="2"></View>
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/transactionDateText"
+        style="@style/transaction_history_left"
+        android:text="Transaction Date" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/transactionDateValue"
+        style="@style/transaction_history_right"
+        android:text="ZMW037017756784" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/extraOneText"
+        style="@style/transaction_history_left"
+        android:text="Transaction ID " />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/extraOneValue"
+        style="@style/transaction_history_right"
+        android:text="ZMW037017756784" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/extraTwoText"
+        style="@style/transaction_history_left"
+        android:text="Transaction ID " />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/extraTwoValue"
+        style="@style/transaction_history_right"
+        android:text="ZMW037017756784" />
+
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/extraThreeText"
+        style="@style/transaction_history_left"
+        android:text="Transaction ID " />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/extraThreeValue"
+        style="@style/transaction_history_right"
+        android:text="ZMW037017756784" />
+
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/amountText"
+        style="@style/transaction_history_left"
+        android:text="Amount" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/amountValue"
+        style="@style/transaction_history_primary_color"
+        android:text="ZWM 5510.00" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/totalChargeText"
+        style="@style/transaction_history_left"
+        android:text="Total Charge" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/totalChargeValue"
+        style="@style/transaction_history_primary_color"
+        android:text="ZWM 5510.00" />
+
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/totalPayableAmountText"
+        style="@style/transaction_history_left"
+        android:text="Total Payable amount" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/totalPayableAmountValue"
+        style="@style/transaction_history_primary_color"
+        android:text="ZWM 5510.00" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/paymentStatusText"
+        style="@style/transaction_history_left"
+        android:text="Payment Status" />
+
+    <com.zemulla.android.app.widgets.TfTextView
+        android:id="@+id/paymentStatusValue"
+        style="@style/transaction_history_right"
+        android:text="Fail" />
+
+</android.support.v7.widget.GridLayout>

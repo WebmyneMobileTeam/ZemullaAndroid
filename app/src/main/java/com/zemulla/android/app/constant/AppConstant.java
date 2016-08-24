@@ -46,6 +46,7 @@ public class AppConstant {
     public static final String UpdateUserProfile = UserSVC + "UpdateUserProfileAD";
     public static final String GetWalletDetail = UserSVC + "GetWalletDetailAD/{USERID}";
     public static final String GetUserDetailIDWise = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
+    public static final String GetDashboardData = UserSVC + "GetDashboardData/{USERID}";
     public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
     public static final String PaymentSVC = "Payment.svc/json/";

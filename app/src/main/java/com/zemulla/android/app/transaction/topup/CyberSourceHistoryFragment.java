@@ -62,6 +62,9 @@ public class CyberSourceHistoryFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setData();
+        }
 
     }
 
@@ -75,7 +78,7 @@ public class CyberSourceHistoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getCyberSourceReportDetailsAPI = new GetCyberSourceReportDetailsAPI();
-        reportRequest = new ReportRequest();
+        // reportRequest = new ReportRequest();
         items = new ArrayList<>();
         historyRecyclerViewAdapter = new TopupHistoryRecyclerViewAdapter(items, getActivity());
 
@@ -98,13 +101,13 @@ public class CyberSourceHistoryFragment extends Fragment {
                 outRect.set(pixelPadding, pixelPadding, pixelPadding, pixelPadding);
             }
         });
-        setData();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 setData();
             }
         });
+        hidEmptyView();
         return fragmentView;
     }
 
@@ -117,7 +120,12 @@ public class CyberSourceHistoryFragment extends Fragment {
 
 
     public void setData() {
-        hidEmptyView();
+        if (reportRequest == null) {
+            reportRequest = new ReportRequest();
+        }
+        if (getCyberSourceReportDetailsAPI == null) {
+            getCyberSourceReportDetailsAPI = new GetCyberSourceReportDetailsAPI();
+        }
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
         reportRequest.setServiceDetailID(ServiceDetails.CyberSource.getId());

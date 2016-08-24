@@ -18,6 +18,7 @@ import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetSendMoneyApiReportDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.constant.IntentConstant;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.GetTopUpApiReportDetailsResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
@@ -58,16 +59,27 @@ public class FundTransferHistoryFragment extends Fragment {
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setData();
+        }
+    }
 
     // TODO: Rename and change types and number of parameters
-    public static FundTransferHistoryFragment newInstance() {
+    public static FundTransferHistoryFragment newInstance(int serviceDetailsID) {
         FundTransferHistoryFragment fragment = new FundTransferHistoryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, serviceDetailsID);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        serviceDetailsID = getArguments().getInt(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, 0);
         getTopUpApiReportDetailsAPI = new GetSendMoneyApiReportDetailsAPI();
         reportRequest = new ReportRequest();
         items = new ArrayList<>();
@@ -96,7 +108,7 @@ public class FundTransferHistoryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData(serviceDetailsID);
+                setData();
             }
         });
 
@@ -112,15 +124,13 @@ public class FundTransferHistoryFragment extends Fragment {
     }
 
 
-    public void setData(int serviceDetailsID) {
-        hidEmptyView();
-        this.serviceDetailsID = serviceDetailsID;
+    public void setData() {
+
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
         reportRequest.setServiceDetailID(serviceDetailsID);
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
-
         getTopUpApiReportDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
 
     }

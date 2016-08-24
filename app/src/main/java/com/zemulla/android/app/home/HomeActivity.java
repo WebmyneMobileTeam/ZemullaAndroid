@@ -19,7 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -34,6 +33,7 @@ import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
+import com.zemulla.android.app.report.ReportsActivity;
 import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.topup.TopUpTransactionHistoryActivity;
 import com.zemulla.android.app.user.ChangePasswordActivity;
@@ -332,7 +332,8 @@ public class HomeActivity extends AppCompatActivity {
                     break;
 
                 case REPORTS:
-                    Toast.makeText(HomeActivity.this, "Report page(s) will come", Toast.LENGTH_SHORT).show();
+                    Intent iReport = new Intent(HomeActivity.this, ReportsActivity.class);
+                    startActivity(iReport);
                     break;
 
 

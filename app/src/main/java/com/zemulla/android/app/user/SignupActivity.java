@@ -4,8 +4,11 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -21,6 +24,7 @@ import com.zemulla.android.app.api.account.SignUpAPI;
 import com.zemulla.android.app.api.account.ValidateMobileEmailAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PasswordTracker;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.country.Country;
 import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValRequest;
@@ -82,6 +86,8 @@ public class SignupActivity extends AppCompatActivity {
     CheckBox termsConditionCheckBox;
     @BindView(R.id.termsConditionTextView)
     TextView termsConditionTextView;
+    @BindView(R.id.txtPasswordType)
+    TextView txtPasswordType;
     private Subscription passowordSubscription, phoneNumberSubscription;
     private Unbinder unbinder;
     private ProgressDialog progressDialog;
@@ -94,6 +100,8 @@ public class SignupActivity extends AppCompatActivity {
     private RegistrationRequest registrationRequest;
     private SignUpAPI signUpAPI;
     private boolean isEmailValid, isMobileValid;
+    private PasswordTracker tracker;
+    private int passwordType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +133,31 @@ public class SignupActivity extends AppCompatActivity {
 
         verifyEmailAndPhoneNumber();
 
+        edtPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (Functions.getLength(edtPassword) == 0) {
+                    txtPasswordType.setVisibility(View.GONE);
+
+                } else {
+                    txtPasswordType.setVisibility(View.VISIBLE);
+                    tracker = Functions.getPasswordStr(Functions.toStingEditText(edtPassword));
+                    txtPasswordType.setText(tracker.getText());
+                    txtPasswordType.setTextColor(tracker.getColor());
+                    passwordType = tracker.getPasswordType();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void initToolBar() {
@@ -508,14 +540,19 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
+        if (passwordType == AppConstant.WEAK) {
+            Functions.showError(this, "Your password is too weak.", false);
+            return;
+        }
+
         if (Functions.isEmpty(edtConfirmPassword)) {
             Functions.showError(this, "Please Re-Enter Password.", false);
             return;
         }
 
-
         if (!Functions.toStingEditText(edtPassword).equals(Functions.toStingEditText(edtConfirmPassword))) {
             Functions.showError(this, "Entered Password did not match.", false);
+            return;
         }
         if (Functions.isEmpty(edtAddress)) {
             Functions.showError(this, "Please Enter Address.", false);

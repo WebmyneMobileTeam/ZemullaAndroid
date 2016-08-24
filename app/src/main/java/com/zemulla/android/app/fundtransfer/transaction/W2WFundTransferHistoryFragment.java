@@ -59,6 +59,13 @@ public class W2WFundTransferHistoryFragment extends Fragment {
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setData();
+        }
+    }
 
     // TODO: Rename and change types and number of parameters
     public static W2WFundTransferHistoryFragment newInstance() {
@@ -113,12 +120,17 @@ public class W2WFundTransferHistoryFragment extends Fragment {
 
     public void setData() {
 
+        if (reportRequest == null) {
+            reportRequest = new ReportRequest();
+        }
+        if (getW2WReportDetailsAPI == null) {
+            getW2WReportDetailsAPI = new GetW2WReportDetailsAPI();
+        }
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
         reportRequest.setServiceDetailID(ServiceDetails.WalletToWallet.getId());
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
-
         getW2WReportDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
 
     }

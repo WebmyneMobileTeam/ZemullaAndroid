@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,6 @@ import android.view.View;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.emarket.MarketConfiguration;
 import com.zemulla.android.app.emarket.MarketTileBean;
-import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.transaction.topup.TopupHistoryPageAdapter;
 
 import java.util.ArrayList;
@@ -86,35 +84,6 @@ public class EmarketTransactionActivity extends AppCompatActivity {
         container.setAdapter(historyPageAdapter);
         tabs.setupWithViewPager(container);
         container.setOffscreenPageLimit(3);
-        container.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                Fragment fragment = historyPageAdapter.getRegisteredFragment(position);
-
-                if (position == 1) {
-                    ElectricityPaymentHistoryFragment electricityPaymentHistoryFragment = (ElectricityPaymentHistoryFragment) fragment;
-                    electricityPaymentHistoryFragment.setData(ServiceDetails.KazangElectricity.getId());
-                } else if (position == 2) {
-                    DirectRechargeHistoryFragment directRechargeHistoryFragment = (DirectRechargeHistoryFragment) fragment;
-                    directRechargeHistoryFragment.setData(ServiceDetails.KazangDirectRecharge.getId());
-                } else if (position == 3) {
-                    DSTVPaymentHistoryFragment dstvPaymentHistoryFragment = (DSTVPaymentHistoryFragment) fragment;
-                    dstvPaymentHistoryFragment.setData(ServiceDetails.DSTVPayment.getId());
-                }
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
 

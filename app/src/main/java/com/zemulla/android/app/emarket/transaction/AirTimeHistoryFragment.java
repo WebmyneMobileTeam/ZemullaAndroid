@@ -62,6 +62,9 @@ public class AirTimeHistoryFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setData();
+        }
 
     }
 
@@ -121,6 +124,12 @@ public class AirTimeHistoryFragment extends Fragment {
 
     public void setData() {
 
+        if (reportRequest == null) {
+            reportRequest = new ReportRequest();
+        }
+        if (getKazangAirtimeDetailsAPI == null) {
+            getKazangAirtimeDetailsAPI = new GetKazangAirtimeDetailsAPI();
+        }
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
         reportRequest.setTo("19-08-2016");

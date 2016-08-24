@@ -25,7 +25,6 @@ import com.zemulla.android.app.model.reports.gettopupapireportdetails.TopUpApiRe
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,25 +51,37 @@ public class TopupHistoryFragment extends Fragment {
     private ArrayList<Object> items;
     private ReportRequest reportRequest;
     private GetTopUpApiReportDetailsAPI getTopUpApiReportDetailsAPI;
-    int serviceId = 0;
+    int mServiceId = 0;
 
     public TopupHistoryFragment() {
 
     }
 
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setData();
+        }
+    }
+
     // TODO: Rename and change types and number of parameters
-    public static TopupHistoryFragment newInstance() {
+    public static TopupHistoryFragment newInstance(int serviceId) {
         TopupHistoryFragment fragment = new TopupHistoryFragment();
+        Bundle args = new Bundle();
+        args.putInt("serviceId", serviceId);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mServiceId = getArguments().getInt("serviceId", 0);
         getTopUpApiReportDetailsAPI = new GetTopUpApiReportDetailsAPI();
         reportRequest = new ReportRequest();
-        items = new ArrayList<Object>();
+        items = new ArrayList<>();
         historyRecyclerViewAdapter = new TopupHistoryRecyclerViewAdapter(items, getActivity());
 
     }
@@ -96,7 +107,7 @@ public class TopupHistoryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData(serviceId);
+                setData();
             }
         });
 
@@ -112,15 +123,13 @@ public class TopupHistoryFragment extends Fragment {
     }
 
 
-    public void setData(int serviceDetailsID) {
-        hidEmptyView();
-        serviceId = serviceDetailsID;
+    public void setData() {
+
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
-        reportRequest.setServiceDetailID(serviceDetailsID);
+        reportRequest.setServiceDetailID(mServiceId);
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
-
         getTopUpApiReportDetailsAPI.getTopUpWalletBankTransferApi(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
 
     }
@@ -128,22 +137,27 @@ public class TopupHistoryFragment extends Fragment {
     APIListener<GetTopUpApiReportDetailsResponse> getTopUpApiReportDetailsResponseAPIListener = new APIListener<GetTopUpApiReportDetailsResponse>() {
         @Override
         public void onResponse(Response<GetTopUpApiReportDetailsResponse> response) {
-            swipeRefreshLayout.setRefreshing(false);
-            progressBar.setVisibility(View.GONE);
-            if (response.isSuccessful() && response.body() != null) {
-                GetTopUpApiReportDetailsResponse getTopUpApiReportDetailsResponse = response.body();
-                if (getTopUpApiReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    List<TopUpApiReportDetails> topUpApiReportDetailses=getTopUpApiReportDetailsResponse.getResponseData().getData();
-                    historyRecyclerViewAdapter.setServiceDetailsId(serviceId);
-                    historyRecyclerViewAdapter.setItems(topUpApiReportDetailses);
-                    if (getTopUpApiReportDetailsResponse.getResponseData().getData().size() == 0) {
+
+            try {
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
+                if (response.isSuccessful() && response.body() != null) {
+                    GetTopUpApiReportDetailsResponse getTopUpApiReportDetailsResponse = response.body();
+                    if (getTopUpApiReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
+                        List<TopUpApiReportDetails> topUpApiReportDetailses = getTopUpApiReportDetailsResponse.getResponseData().getData();
+                        historyRecyclerViewAdapter.setServiceDetailsId(mServiceId);
+                        historyRecyclerViewAdapter.setItems(topUpApiReportDetailses);
+                        if (getTopUpApiReportDetailsResponse.getResponseData().getData().size() == 0) {
+                            showEmptyView();
+                        }
+                    } else {
                         showEmptyView();
                     }
                 } else {
-                    showEmptyView();
+                    //set error msg
                 }
-            } else {
-                //set error msg
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }

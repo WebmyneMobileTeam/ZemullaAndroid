@@ -94,10 +94,12 @@ public class Functions {
         context.startActivity(i);
     }
 
-    public static void fireIntentWithClearFlag(Context context, Class cls) {
+    public static void fireIntentWithClearFlag(Activity context, Class cls) {
         Intent intent = new Intent(context, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
         context.startActivity(intent);
+        context.finish();
+
     }
 
     public static void fireIntent(Context context, Intent intent) {

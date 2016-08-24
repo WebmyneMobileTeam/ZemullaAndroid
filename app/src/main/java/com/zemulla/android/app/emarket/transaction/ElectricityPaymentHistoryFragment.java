@@ -19,6 +19,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetKazangElectricityDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.getkazangelectricitydetails.ElectricityDetailsReportResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
 import com.zemulla.android.app.transaction.topup.TopupHistoryRecyclerViewAdapter;
@@ -45,7 +46,7 @@ public class ElectricityPaymentHistoryFragment extends Fragment {
     TextView emptyTextView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    int serviceId = 0;
+
 
     private Unbinder unbinder;
     private TopupHistoryRecyclerViewAdapter historyRecyclerViewAdapter;
@@ -61,6 +62,9 @@ public class ElectricityPaymentHistoryFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            setData();
+        }
 
     }
 
@@ -101,9 +105,10 @@ public class ElectricityPaymentHistoryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData(serviceId);
+                setData();
             }
         });
+        hidEmptyView();
         return fragmentView;
     }
 
@@ -115,9 +120,8 @@ public class ElectricityPaymentHistoryFragment extends Fragment {
     }
 
 
-    public void setData(int serviceID) {
-        hidEmptyView();
-        this.serviceId = serviceID;
+    public void setData() {
+
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
         reportRequest.setTo("19-08-2016");
@@ -135,7 +139,7 @@ public class ElectricityPaymentHistoryFragment extends Fragment {
             if (response.isSuccessful() && response.body() != null) {
                 ElectricityDetailsReportResponse electricityDetailsReportResponse = response.body();
                 if (electricityDetailsReportResponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    historyRecyclerViewAdapter.setServiceDetailsId(serviceId);
+                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.KazangElectricity.getId());
                     historyRecyclerViewAdapter.setItems(electricityDetailsReportResponse.getResponseData().getData());
                     if (electricityDetailsReportResponse.getResponseData().getData().size() == 0) {
                         showEmptyView();

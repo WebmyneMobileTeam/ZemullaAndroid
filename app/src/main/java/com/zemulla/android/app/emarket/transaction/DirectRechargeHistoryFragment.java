@@ -19,6 +19,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetKazangDirectRechargeDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.getkazangdirectrechargedetails.DirectRechargeDetailsReportResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
 import com.zemulla.android.app.transaction.topup.TopupHistoryRecyclerViewAdapter;
@@ -61,6 +62,9 @@ public class DirectRechargeHistoryFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            setData();
+        }
 
     }
 
@@ -101,9 +105,10 @@ public class DirectRechargeHistoryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData(serviceId);
+                setData();
             }
         });
+        hidEmptyView();
         return fragmentView;
     }
 
@@ -115,9 +120,8 @@ public class DirectRechargeHistoryFragment extends Fragment {
     }
 
 
-    public void setData(int serviceID) {
-        hidEmptyView();
-        serviceId = serviceID;
+    public void setData() {
+
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
         reportRequest.setTo("19-08-2016");
@@ -135,7 +139,7 @@ public class DirectRechargeHistoryFragment extends Fragment {
             if (response.isSuccessful() && response.body() != null) {
                 DirectRechargeDetailsReportResponse directRechargeDetailsReportResponse = response.body();
                 if (directRechargeDetailsReportResponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    historyRecyclerViewAdapter.setServiceDetailsId(serviceId);
+                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.KazangDirectRecharge.getId()  );
                     historyRecyclerViewAdapter.setItems(directRechargeDetailsReportResponse.getResponseData().getData());
                     if (directRechargeDetailsReportResponse.getResponseData().getData().size() == 0) {
                         showEmptyView();

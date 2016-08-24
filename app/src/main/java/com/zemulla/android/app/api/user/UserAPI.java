@@ -1,6 +1,7 @@
 package com.zemulla.android.app.api.user;
 
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.model.user.dashboard.GetDashboardData;
 import com.zemulla.android.app.model.user.getuserdetailidwise.GetUserDetailIDWiseResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 
@@ -18,5 +19,9 @@ public interface UserAPI {
 
     @GET(AppConstant.GetUserDetailIDWise)
     Call<GetUserDetailIDWiseResponse> GetUserDetailIDWise(@Path("USERID") String USERID);
+
+    @GET(AppConstant.GetDashboardData)
+    Call<GetDashboardData> GetDashboardData(@Path("USERID") String USERID);
+
 
 }

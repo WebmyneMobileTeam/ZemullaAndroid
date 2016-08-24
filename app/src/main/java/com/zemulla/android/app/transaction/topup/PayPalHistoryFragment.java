@@ -61,6 +61,9 @@ public class PayPalHistoryFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setData();
+        }
 
     }
 
@@ -101,9 +104,10 @@ public class PayPalHistoryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData(serviceId);
+                setData();
             }
         });
+        hidEmptyView();
         return fragmentView;
     }
 
@@ -115,12 +119,11 @@ public class PayPalHistoryFragment extends Fragment {
     }
 
 
-    public void setData(int serviceID) {
-        hidEmptyView();
-        serviceId = serviceID;
+    public void setData() {
+
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
-        reportRequest.setServiceDetailID(serviceID);
+        reportRequest.setServiceDetailID(ServiceDetails.PaypalPayment.getId());
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
         getPayPalReportDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
@@ -133,19 +136,23 @@ public class PayPalHistoryFragment extends Fragment {
 
             swipeRefreshLayout.setRefreshing(false);
             progressBar.setVisibility(View.GONE);
-            if (response.isSuccessful() && response.body() != null) {
-                GetPayPalReportDetailsReponse getPayPalReportDetailsReponse = response.body();
-                if (getPayPalReportDetailsReponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.PaypalPayment.getId());
-                    historyRecyclerViewAdapter.setItems(getPayPalReportDetailsReponse.getResponseData().getData());
-                    if (getPayPalReportDetailsReponse.getResponseData().getData().size() == 0) {
+            try {
+                if (response.isSuccessful() && response.body() != null) {
+                    GetPayPalReportDetailsReponse getPayPalReportDetailsReponse = response.body();
+                    if (getPayPalReportDetailsReponse.getResponseCode() == AppConstant.ResponseSuccess) {
+                        historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.PaypalPayment.getId());
+                        historyRecyclerViewAdapter.setItems(getPayPalReportDetailsReponse.getResponseData().getData());
+                        if (getPayPalReportDetailsReponse.getResponseData().getData().size() == 0) {
+                            showEmptyView();
+                        }
+                    } else {
                         showEmptyView();
                     }
                 } else {
-                    showEmptyView();
+                    //set error msg
                 }
-            } else {
-                //set error msg
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }

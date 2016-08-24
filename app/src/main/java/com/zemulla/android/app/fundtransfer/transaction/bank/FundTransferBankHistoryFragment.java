@@ -53,8 +53,6 @@ public class FundTransferBankHistoryFragment extends Fragment {
     private ReportRequest reportRequest;
     private GetFundTransferBankReportAPI getFundTransferBankReportAPI;
 
-    private int serviceDetails;
-
     public FundTransferBankHistoryFragment() {
 
     }
@@ -62,6 +60,9 @@ public class FundTransferBankHistoryFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setData();
+        }
 
     }
 
@@ -101,9 +102,10 @@ public class FundTransferBankHistoryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData(ServiceDetails.WithdrawalByAdmin.getId());
+                setData();
             }
         });
+        hidEmptyView();
         return fragmentView;
     }
 
@@ -115,12 +117,11 @@ public class FundTransferBankHistoryFragment extends Fragment {
     }
 
 
-    public void setData(int ServiceDetailsID) {
-        hidEmptyView();
-        this.serviceDetails = ServiceDetailsID;
+    public void setData() {
+
         reportRequest.setFrom("19-08-2016");
         reportRequest.setIsPageLoad(true);
-        reportRequest.setServiceDetailID(ServiceDetailsID);
+        reportRequest.setServiceDetailID(ServiceDetails.WithdrawalByAdmin.getId());
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
 
@@ -137,7 +138,7 @@ public class FundTransferBankHistoryFragment extends Fragment {
             if (response.isSuccessful() && response.body() != null) {
                 GetTopUpBankTransferReportDetailsResponse getTopUpApiReportDetailsResponse = response.body();
                 if (getTopUpApiReportDetailsResponse.getResponseCode() == AppConstant.ResponseSuccess) {
-                    historyRecyclerViewAdapter.setServiceDetailsId(serviceDetails);
+                    historyRecyclerViewAdapter.setServiceDetailsId(ServiceDetails.WithdrawalByAdmin.getId());
                     historyRecyclerViewAdapter.setItems(getTopUpApiReportDetailsResponse.getResponseData().getData());
                     if (getTopUpApiReportDetailsResponse.getResponseData().getData().size() == 0) {
                         showEmptyView();

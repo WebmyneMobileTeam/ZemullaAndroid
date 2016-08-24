@@ -13,7 +13,7 @@ public class PasswordTracker {
         return text;
     }
 
-    public int getColor() {
+    public int getColor()    {
         return color;
     }
 

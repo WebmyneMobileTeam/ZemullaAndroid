@@ -137,6 +137,23 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void submitOTP(String OTP) {
+        try {
+            if (otpGenValTemporaryResponse != null && loginResponse != null) {
+                otpGenValTemporaryRequest.setMobile(loginResponse.getMobile());
+                otpGenValTemporaryRequest.setCallingCode(loginResponse.getMobile());
+                otpGenValTemporaryRequest.setEmail(loginResponse.getMobile());
+                otpGenValTemporaryRequest.setEmailTempleteID(0);
+                otpGenValTemporaryRequest.setVerificationCode(OTP);
+                otpGenValTemporaryRequest.setUniqueID(otpGenValTemporaryResponse.getUniqueID());
+                showProgressDialog();
+                otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void initOTPDiaLog() {
         otpDialog = new OTPDialog(this, new OTPDialog.onSubmitListener() {
             @Override
@@ -161,23 +178,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void submitOTP(String OTP) {
-        try {
-            if (otpGenValTemporaryResponse != null && loginResponse != null) {
-                otpGenValTemporaryRequest.setMobile(loginResponse.getMobile());
-                otpGenValTemporaryRequest.setCallingCode(loginResponse.getMobile());
-                otpGenValTemporaryRequest.setEmail(loginResponse.getMobile());
-                otpGenValTemporaryRequest.setEmailTempleteID(0);
-                otpGenValTemporaryRequest.setVerificationCode(OTP);
-                otpGenValTemporaryRequest.setUniqueID(otpGenValTemporaryResponse.getUniqueID());
-                showProgressDialog();
-                otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void showOTPDialog() {

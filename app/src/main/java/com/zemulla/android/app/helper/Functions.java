@@ -46,6 +46,8 @@ import com.zemulla.android.app.widgets.customdialog.SweetAlertDialog;
 
 import java.lang.reflect.Field;
 
+import rx.Subscription;
+
 
 public class Functions {
 
@@ -152,6 +154,26 @@ public class Functions {
     public static String toStingEditText(EditText editText) {
         return editText.getText().toString().trim();
     }
+
+    public static void showError(final Context context, final boolean isFinish) {
+        new MaterialDialog.Builder(context)
+                .content(context.getResources().getString(R.string.errorMsg))
+                .typeface(Functions.getLatoFont(context), Functions.getLatoFont(context))
+                .positiveText(android.R.string.ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        if (isFinish) {
+                            Activity activity = (Activity) context;
+                            activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
+                    }
+                })
+                .show();
+    }
+
 
     public static void showError(final Context context, String errorMsg, final boolean isFinish) {
         new MaterialDialog.Builder(context)
@@ -364,6 +386,24 @@ public class Functions {
 
         if (listener != null) {
             listener = null;
+        }
+
+    }
+
+    public static void removeSubscition(Subscription subscription) {
+
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
+
+    }
+
+    public static void removeSubscitions(Subscription... subscription) {
+
+        for (Subscription subscription1 : subscription) {
+            if (subscription1 != null && !subscription1.isUnsubscribed()) {
+                subscription1.unsubscribe();
+            }
         }
 
     }

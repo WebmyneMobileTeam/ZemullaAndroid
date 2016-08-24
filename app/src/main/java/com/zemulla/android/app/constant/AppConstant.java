@@ -47,7 +47,7 @@ public class AppConstant {
     public static final String GetWalletDetail = UserSVC + "GetWalletDetailAD/{USERID}";
     public static final String GetUserDetailIDWise = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
     public static final String GetDashboardData = UserSVC + "GetDashboardData/{USERID}";
-    public static final String ChangePassword = UserSVC + "ChangePasswordAD";
+       public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
     public static final String PaymentSVC = "Payment.svc/json/";
     public static final String TopUpTransactionChargeCalculation = PaymentSVC + "TopUpTransactionChargeCalculationAD";
@@ -92,6 +92,9 @@ public class AppConstant {
     public static final String GetKazangDirectRechargeDetails = ReportsSVC + "GetKazangDirectRechargeDetailsAD";
     public static final String GetKazangDSTVPaymentDetails = ReportsSVC + "GetKazangDSTVPaymentDetailsAD";
     public static final String GetKazangElectricityDetails = ReportsSVC + "GetKazangElectricityDetailsAD";
+    public static final String GetNotificationCommon = ReportsSVC + "GetNotificationCommonAD";
+    public static final String CheckedNotificationCommon = ReportsSVC + "CheckedNotificationCommonAD";
+
 
 
     // Password Tracker constants

@@ -2,9 +2,11 @@ package com.zemulla.android.app.base;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.helper.DatabaseHandler;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,9 +30,26 @@ public class ZemullaApplication extends Application {
     public void onCreate() {
         super.onCreate();
         zemullaApplication = this;
+        initDataBase();
         initGson();
         initRetrofit();
+        initStetho();
 
+    }
+
+    private void initStetho() {
+        Stetho.initialize(Stetho.newInitializerBuilder(getApplicationContext())
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(getApplicationContext()))
+                .build());
+    }
+
+    private void initDataBase() {
+        DatabaseHandler handler = new DatabaseHandler(getApplicationContext());
+        try {
+            handler.createDataBase();
+        } catch (Exception e) {
+
+        }
     }
 
     private void initGson() {

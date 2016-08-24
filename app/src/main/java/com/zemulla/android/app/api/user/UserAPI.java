@@ -4,9 +4,15 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.model.user.dashboard.GetDashboardData;
 import com.zemulla.android.app.model.user.getuserdetailidwise.GetUserDetailIDWiseResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
+import com.zemulla.android.app.model.user.notification.CheckedNotificationRequest;
+import com.zemulla.android.app.model.user.notification.CheckedNotificationResponse;
+import com.zemulla.android.app.model.user.notification.NotificationRequest;
+import com.zemulla.android.app.model.user.notification.NotificationResponse;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -22,6 +28,7 @@ public interface UserAPI {
 
     @GET(AppConstant.GetDashboardData)
     Call<GetDashboardData> GetDashboardData(@Path("USERID") String USERID);
+
 
 
 }

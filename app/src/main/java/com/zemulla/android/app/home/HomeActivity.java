@@ -1,17 +1,21 @@
 package com.zemulla.android.app.home;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -23,22 +27,29 @@ import android.widget.RelativeLayout;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.meetic.marypopup.MaryPopup;
+import com.mikepenz.actionitembadge.library.ActionItemBadge;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
+import com.zemulla.android.app.api.reports.ReportsAPI;
 import com.zemulla.android.app.api.user.GetWalletDetailAPI;
+import com.zemulla.android.app.base.ZemullaApplication;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.fundtransfer.FundTransferActivity;
+import com.zemulla.android.app.helper.DatabaseHandler;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
+import com.zemulla.android.app.model.user.notification.NotificationRequest;
+import com.zemulla.android.app.model.user.notification.NotificationResponse;
 import com.zemulla.android.app.report.ReportsActivity;
 import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.transaction.topup.TopUpTransactionHistoryActivity;
 import com.zemulla.android.app.user.ChangePasswordActivity;
 import com.zemulla.android.app.user.ContactUsActivity;
 import com.zemulla.android.app.user.KYCActivity;
+import com.zemulla.android.app.user.NotificationActivity;
 import com.zemulla.android.app.user.UserProfileActivity;
 import com.zemulla.android.app.widgets.DrawerDialogView;
 import com.zemulla.android.app.widgets.TfTextView;
@@ -49,6 +60,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 
@@ -74,6 +86,13 @@ public class HomeActivity extends AppCompatActivity {
     private float IMAGE_SCALE = 1.5f;
     private Animation rotation;
     private ImageView refresh;
+    private int badgeCount = 0;
+    private ReportsAPI reportsAPI;
+    private NotificationRequest notificationRequest;
+    private Call<NotificationResponse> notificationResponseCall;
+    private DatabaseHandler databaseHandler;
+    private ProgressDialog progressDialog;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +212,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.home_balance, menu);
-
+        this.menu = menu;
         refresh = (ImageView) menu.findItem(R.id.action_refresh).getActionView();
         if (refresh != null) {
             refresh.setImageResource(R.drawable.ic_autorenew_white_24dp);
@@ -207,16 +226,44 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         }
+
         return true;
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getNotification();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        notificationResponseCall.cancel();
+        getWalletDetailAPI.cancelRequest();
+        Log.d("call cancel", String.valueOf(notificationResponseCall.isCanceled()));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_notification:
+                Intent iReport = new Intent(HomeActivity.this, NotificationActivity.class);
+                startActivity(iReport);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         LogUtils.LOGE("UserID", PrefUtils.getUserID(this) + "");
-
         getWalletDetail();
     }
 
@@ -292,6 +339,10 @@ public class HomeActivity extends AppCompatActivity {
         getWalletDetailAPI = new GetWalletDetailAPI();
         rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
         rotation.setRepeatCount(Animation.INFINITE);
+
+        this.databaseHandler = new DatabaseHandler(this);
+        reportsAPI = ZemullaApplication.getRetrofit().create(ReportsAPI.class);
+        notificationRequest = new NotificationRequest();
     }
 
     @Override
@@ -343,5 +394,65 @@ public class HomeActivity extends AppCompatActivity {
         }
     };
 
+
+    private void getNotification() {
+        notificationRequest.setUserID(PrefUtils.getUserID(this));
+        notificationResponseCall = reportsAPI.getNotificationCommonAD(notificationRequest);
+        notificationResponseCall.enqueue(new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+
+                try {
+
+                    if (response.isSuccessful() && response.body() != null) {
+                        Log.d("getNotification", "notification");
+                        badgeCount = response.body().getResponseData().getData().size();
+                        if (PrefUtils.isFirstTimeNotification(HomeActivity.this) || !PrefUtils.isNotificationOpen(HomeActivity.this)) {
+                            databaseHandler.saveAllNotification(response.body().getResponseData().getData());
+                            PrefUtils.setFirstTimeNotification(HomeActivity.this, false);
+                            PrefUtils.setNotificationOpen(HomeActivity.this, true);
+                        }
+                        if (badgeCount > 0) {
+                            ActionItemBadge.update(HomeActivity.this, menu.findItem(R.id.action_notification), ContextCompat.getDrawable(HomeActivity.this, R.drawable.ic_notifications_white_24dp), ActionItemBadge.BadgeStyles.RED, badgeCount);
+                        } else {
+                            ActionItemBadge.hide(menu.findItem(R.id.action_notification));
+                        }
+                    } else {
+                        Log.d("Error ", "notification");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+                Functions.showError(HomeActivity.this, false);
+            }
+        });
+
+    }
+
+
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait....");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+    }
+
+    private void showProgressDialog() {
+        if (progressDialog == null) {
+            initProgressDialog();
+        }
+        progressDialog.show();
+    }
+
+    private void hidProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
 
 }

@@ -14,6 +14,7 @@ import retrofit2.Response;
 public class GetWalletDetailAPI {
     private UserAPI userAPI;
     private APIListener apiListener;
+    Call<GetWalletDetailResponse> loginResponseCall;
 
     public GetWalletDetailAPI() {
 
@@ -21,7 +22,7 @@ public class GetWalletDetailAPI {
     }
 
     public void getWalletDetail(final String UserID, final APIListener apiListener) {
-        Call<GetWalletDetailResponse> loginResponseCall = userAPI.GetWalletDetail(UserID);
+        loginResponseCall = userAPI.GetWalletDetail(UserID);
         loginResponseCall.enqueue(new Callback<GetWalletDetailResponse>() {
             @Override
             public void onResponse(Call<GetWalletDetailResponse> call, Response<GetWalletDetailResponse> response) {
@@ -36,6 +37,10 @@ public class GetWalletDetailAPI {
 
     }
 
+
+    public void cancelRequest() {
+        loginResponseCall.cancel();
+    }
 
     public void onDestory() {
         if (userAPI != null) {

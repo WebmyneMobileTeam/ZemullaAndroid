@@ -8,6 +8,10 @@ import com.zemulla.android.app.model.reports.getkazangelectricitydetails.Electri
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.GetTopUpApiReportDetailsResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
 import com.zemulla.android.app.model.reports.w2w.W2WReportResponse;
+import com.zemulla.android.app.model.user.notification.CheckedNotificationRequest;
+import com.zemulla.android.app.model.user.notification.CheckedNotificationResponse;
+import com.zemulla.android.app.model.user.notification.NotificationRequest;
+import com.zemulla.android.app.model.user.notification.NotificationResponse;
 import com.zemulla.android.app.topup.transaction.bank.GetTopUpBankTransferReportDetailsResponse;
 import com.zemulla.android.app.topup.transaction.cybersource.GetCyberSourceReportDetailsResponse;
 import com.zemulla.android.app.topup.transaction.paypal.GetPayPalReportDetailsReponse;
@@ -55,6 +59,13 @@ public interface ReportsAPI {
 
     @POST(AppConstant.GetKazangElectricityDetails)
     Call<ElectricityDetailsReportResponse> getKazangElectricityDetails(@Body ReportRequest reportRequest);
+
+    @POST(AppConstant.CheckedNotificationCommon)
+    Call<CheckedNotificationResponse> checkedNotificationCommon(@Body CheckedNotificationRequest CheckedNotificationCommon);
+
+
+    @POST(AppConstant.GetNotificationCommon)
+    Call<NotificationResponse> getNotificationCommonAD(@Body NotificationRequest notificationRequest);
 
 
 }

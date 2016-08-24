@@ -19,6 +19,10 @@ public class PrefUtils {
     private static final String BALANCE = "BALANCE";
 
 
+    private static final String isNotificationOpen = "NotificationOpen";
+    private static final String isFirstTimeNotification = "FirstTimeNotification";
+
+
     public static void setLoggedIn(Context context, boolean isLoggedIn) {
         Prefs.with(context).save(IS_LOGGED_IN, isLoggedIn);
     }
@@ -42,7 +46,7 @@ public class PrefUtils {
     }
 
     public static LoginResponse getUserProfile(Context context) {
-        Gson gson =ZemullaApplication.getGson();
+        Gson gson = ZemullaApplication.getGson();
         LoginResponse response = null;
 
         String jsonString = Prefs.with(context).getString(USER_PROFILE, "");
@@ -56,7 +60,7 @@ public class PrefUtils {
     }
 
     public static void setBALANCE(Context context, GetWalletDetailResponse getWalletDetailResponse) {
-        String toJson =ZemullaApplication.getGson().toJson(getWalletDetailResponse);
+        String toJson = ZemullaApplication.getGson().toJson(getWalletDetailResponse);
         Prefs.with(context).save(BALANCE, toJson);
     }
 
@@ -73,5 +77,22 @@ public class PrefUtils {
 
         return response;
     }
+
+    public static void setNotificationOpen(Context context, boolean isOpen) {
+        Prefs.with(context).save(isNotificationOpen, isOpen);
+    }
+
+    public static boolean isNotificationOpen(Context context) {
+        return Prefs.with(context).getBoolean(isNotificationOpen, false);
+    }
+
+    public static void setFirstTimeNotification(Context context, boolean isFirstTime) {
+        Prefs.with(context).save(isFirstTimeNotification, isFirstTime);
+    }
+
+    public static boolean isFirstTimeNotification(Context context) {
+        return Prefs.with(context).getBoolean(isFirstTimeNotification, true);
+    }
+
 
 }

@@ -102,7 +102,7 @@ public class TopUpTransactionHistoryActivity extends AppCompatActivity {
         historyPageAdapter.addPage(TopUpBankHistoryFragment.newInstance(), topupTileBeen.get(5).getTileName());
         viewpager.setAdapter(historyPageAdapter);
         viewpagertab.setupWithViewPager(viewpager);
-        viewpager.setOffscreenPageLimit(3);
+        viewpager.setOffscreenPageLimit(5);
 
     }
 

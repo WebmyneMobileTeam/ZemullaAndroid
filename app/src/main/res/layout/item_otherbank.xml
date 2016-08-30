@@ -1,60 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainHolder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.GridLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/branchNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimaryDark"
-            android:elevation="@dimen/dimen_4dp"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:textColor="@color/white" />
+        android:background="@color/white"
+        app:alignmentMode="alignBounds"
+        app:columnCount="2"
+        app:columnOrderPreserved="false"
+        app:useDefaultMargins="true">
 
 
         <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/accountName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_6dp"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+            android:id="@+id/branchText"
+            style="@style/transaction_history_left_primary_color"
+            android:text="Branch"
+            android:textSize="16sp"
+            app:layout_gravity="fill_horizontal" />
 
         <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/accountNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_6dp"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+            android:id="@+id/branchValue"
+            style="@style/transaction_history_primary_color"
+            android:text=""
+            android:textSize="16dp" />
+
+        <View
+            android:layout_height="1dp"
+            android:background="@color/grey_line"
+            app:layout_columnSpan="2"></View>
 
         <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/accountBranch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_6dp"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+            android:id="@+id/accountNameText"
+            style="@style/transaction_history_left"
+            android:text="Account Name " />
 
         <com.zemulla.android.app.widgets.TfTextView
-            android:id="@+id/swiftCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_6dp"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
+            android:id="@+id/accountNameValue"
+            style="@style/transaction_history_right"
+            android:text="" />
 
 
-    </LinearLayout>
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/accountNumberText"
+            style="@style/transaction_history_left"
+            android:text="Account Number" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/accountNumberValue"
+            style="@style/transaction_history_right"
+            android:text="" />
+
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/accountBranchText"
+            style="@style/transaction_history_left"
+            android:text="Account Branch" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/accountBranchValue"
+            style="@style/transaction_history_right"
+            android:text="" />
+
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/swiftCodeText"
+            style="@style/transaction_history_left"
+            android:text="Swift Code" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/swiftCodeValue"
+            style="@style/transaction_history_right"
+            android:text="" />
+
+
+    </android.support.v7.widget.GridLayout>
 
 
 </android.support.v7.widget.CardView>

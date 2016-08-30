@@ -244,7 +244,6 @@ public class ContactUsActivity extends AppCompatActivity {
 
     private void doContact() {
         showProgressDialog();
-        ;
 
         request.setDescription(Functions.toStingEditText(descriptionEditText));
         request.setSubject(Functions.toStingEditText(subjectEditText));

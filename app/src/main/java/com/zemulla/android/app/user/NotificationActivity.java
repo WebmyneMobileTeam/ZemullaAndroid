@@ -39,6 +39,8 @@ import retrofit2.Response;
 import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.functions.Func2;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -98,10 +100,12 @@ public class NotificationActivity extends AppCompatActivity {
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> {
-
-            Functions.fireIntentWithClearFlag(NotificationActivity.this, HomeActivity.class);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.fireIntentWithClearFlag(NotificationActivity.this, HomeActivity.class);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
         });
     }
 
@@ -149,27 +153,40 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
-    private void getMaxValuePIDNotification(List<Notification> notifications) {
+    private void getMaxValuePIDNotification(final List<Notification> notifications) {
 
 
         // compareTo should return < 0 if this is supposed to be
         // less than other, > 0 if this is supposed to be greater than
-        // other and 0 if they are supposed to be equal
         subscription = Observable.from(notifications)
-                .distinct(notification -> notification.getServiceDetailID())
-                .subscribe(notification -> {
+                .distinct(new Func1<Notification, Object>() {
+                    @Override
+                    public Object call(Notification notification) {
+                        return notification.getServiceDetailID();
+                    }
+                })
+                .subscribe(new Action1<Notification>() {
+                    @Override
+                    public void call(final Notification notification1) {
+                        subscription1 = Observable.from(notifications).filter(new Func1<Notification, Boolean>() {
+                            @Override
+                            public Boolean call(Notification notification) {
+                                return notification1.getServiceDetailID() == notification.getServiceDetailID();
+                            }
+                        }).toSortedList(new Func2<Notification, Notification, Integer>() {
+                            @Override
+                            public Integer call(Notification notification, Notification notification2) {
+                                return notification1.getPKID() > notification2.getPKID() ? -1 : 0;
+                            }
+                        }).subscribe(new Action1<List<Notification>>() {
+                            @Override
+                            public void call(List<Notification> notifications) {
 
-                    subscription1 = Observable.from(notifications)
-                            .filter(notification1 -> notification.getServiceDetailID() == notification1.getServiceDetailID())
-                            .toSortedList((notification1, notification2) -> notification1.getPKID() > notification2.getPKID() ? -1 : 0)
-                            .subscribe(new Action1<List<Notification>>() {
-                                @Override
-                                public void call(List<Notification> notifications) {
+                                integerIntegerHashMap.put(notifications.get(0).getServiceDetailID(), notifications.get(0).getPKID());
 
-                                    integerIntegerHashMap.put(notifications.get(0).getServiceDetailID(), notifications.get(0).getPKID());
-
-                                }
-                            });
+                            }
+                        });
+                    }
                 });
 
 

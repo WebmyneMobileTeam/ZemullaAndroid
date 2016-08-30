@@ -27,6 +27,7 @@ import com.zemulla.android.app.helper.DynamicMasterId;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.account.optgenval.OTPGenValRequest;
@@ -194,7 +195,7 @@ public class MtnActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                             otpDialog.disMissDiaLog();
-                            Functions.showSuccessMsg(MtnActivity.this, response.body().getResponse().getResponseMsg(), true);
+                                Functions.showSuccessMsg(MtnActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
 
                         } else {
                             Functions.showError(MtnActivity.this, response.body().getResponse().getResponseMsg(), false);

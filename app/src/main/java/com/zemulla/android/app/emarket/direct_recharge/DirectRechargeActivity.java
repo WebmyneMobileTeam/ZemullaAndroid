@@ -27,6 +27,7 @@ import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.KazangProductProvider;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.kazang.getkazangproductprovider.GetKazangProductProviderResponse;
 import com.zemulla.android.app.model.kazang.kazangdirectrecharge.KazangDirectRechargeRequest;
@@ -339,7 +340,7 @@ public class DirectRechargeActivity extends AppCompatActivity {
             if (response.isSuccessful()) {
                 if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                     otpDialogAfterLogin.dismiss();
-                    Functions.showSuccessMsg(DirectRechargeActivity.this, response.body().getResponse().getResponseMsg(), true);
+                    Functions.showSuccessMsg(DirectRechargeActivity.this, response.body().getResponse().getResponseMsg(), true,HomeActivity.class);
                 } else {
                     Functions.showError(DirectRechargeActivity.this, response.body().getResponse().getResponseMsg(), false);
                 }

@@ -5,6 +5,7 @@
     android:id="@+id/activity_topup_initial_transaction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.zemulla.android.app.topup.TopupInitialTransactionActivity">
 
@@ -199,185 +200,98 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <TableLayout
+            <android.support.v7.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp">
+                android:layout_weight="1"
+                android:background="@color/white"
+                app:alignmentMode="alignBounds"
+                app:columnCount="2"
+                app:columnOrderPreserved="false"
+                app:useDefaultMargins="true">
 
-                <TableRow
+
+                <com.zemulla.android.app.widgets.TfTextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorExtraDark"
-                    android:gravity="center_horizontal">
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:gravity="center"
+                    android:text="Transcation Slip"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/L_TEXT"
+                    app:isBold="true"
+                    app:layout_columnSpan="2" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48dp"
-                        android:layout_gravity="center"
-                        android:layout_span="2"
-                        android:gravity="center"
-                        android:text="Transcation Slip"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/L_TEXT"
-                        app:isBold="true" />
 
-                </TableRow>
+                <View
+                    android:layout_height="1dp"
+                    android:background="@color/grey_line"
+                    app:layout_columnSpan="2"></View>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <com.zemulla.android.app.widgets.TfTextView
+                    style="@style/transaction_history_left"
+                    android:text="Transaction ID" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_weight="1"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:text="Transaction ID"
-                        android:textColor="#000000" />
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:id="@+id/txtZemulaTransID"
+                    style="@style/transaction_history_right" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:id="@+id/txtZemulaTransID"
-                        android:layout_weight="1"
-                        android:background="#d3d3d3"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:textColor="#000000" />
 
-                </TableRow>
+                <com.zemulla.android.app.widgets.TfTextView
+                    style="@style/transaction_history_left"
+                    android:text="USD Rate" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:id="@+id/txtTransUSDRate"
+                    style="@style/transaction_history_right" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_weight="1"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:text="USD Rate"
-                        android:textColor="#000000" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:id="@+id/txtTransUSDRate"
-                        android:layout_weight="1"
-                        android:background="#d3d3d3"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:textColor="#000000" />
+                <com.zemulla.android.app.widgets.TfTextView
+                    style="@style/transaction_history_left"
+                    android:text="USD Amount" />
 
-                </TableRow>
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:id="@+id/txtTransPayableUSD"
+                    style="@style/transaction_history_right" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_weight="1"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:text="USD Amount"
-                        android:textColor="#000000" />
+                <com.zemulla.android.app.widgets.TfTextView
+                    style="@style/transaction_history_left"
+                    android:text="Amount" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:id="@+id/txtTransPayableUSD"
-                        android:layout_weight="1"
-                        android:background="#d3d3d3"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:textColor="#000000" />
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:id="@+id/txtTransAmount"
+                    style="@style/transaction_history_right" />
 
-                </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <com.zemulla.android.app.widgets.TfTextView
+                    style="@style/transaction_history_left"
+                    android:text="Total Paid Amount" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_weight="1"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:text="Amount"
-                        android:textColor="#000000" />
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:id="@+id/txtTransPayableAmount"
+                    style="@style/transaction_history_right" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:id="@+id/txtTransAmount"
-                        android:layout_weight="1"
-                        android:background="#d3d3d3"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:textColor="#000000" />
 
-                </TableRow>
+                <com.zemulla.android.app.widgets.TfTextView
+                    style="@style/transaction_history_left"
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:text="Charges" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_weight="1"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:text="Total Paid Amount"
-                        android:textColor="#000000" />
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:id="@+id/txtTransCharge"
+                    style="@style/transaction_history_right" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:id="@+id/txtTransPayableAmount"
-                        android:layout_weight="1"
-                        android:background="#d3d3d3"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:textColor="#000000" />
 
-                </TableRow>
+                <com.zemulla.android.app.widgets.TfTextView
+                    style="@style/transaction_history_left"
+                    android:text="Transaction Date" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <com.zemulla.android.app.widgets.TfTextView
+                    android:id="@+id/txtTransDate"
+                    style="@style/transaction_history_right" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_weight="1"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:text="Charges"
-                        android:textColor="#000000" />
 
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:id="@+id/txtTransCharge"
-                        android:layout_weight="1"
-                        android:background="#d3d3d3"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:textColor="#000000" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:layout_weight="1"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:text="Transaction Date"
-                        android:textColor="#000000" />
-
-                    <com.zemulla.android.app.widgets.TfTextView
-                        android:id="@+id/txtTransDate"
-                        android:layout_weight="1"
-                        android:background="#d3d3d3"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_12dp"
-                        android:textColor="#000000" />
-
-                </TableRow>
-
-            </TableLayout>
+            </android.support.v7.widget.GridLayout>
 
             <mbanje.kurt.fabbutton.FabButton
                 android:id="@+id/paypalFabPrint"

@@ -72,10 +72,7 @@ public class Functions {
     }
 
 
-    public static Typeface getRegularTypeFace(Context ctx) {
-        Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), regularFont);
-        return typeface;
-    }
+
 
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
@@ -131,11 +128,7 @@ public class Functions {
     }
 
     public static boolean isEmpty(EditText editText) {
-        if (TextUtils.isEmpty(editText.getText().toString().trim())) {
-            return true;
-        } else {
-            return false;
-        }
+        return TextUtils.isEmpty(editText.getText().toString().trim());
     }
 
     public static boolean emailValidation(String email) {
@@ -154,7 +147,9 @@ public class Functions {
     public static String toStingEditText(EditText editText) {
         return editText.getText().toString().trim();
     }
-
+    public static String toStingTextView(TextView textView) {
+        return textView.getText().toString().trim();
+    }
     public static void showError(final Context context, final boolean isFinish) {
         new MaterialDialog.Builder(context)
                 .content(context.getResources().getString(R.string.errorMsg))
@@ -322,11 +317,7 @@ public class Functions {
         } else {
             if (phoneNumber.trim().length() < 10) {
                 return false;
-            } else if (phoneNumber.trim().length() == 10) {
-                return true;
-            } else {
-                return false;
-            }
+            } else return phoneNumber.trim().length() == 10;
         }
     }
 

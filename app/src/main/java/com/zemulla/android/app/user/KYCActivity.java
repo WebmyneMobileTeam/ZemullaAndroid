@@ -1,6 +1,8 @@
 package com.zemulla.android.app.user;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -52,8 +55,13 @@ public class KYCActivity extends AppCompatActivity {
     Unbinder unbinder;
     @BindView(R.id.txtClear)
     TfTextView txtClear;
+    @BindView(R.id.pdfImage)
+    ImageView pdfImage;
+    @BindView(R.id.documentPath)
+    TextView documentPath;
     private String kycType = "";
     private boolean isAttach = false;
+    private static final int PICKFILE_RESULT_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +120,10 @@ public class KYCActivity extends AppCompatActivity {
                                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                         if (which == 0) {
                                             captureCam();
-                                        } else {
+                                        } else if (which == 1) {
                                             pickGallery();
+                                        } else if (which == 2) {
+                                            pickDocument();
                                         }
                                     }
                                 })
@@ -142,11 +152,12 @@ public class KYCActivity extends AppCompatActivity {
                         // Do something with Bitmap
                         isAttach = true;
                         imgDocument.setImageBitmap(bitmap);
-                        imgDocument.setVisibility(View.VISIBLE);
+                        hidePDFView();
                         setClearVisible();
                     }
                 });
     }
+
 
     private void captureCam() {
         RxImagePicker.with(this).requestImage(Sources.CAMERA)
@@ -162,10 +173,21 @@ public class KYCActivity extends AppCompatActivity {
                         // Do something with Bitmap
                         isAttach = true;
                         imgDocument.setImageBitmap(bitmap);
-                        imgDocument.setVisibility(View.VISIBLE);
+                        hidePDFView();
                         setClearVisible();
                     }
                 });
+    }
+
+    private void pickDocument() {
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("file/pdf");
+            startActivityForResult(intent, PICKFILE_RESULT_CODE);
+        } catch (ActivityNotFoundException exp) {
+            Toast.makeText(getBaseContext(), "No File (Manager / Explorer)etc Found In Your Device", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @OnClick(R.id.btnUpload)
@@ -183,6 +205,10 @@ public class KYCActivity extends AppCompatActivity {
     public void onClearClick() {
         isAttach = false;
         imgDocument.setVisibility(View.INVISIBLE);
+        pdfImage.setVisibility(View.GONE);
+        documentPath.setText("");
+        documentPath.setVisibility(View.GONE);
+
         setClearVisible();
     }
 
@@ -193,4 +219,80 @@ public class KYCActivity extends AppCompatActivity {
             txtClear.setVisibility(View.GONE);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case PICKFILE_RESULT_CODE:
+                if (resultCode == RESULT_OK) {
+
+                    try {
+
+                        String FilePath = data.getData().getPath();
+                        String FileName = data.getData().getLastPathSegment();
+                        int lastPos = FilePath.length() - FileName.length();
+
+
+//                    textFile.setText("Full Path: \n" + FilePath + "\n");
+//                    textFolder.setText("Folder: \n" + Folder + "\n");
+//                    textFileName.setText("File Name: \n" + FileName + "\n");
+//
+                        filename thisFile = new filename(FileName);
+                        if (!thisFile.getExt().equalsIgnoreCase("pdf")) {
+                            Toast.makeText(KYCActivity.this, "PDF file allow only.", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            isAttach = true;
+                            showPDFView();
+                            documentPath.setText(FilePath);
+                            setClearVisible();
+                        }
+//                    textFileName_WithoutExt.setText("Filename without Ext: " + thisFile.getFilename_Without_Ext());
+//                    textFileName_Ext.setText("Ext: " + thisFile.getExt());
+
+
+                    } catch (Exception e) {
+                        Toast.makeText(KYCActivity.this, "File not allowed.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                break;
+
+        }
+    }
+
+
+    private class filename {
+
+        String filename_Without_Ext = "";
+        String ext = "";
+
+        filename(String file) {
+            int dotposition = file.lastIndexOf(".");
+            filename_Without_Ext = file.substring(0, dotposition);
+            ext = file.substring(dotposition + 1, file.length());
+        }
+
+        String getFilename_Without_Ext() {
+            return filename_Without_Ext;
+        }
+
+        String getExt() {
+            return ext;
+        }
+    }
+
+    public void showPDFView() {
+
+        documentPath.setVisibility(View.VISIBLE);
+        pdfImage.setVisibility(View.VISIBLE);
+        imgDocument.setVisibility(View.GONE);
+    }
+
+    public void hidePDFView() {
+        documentPath.setVisibility(View.GONE);
+        pdfImage.setVisibility(View.GONE);
+        imgDocument.setVisibility(View.VISIBLE);
+    }
 }

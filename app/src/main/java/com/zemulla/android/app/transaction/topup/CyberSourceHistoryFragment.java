@@ -7,10 +7,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,12 +26,14 @@ import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.TopUpApiReportDetails;
 import com.zemulla.android.app.topup.transaction.cybersource.GetCyberSourceReportDetailsResponse;
+import com.zemulla.android.app.widgets.CalenderDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -46,6 +51,16 @@ public class CyberSourceHistoryFragment extends Fragment {
     TextView emptyTextView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.fromDate)
+    TextView fromDateTextView;
+    @BindView(R.id.toDate)
+    TextView toDate;
+    @BindView(R.id.cancelFilter)
+    TextView cancelFilter;
+    @BindView(R.id.filterImageButton)
+    ImageButton filterImageButton;
+    @BindView(R.id.filterHolder)
+    LinearLayout filterHolder;
 
 
     private Unbinder unbinder;
@@ -53,7 +68,8 @@ public class CyberSourceHistoryFragment extends Fragment {
     private List<TopUpApiReportDetails> items;
     private ReportRequest reportRequest;
     private GetCyberSourceReportDetailsAPI getCyberSourceReportDetailsAPI;
-
+    private boolean isDateSelected;
+    private String fromDateValue, toDateValue = "";
 
     public CyberSourceHistoryFragment() {
 
@@ -131,6 +147,14 @@ public class CyberSourceHistoryFragment extends Fragment {
         reportRequest.setServiceDetailID(ServiceDetails.CyberSource.getId());
         reportRequest.setTo("19-08-2016");
         reportRequest.setUserID(PrefUtils.getUserID(getActivity()));
+
+        if (isDateSelected && !TextUtils.isEmpty(fromDateValue)) {
+
+            reportRequest.setFrom(fromDateValue);
+            reportRequest.setTo(toDateValue);
+            reportRequest.setIsPageLoad(false);
+        }
+
         getCyberSourceReportDetailsAPI.getSendMoneyApiReportDetailsAPI(reportRequest, getTopUpApiReportDetailsResponseAPIListener);
 
     }
@@ -166,14 +190,55 @@ public class CyberSourceHistoryFragment extends Fragment {
     };
 
     public void showEmptyView() {
+        mainRecyler.setVisibility(View.GONE);
         emptyImageView.setVisibility(View.VISIBLE);
         emptyTextView.setVisibility(View.VISIBLE);
     }
 
     public void hidEmptyView() {
+        mainRecyler.setVisibility(View.VISIBLE);
         emptyImageView.setVisibility(View.GONE);
         emptyTextView.setVisibility(View.GONE);
     }
 
+    @OnClick({R.id.cancelFilter, R.id.filterImageButton})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.cancelFilter:
+                cancelFilter();
+                break;
+            case R.id.filterImageButton:
+                OpenCalener();
+                break;
+        }
+    }
 
+    private void cancelFilter() {
+        fromDateTextView.setVisibility(View.INVISIBLE);
+        toDate.setVisibility(View.INVISIBLE);
+        cancelFilter.setVisibility(View.INVISIBLE);
+        isDateSelected = false;
+        hidEmptyView();
+        setData();
+    }
+
+    private void OpenCalener() {
+        CalenderDialog calenderDialog = new CalenderDialog();
+        calenderDialog.showDialog(fromDateValue, toDateValue, getChildFragmentManager(), new CalenderDialog.OnSuccessListener() {
+            @Override
+            public void onSuccess(String fromDate, String todate) {
+                fromDateTextView.setText(String.format("From : %s", fromDate));
+                toDate.setText(String.format("To : %s", todate));
+                fromDateTextView.setVisibility(View.VISIBLE);
+                toDate.setVisibility(View.VISIBLE);
+                fromDateValue = fromDate;
+                toDateValue = todate;
+                cancelFilter.setVisibility(View.VISIBLE);
+                isDateSelected = true;
+                progressBar.setVisibility(View.VISIBLE);
+                hidEmptyView();
+                setData();
+            }
+        });
+    }
 }

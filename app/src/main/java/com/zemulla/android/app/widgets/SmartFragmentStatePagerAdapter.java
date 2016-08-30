@@ -31,6 +31,6 @@ public abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerA
 
     // Returns the fragment for the position (if instantiated)
     public Fragment getRegisteredFragment(int position) {
-        return registeredFragments.get(position);
+            return registeredFragments.get(position);
     }
 }

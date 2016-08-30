@@ -28,6 +28,7 @@ import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.country.Country;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -375,7 +376,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                         otpDialogAfterLogin.dismiss();
-                        Functions.showSuccessMsg(ZemullaWalletFundTransferActivity.this, response.message(), true);
+                        Functions.showSuccessMsg(ZemullaWalletFundTransferActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
                     } else {
                         Functions.showError(ZemullaWalletFundTransferActivity.this, response.body().getResponse().getResponseMsg(), false);
                     }

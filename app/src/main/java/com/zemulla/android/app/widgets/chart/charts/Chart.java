@@ -348,10 +348,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             return true;
         else {
 
-            if (mData.getEntryCount() <= 0)
-                return true;
-            else
-                return false;
+            return mData.getEntryCount() <= 0;
         }
     }
 

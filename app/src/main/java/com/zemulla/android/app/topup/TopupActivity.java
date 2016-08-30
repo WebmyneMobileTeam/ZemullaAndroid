@@ -18,6 +18,7 @@ import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.Serivces;
 import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.topup.bank.BankActivity;
@@ -68,7 +69,7 @@ public class TopupActivity extends AppCompatActivity {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         TopupTileConfiguration configuration = new TopupTileConfiguration();
-        tiles_topup = configuration.getAllTopupOptions();
+        tiles_topup = TopupTileConfiguration.getAllTopupOptions();
 
 
         for (TopupTileBean bean : tiles_topup) {
@@ -94,7 +95,7 @@ public class TopupActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Functions.fireIntentWithClearFlag(TopupActivity.this, HomeActivity.class);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });

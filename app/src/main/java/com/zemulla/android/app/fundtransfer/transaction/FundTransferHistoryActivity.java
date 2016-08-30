@@ -106,8 +106,10 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
         historyPageAdapter.addPage(FundTransferBankHistoryFragment.newInstance(), fundTransferTileBeen.get(4).getTileName());
         viewpager.setAdapter(historyPageAdapter);
         viewpagertab.setupWithViewPager(viewpager);
-        viewpager.setOffscreenPageLimit(3);
+        viewpager.setOffscreenPageLimit(4);
 
 
     }
+
+
 }

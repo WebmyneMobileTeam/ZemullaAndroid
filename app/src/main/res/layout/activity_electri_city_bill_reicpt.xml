@@ -3,285 +3,134 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.zemulla.android.app.emarket.electricity.ElectriCityBillReicptActivity">
 
-    <include layout="@layout/app_bar" />
+    <include
+        layout="@layout/app_bar"
+        app:layout_columnSpan="2"
+        app:layout_gravity="fill_horizontal" />
 
-    <ScrollView
+    <android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_16dp">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorExtraDark"
-                android:gravity="center_horizontal">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_48dp"
-                    android:layout_gravity="center"
-                    android:layout_span="2"
-                    android:gravity="center"
-                    android:text="Bill Slip"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/L_TEXT"
-                    app:isBold="true" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Meter No"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtMeterNo"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Amount"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtAmount"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Total Paid Amount"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtTotalPaidAmount"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Charges"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtCharge"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Transaction Date"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtTransactionDate"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Reciept No"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtReciptNo"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Reference Number"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtReferenceNumber"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Transaction ID"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtTransactionID"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Remaining Amount"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtRemainingAmount"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Outstanding Charge"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtOutStandingCharge"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:layout_weight="1"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:text="Description"
-                    android:textColor="#000000" />
-
-                <com.zemulla.android.app.widgets.TfTextView
-                    android:id="@+id/txtDescription"
-                    android:layout_weight="1"
-                    android:background="#d3d3d3"
-                    android:gravity="center"
-                    android:padding="@dimen/dimen_12dp"
-                    android:textColor="#000000" />
-
-            </TableRow>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:alignmentMode="alignBounds"
+        app:columnCount="2"
+        app:columnOrderPreserved="false"
+        app:useDefaultMargins="true"
+        tools:context="com.zemulla.android.app.emarket.electricity.ElectriCityBillReicptActivity">
 
 
-        </TableLayout>
-    </ScrollView>
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left_primary_color"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="Bill Slip"
+            android:textSize="16sp"
+            app:layout_columnSpan="2"
+            app:layout_gravity="fill_horizontal" />
+
+        <View
+            android:layout_height="1dp"
+            android:background="@color/grey_line"
+            app:layout_columnSpan="2"></View>
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Meter No" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtMeterNo"
+            style="@style/transaction_history_right" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Amount" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtAmount"
+            style="@style/transaction_history_right" />
 
 
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Total Paid Amount" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtTotalPaidAmount"
+            style="@style/transaction_history_right" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Charges" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtCharge"
+            style="@style/transaction_history_right" />
+
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Transaction Date" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtTransactionDate"
+            style="@style/transaction_history_right" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Reciept No" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtReciptNo"
+            style="@style/transaction_history_right" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Reference Number" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtReferenceNumber"
+            style="@style/transaction_history_right" />
+
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Transaction ID" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtTransactionID"
+            style="@style/transaction_history_right" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Remaining Amount" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtRemainingAmount"
+            style="@style/transaction_history_right" />
+
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Outstanding Charge" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtOutStandingCharge"
+            style="@style/transaction_history_right" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            style="@style/transaction_history_left"
+            android:text="Description" />
+
+        <com.zemulla.android.app.widgets.TfTextView
+            android:id="@+id/txtDescription"
+            style="@style/transaction_history_right" />
+    </android.support.v7.widget.GridLayout>
 </LinearLayout>

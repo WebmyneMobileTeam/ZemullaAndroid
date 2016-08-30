@@ -25,6 +25,7 @@ import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.FundTransferTransactionChargeCalculationResponse;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationRequest;
@@ -167,11 +168,12 @@ public class BankTransferActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                         otpDialogAfterLogin.dismiss();
-                        Functions.showSuccessMsg(BankTransferActivity.this, response.body().getResponse().getResponseMsg(), true);
+                        Functions.showSuccessMsg(BankTransferActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
                     } else {
                         Functions.showError(BankTransferActivity.this, response.body().getResponse().getResponseMsg(), false);
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

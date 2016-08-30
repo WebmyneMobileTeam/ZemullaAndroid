@@ -32,13 +32,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_12dp"
+        android:minHeight="?actionBarSize"
         android:text="We have sent an OTP to your registered mobile number and email. Enter OTP below" />
 
     <com.zemulla.android.app.widgets.TfEditText
         android:id="@+id/edtOTP"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
         android:gravity="center"
         android:hint="Enter 6 Digit number"
         android:inputType="number"
@@ -48,6 +49,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        android:layout_marginTop="@dimen/dimen_12dp"
         android:gravity="right|center_vertical"
         android:orientation="horizontal">
 
@@ -62,14 +64,6 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <com.zemulla.android.app.widgets.TfButton
-            android:id="@+id/btnOk"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:text="OK"
-            android:textStyle="bold" />
 
         <com.zemulla.android.app.widgets.TfButton
             android:id="@+id/btnResend"
@@ -78,5 +72,14 @@
             android:layout_height="match_parent"
             android:text="Resend"
             android:textStyle="bold" />
+
+        <com.zemulla.android.app.widgets.TfButton
+            android:id="@+id/btnOk"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="OK"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </LinearLayout>

@@ -104,6 +104,6 @@ public class DrawerDialogView extends LinearLayout {
     };
 
     public interface OnItemsClickListner {
-        public void onClick(DrawerOptionsConfiguration.OptionID id);
+        void onClick(DrawerOptionsConfiguration.OptionID id);
     }
 }

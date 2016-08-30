@@ -428,7 +428,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<NotificationResponse> call, Throwable t) {
-                Functions.showError(HomeActivity.this, false);
+                Log.d("Notification", "Error while getting notification",t);
             }
         });
 

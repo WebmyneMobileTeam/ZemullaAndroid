@@ -58,19 +58,28 @@ public class SupportedBankAdapter extends RecyclerView.Adapter<SupportedBankAdap
     }
 
     class SupportedBankViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.branchNameTextView)
-        TfTextView branchNameTextView;
-        @BindView(R.id.accountName)
-        TfTextView accountName;
-        @BindView(R.id.accountNumber)
-        TfTextView accountNumber;
-        @BindView(R.id.accountBranch)
-        TfTextView accountBranch;
-        @BindView(R.id.swiftCode)
-        TfTextView swiftCode;
+        @BindView(R.id.branchText)
+        TfTextView branchText;
+        @BindView(R.id.branchValue)
+        TfTextView branchValue;
+        @BindView(R.id.accountNameText)
+        TfTextView accountNameText;
+        @BindView(R.id.accountNameValue)
+        TfTextView accountNameValue;
+        @BindView(R.id.accountNumberText)
+        TfTextView accountNumberText;
+        @BindView(R.id.accountNumberValue)
+        TfTextView accountNumberValue;
+        @BindView(R.id.accountBranchText)
+        TfTextView accountBranchText;
+        @BindView(R.id.accountBranchValue)
+        TfTextView accountBranchValue;
+        @BindView(R.id.swiftCodeText)
+        TfTextView swiftCodeText;
+        @BindView(R.id.swiftCodeValue)
+        TfTextView swiftCodeValue;
         @BindView(R.id.mainHolder)
         CardView mainHolder;
-
 
         public SupportedBankViewHolder(View itemView) {
             super(itemView);
@@ -79,11 +88,11 @@ public class SupportedBankAdapter extends RecyclerView.Adapter<SupportedBankAdap
 
         private void setDetails(GetSupportedBankDetails details) {
             try {
-                branchNameTextView.setText(String.format("%s Branch", details.getBranchName()));
-                accountName.setText(String.format("Account Name : %s", details.getAccountHolderName()));
-                accountNumber.setText(String.format("Account Number : %s", details.getAccountNumber()));
-                accountBranch.setText(String.format("Account Branch : %s", details.getBranchName()));
-                swiftCode.setText(String.format("Swift Code : %s", details.getBankSWIFTCode()));
+                branchValue.setText(details.getBranchName());
+                accountNameValue.setText(details.getAccountHolderName());
+                accountNumberValue.setText(details.getAccountNumber());
+                accountBranchValue.setText(details.getBranchName());
+                swiftCodeValue.setText(details.getBankSWIFTCode());
             } catch (Exception e) {
                 e.printStackTrace();
             }

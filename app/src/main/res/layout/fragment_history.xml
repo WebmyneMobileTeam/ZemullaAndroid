@@ -3,64 +3,73 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/search_holder"
+        android:id="@+id/filterHolder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/dimen_4dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/dimen_4dp"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/fromDate"
+            android:layout_width="0dp"
+
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <EditText
-                android:id="@+id/fromDateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:hint="From date" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/toDate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginLeft="@dimen/dimen_4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <EditText
-                android:id="@+id/toDateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="To date" />
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/search"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        <TextView
+            android:id="@+id/cancelFilter"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:background="@color/colorPrimaryDark"
-            android:clickable="true"
-            android:text="Search"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:padding="@dimen/dimen_4dp"
+            android:text="X"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="invisible" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/filterImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/dimen_8dp"
+            android:src="@drawable/filter_results" />
 
     </LinearLayout>
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search_holder">
+        android:layout_below="@+id/filterHolder">
 
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/mainRecyler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="@dimen/dimen_4dp"
-             />
+            android:padding="@dimen/dimen_4dp" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar

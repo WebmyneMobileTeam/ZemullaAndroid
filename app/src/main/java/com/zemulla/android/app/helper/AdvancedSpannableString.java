@@ -109,8 +109,8 @@ public class AdvancedSpannableString extends SpannableString {
 
 	}
 
-    public static interface OnClickableSpanListner {
-        public void onSpanClick();
+    public interface OnClickableSpanListner {
+        void onSpanClick();
     }
 
 }

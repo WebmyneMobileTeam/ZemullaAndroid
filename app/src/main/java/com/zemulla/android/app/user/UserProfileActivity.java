@@ -26,6 +26,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.model.FullProfile;
 import com.zemulla.android.app.home.model.ProfileAPI;
 import com.zemulla.android.app.home.model.ProfileResponse;
@@ -257,9 +258,17 @@ public class UserProfileActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Functions.fireIntentWithClearFlag(UserProfileActivity.this, HomeActivity.class);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlag(UserProfileActivity.this, HomeActivity.class);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @OnClick(R.id.btnSave)

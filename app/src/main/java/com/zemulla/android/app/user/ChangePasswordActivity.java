@@ -17,6 +17,7 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PasswordTracker;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.base.Response;
 import com.zemulla.android.app.user.api.ChangePasswordApi;
 import com.zemulla.android.app.user.model.ChangePasswordRequest;
@@ -142,9 +143,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Functions.fireIntentWithClearFlag(ChangePasswordActivity.this, HomeActivity.class);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlag(ChangePasswordActivity.this, HomeActivity.class);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override

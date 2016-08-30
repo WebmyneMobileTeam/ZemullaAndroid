@@ -91,7 +91,7 @@ public class CountryPickerView extends RelativeLayout implements APIListener<Cou
     public void onResponse(Response<CountryResponse> response) {
         if (response.isSuccessful()) {
             mCountryPickerAdapter.addAll(response.body().getResponseData().getData());
-        }else{
+        } else {
 
         }
     }

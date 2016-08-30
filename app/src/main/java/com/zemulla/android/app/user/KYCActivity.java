@@ -22,6 +22,10 @@ import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.home.HomeActivity;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.widgets.TfButton;
 import com.zemulla.android.app.widgets.TfTextView;
 
@@ -62,6 +66,8 @@ public class KYCActivity extends AppCompatActivity {
     private String kycType = "";
     private boolean isAttach = false;
     private static final int PICKFILE_RESULT_CODE = 1000;
+    private GetWalletDetailResponse walletResponse;
+    private LoginResponse loginResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,8 @@ public class KYCActivity extends AppCompatActivity {
     }
 
     private void init() {
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
         initToolbar();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -91,17 +99,28 @@ public class KYCActivity extends AppCompatActivity {
 
     private void initToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+            try {
+                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Functions.fireIntentWithClearFlag(KYCActivity.this, HomeActivity.class);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlag(KYCActivity.this, HomeActivity.class);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @OnClick(R.id.btnSelect)
@@ -112,8 +131,8 @@ public class KYCActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted() {
                         new MaterialDialog.Builder(KYCActivity.this)
-                                .title("Add Profile Photo")
-                                .items(R.array.items)
+                                .title("Upload Document")
+                                .items(R.array.items_PDF)
                                 .typeface(Functions.getLatoFont(KYCActivity.this), Functions.getLatoFont(KYCActivity.this))
                                 .itemsCallback(new MaterialDialog.ListCallback() {
                                     @Override

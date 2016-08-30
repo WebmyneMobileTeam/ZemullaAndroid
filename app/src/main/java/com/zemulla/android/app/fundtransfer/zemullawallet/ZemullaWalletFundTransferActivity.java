@@ -131,7 +131,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
 
         phoneNumberSubscription = RxTextView.afterTextChangeEvents(countryPicker.getEditText())
                 .skip(1)
-                .debounce(800, TimeUnit.MILLISECONDS)
+                .debounce(AppConstant.DebounceTime, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<TextViewAfterTextChangeEvent>() {
                     @Override

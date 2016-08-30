@@ -63,10 +63,15 @@
 
     <string name="numberDigits">0123456789</string>
 
-    <string-array name="items">
+    <string-array name="items_PDF">
         <item>Take Photo</item>
         <item>Choose from Gallery</item>
         <item>PDF</item>
+    </string-array>
+
+    <string-array name="items">
+        <item>Take Photo</item>
+        <item>Choose from Gallery</item>
     </string-array>
 
     <string-array name="contact_us">

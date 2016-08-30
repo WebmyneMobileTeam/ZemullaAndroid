@@ -16,7 +16,7 @@
         android:layout_height="48dp"
         android:background="@color/colorExtraDark"
         android:gravity="center"
-        android:text="ElectriCity Bill Payment"
+        android:text="Direct Recharge"
         android:textColor="@color/white"
         android:textSize="18sp" />
 

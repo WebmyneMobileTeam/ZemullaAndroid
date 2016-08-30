@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
@@ -195,7 +196,7 @@ public class MtnActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                             otpDialog.disMissDiaLog();
-                                Functions.showSuccessMsg(MtnActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
+                            Functions.showSuccessMsg(MtnActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
 
                         } else {
                             Functions.showError(MtnActivity.this, response.body().getResponse().getResponseMsg(), false);
@@ -226,6 +227,7 @@ public class MtnActivity extends AppCompatActivity {
                         //Todo remove this OTPResponseSuccess oon release time
                         if (response.body().getResponse().getResponseCode() == AppConstant.OTPResponseSuccess) {
                             openOTPDialog();
+                            Toast.makeText(MtnActivity.this, response.body().getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                         } else {
                             Functions.showError(MtnActivity.this, response.body().getResponse().getResponseMsg(), false);
                         }

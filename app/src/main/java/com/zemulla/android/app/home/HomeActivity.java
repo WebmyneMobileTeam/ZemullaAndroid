@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
 
         loginResponse = PrefUtils.getUserProfile(this);
-
+        Log.d("test", "onCreate");
         initToolbar_Drawer();
         init();
     }
@@ -226,7 +226,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         }
-
+        Log.d("test", "onCreateOptionsMenu");
         return true;
 
     }
@@ -234,6 +234,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("test", "onStart");
         getNotification();
     }
 
@@ -408,9 +409,11 @@ public class HomeActivity extends AppCompatActivity {
                         Log.d("getNotification", "notification");
                         badgeCount = response.body().getResponseData().getData().size();
                         if (PrefUtils.isFirstTimeNotification(HomeActivity.this) || !PrefUtils.isNotificationOpen(HomeActivity.this)) {
-                            databaseHandler.saveAllNotification(response.body().getResponseData().getData());
-                            PrefUtils.setFirstTimeNotification(HomeActivity.this, false);
-                            PrefUtils.setNotificationOpen(HomeActivity.this, true);
+                            if (badgeCount != 0) {
+                                databaseHandler.saveAllNotification(response.body().getResponseData().getData());
+                                PrefUtils.setFirstTimeNotification(HomeActivity.this, false);
+                                PrefUtils.setNotificationOpen(HomeActivity.this, true);
+                            }
                         }
                         if (badgeCount > 0) {
                             ActionItemBadge.update(HomeActivity.this, menu.findItem(R.id.action_notification), ContextCompat.getDrawable(HomeActivity.this, R.drawable.ic_notifications_white_24dp), ActionItemBadge.BadgeStyles.RED, badgeCount);
@@ -428,7 +431,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<NotificationResponse> call, Throwable t) {
-                Log.d("Notification", "Error while getting notification",t);
+                Log.d("Notification", "Error while getting notification", t);
             }
         });
 

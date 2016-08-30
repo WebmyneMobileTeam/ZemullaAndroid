@@ -78,7 +78,7 @@ public class PrefUtils {
         return response;
     }
 
-    public static void setNotificationOpen(Context context, boolean isOpen) {
+    public static void  setNotificationOpen(Context context, boolean isOpen) {
         Prefs.with(context).save(isNotificationOpen, isOpen);
     }
 

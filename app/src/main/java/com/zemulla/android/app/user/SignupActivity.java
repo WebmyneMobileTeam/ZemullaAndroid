@@ -117,7 +117,7 @@ public class SignupActivity extends AppCompatActivity {
     private void init() {
         initToolBar();
         initApplyFont();
-        initProgressDialog();
+        showProgressDialog();
 
         validateMobileEmailAPI = new ValidateMobileEmailAPI();
         validateMobileEmailRequest = new ValidateMobileEmailRequest();
@@ -221,9 +221,10 @@ public class SignupActivity extends AppCompatActivity {
 
 
     private void showProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.show();
+        if (progressDialog == null) {
+            initProgressDialog();
         }
+        progressDialog.show();
     }
 
     private void hidProgressDialog() {
@@ -238,11 +239,12 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void OnFailed(Throwable t) {
                 Toast.makeText(SignupActivity.this, "Failed to load country.", Toast.LENGTH_LONG).show();
+                hidProgressDialog();
             }
 
             @Override
             public void OnSelected(Country country) {
-
+                hidProgressDialog();
                 mSelectedCountry = country;
                 LogUtils.LOGD("Selected Country", country.getCountryName());
 
@@ -410,7 +412,6 @@ public class SignupActivity extends AppCompatActivity {
                     showOTPDialog();
                     otpGenValTemporaryResponse = response.body();
                     if (otpGenValTemporaryResponse != null && otpGenValTemporaryResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
-
                         Toast.makeText(SignupActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(SignupActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();

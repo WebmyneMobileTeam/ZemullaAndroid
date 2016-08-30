@@ -2,6 +2,7 @@ package com.zemulla.android.app.base;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zemulla.android.app.constant.AppConstant;
@@ -32,15 +33,15 @@ public class ZemullaApplication extends Application {
         initDataBase();
         initGson();
         initRetrofit();
-       // initStetho();
+        initStetho();
 
     }
 
-//    private void initStetho() {
-//        Stetho.initialize(Stetho.newInitializerBuilder(getApplicationContext())
-//                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(getApplicationContext()))
-//                .build());
-//    }
+    private void initStetho() {
+        Stetho.initialize(Stetho.newInitializerBuilder(getApplicationContext())
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(getApplicationContext()))
+                .build());
+    }
 
     private void initDataBase() {
         DatabaseHandler handler = new DatabaseHandler(getApplicationContext());

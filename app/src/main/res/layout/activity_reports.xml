@@ -61,7 +61,7 @@
                     android:id="@+id/chart1Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:padding="@dimen/dimen_2dp"
                     android:text="@string/action_history" />
 
@@ -70,6 +70,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="right"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:text="LAST 30 DAYS"
+                    android:textColor="@color/white" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -81,16 +90,26 @@
                     android:id="@+id/chart2Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+
                     android:padding="@dimen/dimen_2dp"
                     android:text="@string/action_history" />
 
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="right"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:text="LAST 30 DAYS"
+                    android:textColor="@color/white" />
 
                 <com.zemulla.android.app.widgets.chart.charts.PieChart
                     android:id="@+id/chart2"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="@dimen/dimen_8dp" />
+
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -102,9 +121,17 @@
                     android:id="@+id/chart3Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:padding="@dimen/dimen_2dp"
                     android:text="@string/action_history" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="right"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:text="LAST 30 DAYS"
+                    android:textColor="@color/white" />
 
                 <com.zemulla.android.app.widgets.chart.charts.PieChart
                     android:id="@+id/chart3"

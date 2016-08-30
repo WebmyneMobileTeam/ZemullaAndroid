@@ -16,7 +16,10 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
+import com.zemulla.android.app.model.account.login.LoginResponse;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.user.api.ContactApi;
 import com.zemulla.android.app.user.api.ServiceListApi;
 import com.zemulla.android.app.user.model.ContactRequest;
@@ -57,6 +60,8 @@ public class ContactUsActivity extends AppCompatActivity {
     private ContactRequest request;
     private ContactApi contactApi;
     private APIListener<com.zemulla.android.app.model.base.Response> contactApiListener;
+    private GetWalletDetailResponse walletResponse;
+    private LoginResponse loginResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +84,8 @@ public class ContactUsActivity extends AppCompatActivity {
     }
 
     private void init() {
-
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
         initProgressDialog();
 
         initToolbar();
@@ -205,17 +211,29 @@ public class ContactUsActivity extends AppCompatActivity {
 
     private void initToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+            try {
+                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Functions.fireIntentWithClearFlag(ContactUsActivity.this, HomeActivity.class);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlag(ContactUsActivity.this, HomeActivity.class);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @OnClick(R.id.submitButton)

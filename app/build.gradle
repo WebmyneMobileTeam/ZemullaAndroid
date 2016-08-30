@@ -11,7 +11,9 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,6 +30,7 @@ android {
 //            universalApk true
 //        }
 //    }
+
 
 }
 
@@ -78,6 +81,6 @@ dependencies {
     compile('com.paypal.sdk:paypal-android-sdk:2.12.3') {
         exclude group: 'io.card'
     }
-
+    compile 'com.facebook.stetho:stetho:1.3.1'
 
 }

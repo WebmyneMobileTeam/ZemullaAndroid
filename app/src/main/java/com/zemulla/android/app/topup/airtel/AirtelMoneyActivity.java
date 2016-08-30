@@ -105,7 +105,7 @@ public class AirtelMoneyActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onResend() {
+                        public void     onResend() {
 
                         }
 

@@ -438,7 +438,6 @@ public class BankActivity extends AppCompatActivity {
         otpGenValRequest.setCallingCode(loginResponse.getCallingCode());
         otpGenValRequest.setMobile(loginResponse.getMobile());
         otpGenValRequest.setUserID(PrefUtils.getUserID(this));
-
         otpGenValAPI.otpGenVal(otpGenValRequest, otpApiListener);
 
     }
@@ -453,6 +452,7 @@ public class BankActivity extends AppCompatActivity {
                     if (response.body().getResponse().getResponseCode() == AppConstant.OTPResponseSuccess) {
                         if (!otpDialog.isShowing()) {
                             openOTPDialog();
+                            Toast.makeText(BankActivity.this,response.body().getResponse().getResponseMsg(),Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Functions.showError(BankActivity.this, response.body().getResponse().getResponseMsg(), false);

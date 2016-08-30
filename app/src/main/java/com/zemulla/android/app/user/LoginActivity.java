@@ -94,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
         otpGenValTemporaryAPI = new OTPGenValTemporaryAPI();
         otpGenValTemporaryRequest = new OTPGenValRequest();
         setSignUpText();
-        initProgressDialog();
         showProgressDialog();
 
         countryPicker.fetchCountry();
@@ -126,9 +125,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.show();
+        if (progressDialog == null) {
+            initProgressDialog();
         }
+        progressDialog.show();
     }
 
     private void hidProgressDialog() {

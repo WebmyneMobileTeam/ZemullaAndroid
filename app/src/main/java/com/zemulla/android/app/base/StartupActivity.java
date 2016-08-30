@@ -1,6 +1,5 @@
 package com.zemulla.android.app.base;
 
-import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,19 +43,19 @@ public class StartupActivity extends AppCompatActivity {
                 } else {
 
                     Intent intent = new Intent(StartupActivity.this, LoginActivity.class);
-                    String transitionName = "logo_trans";
-
-                    if (android.os.Build.VERSION.SDK_INT >= 21) {
-
-                        ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(StartupActivity.this, imgLogo, transitionName);
-                        startActivity(intent, transitionActivityOptions.toBundle());
-
-                        finish();
-
-                    } else {
-                        startActivity(intent);
-                        finish();
-                    }
+                  //  String transitionName = "logo_trans";
+                    startActivity(intent);
+                    finish();
+//                    if (android.os.Build.VERSION.SDK_INT >= 21) {
+//
+//                        ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(StartupActivity.this, imgLogo, transitionName);
+//                        startActivity(intent, transitionActivityOptions.toBundle());
+//
+//                        finish();
+//
+//                    } else {
+//
+//                    }
                 }
 
             }

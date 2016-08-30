@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -137,6 +138,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private void getNotification() {
 
+
         try {
             notifications = databaseHandler.getAllNotification();
             if (notifications.size() == 0) {
@@ -176,7 +178,7 @@ public class NotificationActivity extends AppCompatActivity {
                         }).toSortedList(new Func2<Notification, Notification, Integer>() {
                             @Override
                             public Integer call(Notification notification, Notification notification2) {
-                                return notification1.getPKID() > notification2.getPKID() ? -1 : 0;
+                                return notification.getPKID() > notification2.getPKID() ? -1 : 0;
                             }
                         }).subscribe(new Action1<List<Notification>>() {
                             @Override
@@ -203,6 +205,7 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
         checkedNotificationRequest.setResponseData(responseDatas);
+        showProgressDialog();
         callCheckNotification();
     }
 
@@ -220,6 +223,9 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CheckedNotificationResponse> call, Response<CheckedNotificationResponse> response) {
                 hidProgressDialog();
+
+                Log.d("request", ZemullaApplication.getGson().toJson(checkedNotificationRequest));
+                Log.d("response", ZemullaApplication.getGson().toJson(response.body()));
                 if (response.isSuccessful() && response.body().getResponseCode() == AppConstant.ResponseSuccess) {
                     PrefUtils.setNotificationOpen(NotificationActivity.this, false);
                 } else {

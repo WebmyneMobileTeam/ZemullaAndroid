@@ -22,6 +22,8 @@ import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
+import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.FundTransferTransactionChargeCalculationResponse;
@@ -96,6 +98,14 @@ public class MTNFundTransferActivity extends AppCompatActivity {
 
     private void getDataFromIntent() {
         serviceID = getIntent().getIntExtra(IntentConstant.INTENT_EXTRA_SERVICE_DETAILS, 0);
+        if (serviceID == ServiceDetails.MTNDebit.getId()) {
+            txtFundTransferName.setText("MTN");
+        } else if (serviceID == ServiceDetails.AirtelDebit.getId()) {
+            txtFundTransferName.setText("Airtel Money");
+        } else if (serviceID == ServiceDetails.ZoonaDebit.getId()) {
+            txtFundTransferName.setText("Zoona Cash");
+
+        }
     }
 
     private void init() {
@@ -201,6 +211,9 @@ public class MTNFundTransferActivity extends AppCompatActivity {
                     Functions.showError(MTNFundTransferActivity.this, "Enter Valid Amount", false);
                     return;
                 }
+                if (Functions.isFabAnimate(checkRateFab)) {
+                    return;
+                }
                 calculateAmount();
 
             }
@@ -265,7 +278,7 @@ public class MTNFundTransferActivity extends AppCompatActivity {
 
             try {
                 if (response.isSuccessful() && response.body() != null) {
-                            fundTransferTransactionChargeCalculationResponse = response.body();
+                    fundTransferTransactionChargeCalculationResponse = response.body();
                     if (fundTransferTransactionChargeCalculationResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                         txtPayableAmount.setText(String.format("%s %.2f", AppConstant.ZMW, fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount()));
                         txtTopupAmount.setText(String.format("Topup Amount : %s %.2f", AppConstant.ZMW, fundTransferTransactionChargeCalculationResponse.getAmount()));
@@ -287,7 +300,7 @@ public class MTNFundTransferActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
-
+            RetrofitErrorHelper.showErrorMsg(t, MTNFundTransferActivity.this);
         }
     };
 

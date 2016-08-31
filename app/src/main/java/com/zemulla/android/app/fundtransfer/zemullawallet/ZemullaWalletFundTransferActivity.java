@@ -27,6 +27,7 @@ import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
@@ -228,6 +229,13 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
                     Functions.showError(ZemullaWalletFundTransferActivity.this, "Enter Valid Amount", false);
                     return;
                 }
+
+                if (Functions.isFabAnimate(checkRateFab)) {
+                    return;
+                }
+                if (Functions.isFabAnimate(checkRateFab)) {
+                    return;
+                }
                 calculateAmount();
 
             }
@@ -249,6 +257,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
                 otpDialogAfterLogin.generateOPT();
 
             }
+
         });
     }
 
@@ -311,7 +320,8 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
-
+            checkRateFab.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t, ZemullaWalletFundTransferActivity.this);
         }
     };
 
@@ -390,6 +400,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<SendMoneyW2WResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, ZemullaWalletFundTransferActivity.this);
         }
     };
 

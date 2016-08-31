@@ -161,6 +161,9 @@ public class ElectricityActivity extends AppCompatActivity {
                 } else if (!isValidMeterNumber) {
                     Functions.showError(ElectricityActivity.this, "Enter Valid Meter Number", false);
                 } else {
+                    if (Functions.isFabAnimate(initFab)) {
+                        return;
+                    }
                     calculateAmount();
                 }
             }
@@ -177,6 +180,9 @@ public class ElectricityActivity extends AppCompatActivity {
         confirmFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Functions.isFabAnimate(confirmFab)) {
+                    return;
+                }
                 getMeterInfo();
             }
         });
@@ -244,6 +250,7 @@ public class ElectricityActivity extends AppCompatActivity {
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);

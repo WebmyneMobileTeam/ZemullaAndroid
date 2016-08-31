@@ -291,6 +291,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                rotation.cancel();
             }
 
         }
@@ -397,6 +398,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void getNotification() {
+
+
         notificationRequest.setUserID(PrefUtils.getUserID(this));
         notificationResponseCall = reportsAPI.getNotificationCommonAD(notificationRequest);
         notificationResponseCall.enqueue(new Callback<NotificationResponse>() {

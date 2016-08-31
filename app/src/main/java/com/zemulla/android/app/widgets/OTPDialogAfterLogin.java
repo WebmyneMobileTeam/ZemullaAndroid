@@ -12,6 +12,7 @@ import com.zemulla.android.app.api.account.OTPGenValAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.account.optgenval.OTPGenValRequest;
 import com.zemulla.android.app.model.account.optgenval.OTPGenValResponse;
@@ -162,6 +163,7 @@ public class OTPDialogAfterLogin extends MaterialDialog {
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             onSubmitListener.OTPReceived();
+            RetrofitErrorHelper.showErrorMsg(t, getOwnerActivity());
         }
     };
 

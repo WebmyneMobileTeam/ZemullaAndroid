@@ -25,6 +25,7 @@ import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -154,7 +155,9 @@ public class BankActivity extends AppCompatActivity {
                     return;
                 }
 
-
+                if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
+                    return;
+                }
                 rateAPI();
 
             }
@@ -194,6 +197,9 @@ public class BankActivity extends AppCompatActivity {
         btnProcessConfirmTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Functions.isFabAnimate(btnProcessConfirmTransaction)) {
+                    return;
+                }
                 validateBankDetails();
             }
         });
@@ -265,7 +271,8 @@ public class BankActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<TopUpTransactionChargeCalculationResponse> call, Throwable t) {
-
+            btnProcessInitialTransaction.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t, BankActivity.this);
         }
     };
 
@@ -416,6 +423,7 @@ public class BankActivity extends AppCompatActivity {
             if (response.isSuccessful() && response.body() != null) {
 
                 if (response.body().getResponseCode() == AppConstant.ResponseSuccess) {
+                    otpDialog.disMissDiaLog();
                     Functions.showSuccessMsg(BankActivity.this, response.body().getResponseMsg(), true, HomeActivity.class);
 
                 } else {
@@ -429,6 +437,7 @@ public class BankActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<TopUpWalletBankTransferResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, BankActivity.this);
         }
     };
 
@@ -452,7 +461,7 @@ public class BankActivity extends AppCompatActivity {
                     if (response.body().getResponse().getResponseCode() == AppConstant.OTPResponseSuccess) {
                         if (!otpDialog.isShowing()) {
                             openOTPDialog();
-                            Toast.makeText(BankActivity.this,response.body().getResponse().getResponseMsg(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BankActivity.this, response.body().getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Functions.showError(BankActivity.this, response.body().getResponse().getResponseMsg(), false);
@@ -470,6 +479,7 @@ public class BankActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             btnProcessConfirmTransaction.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t, BankActivity.this);
         }
     };
 

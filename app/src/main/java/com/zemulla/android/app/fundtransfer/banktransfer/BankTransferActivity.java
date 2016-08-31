@@ -252,6 +252,9 @@ public class BankTransferActivity extends AppCompatActivity {
                     Functions.showError(BankTransferActivity.this, "Enter Valid Amount", false);
                     return;
                 }
+                if (Functions.isFabAnimate(checkRateFab)) {
+                    return;
+                }
                 calculateAmount();
 
             }

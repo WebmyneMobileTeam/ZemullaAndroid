@@ -198,6 +198,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
         cancelInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                animation = new FlipAnimation(lineatInitialViewTopup, customerDetailsHolder);
                 animation.reverse();
                 frameRootTopup.startAnimation(animation);
             }
@@ -242,7 +243,9 @@ public class DSTVEmarketActivity extends AppCompatActivity {
             Functions.showError(this, "Invalid Number", false);
             return;
         }
-
+        if (Functions.isFabAnimate(initFab)) {
+            return;
+        }
         initFab.showProgress(true);
         dstvPayment1Request.setUserID(PrefUtils.getUserID(this));
         dstvPayment1Request.setMonths(String.valueOf(selectedMonth.getId()));
@@ -282,6 +285,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private void initProgressDialog() {

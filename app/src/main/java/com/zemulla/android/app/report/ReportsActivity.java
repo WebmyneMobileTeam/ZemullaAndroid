@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.zemulla.android.app.api.user.UserAPI;
 import com.zemulla.android.app.base.ZemullaApplication;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.dashboard.BaseChart;
@@ -115,14 +117,17 @@ public class ReportsActivity extends AppCompatActivity {
             public void onResponse(Call<GetDashboardData> call, Response<GetDashboardData> response) {
                 hidProgressDialog();
                 try {
+
+                    Log.d("code", "" + response.code());
                     if (response.isSuccessful() && response.body() != null) {
                         getDashboardData = response.body();
                         setTransactionDetails(getDashboardData.Data.TransactionAmount);
                         setChartData(getDashboardData.Data.chartRootData);
 
                     } else {
-
+                        hidProgressDialog();
                         //show error dialog
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -131,7 +136,8 @@ public class ReportsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GetDashboardData> call, Throwable t) {
-
+                hidProgressDialog();
+                RetrofitErrorHelper.showErrorMsg(t, ReportsActivity.this);
             }
         });
     }

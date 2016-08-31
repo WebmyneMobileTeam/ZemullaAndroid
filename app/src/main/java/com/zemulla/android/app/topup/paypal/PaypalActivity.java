@@ -28,15 +28,11 @@ import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
-import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
-import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment1Request;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment1Response;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Request;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Response;
-import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
-import com.zemulla.android.app.user.KYCActivity;
 import com.zemulla.android.app.widgets.TfEditText;
 import com.zemulla.android.app.widgets.TfTextView;
 
@@ -114,8 +110,6 @@ public class PaypalActivity extends AppCompatActivity {
     private PayPalConfiguration configuration;
     public static final int PAYPAL_REQUEST_CODE = 123;
     private double paymentAmount;
-    private GetWalletDetailResponse walletResponse;
-    private LoginResponse loginResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,8 +158,7 @@ public class PaypalActivity extends AppCompatActivity {
     }
 
     private void init() {
-        walletResponse = PrefUtils.getBALANCE(this);
-        loginResponse = PrefUtils.getUserProfile(this);
+
         initPaypalConfig();
 
         initApi();
@@ -207,9 +200,7 @@ public class PaypalActivity extends AppCompatActivity {
     APIListener<PaypalPayment1Response> paypalPayment1ApiListener = new APIListener<PaypalPayment1Response>() {
         @Override
         public void onResponse(Response<PaypalPayment1Response> response) {
-            paypalFabInit.hideProgressOnComplete(true);
-            paypalFabInit.onProgressCompleted();
-            paypalFabInit.showProgress(false);
+            hideCircleProgress();
 
             try {
                 if (response.isSuccessful() && response.body() != null) {
@@ -239,12 +230,16 @@ public class PaypalActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<PaypalPayment1Response> call, Throwable t) {
-            paypalFabInit.hideProgressOnComplete(true);
-            paypalFabInit.onProgressCompleted();
-            paypalFabInit.showProgress(false);
+            hideCircleProgress();
 
         }
     };
+
+    private void hideCircleProgress() {
+        paypalFabInit.hideProgressOnComplete(true);
+        paypalFabInit.onProgressCompleted();
+        paypalFabInit.showProgress(false);
+    }
 
     APIListener<PaypalPayment2Response> paypal2Listener = new APIListener<PaypalPayment2Response>() {
         @Override
@@ -306,6 +301,9 @@ public class PaypalActivity extends AppCompatActivity {
                 if (Functions.isEmpty(edtAmount)) {
                     Functions.showError(PaypalActivity.this, "Please Enter Amount", false);
                 } else {
+                    if (Functions.isFabAnimate(paypalFabInit)) {
+                        return;
+                    }
                     callPayPal1Api();
                 }
             }
@@ -405,7 +403,6 @@ public class PaypalActivity extends AppCompatActivity {
 
     private void callPayPal1Api() {
         paypalFabInit.showProgress(true);
-
         paypalPayment1Request.setAmount(Double.parseDouble(Functions.toStingEditText(edtAmount)));
         paypalPayment1Request.setUserID(PrefUtils.getUserID(this));
 
@@ -413,25 +410,19 @@ public class PaypalActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
+        if (toolbar != null) {
+            toolbar.setTitle("Dhruvil Patel");
+            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+        }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
 
-
-            if (toolbar != null) {
-                try {
-                    Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Functions.fireIntentWithClearFlag(PaypalActivity.this, HomeActivity.class);
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                }
-            });
-
-
+        });
     }
 }

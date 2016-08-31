@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.user.LoginActivity;
@@ -26,6 +27,11 @@ public class StartupActivity extends AppCompatActivity {
         init();
 
 
+        if (!Functions.isNetworkAvailable(this)) {
+            Functions.showError(this, getString(R.string.no_internet_connection), true);
+            return;
+        }
+
         new CountDownTimer(1000, 1000) {
 
             @Override
@@ -43,7 +49,7 @@ public class StartupActivity extends AppCompatActivity {
                 } else {
 
                     Intent intent = new Intent(StartupActivity.this, LoginActivity.class);
-                  //  String transitionName = "logo_trans";
+                    //  String transitionName = "logo_trans";
                     startActivity(intent);
                     finish();
 //                    if (android.os.Build.VERSION.SDK_INT >= 21) {

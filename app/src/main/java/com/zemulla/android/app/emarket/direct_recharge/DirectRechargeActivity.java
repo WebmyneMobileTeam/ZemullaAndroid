@@ -148,6 +148,9 @@ public class DirectRechargeActivity extends AppCompatActivity {
                 } else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
                     Functions.showError(DirectRechargeActivity.this, "Enter Valid Amount", false);
                 } else {
+                    if (Functions.isFabAnimate(initFab)) {
+                        return;
+                    }
                     calculateAmount();
                 }
             }
@@ -200,6 +203,7 @@ public class DirectRechargeActivity extends AppCompatActivity {
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);

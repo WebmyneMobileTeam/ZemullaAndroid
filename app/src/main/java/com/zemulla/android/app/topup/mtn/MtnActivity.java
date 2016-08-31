@@ -28,6 +28,7 @@ import com.zemulla.android.app.helper.DynamicMasterId;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -106,6 +107,7 @@ public class MtnActivity extends AppCompatActivity {
     private OTPDialog otpDialog;
     private DynamicTextAPI dynamicTextAPI;
 
+
     private int masterID, serviceID;
 
     @Override
@@ -163,6 +165,7 @@ public class MtnActivity extends AppCompatActivity {
         edtAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter()});
 
         getDynamicTextApi();
+        initOTPDialog();
     }
 
     private void getDynamicTextApi() {
@@ -213,7 +216,7 @@ public class MtnActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<TopUpResponse> call, Throwable t) {
                 hidProgressDialog();
-                Functions.showError(MtnActivity.this, "Something went wrong. Please try again.", false);
+                RetrofitErrorHelper.showErrorMsg(t, MtnActivity.this);
             }
         };
 
@@ -226,7 +229,9 @@ public class MtnActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         //Todo remove this OTPResponseSuccess oon release time
                         if (response.body().getResponse().getResponseCode() == AppConstant.OTPResponseSuccess) {
-                            openOTPDialog();
+                            if (!otpDialog.isShowing()) {
+                                showOTPDialog();
+                            }
                             Toast.makeText(MtnActivity.this, response.body().getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                         } else {
                             Functions.showError(MtnActivity.this, response.body().getResponse().getResponseMsg(), false);
@@ -260,6 +265,9 @@ public class MtnActivity extends AppCompatActivity {
                     Functions.showError(MtnActivity.this, "Enter Valid Amount", false);
 
                 } else {
+                    if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
+                        return;
+                    }
                     callApi();
                 }
             }
@@ -296,6 +304,9 @@ public class MtnActivity extends AppCompatActivity {
                             return;
                         }
 
+                    }
+                    if (Functions.isFabAnimate(btnProcessConfirmTransaction)) {
+                        return;
                     }
                     generateOTPApi();
                 }
@@ -347,7 +358,7 @@ public class MtnActivity extends AppCompatActivity {
     }
 
 
-    private void openOTPDialog() {
+    private void initOTPDialog() {
         otpDialog = new OTPDialog(MtnActivity.this, new OTPDialog.onSubmitListener() {
             @Override
             public void onSubmit(String OTP) {
@@ -366,6 +377,10 @@ public class MtnActivity extends AppCompatActivity {
 
 
         });
+
+    }
+
+    private void showOTPDialog() {
         otpDialog.show();
         otpDialog.setDisplayText(false, loginResponse.getMobile(), "");
     }
@@ -382,11 +397,11 @@ public class MtnActivity extends AppCompatActivity {
     }
 
     private void callApi() {
-        btnProcessInitialTransaction.showProgress(true);
 
+
+        btnProcessInitialTransaction.showProgress(true);
         request.setServiceDetailsID(serviceID);
         request.setAmount(Double.parseDouble(Functions.toStingEditText(edtAmount)));
-
         transactionApi.getTopupCharge(request, topupApiListener);
 
     }
@@ -394,6 +409,7 @@ public class MtnActivity extends AppCompatActivity {
     APIListener<TopUpTransactionChargeCalculationResponse> topupApiListener = new APIListener<TopUpTransactionChargeCalculationResponse>() {
         @Override
         public void onResponse(Response<TopUpTransactionChargeCalculationResponse> response) {
+
             animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
             btnProcessInitialTransaction.showProgress(false);
 
@@ -421,6 +437,7 @@ public class MtnActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<TopUpTransactionChargeCalculationResponse> call, Throwable t) {
+            hidProgressDialog();
             btnProcessInitialTransaction.showProgress(false);
         }
     };

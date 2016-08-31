@@ -56,7 +56,7 @@ public class AirTimeActivity extends AppCompatActivity {
     @BindView(R.id.spinnerPlan)
     AppCompatSpinner spinnerPlan;
     @BindView(R.id.paypalFabInit)
-    FabButton paypalFabInit;
+    FabButton checkRateFab;
     @BindView(R.id.lineatInitialViewTopup)
     LinearLayout lineatInitialViewTopup;
     @BindView(R.id.paypalResetFab)
@@ -265,7 +265,7 @@ public class AirTimeActivity extends AppCompatActivity {
             if (response.isSuccessful()) {
                 if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                     otpDialogAfterLogin.dismiss();
-                    Functions.showSuccessMsg(AirTimeActivity.this, response.body().getResponse().getResponseMsg(), true,HomeActivity.class);
+                    Functions.showSuccessMsg(AirTimeActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
                 } else {
                     Functions.showError(AirTimeActivity.this, response.body().getResponse().getResponseMsg(), false);
                 }
@@ -311,7 +311,7 @@ public class AirTimeActivity extends AppCompatActivity {
     };
 
     private void actionListener() {
-        paypalFabInit.setOnClickListener(new View.OnClickListener() {
+        checkRateFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (selectedProvider.equalsIgnoreCase(getString(R.string.select_provider_prompt))) {
@@ -319,6 +319,9 @@ public class AirTimeActivity extends AppCompatActivity {
                 } else if (mSelectedProductPlan.getProduct_id().equalsIgnoreCase("0")) {
                     Functions.showError(AirTimeActivity.this, "Please Select Plan", false);
                 } else {
+                    if (Functions.isFabAnimate(checkRateFab)) {
+                        return;
+                    }
                     calculateAmount();
                 }
             }
@@ -345,7 +348,7 @@ public class AirTimeActivity extends AppCompatActivity {
 
     private void calculateAmount() {
 
-        paypalFabInit.showProgress(true);
+        checkRateFab.showProgress(true);
         topUpTransactionChargeCalculationRequest.setAmount(Double.parseDouble(Functions.toStingEditText(rechargeAmount)));
         topUpTransactionChargeCalculationRequest.setServiceDetailsID(ServiceDetails.AirtimeByVoucher.getId());
         getFundTransferTransactionCalApi.getTopupCharge(topUpTransactionChargeCalculationRequest, fundTransferTransactionChargeCalculationResponseAPIListener);
@@ -359,7 +362,7 @@ public class AirTimeActivity extends AppCompatActivity {
         public void onResponse(Response<FundTransferTransactionChargeCalculationResponse> response) {
 
             animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
-            paypalFabInit.showProgress(false);
+            checkRateFab.showProgress(false);
 
             try {
                 if (response.isSuccessful() && response.body() != null) {
@@ -411,6 +414,7 @@ public class AirTimeActivity extends AppCompatActivity {
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);

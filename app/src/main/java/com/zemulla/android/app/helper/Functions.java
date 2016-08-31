@@ -46,6 +46,8 @@ import com.zemulla.android.app.widgets.customdialog.SweetAlertDialog;
 
 import java.lang.reflect.Field;
 
+import mbanje.kurt.fabbutton.CircleImageView;
+import mbanje.kurt.fabbutton.FabButton;
 import rx.Subscription;
 
 
@@ -70,8 +72,6 @@ public class Functions {
         display.getMetrics(metrics);
         return metrics;
     }
-
-
 
 
     public static float convertDpToPixel(float dp, Context context) {
@@ -147,9 +147,11 @@ public class Functions {
     public static String toStingEditText(EditText editText) {
         return editText.getText().toString().trim();
     }
+
     public static String toStingTextView(TextView textView) {
         return textView.getText().toString().trim();
     }
+
     public static void showError(final Context context, final boolean isFinish) {
         new MaterialDialog.Builder(context)
                 .content(context.getResources().getString(R.string.errorMsg))
@@ -494,6 +496,27 @@ public class Functions {
 
     }
 
+    public static boolean isFabAnimate(FabButton fabButton) {
+        boolean progressVisible = false;
+        if (fabButton != null) {
+            try {
+                Field f = fabButton.getClass().getDeclaredField("circle");
+                f.setAccessible(true);
+                CircleImageView circleImageView = (CircleImageView) f.get(fabButton);
+                Field circleImageViewFField = circleImageView.getClass().getDeclaredField("progressVisible");
+                circleImageViewFField.setAccessible(true);
+                progressVisible=circleImageViewFField.getBoolean(circleImageView);
+            } catch (NoSuchFieldException e) {
+
+            } catch (IllegalAccessException e) {
+            }
+
+
+        }
+        return progressVisible;
+    }
+
+
     public static void hideKeyPad(Context context, View view) {
         InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(view.getWindowToken(),
@@ -509,4 +532,11 @@ public class Functions {
         return config;
     }
 
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

@@ -32,26 +32,92 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            android:padding="16dp"
             android:visibility="visible">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Topup Amount"
-                android:textSize="22sp" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp">
+                android:layout_marginTop="@dimen/dimen_8dp">
 
                 <EditText
                     android:id="@+id/edtAmount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="?actionBarSize"
                     android:hint="Enter Topup Amount"
                     android:inputType="number|numberDecimal" />
             </android.support.design.widget.TextInputLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rdVisa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Visa" />
+
+
+                <RadioButton
+                    android:id="@+id/rdmasterCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Master Card" />
+
+            </RadioGroup>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp">
+
+                <EditText
+                    android:id="@+id/edtcardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:hint="Card Number"
+                    android:inputType="number|numberDecimal"
+                    android:maxLength="16" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/selectMonthSpinner"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:overScrollMode="never"
+                    android:overlapAnchor="false"
+                    android:prompt="@string/select_recipient_bank_prompt"
+                    android:spinnerMode="dropdown" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/yearSpinner"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:overScrollMode="never"
+                    android:overlapAnchor="false"
+                    android:prompt="@string/select_recipient_bank_prompt"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
 
             <mbanje.kurt.fabbutton.FabButton
                 android:id="@+id/btnProcessInitialTransaction"
@@ -90,6 +156,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtTopupAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Topup Amount : ZMW 1212"
@@ -104,18 +171,21 @@
                     android:textSize="18sp" />
 
                 <TextView
-
+                    android:id="@+id/txtPayableAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ZMW 1122.32"
+                    android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="32sp" />
 
                 <TextView
+                    android:id="@+id/txtTransactionCharge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Transaction Charge : 100"
                     android:textSize="14sp" />
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +196,7 @@
                 android:orientation="horizontal">
 
                 <mbanje.kurt.fabbutton.FabButton
-                    android:id="@+id/btnProcessResetTransaction"
+                    android:id="@+id/resetFab"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -143,7 +213,7 @@
                     app:fbb_showEndBitmap="false" />
 
                 <mbanje.kurt.fabbutton.FabButton
-                    android:id="@+id/btnProcessConfirmTransaction"
+                    android:id="@+id/confirmFab"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
                     android:layout_centerInParent="true"
@@ -162,9 +232,7 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
-
 
     </FrameLayout>
 </LinearLayout>

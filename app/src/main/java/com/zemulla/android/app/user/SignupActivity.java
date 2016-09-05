@@ -25,6 +25,7 @@ import com.zemulla.android.app.api.account.ValidateMobileEmailAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PasswordTracker;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.country.Country;
 import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValRequest;
@@ -426,6 +427,7 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,SignupActivity.this);
         }
     };
     APIListener<OTPGenValResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {

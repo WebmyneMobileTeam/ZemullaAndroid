@@ -261,10 +261,12 @@ public class MtnActivity extends AppCompatActivity {
                 if (Functions.isEmpty(edtAmount)) {
                     Functions.showError(MtnActivity.this, "Please Enter Amount", false);
 
-                } else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-                    Functions.showError(MtnActivity.this, "Enter Valid Amount", false);
-
-                } else {
+                }
+// else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
+//                    Functions.showError(MtnActivity.this, "Enter Valid Amount", false);
+//
+//                }
+                else {
                     if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
                         return;
                     }
@@ -489,6 +491,7 @@ public class MtnActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
+            Functions.fireIntentWithClearFlag(this,HomeActivity.class);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         } else {

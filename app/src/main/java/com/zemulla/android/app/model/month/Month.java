@@ -47,15 +47,15 @@ public class Month {
         List<Month> months = new ArrayList<>();
 
         months.add(new Month(0, "Month", "Month"));
-        months.add(new Month(1, "January", "1 - January"));
-        months.add(new Month(2, "February", "2 - February"));
-        months.add(new Month(3, "March", "3 - March"));
-        months.add(new Month(4, "April", "4 - April"));
-        months.add(new Month(5, "May", "5 - May"));
-        months.add(new Month(6, "June", "6 - June"));
-        months.add(new Month(7, "July", "7 - July"));
-        months.add(new Month(8, "August", "8 - August"));
-        months.add(new Month(9, "September", "9 - September"));
+        months.add(new Month(1, "January", "01 - January"));
+        months.add(new Month(2, "February", "02 - February"));
+        months.add(new Month(3, "March", "03 - March"));
+        months.add(new Month(4, "April", "04 - April"));
+        months.add(new Month(5, "May", "05 - May"));
+        months.add(new Month(6, "June", "06 - June"));
+        months.add(new Month(7, "July", "07 - July"));
+        months.add(new Month(8, "August", "08 - August"));
+        months.add(new Month(9, "September", "09 - September"));
         months.add(new Month(10, "October", "10 - October"));
         months.add(new Month(11, "November", "11 - November"));
         months.add(new Month(12, "December", "12 - December"));

@@ -21,6 +21,8 @@ public class AppConstant {
     public static final String PROFILE_URL = String.format("%s%s", BASEURL, "/Admin/Upload/ProfilePic/");
     public static final String PrivacyPolicy = String.format("%s%s", BASEURL, "/Marketing/PrivacyPolicy/4");
     public static final String TermsAndConditions = String.format("%s%s", BASEURL, "/Marketing/TermsAndConditions/2");
+    public static final String successURL = String.format("%s%s", BASEURL, "/Client/CreditWallet/ReturnURL");
+    public static final String failedURl = String.format("%s%s", BASEURL, "/Client/CreditWallet/ErrorUrlCS");
 
     //------------------
 
@@ -36,7 +38,7 @@ public class AppConstant {
     public static final String ResetPassword = AccountSVC + "ResetPasswordAD";
     public static final String ServiceDropDownList = AccountSVC + "ServiceDropDownListAD";
     public static final String ValidateMoileEmail = AccountSVC + "ValidateMoileEmailAD";
-    public static final String VerifyEmail = AccountSVC + "VerifyEmail";
+    public static final String VerifyEmail = AccountSVC + "VerifyEmailAD/{EMAIL}";
     public static final String ServiceList = AccountSVC + "ServiceDropDownListAD";
     public static final String ContactZemulla = AccountSVC + "ContactMailAD";
 
@@ -47,7 +49,7 @@ public class AppConstant {
     public static final String GetWalletDetail = UserSVC + "GetWalletDetailAD/{USERID}";
     public static final String GetUserDetailIDWise = UserSVC + "GetUserDetailIDWiseAD/{USERID}";
     public static final String GetDashboardData = UserSVC + "GetDashboardData/{USERID}";
-       public static final String ChangePassword = UserSVC + "ChangePasswordAD";
+    public static final String ChangePassword = UserSVC + "ChangePasswordAD";
 
     public static final String PaymentSVC = "Payment.svc/json/";
     public static final String TopUpTransactionChargeCalculation = PaymentSVC + "TopUpTransactionChargeCalculationAD";
@@ -55,6 +57,8 @@ public class AppConstant {
     public static final String GetSupportedBankDetails = PaymentSVC + "GetSupportedBankDetailsAD";
     public static final String PaypalPayment1 = PaymentSVC + "PaypalPayment1AD";
     public static final String PaypalPayment2 = PaymentSVC + "PaypalPayment2AD";
+    public static final String GenerateSignatureCS = PaymentSVC + "GenerateSignatureCS";
+    public static final String CybersourcePayment1 = PaymentSVC + "CybersourcePayment1AD";
     public static long DebounceTime = 800;
 
     public static final String ZWalletSVC = "ZWallet.svc/json/";
@@ -75,9 +79,9 @@ public class AppConstant {
     public static final String KazangDirectRecharge = KazangSVC + "KazangDirectRechargeAD";
     public static final String KazangTestElectricity = KazangSVC + "KazangTestElectricityAD/{METERNUMBER}";
     public static final String KazangElectricity = KazangSVC + "KazangElectricityAD";
-    public static final String DSTVPayment1= KazangSVC + "DSTVPayment1AD";
-    public static final String DSTVPayment2= KazangSVC + "DSTVPayment2AD";
-    public static final String DSTVPayment3= KazangSVC + "DSTVPayment3AD";
+    public static final String DSTVPayment1 = KazangSVC + "DSTVPayment1AD";
+    public static final String DSTVPayment2 = KazangSVC + "DSTVPayment2AD";
+    public static final String DSTVPayment3 = KazangSVC + "DSTVPayment3AD";
 
 
     public static final String ReportsSVC = "Reports.svc/json/";
@@ -94,7 +98,6 @@ public class AppConstant {
     public static final String GetKazangElectricityDetails = ReportsSVC + "GetKazangElectricityDetailsAD";
     public static final String GetNotificationCommon = ReportsSVC + "GetNotificationCommonAD";
     public static final String CheckedNotificationCommon = ReportsSVC + "CheckedNotificationCommonAD";
-
 
 
     // Password Tracker constants

@@ -16,12 +16,15 @@ import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
+import com.zemulla.android.app.api.account.AccountAPI;
 import com.zemulla.android.app.api.account.LoginAPI;
 import com.zemulla.android.app.api.account.OTPGenValTemporaryAPI;
+import com.zemulla.android.app.base.ZemullaApplication;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.AdvancedSpannableString;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.country.Country;
@@ -37,6 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 
@@ -69,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.txtBottom)
     TextView txtBottom;
 
+    AccountAPI accountAPI;
+
 
     private OTPDialog otpDialog;
     private OTPGenValTemporaryAPI otpGenValTemporaryAPI;
@@ -89,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
+        accountAPI = ZemullaApplication.getRetrofit().create(AccountAPI.class);
         loginAPI = new LoginAPI();
         loginRequest = new LoginRequest();
         otpGenValTemporaryAPI = new OTPGenValTemporaryAPI();
@@ -202,6 +209,8 @@ public class LoginActivity extends AppCompatActivity {
     APIListener<OTPGenValResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
         @Override
         public void onResponse(Response<OTPGenValResponse> response) {
+
+
             hidProgressDialog();
             try {
                 if (response.isSuccessful()) {
@@ -210,7 +219,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (otpGenValTemporaryResponse != null && otpGenValTemporaryResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                         Toast.makeText(LoginActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                         otpDialog.disMissDiaLog();
-                        saveDataAndLogin();
+                        verifyEmail();
+
 
                     } else {
                         Toast.makeText(LoginActivity.this, otpGenValTemporaryResponse.getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
@@ -227,6 +237,32 @@ public class LoginActivity extends AppCompatActivity {
             hidProgressDialog();
         }
     };
+
+    private void verifyEmail() {
+        showProgressDialog();
+        Call<com.zemulla.android.app.model.base.Response> responseCall = accountAPI.verifyEmail(loginResponse.getEmail());
+        responseCall.enqueue(new Callback<com.zemulla.android.app.model.base.Response>() {
+            @Override
+            public void onResponse(Call<com.zemulla.android.app.model.base.Response> call, Response<com.zemulla.android.app.model.base.Response> response) {
+                hidProgressDialog();
+                if (response.isSuccessful()) {
+                    if (response.body().getResponseCode() == AppConstant.ResponseSuccess) {
+                        saveDataAndLogin();
+                    } else {
+                        Toast.makeText(LoginActivity.this, response.body().getResponseMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.zemulla.android.app.model.base.Response> call, Throwable t) {
+                hidProgressDialog();
+                RetrofitErrorHelper.showErrorMsg(t, LoginActivity.this);
+            }
+        });
+    }
+
+
 
     private void GenerateOTP() {
         try {
@@ -328,7 +364,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         loginResponse = response.body();
                         if (loginResponse != null) {
-                            if (loginResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess && loginResponse.isIsEmailVerified() && loginResponse.isIsEmailVerified()) {
+                            if (loginResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess && loginResponse.isIsEmailVerified()) {
                                 saveDataAndLogin();
                             } else if (loginResponse.getUserID() == 0 && loginResponse.getResponse().getResponseCode() == AppConstant.WorngCredential) {
                                 Functions.showError(LoginActivity.this, loginResponse.getResponse().getResponseMsg(), false);

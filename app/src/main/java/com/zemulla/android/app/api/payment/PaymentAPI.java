@@ -1,13 +1,17 @@
 package com.zemulla.android.app.api.payment;
 
 import com.zemulla.android.app.constant.AppConstant;
-import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.FundTransferTransactionChargeCalculationResponse;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment1Request;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment1Response;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Request;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Response;
+import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.FundTransferTransactionChargeCalculationResponse;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationRequest;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationResponse;
+import com.zemulla.android.app.model.payment.cybersourcepayment1.CybersourcePayment1Request;
+import com.zemulla.android.app.model.payment.cybersourcepayment1.CybersourcePayment1Response;
+import com.zemulla.android.app.model.payment.generatesignaturecs.GenerateSignatureCSRequest;
+import com.zemulla.android.app.model.payment.generatesignaturecs.GenerateSignatureCSResponse;
 import com.zemulla.android.app.model.payment.getsupportedbankdetails.GetSupportedBankDetailsResponse;
 
 import retrofit2.Call;
@@ -35,5 +39,12 @@ public interface PaymentAPI {
 
     @POST(AppConstant.PaypalPayment2)
     Call<PaypalPayment2Response> ProcessPaypal(@Body PaypalPayment2Request request);
+
+
+    @POST(AppConstant.GenerateSignatureCS)
+    Call<GenerateSignatureCSResponse> generateSignatureCS(@Body GenerateSignatureCSRequest generateSignatureCSRequest);
+
+    @POST(AppConstant.CybersourcePayment1)
+    Call<CybersourcePayment1Response> cybersourcePayment1Response(@Body CybersourcePayment1Request request);
 
 }

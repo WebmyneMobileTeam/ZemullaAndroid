@@ -249,6 +249,28 @@ public class Functions {
                 }).show();
     }
 
+    public static void showFailedMsg(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+        new SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText(msg)
+                .showContentText(false)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        if (isFinish) {
+                            Intent intent = new Intent(activity, cls);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            activity.startActivity(intent);
+                            activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
+                    }
+                }).show();
+    }
+
+
+
+
     public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish, final Intent intent) {
         new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText(msg)

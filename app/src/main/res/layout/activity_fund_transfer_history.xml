@@ -43,14 +43,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ImageButton
-        android:id="@+id/filterImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:padding="@dimen/dimen_8dp"
-        android:src="@drawable/filter_results" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

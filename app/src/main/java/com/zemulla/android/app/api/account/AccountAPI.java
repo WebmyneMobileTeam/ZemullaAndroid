@@ -72,8 +72,6 @@ public interface AccountAPI {
     @POST(AppConstant.ValidateMoileEmail)
     Call<ValidateMobileEmailResponse> ValidateMoileEmail(@Body ValidateMobileEmailRequest validateMobileEmailRequest);
 
-    @GET(AppConstant.VerifyEmail)
-    Call<ValidateMobileEmailResponse> VerifyEmail(@Body ValidateMobileEmailRequest validateMobileEmailRequest);
 
     @GET(AppConstant.UserProfile)
     Call<ProfileResponse> UserProfile(@Path("USERID") String USERID);
@@ -89,4 +87,7 @@ public interface AccountAPI {
 
     @POST(AppConstant.ChangePassword)
     Call<Response> changePassword(@Body ChangePasswordRequest changePasswordRequest);
+
+    @GET(AppConstant.VerifyEmail)
+    Call<Response> verifyEmail(@Path("EMAIL") String USERID);
 }

@@ -7,32 +7,37 @@ import java.io.Serializable;
 /**
  * Created by raghavthakkar on 02-09-2016.
  */
-public class GenerateSignatureCSResponse extends BaseResponse implements Serializable{
-
-
+public class GenerateSignatureCSResponse extends BaseResponse implements Serializable {
 
 
     private String access_key;
-    private String bill_to_address_city;
-    private String bill_to_address_country;
+    private String profile_id;
+    private String transaction_uuid;
+    private String signed_field_names;
+    private String unsigned_field_names;
+    private String signed_date_time;
+    private String locale;
+    private String transaction_type;
+    private String reference_number;
+    private String amount;
+    private String currency;
+    private String payment_method;
+    private String bill_to_forename;
+    private String bill_to_surname;
+    private String bill_to_email;
+    private String bill_to_phone;
     private String bill_to_address_line1;
+    private String bill_to_address_city;
     private String bill_to_address_postal_code;
     private String bill_to_address_state;
-    private String bill_to_email;
-    private String bill_to_forename;
-    private String bill_to_phone;
-    private String bill_to_surname;
-    private String currency;
-    private String locale;
-    private String payment_method;
-    private String profile_id;
-    private String reference_number;
+    private String bill_to_address_country;
+    private String card_type;
+    private String card_number;
+    private String card_expiry_date;
     private String signature;
-    private String signed_date_time;
-    private String signed_field_names;
-    private String transaction_type;
-    private String transaction_uuid;
-    private String unsigned_field_names;
+
+    public GenerateSignatureCSResponse() {
+    }
 
     public String getAccess_key() {
         return access_key;
@@ -200,5 +205,68 @@ public class GenerateSignatureCSResponse extends BaseResponse implements Seriali
 
     public void setUnsigned_field_names(String unsigned_field_names) {
         this.unsigned_field_names = unsigned_field_names;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getCard_type() {
+        return card_type;
+    }
+
+    public void setCard_type(String card_type) {
+        this.card_type = card_type;
+    }
+
+    public String getCard_number() {
+        return card_number;
+    }
+
+    public void setCard_number(String card_number) {
+        this.card_number = card_number;
+    }
+
+    public String getCard_expiry_date() {
+        return card_expiry_date;
+    }
+
+    public void setCard_expiry_date(String card_expiry_date) {
+        this.card_expiry_date = card_expiry_date;
+    }
+
+    @Override
+    public String toString() {
+        return "GenerateSignatureCSResponse{" +
+                "access_key='" + access_key + '\'' +
+                ", profile_id='" + profile_id + '\'' +
+                ", transaction_uuid='" + transaction_uuid + '\'' +
+                ", signed_field_names='" + signed_field_names + '\'' +
+                ", unsigned_field_names='" + unsigned_field_names + '\'' +
+                ", signed_date_time='" + signed_date_time + '\'' +
+                ", locale='" + locale + '\'' +
+                ", transaction_type='" + transaction_type + '\'' +
+                ", reference_number='" + reference_number + '\'' +
+                ", amount='" + amount + '\'' +
+                ", currency='" + currency + '\'' +
+                ", payment_method='" + payment_method + '\'' +
+                ", bill_to_forename='" + bill_to_forename + '\'' +
+                ", bill_to_surname='" + bill_to_surname + '\'' +
+                ", bill_to_email='" + bill_to_email + '\'' +
+                ", bill_to_phone='" + bill_to_phone + '\'' +
+                ", bill_to_address_line1='" + bill_to_address_line1 + '\'' +
+                ", bill_to_address_city='" + bill_to_address_city + '\'' +
+                ", bill_to_address_postal_code='" + bill_to_address_postal_code + '\'' +
+                ", bill_to_address_state='" + bill_to_address_state + '\'' +
+                ", bill_to_address_country='" + bill_to_address_country + '\'' +
+                ", card_type='" + card_type + '\'' +
+                ", card_number='" + card_number + '\'' +
+                ", card_expiry_date='" + card_expiry_date + '\'' +
+                ", signature='" + signature + '\'' +
+                '}';
     }
 }

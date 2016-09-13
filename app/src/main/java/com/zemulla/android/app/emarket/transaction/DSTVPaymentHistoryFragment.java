@@ -210,6 +210,8 @@ public class DSTVPaymentHistoryFragment extends Fragment {
     }
 
     private void cancelFilter() {
+        fromDateValue = "";
+        toDateValue = "";
         fromDateTextView.setVisibility(View.INVISIBLE);
         toDate.setVisibility(View.INVISIBLE);
         cancelFilter.setVisibility(View.INVISIBLE);

@@ -128,7 +128,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     @OnClick(R.id.backToLogin)
     public void onbackToLoginClick() {
+        navigateToLogin();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        navigateToLogin();
+    }
+
+    private void navigateToLogin() {
         finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @OnClick(R.id.submbitButton)
@@ -136,6 +147,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         if (Functions.isEmpty(emailEditText) && Functions.isEmpty(countryPicker.getEditText())) {
             Functions.showError(this, "Enter EmailID or Mobile Number.", false);
+            return;
 
         } else if (!Functions.isEmpty(emailEditText)) {
             if (!Functions.emailValidation(Functions.toStingEditText(emailEditText))) {

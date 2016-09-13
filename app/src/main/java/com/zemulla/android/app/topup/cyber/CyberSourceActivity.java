@@ -21,7 +21,6 @@ import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.api.payment.PaymentAPI;
 import com.zemulla.android.app.base.ZemullaApplication;
 import com.zemulla.android.app.constant.AppConstant;
-import com.zemulla.android.app.constant.IntentConstant;
 import com.zemulla.android.app.emarket.dstv.MonthAdapter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
@@ -211,8 +210,10 @@ public class CyberSourceActivity extends AppCompatActivity {
                     return;
                 }
                 confirmFab.showProgress(true);
-                generateSignatureCSRequest.setAmount(String.valueOf(fundTransferTransactionChargeCalculationResponse.getAmount()));
-                generateSignatureCSRequest.setUserID(4);
+
+                String amount = String.format("%.2f", fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount());
+                generateSignatureCSRequest.setAmount(amount.trim());
+                generateSignatureCSRequest.setUserID(PrefUtils.getUserID(CyberSourceActivity.this));
                 Call<GenerateSignatureCSResponse> generateSignatureCSResponseCall = paymentAPI.generateSignatureCS(generateSignatureCSRequest);
                 generateSignatureCSResponseCall.enqueue(generateSignatureCSResponseCallback);
 
@@ -235,8 +236,10 @@ public class CyberSourceActivity extends AppCompatActivity {
                         cybersourcePayment1Request.setTotalCharge(fundTransferTransactionChargeCalculationResponse.getTotalCharge());
                         cybersourcePayment1Request.setTotalPayableAmount(fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount());
 
+
                         Call<CybersourcePayment1Response> cybersourcePayment1ResponseCall = paymentAPI.cybersourcePayment1Response(cybersourcePayment1Request);
                         cybersourcePayment1ResponseCall.enqueue(cybersourcePayment1ResponseCallback);
+
                     }
                 }
             } catch (Exception e) {
@@ -258,17 +261,7 @@ public class CyberSourceActivity extends AppCompatActivity {
             confirmFab.showProgress(false);
             if (response.isSuccessful()) {
                 if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
-
-                    Intent intent = new Intent(CyberSourceActivity.this, CyberSourceWebViewActivity.class);
-                    intent.putExtra(Intent.EXTRA_REFERRER, generateSignatureCSResponse);
-                    intent.putExtra(IntentConstant.EXTRA_AMOUNT, String.valueOf(fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount()));
-                    intent.putExtra(IntentConstant.EXTRA_CARD_NUMER, cardNumber);
-                    intent.putExtra(IntentConstant.EXTRA_CARD_DATE, cardDate);
-                    intent.putExtra(IntentConstant.EXTRA_CARD_TYPE, cardType);
-                    intent.putExtra(Intent.EXTRA_REFERRER, generateSignatureCSResponse);
-                    Functions.fireIntent(CyberSourceActivity.this, intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+                    redirectToCyberSourceWebView();
                 }
             }
         }
@@ -279,6 +272,24 @@ public class CyberSourceActivity extends AppCompatActivity {
             RetrofitErrorHelper.showErrorMsg(t, CyberSourceActivity.this);
         }
     };
+
+    private void redirectToCyberSourceWebView() {
+
+        String amount = String.format("%.2f", fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount());
+        generateSignatureCSResponse.setAmount(amount.trim());
+        generateSignatureCSResponse.setCard_number(cardNumber);
+        generateSignatureCSResponse.setCard_expiry_date(cardDate);
+        generateSignatureCSResponse.setCard_type(cardType);
+        Intent intent = new Intent(CyberSourceActivity.this, CyberSourceWebViewActivity.class);
+        intent.putExtra(Intent.EXTRA_REFERRER, generateSignatureCSResponse);
+//                    intent.putExtra(IntentConstant.EXTRA_AMOUNT, String.valueOf(fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount()));
+//                    intent.putExtra(IntentConstant.EXTRA_CARD_NUMER, cardNumber);
+//                    intent.putExtra(IntentConstant.EXTRA_CARD_DATE, cardDate);
+//                    intent.putExtra(IntentConstant.EXTRA_CARD_TYPE, cardType);
+//                    intent.putExtra(Intent.EXTRA_REFERRER, generateSignatureCSResponse);
+        Functions.fireIntent(CyberSourceActivity.this, intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
 
     private void calculateAmount() {
         btnProcessInitialTransaction.showProgress(true);

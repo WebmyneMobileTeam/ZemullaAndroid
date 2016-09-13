@@ -308,12 +308,17 @@ public class PaypalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (Functions.isEmpty(edtAmount)) {
                     Functions.showError(PaypalActivity.this, "Please Enter Amount", false);
-                } else {
-                    if (Functions.isFabAnimate(paypalFabInit)) {
-                        return;
-                    }
-                    callPayPal1Api();
+                    return;
                 }
+                Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                if (amount <= 0.0) {
+                    Functions.showError(PaypalActivity.this, "Please Enter Valid Amount", false);
+                    return;
+                }
+                if (Functions.isFabAnimate(paypalFabInit)) {
+                    return;
+                }
+                callPayPal1Api();
             }
         });
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.user.UserAPI;
 import com.zemulla.android.app.base.ZemullaApplication;
+import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.RetrofitErrorHelper;
@@ -197,13 +198,13 @@ public class ReportsActivity extends AppCompatActivity {
     private void setTransactionDetails(List<TransactionData> transactionAmount) {
         for (int i = 0; i < transactionAmount.size(); i++) {
             if (i == 0) {
-                topUpTile.setAmountText(String.valueOf(transactionAmount.get(i).getAmount()));
+                topUpTile.setAmountText(String.valueOf(transactionAmount.get(i).getAmount()) + " " + AppConstant.ZMW);
                 topUpTile.setHeaderText(transactionAmount.get(i).getTransactionType());
             } else if (i == 1) {
-                sendMoneyTile.setAmountText(String.valueOf(transactionAmount.get(i).getAmount()));
+                sendMoneyTile.setAmountText(String.valueOf(transactionAmount.get(i).getAmount()) + " " + AppConstant.ZMW);
                 sendMoneyTile.setHeaderText(transactionAmount.get(i).getTransactionType());
             } else if (i == 2) {
-                paymentTile.setAmountText(String.valueOf(transactionAmount.get(i).getAmount()));
+                paymentTile.setAmountText(String.valueOf(transactionAmount.get(i).getAmount()) + " " + AppConstant.ZMW);
                 paymentTile.setHeaderText(transactionAmount.get(i).getTransactionType());
             }
         }

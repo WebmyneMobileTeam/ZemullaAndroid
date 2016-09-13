@@ -221,6 +221,17 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        navigateToLogin();
+    }
+
+    private void navigateToLogin() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     private void showProgressDialog() {
         if (progressDialog == null) {
             initProgressDialog();
@@ -427,7 +438,7 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
-            RetrofitErrorHelper.showErrorMsg(t,SignupActivity.this);
+            RetrofitErrorHelper.showErrorMsg(t, SignupActivity.this);
         }
     };
     APIListener<OTPGenValResponse> submitotpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
@@ -491,7 +502,7 @@ public class SignupActivity extends AppCompatActivity {
 
     @OnClick(R.id.backToLogin)
     public void onClick() {
-        finish();
+        navigateToLogin();
     }
 
     @OnClick(R.id.btnSignUp)
@@ -517,15 +528,6 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        if (Functions.isEmpty(countryPicker.getEditText())) {
-            Functions.showError(this, "Please Enter Mobile Number.", false);
-            return;
-        }
-
-        if (countryPicker.getPhoneNumber().length() < 10) {
-            Functions.showError(this, "Invalid Mobile Number.", false);
-            return;
-        }
 
         if (Functions.isEmpty(edtState)) {
             Functions.showError(this, "Please Enter State.", false);
@@ -536,7 +538,15 @@ public class SignupActivity extends AppCompatActivity {
             Functions.showError(this, "Please Enter City.", false);
             return;
         }
+        if (Functions.isEmpty(countryPicker.getEditText())) {
+            Functions.showError(this, "Please Enter Mobile Number.", false);
+            return;
+        }
 
+        if (countryPicker.getPhoneNumber().length() < 10) {
+            Functions.showError(this, "Invalid Mobile Number.", false);
+            return;
+        }
 
         if (Functions.isEmpty(edtPassword)) {
             Functions.showError(this, "Please Enter Password.", false);

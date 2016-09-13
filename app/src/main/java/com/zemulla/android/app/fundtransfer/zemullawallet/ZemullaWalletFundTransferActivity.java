@@ -164,11 +164,11 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
             try {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getResponseCode() == AppConstant.ResponseSuccess) {
-                        isMobileValid = false;
-                        Functions.showError(ZemullaWalletFundTransferActivity.this, response.body().getResponseMsg(), false);
-                    } else {
                         isMobileValid = true;
                         Toast.makeText(ZemullaWalletFundTransferActivity.this, response.body().getResponseMsg(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        isMobileValid = false;
+                        Functions.showError(ZemullaWalletFundTransferActivity.this, response.body().getResponseMsg(), false);
                     }
                 }
             } catch (Exception e) {

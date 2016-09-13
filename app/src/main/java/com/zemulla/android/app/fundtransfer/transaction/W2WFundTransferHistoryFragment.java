@@ -225,6 +225,8 @@ public class W2WFundTransferHistoryFragment extends Fragment {
 
     @OnClick(R.id.cancelFilter)
     public void oncancelFilterClick() {
+        fromDateValue = "";
+        toDateValue = "";
         fromDateTextView.setVisibility(View.INVISIBLE);
         toDate.setVisibility(View.INVISIBLE);
         cancelFilter.setVisibility(View.INVISIBLE);

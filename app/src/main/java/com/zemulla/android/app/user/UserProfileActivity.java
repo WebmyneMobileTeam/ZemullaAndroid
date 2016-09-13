@@ -228,14 +228,14 @@ public class UserProfileActivity extends AppCompatActivity {
         } else {
             Functions.setRoundImage(this, profileImage, response.getProfilePicURL() + response.getProfilePic());
         }
-        txtUsername.setText(String.format("%s %s", response.getFirstName(), response.getLastName()));
-        firstNameEditText.setText(String.format("%s", response.getFirstName()));
-        lastNameEditText.setText(String.format("%s", response.getLastName()));
+        txtUsername.setText(String.format("%s %s", data.getFirstName(), data.getLastName()));
+        firstNameEditText.setText(String.format("%s", data.getFirstName()));
+        lastNameEditText.setText(String.format("%s", data.getLastName()));
 
-        toolbar.setTitle(String.format("%s %s", response.getFirstName(), response.getLastName()));
+        toolbar.setTitle(String.format("%s %s", data.getFirstName(), data.getLastName()));
 
-        emailEditText.setText(String.format("%s", response.getEmail()));
-        phoneNumberEditText.setText(String.format("%s", response.getMobile()));
+        emailEditText.setText(String.format("%s", data.getEmail()));
+        phoneNumberEditText.setText(String.format("%s", data.getMobile()));
 
         countryEditText.setText(data.getCountryName());
         stateEditText.setText(data.getState());
@@ -335,8 +335,27 @@ public class UserProfileActivity extends AppCompatActivity {
                     || Functions.isEmpty(branchNameEditText)
                     || Functions.isEmpty(swiftCodeEditText)) {
 
-                Functions.showError(this, "Please Enter all back details.", false);
-                return;
+                if (Functions.isEmpty(bankNameEditText)) {
+                    Functions.showError(this, "Please Enter Bank Name.", false);
+                    return;
+                }
+                if (Functions.isEmpty(accountNameEditText)) {
+                    Functions.showError(this, "Please Enter Account Name.", false);
+                    return;
+                }
+                if (Functions.isEmpty(accountNameEditText)) {
+                    Functions.showError(this, "Please Enter Account Number.", false);
+                    return;
+                }
+                if (Functions.isEmpty(branchNameEditText)) {
+                    Functions.showError(this, "Please Enter Branch Name.", false);
+                    return;
+                }
+                if (Functions.isEmpty(swiftCodeEditText)) {
+                    Functions.showError(this, "Please Enter Swift Code.", false);
+                    return;
+                }
+
             }
         }
 

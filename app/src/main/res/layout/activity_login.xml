@@ -73,6 +73,8 @@
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_pass"
                     android:inputType="textPassword"
+                    android:maxLength="@integer/maxLength100"
+                    android:maxLines="1"
                     android:textColor="@color/colorPrimaryDark" />
             </android.support.design.widget.TextInputLayout>
 

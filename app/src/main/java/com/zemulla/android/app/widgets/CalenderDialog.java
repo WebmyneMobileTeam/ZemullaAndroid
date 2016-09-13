@@ -45,7 +45,7 @@ public class CalenderDialog extends DialogFragment {
     @BindView(R.id.btnClear)
     TfButton btnClear;
     OnSuccessListener onSuccessListener;
-    private String fromDateValue="", toDateValue = "";
+    private String fromDateValue = "", toDateValue = "";
 
     @Nullable
     @Override
@@ -100,7 +100,7 @@ public class CalenderDialog extends DialogFragment {
                             DateUtils.formatDate(toDate, DateUtils.mDDMMYYYY));
                 } catch (Exception e) {
 
-                    Functions.showError(getActivity(), "Invalid Date Selection", false);
+                    Functions.showError(getActivity(), "Please Select From Date And To Date", false);
                 }
 
                 break;
@@ -147,7 +147,10 @@ public class CalenderDialog extends DialogFragment {
                 calendar.get(Calendar.DAY_OF_MONTH)
 
         );
-        datePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTime().getTime());
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.HOUR, 5);
+        datePickerDialog.getDatePicker().setMaxDate(calendar1.getTime().getTime());
         datePickerDialog.show();
 
 

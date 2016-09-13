@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zemulla.android.app.R;
@@ -83,10 +84,10 @@ public class OTPDialogAfterLogin extends MaterialDialog {
                 Functions.hideKeyPad(getContext(), customView);
 
                 if (TextUtils.isEmpty(edtOTP.getText().toString().trim())) {
-                    Functions.showError(getContext(), "Enter OTP", false);
+                    Functions.showError(getContext(), "Please Enter OTP", false);
 
                 } else if (Functions.getLength(edtOTP) < 6) {
-                    Functions.showError(getContext(), "Enter Valid OTP", false);
+                    Functions.showError(getContext(), "Please Enter Valid OTP", false);
 
                 } else {
 
@@ -140,6 +141,7 @@ public class OTPDialogAfterLogin extends MaterialDialog {
                                 edtOTP.setText("");
                                 show();
                                 setDisplayText(false, otpGenValRequest.getMobile(), "");
+                                Toast.makeText(getContext(), response.body().getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
                             }
 
                         } else {

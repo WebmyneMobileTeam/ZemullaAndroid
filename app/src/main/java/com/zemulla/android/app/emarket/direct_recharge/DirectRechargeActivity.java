@@ -106,7 +106,7 @@ public class DirectRechargeActivity extends AppCompatActivity {
     }
 
     private void init() {
-
+        edtAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter()});
         walletResponse = PrefUtils.getBALANCE(this);
         loginResponse = PrefUtils.getUserProfile(this);
         kazangProductProviderAdapter = new KazangProductProviderAdapter(this);

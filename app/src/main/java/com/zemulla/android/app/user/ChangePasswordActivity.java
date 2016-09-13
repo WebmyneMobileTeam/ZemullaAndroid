@@ -18,7 +18,9 @@ import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PasswordTracker;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.home.HomeActivity;
+import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.base.Response;
+import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.user.api.ChangePasswordApi;
 import com.zemulla.android.app.user.model.ChangePasswordRequest;
 
@@ -50,6 +52,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private ChangePasswordApi passwordApi;
     private int passwordType = 0;
     private PasswordTracker tracker;
+    private GetWalletDetailResponse walletResponse;
+    private LoginResponse loginResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
         request = new ChangePasswordRequest();
         passwordApi = new ChangePasswordApi();
-
+        walletResponse = PrefUtils.getBALANCE(this);
+        loginResponse = PrefUtils.getUserProfile(this);
         init();
     }
 
@@ -135,8 +140,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     private void initToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Dhruvil Patel");
-            toolbar.setSubtitle("Effective Balance : ZMW 1222.5");
+            try {
+                Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -2,10 +2,12 @@ package com.zemulla.android.app.model.kazang.kazangairtime;
 
 import com.zemulla.android.app.model.base.BaseResponse;
 
+import java.io.Serializable;
+
 /**
  * Created by raghavthakkar on 15-08-2016.
  */
-public class KazangAirtimeResponse extends BaseResponse {
+public class KazangAirtimeResponse extends BaseResponse implements Serializable{
 
     private String ZemullaTransactionID;
     private String amount;

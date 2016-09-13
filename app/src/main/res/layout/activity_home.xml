@@ -52,15 +52,17 @@
             <com.zemulla.android.app.widgets.TfTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:text="Effective Balance:"
                 android:textColor="@color/colorExtraDark"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <com.zemulla.android.app.widgets.TfTextView
                 android:id="@+id/effectiveBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:maxLines="1"
                 android:text="ZMW 0.00"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp" />

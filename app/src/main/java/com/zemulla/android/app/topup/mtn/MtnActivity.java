@@ -419,10 +419,13 @@ public class MtnActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     topUpResponse = response.body();
                     if (topUpResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+                        if (Double.parseDouble(Functions.toStingEditText(edtAmount)) < topUpResponse.getTotalCharge()) {
+                            Functions.showError(MtnActivity.this, String.format("Amount should be more than %.2f ZWM", topUpResponse.getTotalCharge()), false);
+                            return;
+                        }
                         txtPayableAmount.setText(String.format("%s %.2f", AppConstant.ZMW, topUpResponse.getTopUpAmount()));
                         txtTopupAmount.setText(String.format("Topup Amount : %s %.2f", AppConstant.ZMW, topUpResponse.getAmount()));
                         txtTransactionCharge.setText(String.format("Transaction Charge : %s %.2f", AppConstant.ZMW, topUpResponse.getTotalCharge()));
-
                         frameRootTopup.startAnimation(animation);
 
                     } else {
@@ -491,7 +494,7 @@ public class MtnActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
-            Functions.fireIntentWithClearFlag(this,HomeActivity.class);
+            Functions.fireIntentWithClearFlag(this, HomeActivity.class);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         } else {

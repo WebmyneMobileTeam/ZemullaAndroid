@@ -26,7 +26,7 @@
     <string name="hint_city">City Name</string>
 
     <string name="hint_pass">Password</string>
-    <string name="old_hint_pass">Password</string>
+    <string name="old_hint_pass">Old Password</string>
     <string name="new_pass">New Password</string>
     <string name="hint_cnf_pass">Confirm Password</string>
 

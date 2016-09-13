@@ -1,6 +1,7 @@
 package com.zemulla.android.app.emarket.airtime;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zemulla.android.app.R;
@@ -24,7 +26,6 @@ import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.KazangProductProvider;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
-import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.kazang.getkazangproductplan.GetKazangProductPlanRequest;
 import com.zemulla.android.app.model.kazang.getkazangproductplan.GetKazangProductPlanResponse;
@@ -263,9 +264,18 @@ public class AirTimeActivity extends AppCompatActivity {
         public void onResponse(Response<KazangAirtimeResponse> response) {
             hidProgressDialog();
             if (response.isSuccessful()) {
-                if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
-                    otpDialogAfterLogin.dismiss();
-                    Functions.showSuccessMsg(AirTimeActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
+                KazangAirtimeResponse kazangAirtimeResponse = response.body();
+                if (kazangAirtimeResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+                    if (response.body().getResponse_code().equalsIgnoreCase("0")) {
+                        otpDialogAfterLogin.dismiss();
+                        Toast.makeText(AirTimeActivity.this, response.body().getResponse().getResponseMsg(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AirTimeActivity.this, AirtimePinActivity.class);
+                        intent.putExtra(Intent.EXTRA_TEXT, kazangAirtimeResponse);
+                        Functions.fireIntentWithClearFlag(AirTimeActivity.this, intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    } else {
+                        Functions.showError(AirTimeActivity.this, response.body().getResponse().getResponseMsg(), false);
+                    }
                 } else {
                     Functions.showError(AirTimeActivity.this, response.body().getResponse().getResponseMsg(), false);
                 }

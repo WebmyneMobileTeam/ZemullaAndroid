@@ -241,7 +241,7 @@ public class BankActivity extends AppCompatActivity {
         @Override
         public void onResponse(Response<TopUpTransactionChargeCalculationResponse> response) {
 
-            animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
+
             btnProcessInitialTransaction.showProgress(false);
 
 
@@ -249,9 +249,14 @@ public class BankActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     topUpResponse = response.body();
                     if (topUpResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
+                        if (Double.parseDouble(Functions.toStingEditText(edtAmount)) < topUpResponse.getTotalCharge()) {
+                            Functions.showError(BankActivity.this, String.format("Amount should be more than %.2f ZWM", topUpResponse.getTotalCharge()), false);
+                            return;
+                        }
                         txtPayableAmount.setText(String.format("%s %.2f", AppConstant.ZMW, topUpResponse.getTopUpAmount()));
                         txtTopupAmount.setText(String.format("Topup Amount : %s %.2f", AppConstant.ZMW, topUpResponse.getAmount()));
                         txtTransactionCharge.setText(String.format("Transaction Charge : %s %.2f", AppConstant.ZMW, topUpResponse.getTotalCharge()));
+                        animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
                         frameRootTopup.startAnimation(animation);
                         showProgressDialog();
                         getSupportedBankDetailsAPI.getSupportedBankDetailsAPI(getSupportedBankDetailsAPIListener);

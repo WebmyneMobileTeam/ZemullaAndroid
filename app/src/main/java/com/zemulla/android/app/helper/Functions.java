@@ -45,6 +45,8 @@ import com.zemulla.android.app.user.LoginActivity;
 import com.zemulla.android.app.widgets.customdialog.SweetAlertDialog;
 
 import java.lang.reflect.Field;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import mbanje.kurt.fabbutton.CircleImageView;
 import mbanje.kurt.fabbutton.FabButton;
@@ -101,6 +103,13 @@ public class Functions {
 
     }
 
+    public static void fireIntentWithClearFlag(Activity context, Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        context.startActivity(intent);
+        context.finish();
+
+    }
+
     public static void fireIntent(Context context, Intent intent) {
         context.startActivity(intent);
     }
@@ -128,17 +137,27 @@ public class Functions {
     }
 
     public static boolean isEmpty(EditText editText) {
-        return TextUtils.isEmpty(editText.getText().toString().trim());
+        return TextUtils.isEmpty(editText.getText().toString());
     }
 
     public static boolean emailValidation(String email) {
         if (TextUtils.isEmpty(email)) {
             return false;
         } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+            String expression = "^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*\n" +
+                    "      @[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$";
+            CharSequence inputStr = email;
+
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(inputStr);
+            return matcher.matches();
         }
     }
 
+    public static final Pattern EMAIL_ADDRESS
+            = Pattern.compile(
+            "^[\\\\w\\\\.-]+@([\\\\w\\\\-]+\\\\.)+[A-Z]{2,4}$"
+    );
 
     public static int getLength(EditText editText) {
         return editText.getText().toString().trim().length();
@@ -231,7 +250,7 @@ public class Functions {
     }
 
     public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
-        new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -246,11 +265,12 @@ public class Functions {
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }
                     }
-                }).show();
+                });
+        sweetAlertDialog.show();
     }
 
     public static void showFailedMsg(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
-        new SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -265,10 +285,53 @@ public class Functions {
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }
                     }
-                }).show();
+                });
+
+        sweetAlertDialog.show();
     }
 
 
+    public static SweetAlertDialog showSuccessMsgReturn(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText(msg)
+                .showContentText(false)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        if (isFinish) {
+                            Intent intent = new Intent(activity, cls);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            activity.startActivity(intent);
+                            activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
+                    }
+                });
+
+        return sweetAlertDialog;
+    }
+
+    public static SweetAlertDialog showFailedMsgReturn(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText(msg)
+                .showContentText(false)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        if (isFinish) {
+                            Intent intent = new Intent(activity, cls);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            activity.startActivity(intent);
+                            activity.finish();
+                            activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
+                    }
+                });
+
+        return sweetAlertDialog;
+    }
 
 
     public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish, final Intent intent) {
@@ -280,6 +343,7 @@ public class Functions {
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
                             activity.startActivity(intent);
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
@@ -527,7 +591,7 @@ public class Functions {
                 CircleImageView circleImageView = (CircleImageView) f.get(fabButton);
                 Field circleImageViewFField = circleImageView.getClass().getDeclaredField("progressVisible");
                 circleImageViewFField.setAccessible(true);
-                progressVisible=circleImageViewFField.getBoolean(circleImageView);
+                progressVisible = circleImageViewFField.getBoolean(circleImageView);
             } catch (NoSuchFieldException e) {
 
             } catch (IllegalAccessException e) {

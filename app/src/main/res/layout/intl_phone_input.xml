@@ -21,8 +21,9 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:hint="0955123456"
-        android:inputType="phone"
+        android:inputType="number"
         android:maxLength="@integer/maxLength10"
+        android:maxLines="1"
         android:singleLine="true" />
 
 </LinearLayout>

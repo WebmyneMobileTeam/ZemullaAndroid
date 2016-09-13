@@ -108,6 +108,8 @@ public class ElectricityActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+
         initObjects();
         initToolBar();
         actionListener();
@@ -156,10 +158,19 @@ public class ElectricityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (Functions.isEmpty(edtAmount)) {
                     Functions.showError(ElectricityActivity.this, "Please Enter Amount", false);
-                } else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
+                    return;
+                }
+                if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
                     Functions.showError(ElectricityActivity.this, "Enter Valid Amount", false);
-                } else if (!isValidMeterNumber) {
+                    return;
+                }
+                if (Functions.isEmpty(edtMeterNumber)) {
+                    Functions.showError(ElectricityActivity.this, "Please Enter Meter Number", false);
+                    return;
+                }
+                if (!isValidMeterNumber) {
                     Functions.showError(ElectricityActivity.this, "Enter Valid Meter Number", false);
+                    return;
                 } else {
                     if (Functions.isFabAnimate(initFab)) {
                         return;
@@ -327,12 +338,12 @@ public class ElectricityActivity extends AppCompatActivity {
         public void onResponse(Response<KazangElectricityResponse> response) {
 
             if (response.isSuccessful()) {
-                confirmFab.hideProgressOnComplete(true);
-                confirmFab.onProgressCompleted();
+                confirmFab.showProgress(false);
                 Intent intent = new Intent(ElectricityActivity.this, ConfirmationActivity.class);
                 intent.putExtra(Intent.EXTRA_REFERRER, kazangElectricityRequest);
                 intent.putExtra(Intent.EXTRA_REFERRER_NAME, response.body());
                 Functions.fireIntent(ElectricityActivity.this, intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
 

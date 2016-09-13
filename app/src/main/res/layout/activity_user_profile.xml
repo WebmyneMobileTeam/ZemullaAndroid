@@ -65,8 +65,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/dimen_8dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dimen_8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,7 +94,9 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_fname"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLength="@integer/maxLength50"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -107,7 +109,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
-                            android:hint="@string/hint_lname" />
+                            android:hint="@string/hint_lname"
+                            android:maxLength="@integer/maxLength50"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -120,7 +124,9 @@
                             android:layout_height="?actionBarSize"
                             android:enabled="false"
                             android:hint="@string/hint_email"
-                            android:inputType="none" />
+                            android:inputType="none"
+                            android:maxLength="@integer/maxLength150"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -133,7 +139,8 @@
                             android:layout_height="?actionBarSize"
                             android:enabled="false"
                             android:hint="@string/phone_Number"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:maxLength="@integer/maxLength10" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -153,11 +160,13 @@
                         <com.zemulla.android.app.widgets.TfEditText
                             android:id="@+id/countryEditText"
                             android:layout_width="match_parent"
-                            android:enabled="false"
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
+                            android:enabled="false"
                             android:hint="@string/hint_country"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLength="@integer/maxLength50"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -171,7 +180,9 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_state"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLength="@integer/maxLength50"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -184,7 +195,9 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_city"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLength="@integer/maxLength50"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -197,7 +210,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_add"
-                            android:inputType="text" />
+                            android:inputType="text|textMultiLine"
+                            android:maxLength="@integer/maxLength500"
+                            android:minLines="2" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -209,7 +224,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_zipcode"
-                            android:inputType="text" />
+                            android:inputType="number"
+                            android:maxLength="@integer/maxLength50"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -232,7 +249,8 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_bank_name"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -245,7 +263,8 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_account_name"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -257,7 +276,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_account_number"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLength="@integer/maxLength30"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -270,7 +291,8 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_barnch_name"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -282,7 +304,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_swift_code"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLength="@integer/maxLength20"
+                            android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
                     <com.zemulla.android.app.widgets.TfButton

@@ -232,8 +232,11 @@ public class MTNFundTransferActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (Functions.isEmpty(edtNumber)) {
                     Functions.showError(MTNFundTransferActivity.this, "Please Enter Number", false);
-                } else if (Functions.getLength(edtNumber) < 10) {
+                    return;
+                }
+                if (Functions.getLength(edtNumber) < 10) {
                     Functions.showError(MTNFundTransferActivity.this, "Please Enter Valid Number", false);
+                    return;
                 }
                 showProgressDialog();
                 otpDialogAfterLogin.generateOPT();
@@ -283,7 +286,6 @@ public class MTNFundTransferActivity extends AppCompatActivity {
                         txtPayableAmount.setText(String.format("%s %.2f", AppConstant.ZMW, fundTransferTransactionChargeCalculationResponse.getTotalPayableAmount()));
                         txtTopupAmount.setText(String.format("Topup Amount : %s %.2f", AppConstant.ZMW, fundTransferTransactionChargeCalculationResponse.getAmount()));
                         txtTransactionCharge.setText(String.format("Transaction Charge : %s %.2f", AppConstant.ZMW, fundTransferTransactionChargeCalculationResponse.getTotalCharge()));
-
                         frameRootTopup.startAnimation(animation);
 
                     } else {
@@ -303,6 +305,7 @@ public class MTNFundTransferActivity extends AppCompatActivity {
             RetrofitErrorHelper.showErrorMsg(t, MTNFundTransferActivity.this);
         }
     };
+
 
     @Override
     protected void onDestroy() {

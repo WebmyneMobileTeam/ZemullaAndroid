@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.model.FullProfile;
 import com.zemulla.android.app.home.model.ProfileAPI;
@@ -159,19 +161,19 @@ public class UserProfileActivity extends AppCompatActivity {
                                 Functions.showError(UserProfileActivity.this, baseResponse.getResponseMsg(), false);
                             }
                         } else {
-                            Functions.showError(UserProfileActivity.this, "Something went wrong. Please try again.", false);
+                            Functions.showError(UserProfileActivity.this, getResources().getString(R.string.unable), false);
                         }
 
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error","Exception");
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
                 hideProgressDialog();
-                Functions.showError(UserProfileActivity.this, t.getMessage(), false);
+                RetrofitErrorHelper.showErrorMsg(t,UserProfileActivity.this);
 
             }
         };
@@ -198,14 +200,15 @@ public class UserProfileActivity extends AppCompatActivity {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error","Exception");
                 }
 
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                hideProgressDialog();
+                RetrofitErrorHelper.showErrorMsg(t,UserProfileActivity.this);
             }
         });
     }
@@ -258,8 +261,7 @@ public class UserProfileActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.fireIntentWithClearFlag(UserProfileActivity.this, HomeActivity.class);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(UserProfileActivity.this, HomeActivity.class);
             }
         });
     }
@@ -267,8 +269,8 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Functions.fireIntentWithClearFlag(UserProfileActivity.this, HomeActivity.class);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(UserProfileActivity.this, HomeActivity.class);
+
     }
 
     @OnClick(R.id.btnSave)
@@ -343,7 +345,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     Functions.showError(this, "Please Enter Account Name.", false);
                     return;
                 }
-                if (Functions.isEmpty(accountNameEditText)) {
+                if (Functions.isEmpty(accountNumberEditText)) {
                     Functions.showError(this, "Please Enter Account Number.", false);
                     return;
                 }
@@ -390,7 +392,7 @@ public class UserProfileActivity extends AppCompatActivity {
             unbinder.unbind();
             removeListener(updateApiListener);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 

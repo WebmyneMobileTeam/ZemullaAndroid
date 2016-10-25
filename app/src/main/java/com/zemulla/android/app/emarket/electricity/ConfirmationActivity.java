@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.kazang.kazangtestelectricity.KazangElectricityRequest;
 import com.zemulla.android.app.model.kazang.kazangtestelectricity.KazangElectricityResponse;
@@ -162,15 +164,14 @@ public class ConfirmationActivity extends AppCompatActivity {
         try {
             Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(ConfirmationActivity.this, ElectricityActivity.class);
             }
         });
     }
@@ -192,7 +193,7 @@ public class ConfirmationActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
 
@@ -201,13 +202,13 @@ public class ConfirmationActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<KazangElectricityResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,ConfirmationActivity.this);
         }
     };
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(ConfirmationActivity.this, ElectricityActivity.class);
     }
 
     @Override

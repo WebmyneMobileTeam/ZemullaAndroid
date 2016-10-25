@@ -7,13 +7,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.fundtransfer.FundTransferConfiguration;
 import com.zemulla.android.app.fundtransfer.FundTransferTileBean;
 import com.zemulla.android.app.fundtransfer.transaction.bank.FundTransferBankHistoryFragment;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -79,7 +82,7 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
             try {
                 toolbar.setTitle(String.format("%s", "Fund Transfer"));
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -87,13 +90,17 @@ public class FundTransferHistoryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(FundTransferHistoryActivity.this, FundTransferActivity.class);
             }
         });
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(FundTransferHistoryActivity.this, FundTransferActivity.class);
+    }
 
     private void initTabs() {
         fundTransferTileBeen = FundTransferConfiguration.getAllFundTransferOptions();

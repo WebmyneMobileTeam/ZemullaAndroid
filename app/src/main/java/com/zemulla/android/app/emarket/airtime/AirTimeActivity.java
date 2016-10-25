@@ -21,10 +21,12 @@ import com.zemulla.android.app.api.kazang.GetKazangProductProviderAPI;
 import com.zemulla.android.app.api.kazang.KazangAirTimeAPI;
 import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.KazangProductProvider;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.kazang.getkazangproductplan.GetKazangProductPlanRequest;
@@ -199,7 +201,7 @@ public class AirTimeActivity extends AppCompatActivity {
                 mSelectedProductPlan = kazangProductPlanAdapter.getItem(position);
                 rechargeAmount.setText(mSelectedProductPlan.getProduct_value());
             } catch (Exception e) {
-                e.printStackTrace();
+                //Log.d("error","Exception");
             }
 
         }
@@ -222,13 +224,14 @@ public class AirTimeActivity extends AppCompatActivity {
                     kazangProductProviderAdapter.addAll(response.body().getProductProvider());
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                //Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<GetKazangProductProviderResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, AirTimeActivity.this);
         }
     };
 
@@ -286,6 +289,7 @@ public class AirTimeActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<KazangAirtimeResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, AirTimeActivity.this);
         }
     };
 
@@ -310,13 +314,14 @@ public class AirTimeActivity extends AppCompatActivity {
                     spinnerPlan.setSelection(0);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                //Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<GetKazangProductPlanResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, AirTimeActivity.this);
         }
     };
 
@@ -388,17 +393,18 @@ public class AirTimeActivity extends AppCompatActivity {
                         Functions.showError(AirTimeActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(AirTimeActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(AirTimeActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(AirTimeActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(AirTimeActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
 
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
-
+            checkRateFab.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t, AirTimeActivity.this);
         }
     };
 
@@ -408,7 +414,7 @@ public class AirTimeActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                //Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -423,8 +429,7 @@ public class AirTimeActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            Functions.fireIntentWithClearFlagWithWithPendingTransition(AirTimeActivity.this, MarketActivity.class);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);

@@ -3,6 +3,7 @@ package com.zemulla.android.app.widgets;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.zemulla.android.app.helper.Functions;
@@ -32,7 +33,7 @@ public class TfEditText extends EditText {
             Typeface typeface = Typeface.createFromAsset(context.getAssets(), Functions.LATO_FONT);
             setTypeface(typeface);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 

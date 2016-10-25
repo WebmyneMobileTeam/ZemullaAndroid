@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,10 +21,12 @@ import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.api.user.GetUserDetailIDWiseADAPI;
 import com.zemulla.android.app.api.zwallet.SendMoneyBantTransferAPI;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -175,13 +178,13 @@ public class BankTransferActivity extends AppCompatActivity {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
 
         @Override
         public void onFailure(Call<SendMoneyBantTransferResponse> call, Throwable t) {
-
+            RetrofitErrorHelper.showErrorMsg(t, BankTransferActivity.this);
         }
     };
 
@@ -200,13 +203,14 @@ public class BankTransferActivity extends AppCompatActivity {
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
 
         @Override
         public void onFailure(Call<GetUserDetailIDWiseResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, BankTransferActivity.this);
         }
     };
 
@@ -222,14 +226,14 @@ public class BankTransferActivity extends AppCompatActivity {
                 isBankDetailsFiledup = true;
                 bankDetailsHolder.setVisibility(View.VISIBLE);
                 noDetailsFoundTextView.setVisibility(View.GONE);
-                bankNameEditText.setText(String.format("Bank Name : %s", data.getBranchName()));
+                bankNameEditText.setText(String.format("Bank Name : %s", data.getBankName()));
                 branchNameTextView.setText(String.format("Branch Name : %s", data.getBranchName()));
                 accountName.setText(String.format("Account Name : %s", data.getAccountName()));
                 accountNumber.setText(String.format("Account Number : %s", data.getAccountNumber()));
                 swiftCode.setText(String.format("Swift Code : %s", data.getSwiftCode()));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error", "Exception");
         }
 
     }
@@ -248,8 +252,19 @@ public class BankTransferActivity extends AppCompatActivity {
                     Functions.showError(BankTransferActivity.this, "Please Enter Amount", false);
                     return;
                 }
-                if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-                    Functions.showError(BankTransferActivity.this, "Enter Valid Amount", false);
+                try {
+                    Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                    if (amount <= 0.0) {
+                        Functions.showError(BankTransferActivity.this, getString(R.string.invalid_amout), false);
+
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    Functions.showError(BankTransferActivity.this, getString(R.string.invalid_amout), false);
+                    return;
+                }
+                if (!Functions.checkWalleatBalance(BankTransferActivity.this, edtAmount, walletResponse)) {
+                    Functions.showError(BankTransferActivity.this, "Payable amount is greater than available balance", false);
                     return;
                 }
                 if (Functions.isFabAnimate(checkRateFab)) {
@@ -283,7 +298,7 @@ public class BankTransferActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -291,10 +306,16 @@ public class BankTransferActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(BankTransferActivity.this, FundTransferActivity.class);
+
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(BankTransferActivity.this, FundTransferActivity.class);
     }
 
     private void calculateAmount() {
@@ -328,17 +349,18 @@ public class BankTransferActivity extends AppCompatActivity {
                         Functions.showError(BankTransferActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(BankTransferActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(BankTransferActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(BankTransferActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(BankTransferActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
 
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
-
+            checkRateFab.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t, BankTransferActivity.this);
         }
     };
 

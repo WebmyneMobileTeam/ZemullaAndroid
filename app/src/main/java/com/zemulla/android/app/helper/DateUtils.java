@@ -95,7 +95,7 @@ public final class DateUtils {
             SimpleDateFormat df = new SimpleDateFormat(type);
             return df.format(date);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
         return null;
     }
@@ -118,7 +118,7 @@ public final class DateUtils {
         try {
             date = df.parse(dateStr);
         } catch (ParseException e) {
-           // e.printStackTrace();
+           // Log.d("error","Exception");
         }
         return date;
 
@@ -150,9 +150,9 @@ public final class DateUtils {
         try {
             return stringToDate(formatDate(d1, type), type);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
         //return new SimpleDateFormat(type).format(today.getTime()).trim();
         return null;
@@ -308,7 +308,7 @@ public final class DateUtils {
         try {
             date = outputFormat.parse(inputFormat.format(inputDate));
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
         return date;
     }

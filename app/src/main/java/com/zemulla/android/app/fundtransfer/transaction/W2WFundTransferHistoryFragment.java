@@ -22,6 +22,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetW2WReportDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.TopUpApiReportDetails;
@@ -184,6 +185,7 @@ public class W2WFundTransferHistoryFragment extends Fragment {
         @Override
         public void onFailure(Call<W2WReportResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
+            RetrofitErrorHelper.showErrorMsg(t,getActivity());
         }
     };
 

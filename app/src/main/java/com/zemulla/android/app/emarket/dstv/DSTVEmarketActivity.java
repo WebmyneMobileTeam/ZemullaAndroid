@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -21,10 +22,12 @@ import com.zemulla.android.app.api.kazang.DSTVPayment3API;
 import com.zemulla.android.app.api.kazang.GetProductAPIProdMasterIDWiseAPI;
 import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.KazangProductID;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -232,15 +235,15 @@ public class DSTVEmarketActivity extends AppCompatActivity {
     private void callDSTV1() {
 
         if (selectedDstvProduct.getProduct_id().equalsIgnoreCase("0")) {
-            Functions.showError(this, "Select DSTV Product", false);
+            Functions.showError(this, "Please Select DSTV Product", false);
             return;
         }
         if (selectedMonth.getId() == 0) {
-            Functions.showError(this, "Select Month", false);
+            Functions.showError(this, "Please Select Month", false);
             return;
         }
         if (Functions.isEmpty(edtCustomerNumber)) {
-            Functions.showError(this, "Invalid Number", false);
+            Functions.showError(this, "Please Enter Card Number", false);
             return;
         }
         if (Functions.isFabAnimate(initFab)) {
@@ -265,7 +268,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -284,8 +287,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
     }
 
     private void checkVisibility() {
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(DSTVEmarketActivity.this, MarketActivity.class);
     }
 
     private void initProgressDialog() {
@@ -353,6 +355,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<GetProductAPIProdMasterIDWiseResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, DSTVEmarketActivity.this);
         }
     };
 
@@ -366,7 +369,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
             getFundTransferTransactionCalApi.getTopupCharge(topUpTransactionChargeCalculationRequest, fundTransferTransactionChargeCalculationResponseAPIListener);
             showProgressDialog();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error", "Exception");
         }
 
     }
@@ -392,6 +395,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<DSTVPayment1Response> call, Throwable t) {
             initFab.showProgress(true);
+            RetrofitErrorHelper.showErrorMsg(t, DSTVEmarketActivity.this);
         }
     };
 
@@ -417,10 +421,10 @@ public class DSTVEmarketActivity extends AppCompatActivity {
                         Functions.showError(DSTVEmarketActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(DSTVEmarketActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(DSTVEmarketActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(DSTVEmarketActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(DSTVEmarketActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
@@ -428,6 +432,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, DSTVEmarketActivity.this);
         }
     };
 
@@ -489,6 +494,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<DSTVPayment2Response> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, DSTVEmarketActivity.this);
         }
     };
 
@@ -533,6 +539,7 @@ public class DSTVEmarketActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<DSTVPayment3Response> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, DSTVEmarketActivity.this);
         }
     };
 }

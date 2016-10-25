@@ -130,7 +130,7 @@ public class CalenderDialog extends DialogFragment {
             calendar.setTime(date);
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            //Log.d("error","Exception");
         }
 
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -40,6 +41,7 @@ import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailRespons
 import com.zemulla.android.app.model.zwallet.DynamicTextResponse;
 import com.zemulla.android.app.model.zwallet.topupwallet.TopUpRequest;
 import com.zemulla.android.app.model.zwallet.topupwallet.TopUpResponse;
+import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.widgets.OTPDialog;
 import com.zemulla.android.app.widgets.TfTextView;
 
@@ -96,8 +98,6 @@ public class MtnActivity extends AppCompatActivity {
     private LoginResponse loginResponse;
     private OTPGenValAPI otpGenValAPI;
     private OTPGenValRequest otpGenValRequest;
-
-
     private ProgressDialog progressDialog;
 
     private APIListener<OTPGenValResponse> otpApiListener;
@@ -150,6 +150,10 @@ public class MtnActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        dynamicTextAPI.onDestory();
+        transactionApi.onDestory();
+        Functions.removeListener(topupApiListener);
+
     }
 
     private void init() {
@@ -177,7 +181,7 @@ public class MtnActivity extends AppCompatActivity {
                         txtDynamic.setText(Html.fromHtml(response.body().getDText()));
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error", "Exception");
                 }
             }
 
@@ -205,11 +209,11 @@ public class MtnActivity extends AppCompatActivity {
                             Functions.showError(MtnActivity.this, response.body().getResponse().getResponseMsg(), false);
                         }
                     } else {
-                        Functions.showError(MtnActivity.this, "Something went wrong. Please try again.", false);
+                        Functions.showError(MtnActivity.this, getResources().getString(R.string.unable), false);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    Functions.showError(MtnActivity.this, "Something went wrong. Please try again.", false);
+                    Log.d("error", "Exception");
+                    Functions.showError(MtnActivity.this, getResources().getString(R.string.unable), false);
                 }
             }
 
@@ -237,11 +241,11 @@ public class MtnActivity extends AppCompatActivity {
                             Functions.showError(MtnActivity.this, response.body().getResponse().getResponseMsg(), false);
                         }
                     } else {
-                        Functions.showError(MtnActivity.this, "Something went wrong. Please try again.", false);
+                        Functions.showError(MtnActivity.this, getResources().getString(R.string.unable), false);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    Functions.showError(MtnActivity.this, "Something went wrong. Please try again.", false);
+                    Log.d("error", "Exception");
+                    Functions.showError(MtnActivity.this, getResources().getString(R.string.unable), false);
                 }
             }
 
@@ -258,19 +262,20 @@ public class MtnActivity extends AppCompatActivity {
 
                 // validations in if..else then method
 
-                if (Functions.isEmpty(edtAmount)) {
-                    Functions.showError(MtnActivity.this, "Please Enter Amount", false);
+                try {
+                    if (Functions.isEmpty(edtAmount)) {
+                        Functions.showError(MtnActivity.this, "Please Enter Amount", false);
 
-                }
-// else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-//                    Functions.showError(MtnActivity.this, "Enter Valid Amount", false);
-//
-//                }
-                else {
-                    if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
-                        return;
+                    } else {
+                        if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
+                            return;
+                        }
+                        callApi();
                     }
-                    callApi();
+                } catch (Exception e) {
+                    Functions.showError(MtnActivity.this, getString(R.string.invalid_amout), false);
+                    btnProcessInitialTransaction.showProgress(false);
+                    return;
                 }
             }
         });
@@ -412,10 +417,9 @@ public class MtnActivity extends AppCompatActivity {
         @Override
         public void onResponse(Response<TopUpTransactionChargeCalculationResponse> response) {
 
-            animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
-            btnProcessInitialTransaction.showProgress(false);
-
             try {
+                animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
+                btnProcessInitialTransaction.showProgress(false);
                 if (response.isSuccessful() && response.body() != null) {
                     topUpResponse = response.body();
                     if (topUpResponse.getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
@@ -432,10 +436,10 @@ public class MtnActivity extends AppCompatActivity {
                         Functions.showError(MtnActivity.this, topUpResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(MtnActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(MtnActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(MtnActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(MtnActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
@@ -444,6 +448,7 @@ public class MtnActivity extends AppCompatActivity {
         public void onFailure(Call<TopUpTransactionChargeCalculationResponse> call, Throwable t) {
             hidProgressDialog();
             btnProcessInitialTransaction.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t, MtnActivity.this);
         }
     };
 
@@ -473,7 +478,7 @@ public class MtnActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -494,12 +499,12 @@ public class MtnActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
-            Functions.fireIntentWithClearFlag(this, HomeActivity.class);
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            Functions.fireIntentWithClearFlagWithWithPendingTransition(MtnActivity.this, TopupActivity.class);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);
         }
     }
+
+
 }

@@ -32,6 +32,7 @@ public class ChangeEmailAPI {
             @Override
             public void onFailure(Call<ChangeEmailResponse> call, Throwable t) {
                 apiListener.onFailure(call, t);
+
             }
         });
 

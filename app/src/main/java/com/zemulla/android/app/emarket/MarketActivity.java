@@ -82,7 +82,7 @@ public class MarketActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                //Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -91,18 +91,18 @@ public class MarketActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Functions.fireIntentWithClearFlag(MarketActivity.this, HomeActivity.class);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(MarketActivity.this, HomeActivity.class);
             }
         });
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Functions.fireIntentWithClearFlag(MarketActivity.this, HomeActivity.class);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(MarketActivity.this, HomeActivity.class);
     }
+
 
     @Override
     protected void onDestroy() {
@@ -121,7 +121,7 @@ public class MarketActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_history:
-               Intent intent = new Intent(this, EmarketTransactionActivity.class);
+                Intent intent = new Intent(this, EmarketTransactionActivity.class);
                 intent.putExtra("type", Serivces.TOPUP);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -17,10 +18,12 @@ import com.zemulla.android.app.api.payment.GetSupportedBankDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.payment.getsupportedbankdetails.GetSupportedBankDetails;
 import com.zemulla.android.app.model.payment.getsupportedbankdetails.GetSupportedBankDetailsResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
+import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.topup.bank.adapter.SupportedBankAdapter;
 import com.zemulla.android.app.widgets.TfTextView;
 
@@ -111,7 +114,7 @@ public class SupportedBankListActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -119,8 +122,7 @@ public class SupportedBankListActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(SupportedBankListActivity.this, TopupActivity.class);
             }
         });
     }
@@ -138,13 +140,13 @@ public class SupportedBankListActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<GetSupportedBankDetailsResponse> call, Throwable t) {
-
+            RetrofitErrorHelper.showErrorMsg(t,SupportedBankListActivity.this);
         }
     };
 
@@ -152,5 +154,11 @@ public class SupportedBankListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         getSupportedBankDetailsAPI.onDestory();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(SupportedBankListActivity.this, TopupActivity.class);
     }
 }

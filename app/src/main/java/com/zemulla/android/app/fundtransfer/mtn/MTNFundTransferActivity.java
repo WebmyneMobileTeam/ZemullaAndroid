@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -18,6 +19,7 @@ import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.api.zwallet.SendMoneyToAPIWalletAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.constant.IntentConstant;
+import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
@@ -166,7 +168,6 @@ public class MTNFundTransferActivity extends AppCompatActivity {
         sendMoneyToAPIWalletRequest.setUserID(PrefUtils.getUserID(this));
         sendMoneyToAPIWalletRequest.setServiceDetailID(serviceID);
         sendMoneyToAPIWalletRequest.setVerificationCode(OTP);
-
         sendMoneyToAPIWalletAPI.getSendMoneyToAPIWallet(sendMoneyToAPIWalletRequest, sendMoneyToAPIWalletResponseAPIListener);
 
     }
@@ -187,14 +188,14 @@ public class MTNFundTransferActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
 
         }
 
         @Override
         public void onFailure(Call<SendMoneyToAPIWalletResponse> call, Throwable t) {
-
+            RetrofitErrorHelper.showErrorMsg(t, MTNFundTransferActivity.this);
         }
     };
 
@@ -207,8 +208,19 @@ public class MTNFundTransferActivity extends AppCompatActivity {
                     Functions.showError(MTNFundTransferActivity.this, "Please Enter Amount", false);
                     return;
                 }
-                if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-                    Functions.showError(MTNFundTransferActivity.this, "Enter Valid Amount", false);
+                try {
+                    Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                    if (amount <= 0.0) {
+                        Functions.showError(MTNFundTransferActivity.this, getString(R.string.invalid_amout), false);
+
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    Functions.showError(MTNFundTransferActivity.this, getString(R.string.invalid_amout), false);
+                    return;
+                }
+                if (!Functions.checkWalleatBalance(MTNFundTransferActivity.this, edtAmount, walletResponse)) {
+                    Functions.showError(MTNFundTransferActivity.this, "Payable amount is greater than available balance", false);
                     return;
                 }
                 if (Functions.isFabAnimate(checkRateFab)) {
@@ -249,7 +261,7 @@ public class MTNFundTransferActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -257,10 +269,15 @@ public class MTNFundTransferActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(MTNFundTransferActivity.this, FundTransferActivity.class);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(MTNFundTransferActivity.this, FundTransferActivity.class);
     }
 
     private void calculateAmount() {
@@ -292,10 +309,10 @@ public class MTNFundTransferActivity extends AppCompatActivity {
                         Functions.showError(MTNFundTransferActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(MTNFundTransferActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(MTNFundTransferActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(MTNFundTransferActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(MTNFundTransferActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }

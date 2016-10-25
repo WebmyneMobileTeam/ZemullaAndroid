@@ -8,7 +8,8 @@ public class TopUpWalletBankTransferRequest {
 
     private String AccountName;
     private String AccountNumber;
-    private long BankDetailID;
+
+   // private long BankDetailID;
     private long BankID;
     private String BranchName;
     private String RejectReason;
@@ -39,13 +40,13 @@ public class TopUpWalletBankTransferRequest {
         this.AccountNumber = AccountNumber;
     }
 
-    public long getBankDetailID() {
-        return BankDetailID;
-    }
-
-    public void setBankDetailID(long BankDetailID) {
-        this.BankDetailID = BankDetailID;
-    }
+//    public long getBankDetailID() {
+//        return BankDetailID;
+//    }
+//
+//    public void setBankDetailID(long BankDetailID) {
+//        this.BankDetailID = BankDetailID;
+//    }
 
     public long getBankID() {
         return BankID;
@@ -154,7 +155,7 @@ public class TopUpWalletBankTransferRequest {
     public TopUpWalletBankTransferRequest() {
         AccountName = "";
         AccountNumber = "";
-        BankDetailID = 0;
+      //  BankDetailID = 0;
         BankID = 0;
         BranchName = "";
         RejectReason = "";

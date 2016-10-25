@@ -3,6 +3,7 @@ package com.zemulla.android.app.topup.bank.adapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +95,7 @@ public class SupportedBankAdapter extends RecyclerView.Adapter<SupportedBankAdap
                 accountBranchValue.setText(details.getBranchName());
                 swiftCodeValue.setText(details.getBankSWIFTCode());
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
         }

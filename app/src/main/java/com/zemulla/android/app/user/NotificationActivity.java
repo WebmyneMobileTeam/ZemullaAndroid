@@ -20,6 +20,7 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.DatabaseHandler;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.user.notification.CheckedNotificationRequest;
 import com.zemulla.android.app.model.user.notification.CheckedNotificationResponse;
@@ -96,7 +97,7 @@ public class NotificationActivity extends AppCompatActivity {
                     toolbar.setTitle("Notifications");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -115,8 +116,7 @@ public class NotificationActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Functions.fireIntentWithClearFlag(NotificationActivity.this, HomeActivity.class);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(NotificationActivity.this, HomeActivity.class);
 
     }
 
@@ -149,14 +149,13 @@ public class NotificationActivity extends AppCompatActivity {
             notificationAdapter.setItems(notifications);
             getMaxValuePIDNotification(notifications);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
 
 
     }
 
     private void getMaxValuePIDNotification(final List<Notification> notifications) {
-
 
         // compareTo should return < 0 if this is supposed to be
         // less than other, > 0 if this is supposed to be greater than
@@ -236,7 +235,7 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CheckedNotificationResponse> call, Throwable t) {
                 hidProgressDialog();
-                Functions.showError(NotificationActivity.this, false);
+                RetrofitErrorHelper.showErrorMsg(t,NotificationActivity.this);
             }
         });
     }

@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/big_text" />
 
                 <TextView
                     android:id="@+id/txtTransactionCharge"
@@ -142,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="?actionBarSize"
                         android:drawablePadding="@dimen/dimen_16dp"
-                        android:hint="Enter Number"
+                        android:hint="@string/enter_mobile_number"
                         android:inputType="number"
                         android:maxLength="10" />
                 </android.support.design.widget.TextInputLayout>

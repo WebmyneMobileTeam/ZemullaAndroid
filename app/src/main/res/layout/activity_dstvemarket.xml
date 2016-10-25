@@ -16,7 +16,7 @@
         android:layout_height="48dp"
         android:background="@color/colorExtraDark"
         android:gravity="center"
-        android:text="DSTV"
+        android:text="DSTV Payment"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
@@ -92,7 +92,12 @@
                     android:id="@+id/edtCustomerNumber"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:hint="SmartCard Or Customer Number" />
+                    android:hint="SmartCard Or Customer Number"
+                    android:inputType="text"
+                    android:maxLength="@integer/maxLength20"
+                    android:singleLine="true"
+                    android:maxLines="1" />
+
             </android.support.design.widget.TextInputLayout>
 
 
@@ -137,17 +142,17 @@
                     android:id="@+id/totalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
 
                 <TextView
-                    android:gravity="center"
                     android:id="@+id/customerDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:padding="16dp"
                     android:text="Transaction Charge : 100"
                     android:textSize="14sp" />
@@ -230,7 +235,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
@@ -240,7 +245,7 @@
                     android:layout_height="wrap_content"
                     android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/big_text" />
 
                 <TextView
                     android:id="@+id/txtTransactionCharge"
@@ -355,7 +360,7 @@
 
     <!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="16dp"--><!--android:text="Payable Amount"--><!--android:textSize="18sp" />-->
 
-    <!--<TextView--><!--android:id="@+id/txtPayableAmount"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="ZMW 0.00"--><!--android:textColor="@color/colorPrimaryDark"--><!--android:textSize="32sp" />-->
+    <!--<TextView--><!--android:id="@+id/txtPayableAmount"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="ZMW 0.00"--><!--android:textColor="@color/colorPrimaryDark"--><!--android:textSize="@dimen/big_text" />-->
 
     <!--<TextView--><!--android:id="@+id/txtTransactionCharge"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="Transaction Charge : 100"--><!--android:textSize="14sp" />--><!--</LinearLayout>-->
 

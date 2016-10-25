@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.zemulla.android.app.R;
@@ -83,14 +84,14 @@ public class ElectriCityBillReicptActivity extends AppCompatActivity {
         try {
             Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.fireIntentWithClearFlag(ElectriCityBillReicptActivity.this, HomeActivity.class);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(ElectriCityBillReicptActivity.this, HomeActivity.class);
             }
         });
 
@@ -119,6 +120,6 @@ public class ElectriCityBillReicptActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Functions.fireIntentWithClearFlag(this, HomeActivity.class);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(this, HomeActivity.class);
     }
 }

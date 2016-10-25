@@ -383,13 +383,14 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<ValidateMobileEmailResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,SignupActivity.this);
         }
     };
     APIListener<ValidateMobileEmailResponse> validateMobileResponseAPIListener = new APIListener<ValidateMobileEmailResponse>() {
@@ -406,13 +407,14 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<ValidateMobileEmailResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,SignupActivity.this);
         }
     };
     APIListener<OTPGenValResponse> otpGenValTemporaryResponseAPIListener = new APIListener<OTPGenValResponse>() {
@@ -430,7 +432,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
         }
@@ -459,13 +461,14 @@ public class SignupActivity extends AppCompatActivity {
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,SignupActivity.this);
         }
     };
     APIListener<RegistrationResponse> registrationResponseAPIListener = new APIListener<RegistrationResponse>() {
@@ -489,7 +492,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
         }
@@ -497,6 +500,7 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<RegistrationResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,SignupActivity.this);
         }
     };
 
@@ -622,7 +626,7 @@ public class SignupActivity extends AppCompatActivity {
             removeListener(validateMobileResponseAPIListener);
             removeListener(validateEmailResponseAPIListener);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
 
 

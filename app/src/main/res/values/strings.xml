@@ -49,6 +49,7 @@
 
     <string name="select_recipient_bank_prompt">Select Recipient Bank</string>
     <string name="select_provider_prompt">Select Provider</string>
+    <string name="select_provider_product">Select Product</string>
     <string name="select_plan_prompt">Select Plan</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -102,5 +103,8 @@
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="time_out">Time Out</string>
     <string name="server_error">Server Error</string>
+    <string name="unable">Couldn\'t  process request.</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="invalid_amout">Please Enter Valid Amount</string>
 
 </resources>

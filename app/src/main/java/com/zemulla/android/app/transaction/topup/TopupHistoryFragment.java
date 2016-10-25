@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetTopUpApiReportDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.GetTopUpApiReportDetailsResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.TopUpApiReportDetails;
@@ -183,7 +185,7 @@ public class TopupHistoryFragment extends Fragment {
                     //set error msg
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
         }
@@ -192,6 +194,7 @@ public class TopupHistoryFragment extends Fragment {
         public void onFailure(Call<GetTopUpApiReportDetailsResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
+            RetrofitErrorHelper.showErrorMsg(t,getActivity());
         }
     };
     public void showEmptyView() {

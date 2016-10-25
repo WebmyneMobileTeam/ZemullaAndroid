@@ -39,6 +39,7 @@ import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.helper.DatabaseHandler;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.model.user.notification.NotificationRequest;
@@ -290,7 +291,7 @@ public class HomeActivity extends AppCompatActivity {
                     rotation.cancel();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
                 rotation.cancel();
             }
 
@@ -298,7 +299,10 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<GetWalletDetailResponse> call, Throwable t) {
-
+            Log.d("Get wallet", "Request has been cancel", t);
+            if (!call.isCanceled()) {
+                RetrofitErrorHelper.showErrorMsg(t, HomeActivity.this);
+            }
         }
     };
 
@@ -311,6 +315,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
+                        databaseHandler.deleteNotification();
                         Functions.closeSession(HomeActivity.this);
                     }
                 })
@@ -353,6 +358,7 @@ public class HomeActivity extends AppCompatActivity {
             popup.close(true);
         } else {
             super.onBackPressed();
+            finish();
         }
     }
 
@@ -427,7 +433,7 @@ public class HomeActivity extends AppCompatActivity {
                         Log.d("Error ", "notification");
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error","Exception");
                 }
 
             }
@@ -435,6 +441,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<NotificationResponse> call, Throwable t) {
                 Log.d("Notification", "Error while getting notification", t);
+                if (!call.isCanceled()) {
+                    RetrofitErrorHelper.showErrorMsg(t, HomeActivity.this);
+                }
             }
         });
 

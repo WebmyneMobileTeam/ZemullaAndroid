@@ -1,6 +1,7 @@
 package com.zemulla.android.app.widgets;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
 import com.zemulla.android.app.helper.RetrofitErrorHelper;
+import com.zemulla.android.app.helper.SMSListener;
+import com.zemulla.android.app.helper.SMSReceiver;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.account.optgenval.OTPGenValRequest;
 import com.zemulla.android.app.model.account.optgenval.OTPGenValResponse;
@@ -36,9 +39,8 @@ public class OTPDialogAfterLogin extends MaterialDialog {
     private OTPGenValAPI otpGenValAPI;
     private LoginResponse loginResponse;
     private View customView;
-
     private OnSubmitListener onSubmitListener;
-
+    private SMSReceiver smsReceiver;
 
     public OTPDialogAfterLogin(Builder builder) {
         super(builder);
@@ -56,6 +58,22 @@ public class OTPDialogAfterLogin extends MaterialDialog {
         ButterKnife.bind(customView);
         loginResponse = PrefUtils.getUserProfile(getContext());
         initViews(customView);
+
+
+        smsReceiver = new SMSReceiver();
+        smsReceiver.setSmsListener(new SMSListener() {
+            @Override
+            public void readSMS(String opt) {
+                if (!TextUtils.isEmpty(opt)) {
+                    edtOTP.setText(opt);
+                    onSubmitListener.onSubmit(Functions.toStingEditText(edtOTP));
+                    smsReceiver.unRegisterListener();
+
+                }
+            }
+        });
+
+
     }
 
     private void initViews(View customView) {
@@ -69,6 +87,10 @@ public class OTPDialogAfterLogin extends MaterialDialog {
 
         btnChangeEmail.setVisibility(View.GONE);
         actionListener();
+    }
+
+    public void setOPT(String opt) {
+        edtOTP.setText(opt);
     }
 
     private void actionListener() {
@@ -133,7 +155,7 @@ public class OTPDialogAfterLogin extends MaterialDialog {
             try {
 
                 if (response.isSuccessful() && response.body() != null) {
-                    onSubmitListener.OTPReceived();
+                        onSubmitListener.OTPReceived();
                     //Todo remove this OTPResponseSuccess oon release time
                     try {
                         if (response.body().getResponse().getResponseCode() == AppConstant.OTPResponseSuccess) {
@@ -149,16 +171,16 @@ public class OTPDialogAfterLogin extends MaterialDialog {
 
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Log.d("error", "Exception");
                     }
                 } else {
                     onSubmitListener.OTPReceived();
-                    Functions.showError(getContext(), "Something went wrong. Please try again.", false);
+                    Functions.showError(getContext(), getContext().getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
                 onSubmitListener.OTPReceived();
-                Functions.showError(getContext(), "Something went wrong. Please try again.", false);
+                Functions.showError(getContext(), getContext().getResources().getString(R.string.unable), false);
             }
         }
 

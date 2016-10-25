@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -157,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                 otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 
@@ -228,13 +229,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, LoginActivity.this);
         }
     };
 
@@ -263,7 +265,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
     private void GenerateOTP() {
         try {
             if (loginResponse != null) {
@@ -277,7 +278,7 @@ public class LoginActivity extends AppCompatActivity {
                 otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, otpGenValTemporaryResponseAPIListener);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 
@@ -298,7 +299,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
         }
@@ -306,6 +307,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, LoginActivity.this);
         }
     };
 
@@ -378,7 +380,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error","Exception");
                 }
 
             }
@@ -386,6 +388,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 hidProgressDialog();
+                RetrofitErrorHelper.showErrorMsg(t, LoginActivity.this);
             }
         });
     }
@@ -444,7 +447,7 @@ public class LoginActivity extends AppCompatActivity {
             removeListener(otpGenValTemporaryResponseAPIListener);
             countryPickerListener = null;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 
@@ -458,5 +461,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void createAccountClick(View view) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

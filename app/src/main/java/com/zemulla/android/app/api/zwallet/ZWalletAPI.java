@@ -2,6 +2,7 @@ package com.zemulla.android.app.api.zwallet;
 
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.model.zwallet.DynamicTextResponse;
+import com.zemulla.android.app.model.zwallet.RecepientBankListResponse;
 import com.zemulla.android.app.model.zwallet.isvalidsendwallet.IsValidSendWalletRequest;
 import com.zemulla.android.app.model.zwallet.isvalidsendwallet.IsValidSendWalletResponse;
 import com.zemulla.android.app.model.zwallet.sendmoneybanttransfer.SendMoneyBantTransferRequest;
@@ -34,6 +35,9 @@ public interface ZWalletAPI {
 
     @GET(AppConstant.GetDynamicText)
     Call<DynamicTextResponse> getDynamicText(@Path("APIMASTERID") int masterID);
+
+    @GET(AppConstant.BANKLISTAD)
+    Call<RecepientBankListResponse> getBanklist();
 
     @POST(AppConstant.TopUpWalletBankTransfer)
     Call<TopUpWalletBankTransferResponse> getTopUpWalletBankTransfer(@Body TopUpWalletBankTransferRequest topUpWalletBankTransferRequest);

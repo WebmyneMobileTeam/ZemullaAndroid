@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.zemulla.android.app.R;
@@ -49,7 +50,7 @@ public class TfTextView extends TextView {
                 setTypeface(getTypeface(), Typeface.BOLD);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 

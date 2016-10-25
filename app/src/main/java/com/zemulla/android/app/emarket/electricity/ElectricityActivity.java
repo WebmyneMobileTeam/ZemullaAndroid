@@ -21,11 +21,13 @@ import com.zemulla.android.app.api.kazang.KazangElectricityAPI;
 import com.zemulla.android.app.api.kazang.KazangTestElectricityAPI;
 import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.KazangProductID;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.kazang.kazangtestelectricity.KazangElectricityRequest;
@@ -160,8 +162,20 @@ public class ElectricityActivity extends AppCompatActivity {
                     Functions.showError(ElectricityActivity.this, "Please Enter Amount", false);
                     return;
                 }
-                if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-                    Functions.showError(ElectricityActivity.this, "Enter Valid Amount", false);
+                    try {
+                        Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                        if (amount <= 0.0) {
+                            Functions.showError(ElectricityActivity.this, getString(R.string.invalid_amout), false);
+
+                            return;
+                        }
+                    } catch (NumberFormatException e) {
+                        Functions.showError(ElectricityActivity.this, getString(R.string.invalid_amout), false);
+                        return;
+                    }
+
+                if (!Functions.checkWalleatBalance(ElectricityActivity.this, edtAmount, walletResponse)) {
+                    Functions.showError(ElectricityActivity.this, "Payable amount is greater than available balance", false);
                     return;
                 }
                 if (Functions.isEmpty(edtMeterNumber)) {
@@ -226,17 +240,18 @@ public class ElectricityActivity extends AppCompatActivity {
                         Functions.showError(ElectricityActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(ElectricityActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(ElectricityActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(ElectricityActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(ElectricityActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
 
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
-
+            initFab.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t,ElectricityActivity.this);
         }
     };
 
@@ -245,7 +260,7 @@ public class ElectricityActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -260,8 +275,7 @@ public class ElectricityActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            Functions.fireIntentWithClearFlagWithWithPendingTransition(ElectricityActivity.this, MarketActivity.class);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);
@@ -316,6 +330,7 @@ public class ElectricityActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<KazangTestElectricityResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,ElectricityActivity.this);
         }
     };
 
@@ -351,6 +366,7 @@ public class ElectricityActivity extends AppCompatActivity {
         public void onFailure(Call<KazangElectricityResponse> call, Throwable t) {
             confirmFab.hideProgressOnComplete(true);
             confirmFab.onProgressCompleted();
+            RetrofitErrorHelper.showErrorMsg(t,ElectricityActivity.this);
             Log.d("test", "test", t);
         }
     };

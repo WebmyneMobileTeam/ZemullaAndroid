@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -126,7 +128,7 @@ public class ContactUsActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error","Exception");
                     LogUtils.LOGE("msg", e.getMessage());
                 }
             }
@@ -134,6 +136,7 @@ public class ContactUsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call call, Throwable t) {
                 hideProgressDialog();
+                RetrofitErrorHelper.showErrorMsg(t,ContactUsActivity.this);
             }
         };
 
@@ -150,18 +153,18 @@ public class ContactUsActivity extends AppCompatActivity {
                                 Functions.showError(ContactUsActivity.this, response.body().getResponseMsg(), false);
                             }
                         } else {
-                            Functions.showError(ContactUsActivity.this, "Something went wrong. Please try again.", false);
+                            Functions.showError(ContactUsActivity.this, getResources().getString(R.string.unable), false);
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error","Exception");
                 }
             }
 
             @Override
             public void onFailure(Call<com.zemulla.android.app.model.base.Response> call, Throwable t) {
                 hideProgressDialog();
-                Functions.showError(ContactUsActivity.this, t.getMessage(), false);
+                RetrofitErrorHelper.showErrorMsg(t,ContactUsActivity.this);
             }
         };
     }
@@ -214,7 +217,7 @@ public class ContactUsActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -222,8 +225,7 @@ public class ContactUsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.fireIntentWithClearFlag(ContactUsActivity.this, HomeActivity.class);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(ContactUsActivity.this, HomeActivity.class);
             }
         });
     }
@@ -232,8 +234,7 @@ public class ContactUsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Functions.fireIntentWithClearFlag(ContactUsActivity.this, HomeActivity.class);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(ContactUsActivity.this, HomeActivity.class);
     }
 
     @OnClick(R.id.submitButton)

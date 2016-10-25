@@ -1547,7 +1547,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
 
             stream.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
             return false;
         }
 
@@ -1614,7 +1614,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             out.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
 
             return false;
         }

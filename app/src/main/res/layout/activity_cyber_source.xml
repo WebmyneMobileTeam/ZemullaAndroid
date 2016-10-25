@@ -95,7 +95,7 @@
 
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/selectMonthSpinner"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
+
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:layout_marginTop="@dimen/dimen_8dp"
@@ -107,7 +107,7 @@
 
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/yearSpinner"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
+
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:layout_marginTop="@dimen/dimen_8dp"
@@ -125,6 +125,7 @@
                 android:layout_height="@dimen/button_size"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_16dp"
                 android:color="@color/colorPrimaryDark"
                 android:indeterminate="true"
                 android:max="100"
@@ -166,7 +167,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
@@ -176,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/big_text" />
 
                 <TextView
                     android:id="@+id/txtTransactionCharge"

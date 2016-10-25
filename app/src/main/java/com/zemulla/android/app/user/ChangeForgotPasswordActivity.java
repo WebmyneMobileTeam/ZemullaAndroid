@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.zemulla.android.app.api.account.ResetPasswordAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PasswordTracker;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.account.resetpassword.ResetPasswordRequest;
 import com.zemulla.android.app.model.account.resetpassword.ResetPasswordResponse;
 
@@ -167,13 +169,13 @@ public class ChangeForgotPasswordActivity extends AppCompatActivity {
                     Toast.makeText(ChangeForgotPasswordActivity.this, response.body().getResponseMsg(), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<ResetPasswordResponse> call, Throwable t) {
-
+            RetrofitErrorHelper.showErrorMsg(t,ChangeForgotPasswordActivity.this);
         }
     };
 

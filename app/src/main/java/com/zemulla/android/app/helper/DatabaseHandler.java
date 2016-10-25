@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.zemulla.android.app.model.user.notification.Notification;
 
@@ -62,7 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             try {
                 copyDataBase();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
                 throw new Error("Error copying database");
             }
         }
@@ -104,7 +105,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put("Message", notification.getMessage());
                 values.put("PKID", notification.getPKID());
                 values.put("ProfilePicWithURL", notification.getProfilePicWithURL());
-                    values.put("ServiceDetailID", notification.getServiceDetailID());
+                values.put("ServiceDetailID", notification.getServiceDetailID());
                 values.put("UserID", notification.getUserID());
                 // Inserting Row
 
@@ -112,7 +113,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
+        } finally {
+            myDataBase.close();
+        }
+
+    }
+
+    public void deleteNotification() {
+
+        try {
+            openDatabase();
+            myDataBase.execSQL("Delete from Notification");
+        } catch (Exception e) {
+            Log.d("error","Exception");
         } finally {
             myDataBase.close();
         }
@@ -121,11 +135,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void openDatabase() {
         try {
-            if (myDataBase == null  || !myDataBase.isOpen()) {
+            if (myDataBase == null || !myDataBase.isOpen()) {
                 myDataBase = getWritableDatabase();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 
@@ -162,7 +176,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         try {
             myDataBase.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 }

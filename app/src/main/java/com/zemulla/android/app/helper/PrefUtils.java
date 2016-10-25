@@ -1,6 +1,7 @@
 package com.zemulla.android.app.helper;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zemulla.android.app.base.ZemullaApplication;
@@ -53,7 +54,7 @@ public class PrefUtils {
         try {
             response = gson.fromJson(jsonString, LoginResponse.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
 
         return response;
@@ -72,7 +73,7 @@ public class PrefUtils {
         try {
             response = gson.fromJson(jsonString, GetWalletDetailResponse.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
 
         return response;

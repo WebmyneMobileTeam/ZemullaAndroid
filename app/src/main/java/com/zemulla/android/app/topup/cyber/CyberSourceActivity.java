@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import com.zemulla.android.app.api.payment.PaymentAPI;
 import com.zemulla.android.app.base.ZemullaApplication;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.emarket.dstv.MonthAdapter;
+import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
@@ -36,6 +39,7 @@ import com.zemulla.android.app.model.payment.cybersourcepayment1.CybersourcePaym
 import com.zemulla.android.app.model.payment.generatesignaturecs.GenerateSignatureCSRequest;
 import com.zemulla.android.app.model.payment.generatesignaturecs.GenerateSignatureCSResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
+import com.zemulla.android.app.topup.TopupActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +122,7 @@ public class CyberSourceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cyber_source);
         ButterKnife.bind(this);
 
+        edtAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter()});
         init();
     }
 
@@ -143,6 +148,13 @@ public class CyberSourceActivity extends AppCompatActivity {
         cybersourcePayment1Request = new CybersourcePayment1Request();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(CyberSourceActivity.this, TopupActivity.class);
+    }
+
     private void actionListener() {
         btnProcessInitialTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +164,17 @@ public class CyberSourceActivity extends AppCompatActivity {
                     Functions.showError(CyberSourceActivity.this, "Please Enter Amount", false);
                     return;
                 }
+                try {
+                    Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                    if (amount <= 0.0) {
+                        Functions.showError(CyberSourceActivity.this, getString(R.string.invalid_amout), false);
+
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    Functions.showError(CyberSourceActivity.this, getString(R.string.invalid_amout), false);
+                    return;
+                }
 
                 if (Functions.isEmpty(edtcardNumber)) {
                     Functions.showError(CyberSourceActivity.this, "Please Enter Card Number", false);
@@ -159,18 +182,18 @@ public class CyberSourceActivity extends AppCompatActivity {
                 }
 
                 if (Functions.toStingEditText(edtcardNumber).length() < 16) {
-                    Functions.showError(CyberSourceActivity.this, "Please Enter Valid Card Number", false);
+                    Functions.showError(CyberSourceActivity.this, "Invalid Card Number", false);
                     return;
                 }
 
                 if (selectedMonth.getId() == 0) {
-                    Functions.showError(CyberSourceActivity.this, "Select Month", false);
+                    Functions.showError(CyberSourceActivity.this, "Please Select Month", false);
                     return;
                 }
 
 
-                if (selectedYear.equalsIgnoreCase("year")) {
-                    Functions.showError(CyberSourceActivity.this, "Select Year", false);
+                if (selectedYear.equalsIgnoreCase("Select Year")) {
+                    Functions.showError(CyberSourceActivity.this, "Please Select Year", false);
                     return;
                 }
                 if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
@@ -190,6 +213,9 @@ public class CyberSourceActivity extends AppCompatActivity {
                 }
                 cardDate = String.format("%s-%s", month, selectedYear);
                 cardNumber = Functions.toStingEditText(edtcardNumber);
+                if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
+                    return;
+                }
                 calculateAmount();
 
             }
@@ -243,7 +269,7 @@ public class CyberSourceActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
 
@@ -297,9 +323,9 @@ public class CyberSourceActivity extends AppCompatActivity {
             topUpTransactionChargeCalculationRequest.setAmount(Double.parseDouble(Functions.toStingEditText(edtAmount)));
             topUpTransactionChargeCalculationRequest.setServiceDetailsID(ServiceDetails.CyberSource.getId());
             getFundTransferTransactionCalApi.getTopupCharge(topUpTransactionChargeCalculationRequest, fundTransferTransactionChargeCalculationResponseAPIListener);
-            showProgressDialog();
+            // showProgressDialog();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error", "Exception");
         }
 
     }
@@ -327,10 +353,10 @@ public class CyberSourceActivity extends AppCompatActivity {
                         Functions.showError(CyberSourceActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(CyberSourceActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(CyberSourceActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(CyberSourceActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(CyberSourceActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
@@ -338,6 +364,7 @@ public class CyberSourceActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, CyberSourceActivity.this);
         }
     };
 
@@ -347,7 +374,7 @@ public class CyberSourceActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -361,8 +388,7 @@ public class CyberSourceActivity extends AppCompatActivity {
     }
 
     private void checkVisibility() {
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(CyberSourceActivity.this, TopupActivity.class);
     }
 
 
@@ -398,7 +424,7 @@ public class CyberSourceActivity extends AppCompatActivity {
         List<String> strings = new ArrayList<>();
         int year = 2016;
         int totalYear = 30;
-        strings.add("Year");
+        strings.add("Select Year");
         strings.add("2016");
         for (int i = 0; i < totalYear; i++) {
             strings.add(String.valueOf(year = year + 1));

@@ -95,7 +95,7 @@
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_fname"
                             android:inputType="text"
-                            android:maxLength="@integer/maxLength50"
+                            android:maxLength="@integer/maxLength30"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -110,7 +110,7 @@
                             android:layout_height="?actionBarSize"
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_lname"
-                            android:maxLength="@integer/maxLength50"
+                            android:maxLength="@integer/maxLength30"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -125,7 +125,7 @@
                             android:enabled="false"
                             android:hint="@string/hint_email"
                             android:inputType="none"
-                            android:maxLength="@integer/maxLength150"
+                            android:maxLength="@integer/maxLength50"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -224,8 +224,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_zipcode"
-                            android:inputType="number"
-                            android:maxLength="@integer/maxLength50"
+                            android:inputType="text"
+                            android:maxLength="@integer/maxLength10"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -250,6 +250,7 @@
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_bank_name"
                             android:inputType="text"
+                            android:maxLength="@integer/maxLength30"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -264,6 +265,7 @@
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_account_name"
                             android:inputType="text"
+                            android:maxLength="@integer/maxLength50"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -276,7 +278,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
                             android:hint="@string/hint_account_number"
-                            android:inputType="text"
+                            android:inputType="number"
                             android:maxLength="@integer/maxLength30"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
@@ -292,6 +294,7 @@
                             android:digits="@string/textDigits"
                             android:hint="@string/hint_barnch_name"
                             android:inputType="text"
+                            android:maxLength="@integer/maxLength20"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 

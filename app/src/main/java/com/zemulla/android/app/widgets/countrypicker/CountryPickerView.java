@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.account.CountryAPI;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.account.country.Country;
 import com.zemulla.android.app.model.account.country.CountryResponse;
 
@@ -99,6 +100,7 @@ public class CountryPickerView extends RelativeLayout implements APIListener<Cou
     @Override
     public void onFailure(Call<CountryResponse> call, Throwable t) {
         countryPickerListener.OnFailed(t);
+        RetrofitErrorHelper.showErrorMsg(t, getContext());
     }
 
     public interface CountryPickerListener {

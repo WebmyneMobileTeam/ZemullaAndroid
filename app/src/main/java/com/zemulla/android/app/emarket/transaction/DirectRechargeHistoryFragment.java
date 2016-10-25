@@ -22,6 +22,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetKazangDirectRechargeDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.getkazangdirectrechargedetails.DirectRechargeDetailsReportResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
@@ -181,6 +182,7 @@ public class DirectRechargeHistoryFragment extends Fragment {
         public void onFailure(Call<DirectRechargeDetailsReportResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
+            RetrofitErrorHelper.showErrorMsg(t,getActivity());
         }
     };
 

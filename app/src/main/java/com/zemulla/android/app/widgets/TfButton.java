@@ -2,6 +2,7 @@ package com.zemulla.android.app.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.Button;
 
 import com.zemulla.android.app.helper.Functions;
@@ -30,7 +31,7 @@ public class TfButton extends Button {
         try {
             setTypeface(Functions.getLatoFont(_ctx));
         }catch (Exception e){
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 

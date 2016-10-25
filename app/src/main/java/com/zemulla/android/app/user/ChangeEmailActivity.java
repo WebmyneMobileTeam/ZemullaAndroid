@@ -20,6 +20,7 @@ import com.zemulla.android.app.api.account.OTPGenValTemporaryAPI;
 import com.zemulla.android.app.api.account.ValidateMobileEmailAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.model.account.changeemail.ChangeEmailRequest;
 import com.zemulla.android.app.model.account.changeemail.ChangeEmailResponse;
 import com.zemulla.android.app.model.account.otpgenvaltemporary.OTPGenValRequest;
@@ -131,13 +132,14 @@ public class ChangeEmailActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<ValidateMobileEmailResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,ChangeEmailActivity.this);
         }
     };
 
@@ -249,7 +251,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<ChangeEmailResponse> call, Throwable t) {
-
+            RetrofitErrorHelper.showErrorMsg(t,ChangeEmailActivity.this);
         }
     };
 
@@ -266,7 +268,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
             otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, otpGenValTemporaryResponseAPIListener);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 
@@ -318,7 +320,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
                 otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 
@@ -338,7 +340,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
         }
@@ -346,6 +348,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,ChangeEmailActivity.this);
         }
     };
 
@@ -367,13 +370,14 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,ChangeEmailActivity.this);
         }
     };
 

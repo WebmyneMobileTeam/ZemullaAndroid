@@ -10,5 +10,7 @@
     <integer name="maxLength11">11</integer>
     <integer name="maxLength30">30</integer>
     <integer name="maxLength20">20</integer>
+    <integer name="maxLength40">40</integer>
+    <integer name="maxLength16">16</integer>
 
 </resources>

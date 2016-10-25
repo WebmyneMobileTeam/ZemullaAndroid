@@ -67,7 +67,7 @@
                     android:digits="@string/textDigits"
                     android:hint="@string/hint_fname"
                     android:inputType="text"
-                    android:maxLength="@integer/maxLength50"
+                    android:maxLength="@integer/maxLength30"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
@@ -83,7 +83,7 @@
                     android:digits="@string/textDigits"
                     android:hint="@string/hint_lname"
                     android:inputType="text"
-                    android:maxLength="@integer/maxLength50"
+                    android:maxLength="@integer/maxLength30"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
@@ -97,7 +97,7 @@
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_email"
                     android:inputType="textWebEmailAddress"
-                    android:maxLength="@integer/maxLength150"
+                    android:maxLength="@integer/maxLength50"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
@@ -114,7 +114,8 @@
                     android:hint="@string/hint_state"
                     android:inputType="text"
                     android:maxLength="@integer/maxLength50"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:nextFocusDown="@id/edtState" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -155,7 +156,7 @@
                         android:layout_height="?actionBarSize"
                         android:hint="@string/hint_pass"
                         android:inputType="textPassword"
-                        android:maxLength="@integer/maxLength100"
+                        android:maxLength="@integer/maxLength50"
                         android:maxLines="1" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -181,7 +182,7 @@
                     android:layout_height="?actionBarSize"
                     android:hint="@string/hint_cnf_pass"
                     android:inputType="textPassword"
-                    android:maxLength="@integer/maxLength100"
+                    android:maxLength="@integer/maxLength50"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 

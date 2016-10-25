@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -17,8 +18,8 @@ import android.widget.Toast;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.account.OTPGenValAPI;
-import com.zemulla.android.app.api.payment.GetSupportedBankDetailsAPI;
 import com.zemulla.android.app.api.payment.GetTopupTransactionApi;
+import com.zemulla.android.app.api.zwallet.GetRecepientBankDetailsAPI;
 import com.zemulla.android.app.api.zwallet.TopUpWalletBankTransferApi;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
@@ -33,11 +34,12 @@ import com.zemulla.android.app.model.account.optgenval.OTPGenValRequest;
 import com.zemulla.android.app.model.account.optgenval.OTPGenValResponse;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationRequest;
 import com.zemulla.android.app.model.payment.TopUpTransactionChargeCalculation.TopUpTransactionChargeCalculationResponse;
-import com.zemulla.android.app.model.payment.getsupportedbankdetails.GetSupportedBankDetails;
-import com.zemulla.android.app.model.payment.getsupportedbankdetails.GetSupportedBankDetailsResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
+import com.zemulla.android.app.model.zwallet.RecepientBank;
+import com.zemulla.android.app.model.zwallet.RecepientBankListResponse;
 import com.zemulla.android.app.model.zwallet.topupwalletbanktransfer.TopUpWalletBankTransferRequest;
 import com.zemulla.android.app.model.zwallet.topupwalletbanktransfer.TopUpWalletBankTransferResponse;
+import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.widgets.CustomSpinnerAdapter;
 import com.zemulla.android.app.widgets.OTPDialog;
 
@@ -108,10 +110,10 @@ public class BankActivity extends AppCompatActivity {
     private LoginResponse loginResponse;
     private GetWalletDetailResponse walletResponse;
     private TopUpTransactionChargeCalculationResponse topUpResponse;
-    private GetSupportedBankDetailsAPI getSupportedBankDetailsAPI;
-    private List<GetSupportedBankDetails> getSupportedBankDetailses;
+    private GetRecepientBankDetailsAPI getRecepientBankDetailsAPI;
+    private List<RecepientBank> getSupportedBankDetailses;
     private CustomSpinnerAdapter customSpinnerAdapter;
-    private GetSupportedBankDetails selectedGetSupportedBankDetails;
+    private RecepientBank recepientBank;
     private TopUpWalletBankTransferRequest topUpWalletBankTransferRequest;
     private TopUpWalletBankTransferApi topUpWalletBankTransferApi;
 
@@ -131,7 +133,7 @@ public class BankActivity extends AppCompatActivity {
         otpGenValRequest = new OTPGenValRequest();
         transactionApi = new GetTopupTransactionApi();
         request = new TopUpTransactionChargeCalculationRequest();
-        getSupportedBankDetailsAPI = new GetSupportedBankDetailsAPI();
+        getRecepientBankDetailsAPI = new GetRecepientBankDetailsAPI();
         init();
 
 
@@ -149,12 +151,17 @@ public class BankActivity extends AppCompatActivity {
                     Functions.showError(BankActivity.this, "Please Enter Amount", false);
                     return;
                 }
+                try {
+                    Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                    if (amount <= 0.0) {
+                        Functions.showError(BankActivity.this, getString(R.string.invalid_amout), false);
 
-                if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-                    Functions.showError(BankActivity.this, "Enter Valid Amount", false);
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    Functions.showError(BankActivity.this, getString(R.string.invalid_amout), false);
                     return;
                 }
-
                 if (Functions.isFabAnimate(btnProcessInitialTransaction)) {
                     return;
                 }
@@ -184,7 +191,7 @@ public class BankActivity extends AppCompatActivity {
         spinnerRecepientBankList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedGetSupportedBankDetails = (GetSupportedBankDetails) parent.getItemAtPosition(position);
+                recepientBank = (RecepientBank) parent.getItemAtPosition(position);
 
             }
 
@@ -259,16 +266,16 @@ public class BankActivity extends AppCompatActivity {
                         animation = new FlipAnimation(lineatInitialViewTopup, linearTrnsViewTopup);
                         frameRootTopup.startAnimation(animation);
                         showProgressDialog();
-                        getSupportedBankDetailsAPI.getSupportedBankDetailsAPI(getSupportedBankDetailsAPIListener);
+                        getRecepientBankDetailsAPI.getSupportedBankDetailsAPI(getSupportedBankDetailsAPIListener);
 
                     } else {
                         Functions.showError(BankActivity.this, topUpResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(BankActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(BankActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(BankActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(BankActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
@@ -281,9 +288,9 @@ public class BankActivity extends AppCompatActivity {
         }
     };
 
-    APIListener<GetSupportedBankDetailsResponse> getSupportedBankDetailsAPIListener = new APIListener<GetSupportedBankDetailsResponse>() {
+    APIListener<RecepientBankListResponse> getSupportedBankDetailsAPIListener = new APIListener<RecepientBankListResponse>() {
         @Override
-        public void onResponse(Response<GetSupportedBankDetailsResponse> response) {
+        public void onResponse(Response<RecepientBankListResponse> response) {
             hidProgressDialog();
             if (response.isSuccessful() && response.body() != null) {
                 if (response.body().getResponseCode() == AppConstant.ResponseSuccess) {
@@ -296,13 +303,13 @@ public class BankActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<GetSupportedBankDetailsResponse> call, Throwable t) {
+        public void onFailure(Call<RecepientBankListResponse> call, Throwable t) {
             hidProgressDialog();
         }
     };
 
     private void validateBankDetails() {
-        if (selectedGetSupportedBankDetails.getUserID() == -1) {
+        if (recepientBank.getBankID() == -1) {
             Functions.showError(BankActivity.this, "Please Select Recipient Bank", false);
             return;
         } else if (Functions.isEmpty(edtBranchName)) {
@@ -316,6 +323,9 @@ public class BankActivity extends AppCompatActivity {
             return;
         } else if (Functions.isEmpty(edtSwiftCode)) {
             Functions.showError(BankActivity.this, "Please Enter Switft Code", false);
+            return;
+        } else if (Functions.isEmpty(edtRemark)) {
+            Functions.showError(BankActivity.this, "Please Enter Remarks Code", false);
             return;
         } else {
             generateOTPApi();
@@ -339,7 +349,7 @@ public class BankActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -387,9 +397,9 @@ public class BankActivity extends AppCompatActivity {
 //        AccountNumber = "";
         topUpWalletBankTransferRequest.setAccountNumber(Functions.toStingEditText(edtAccountNumber));
 //        BankDetailID = 0;
-        topUpWalletBankTransferRequest.setBankDetailID(selectedGetSupportedBankDetails.getBankDetailID());
+        //topUpWalletBankTransferRequest.setBankDetailID(recepientBank.getBankDetailID());
 //        BankID = 0;
-        topUpWalletBankTransferRequest.setBankID(selectedGetSupportedBankDetails.getBankID());
+        topUpWalletBankTransferRequest.setBankID(recepientBank.getBankID());
 //        BranchName = "";
         topUpWalletBankTransferRequest.setBranchName(Functions.toStingEditText(edtBranchName));
 //        RejectReason = "";
@@ -472,11 +482,11 @@ public class BankActivity extends AppCompatActivity {
                         Functions.showError(BankActivity.this, response.body().getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(BankActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(BankActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                Functions.showError(BankActivity.this, "Something went wrong. Please try again.", false);
+                Log.d("error", "Exception");
+                Functions.showError(BankActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
@@ -495,7 +505,7 @@ public class BankActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
-            finish();
+            Functions.fireIntentWithClearFlagWithWithPendingTransition(BankActivity.this, TopupActivity.class);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);

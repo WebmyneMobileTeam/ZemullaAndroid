@@ -120,7 +120,7 @@ public class GetSupportedBankDetails {
         AccountNumber = "";
         BankDetailID = 0;
         BankID = 0;
-        BankName = "Please Select Recipient Bank";
+            BankName = "Please Select Recipient Bank";
         BankRouting = "";
         BankSWIFTCode = "";
         BankSortCode = "";

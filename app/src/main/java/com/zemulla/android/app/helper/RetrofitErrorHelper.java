@@ -1,6 +1,7 @@
 package com.zemulla.android.app.helper;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.zemulla.android.app.R;
 
@@ -15,11 +16,11 @@ public class RetrofitErrorHelper {
     public static void showErrorMsg(Throwable throwable, Context context) {
 
         if (throwable instanceof IOException) {
-            Functions.showError(context, context.getResources().getString(R.string.no_internet_connection), false);
+            Toast.makeText(context, context.getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
         } else if (throwable instanceof SocketTimeoutException) {
-            Functions.showError(context, context.getResources().getString(R.string.time_out), false);
+            Toast.makeText(context, context.getResources().getString(R.string.time_out), Toast.LENGTH_SHORT).show();
         } else {
-            Functions.showError(context, context.getResources().getString(R.string.server_error), false);
+            Toast.makeText(context, context.getResources().getString(R.string.server_error), Toast.LENGTH_SHORT).show();
         }
     }
 }

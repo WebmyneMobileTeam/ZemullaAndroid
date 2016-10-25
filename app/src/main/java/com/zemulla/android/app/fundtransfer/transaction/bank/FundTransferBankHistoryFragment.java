@@ -22,6 +22,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetFundTransferBankReportAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
 import com.zemulla.android.app.topup.transaction.bank.GetTopUpBankTransferReportDetailsResponse;
@@ -176,6 +177,7 @@ public class FundTransferBankHistoryFragment extends Fragment {
         @Override
         public void onFailure(Call<GetTopUpBankTransferReportDetailsResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
+            RetrofitErrorHelper.showErrorMsg(t,getActivity());
         }
     };
 

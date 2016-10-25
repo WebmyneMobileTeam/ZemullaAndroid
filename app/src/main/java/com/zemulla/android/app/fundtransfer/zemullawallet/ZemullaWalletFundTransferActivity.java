@@ -23,6 +23,7 @@ import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.api.zwallet.IsValidSendWalletAPI;
 import com.zemulla.android.app.api.zwallet.SendMoneyW2WAPI;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.fundtransfer.FundTransferActivity;
 import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
@@ -40,6 +41,7 @@ import com.zemulla.android.app.model.zwallet.isvalidsendwallet.IsValidSendWallet
 import com.zemulla.android.app.model.zwallet.isvalidsendwallet.IsValidSendWalletResponse;
 import com.zemulla.android.app.model.zwallet.sendmoneyw2wad.SendMoneyW2WRequest;
 import com.zemulla.android.app.model.zwallet.sendmoneyw2wad.SendMoneyW2WResponse;
+import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.widgets.OTPDialogAfterLogin;
 import com.zemulla.android.app.widgets.countrypicker.CountryPickerView;
 
@@ -172,7 +174,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
 
@@ -180,6 +182,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
         public void onFailure(Call<IsValidSendWalletResponse> call, Throwable t) {
 
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, ZemullaWalletFundTransferActivity.this);
         }
     };
 
@@ -221,12 +224,27 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
                 }
 
                 if (!isMobileValid) {
-                    Functions.showError(ZemullaWalletFundTransferActivity.this, "Mobile Number Not Found", false);
+                    Functions.showError(ZemullaWalletFundTransferActivity.this, "Invalid Mobile Number", false);
                     return;
                 }
 
-                if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-                    Functions.showError(ZemullaWalletFundTransferActivity.this, "Enter Valid Amount", false);
+                if (Functions.isEmpty(edtAmount)) {
+                    Functions.showError(ZemullaWalletFundTransferActivity.this, "Please Enter Amount", false);
+                    return;
+                }
+                try {
+                    Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                    if (amount <= 0.0) {
+                        Functions.showError(ZemullaWalletFundTransferActivity.this, getString(R.string.invalid_amout), false);
+
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    Functions.showError(ZemullaWalletFundTransferActivity.this, getString(R.string.invalid_amout), false);
+                    return;
+                }
+                if (!Functions.checkWalleatBalance(ZemullaWalletFundTransferActivity.this, edtAmount, walletResponse)) {
+                    Functions.showError(ZemullaWalletFundTransferActivity.this, "Payable amount is greater than available balance", false);
                     return;
                 }
 
@@ -266,7 +284,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -274,10 +292,16 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(ZemullaWalletFundTransferActivity.this, FundTransferActivity.class);
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(ZemullaWalletFundTransferActivity.this, FundTransferActivity.class);
     }
 
     private void calculateAmount() {
@@ -310,10 +334,10 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
                         Functions.showError(ZemullaWalletFundTransferActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(ZemullaWalletFundTransferActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(ZemullaWalletFundTransferActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(ZemullaWalletFundTransferActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(ZemullaWalletFundTransferActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
@@ -392,7 +416,7 @@ public class ZemullaWalletFundTransferActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
 
         }

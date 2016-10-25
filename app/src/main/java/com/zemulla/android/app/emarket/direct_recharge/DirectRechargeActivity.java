@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -20,12 +21,14 @@ import com.zemulla.android.app.api.kazang.GetKazangProductProviderAPI;
 import com.zemulla.android.app.api.kazang.KazangDirectRechargeAPI;
 import com.zemulla.android.app.api.payment.GetFundTransferTransactionCalApi;
 import com.zemulla.android.app.constant.AppConstant;
+import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.emarket.airtime.KazangProductProviderAdapter;
 import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.KazangProductProvider;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -138,21 +141,39 @@ public class DirectRechargeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Functions.isEmpty(edtNumber)) {
-                    Functions.showError(DirectRechargeActivity.this, "Enter Number", false);
+                    Functions.showError(DirectRechargeActivity.this, "Please Enter Phone Number", false);
+                    return;
                 } else if (Functions.getLength(edtNumber) < 10) {
-                    Functions.showError(DirectRechargeActivity.this, "Enter Number", false);
-                } else if (selectedProvider.equalsIgnoreCase(getString(R.string.select_provider_prompt))) {
-                    Functions.showError(DirectRechargeActivity.this, "Select Product", false);
-                } else if (Functions.isEmpty(edtAmount)) {
-                    Functions.showError(DirectRechargeActivity.this, "Enter Amount", false);
-                } else if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletResponse.getEffectiveBalance()) {
-                    Functions.showError(DirectRechargeActivity.this, "Enter Valid Amount", false);
-                } else {
-                    if (Functions.isFabAnimate(initFab)) {
+                    Functions.showError(DirectRechargeActivity.this, "Invalid Phone Number", false);
+                    return;
+                } else if (selectedProvider.equalsIgnoreCase(getString(R.string.select_provider_product))) {
+                    Functions.showError(DirectRechargeActivity.this, "Please Select Product", false);
+                    return;
+                }
+                if (Functions.isEmpty(edtAmount)) {
+                    Functions.showError(DirectRechargeActivity.this, "Please Enter Amount", false);
+                    return;
+                }
+                try {
+                    Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                    if (amount <= 0.0) {
+                        Functions.showError(DirectRechargeActivity.this, getString(R.string.invalid_amout), false);
+
                         return;
                     }
-                    calculateAmount();
+                } catch (NumberFormatException e) {
+                    Functions.showError(DirectRechargeActivity.this, getString(R.string.invalid_amout), false);
+                    return;
                 }
+                if (!Functions.checkWalleatBalance(DirectRechargeActivity.this, edtAmount, walletResponse)) {
+                    Functions.showError(DirectRechargeActivity.this, "Payable amount is greater than available balance", false);
+                    return;
+                }
+                if (Functions.isFabAnimate(initFab)) {
+                    return;
+                }
+                calculateAmount();
+
             }
         });
 
@@ -187,7 +208,7 @@ public class DirectRechargeActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -202,8 +223,7 @@ public class DirectRechargeActivity extends AppCompatActivity {
 
     private void checkVisibility() {
         if (lineatInitialViewTopup.isShown()) {
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            Functions.fireIntentWithClearFlagWithWithPendingTransition(DirectRechargeActivity.this, MarketActivity.class);
         } else {
             animation.reverse();
             frameRootTopup.startAnimation(animation);
@@ -259,17 +279,18 @@ public class DirectRechargeActivity extends AppCompatActivity {
             try {
                 if (response.isSuccessful()) {
                     kazangProductProviderAdapter.clear();
-                    kazangProductProviderAdapter.add(getString(R.string.select_provider_prompt));
+                    kazangProductProviderAdapter.add(getString(R.string.select_provider_product));
                     kazangProductProviderAdapter.addAll(response.body().getProductProvider());
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
 
         @Override
         public void onFailure(Call<GetKazangProductProviderResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, DirectRechargeActivity.this);
         }
     };
 
@@ -294,17 +315,18 @@ public class DirectRechargeActivity extends AppCompatActivity {
                         Functions.showError(DirectRechargeActivity.this, fundTransferTransactionChargeCalculationResponse.getResponse().getResponseMsg(), false);
                     }
                 } else {
-                    Functions.showError(DirectRechargeActivity.this, "Something went wrong. Please try again.", false);
+                    Functions.showError(DirectRechargeActivity.this, getResources().getString(R.string.unable), false);
                 }
             } catch (Exception e) {
-                Functions.showError(DirectRechargeActivity.this, "Something went wrong. Please try again.", false);
+                Functions.showError(DirectRechargeActivity.this, getResources().getString(R.string.unable), false);
             }
 
         }
 
         @Override
         public void onFailure(Call<FundTransferTransactionChargeCalculationResponse> call, Throwable t) {
-
+            initFab.showProgress(false);
+            RetrofitErrorHelper.showErrorMsg(t, DirectRechargeActivity.this);
         }
     };
 
@@ -344,7 +366,7 @@ public class DirectRechargeActivity extends AppCompatActivity {
             if (response.isSuccessful()) {
                 if (response.body().getResponse().getResponseCode() == AppConstant.ResponseSuccess) {
                     otpDialogAfterLogin.dismiss();
-                    Functions.showSuccessMsg(DirectRechargeActivity.this, response.body().getResponse().getResponseMsg(), true,HomeActivity.class);
+                    Functions.showSuccessMsg(DirectRechargeActivity.this, response.body().getResponse().getResponseMsg(), true, HomeActivity.class);
                 } else {
                     Functions.showError(DirectRechargeActivity.this, response.body().getResponse().getResponseMsg(), false);
                 }
@@ -353,7 +375,8 @@ public class DirectRechargeActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Call<KazangDirectRechargeResponse> call, Throwable t) {
-
+            hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t, DirectRechargeActivity.this);
         }
     };
 

@@ -38,15 +38,12 @@ import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.constant.AppConstant;
-import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.model.account.login.LoginResponse;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
 import com.zemulla.android.app.user.LoginActivity;
 import com.zemulla.android.app.widgets.customdialog.SweetAlertDialog;
 
 import java.lang.reflect.Field;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import mbanje.kurt.fabbutton.CircleImageView;
 import mbanje.kurt.fabbutton.FabButton;
@@ -96,15 +93,32 @@ public class Functions {
     }
 
     public static void fireIntentWithClearFlag(Activity context, Class cls) {
-        Intent intent = new Intent(context, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        Intent intent = new Intent(context, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
         context.finish();
 
     }
 
+    public static void fireIntentWithClearFlagWithWithPendingTransition(Activity context, Class cls) {
+        Intent intent = new Intent(context, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        context.finish();
+        context.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+    }
+
+    public static void fireIntentWithClearFlag(Context context, Class cls) {
+        Intent intent = new Intent(context, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        ((Activity) context).finish();
+
+    }
+
     public static void fireIntentWithClearFlag(Activity context, Intent intent) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
         context.finish();
 
@@ -144,20 +158,10 @@ public class Functions {
         if (TextUtils.isEmpty(email)) {
             return false;
         } else {
-            String expression = "^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*\n" +
-                    "      @[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$";
-            CharSequence inputStr = email;
-
-            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(inputStr);
-            return matcher.matches();
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         }
     }
 
-    public static final Pattern EMAIL_ADDRESS
-            = Pattern.compile(
-            "^[\\\\w\\\\.-]+@([\\\\w\\\\-]+\\\\.)+[A-Z]{2,4}$"
-    );
 
     public static int getLength(EditText editText) {
         return editText.getText().toString().trim().length();
@@ -192,6 +196,10 @@ public class Functions {
 
 
     public static void showError(final Context context, String errorMsg, final boolean isFinish) {
+
+        if (context == null) {
+            return;
+        }
         new MaterialDialog.Builder(context)
                 .content(errorMsg)
                 .typeface(Functions.getLatoFont(context), Functions.getLatoFont(context))
@@ -206,12 +214,17 @@ public class Functions {
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }
                     }
-                })
-                .show();
+                }).show();
     }
 
 
     public static void showError(final Activity activity, String errorMsg, final boolean isFinish, final Class<?> cls) {
+
+
+        if (activity == null) {
+            return;
+        }
+
         new MaterialDialog.Builder(activity)
                 .content(errorMsg)
                 .typeface(Functions.getLatoFont(activity), Functions.getLatoFont(activity))
@@ -222,7 +235,7 @@ public class Functions {
                         dialog.dismiss();
                         if (isFinish) {
                             Intent intent = new Intent(activity, cls);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             activity.startActivity(intent);
                             activity.finish();
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -234,6 +247,7 @@ public class Functions {
 
 
     public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish) {
+
         new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
@@ -250,6 +264,9 @@ public class Functions {
     }
 
     public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+        if (activity == null) {
+            return;
+        }
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
@@ -259,7 +276,7 @@ public class Functions {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
                             Intent intent = new Intent(activity, cls);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             activity.startActivity(intent);
                             activity.finish();
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -270,6 +287,9 @@ public class Functions {
     }
 
     public static void showFailedMsg(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+        if (activity == null) {
+            return;
+        }
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
@@ -279,7 +299,7 @@ public class Functions {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
                             Intent intent = new Intent(activity, cls);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             activity.startActivity(intent);
                             activity.finish();
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -292,6 +312,7 @@ public class Functions {
 
 
     public static SweetAlertDialog showSuccessMsgReturn(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
@@ -301,7 +322,7 @@ public class Functions {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
                             Intent intent = new Intent(activity, cls);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             activity.startActivity(intent);
                             activity.finish();
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -313,6 +334,7 @@ public class Functions {
     }
 
     public static SweetAlertDialog showFailedMsgReturn(final Activity activity, String msg, final boolean isFinish, final Class<?> cls) {
+
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
@@ -322,7 +344,7 @@ public class Functions {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
                             Intent intent = new Intent(activity, cls);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             activity.startActivity(intent);
                             activity.finish();
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -335,6 +357,10 @@ public class Functions {
 
 
     public static void showSuccessMsg(final Activity activity, String msg, final boolean isFinish, final Intent intent) {
+
+        if (activity == null) {
+            return;
+        }
         new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText(msg)
                 .showContentText(false)
@@ -343,7 +369,7 @@ public class Functions {
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismiss();
                         if (isFinish) {
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             activity.startActivity(intent);
                             activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
@@ -394,7 +420,7 @@ public class Functions {
         }
         new TedPermission(context)
                 .setPermissionListener(permissionListene)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("If you reject permission,you can not use this service\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(permissions)
                 .check();
     }
@@ -453,20 +479,17 @@ public class Functions {
 
         LoginResponse response = new LoginResponse();
         PrefUtils.setUserProfile(context, response);
+        Functions.fireIntentWithClearFlag(context, LoginActivity.class);
 
-        ((Activity) context).finish();
-
-        Intent loginIntent = new Intent(context, LoginActivity.class);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(loginIntent);
     }
 
-    public static void removeListener(APIListener<?> listener) {
+    public static void removeListener(APIListener<?>... listener) {
 
-        if (listener != null) {
-            listener = null;
+        for (APIListener<?> apiListener : listener) {
+            if (apiListener != null) {
+                apiListener = null;
+            }
         }
-
     }
 
     public static void removeSubscition(Subscription subscription) {
@@ -602,6 +625,21 @@ public class Functions {
         return progressVisible;
     }
 
+
+    public static boolean checkWalleatBalance(Context context, EditText edtAmount, GetWalletDetailResponse walletDetailResponse) {
+
+        boolean isValid = true;
+        try {
+            if (Double.parseDouble(Functions.toStingEditText(edtAmount)) > walletDetailResponse.getEffectiveBalance()) {
+
+                isValid = false;
+            }
+        } catch (NumberFormatException e) {
+
+            isValid = false;
+        }
+        return isValid;
+    }
 
     public static void hideKeyPad(Context context, View view) {
         InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);

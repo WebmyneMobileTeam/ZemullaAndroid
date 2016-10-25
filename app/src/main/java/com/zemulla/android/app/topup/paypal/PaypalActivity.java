@@ -28,6 +28,7 @@ import com.zemulla.android.app.helper.DecimalDigitsInputFilter;
 import com.zemulla.android.app.helper.FlipAnimation;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.HomeActivity;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.login.LoginResponse;
@@ -36,6 +37,7 @@ import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment1Respons
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Request;
 import com.zemulla.android.app.model.payment.PaypalPayment.PaypalPayment2Response;
 import com.zemulla.android.app.model.user.getwalletdetail.GetWalletDetailResponse;
+import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.widgets.TfEditText;
 import com.zemulla.android.app.widgets.TfTextView;
 
@@ -232,13 +234,14 @@ public class PaypalActivity extends AppCompatActivity {
                     Functions.showError(PaypalActivity.this, getString(R.string.try_agian), false);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
 
         @Override
         public void onFailure(Call<PaypalPayment1Response> call, Throwable t) {
             hideCircleProgress();
+            RetrofitErrorHelper.showErrorMsg(t, PaypalActivity.this);
 
         }
     };
@@ -276,7 +279,7 @@ public class PaypalActivity extends AppCompatActivity {
                     Functions.showError(PaypalActivity.this, getString(R.string.try_agian), false);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
                 Functions.showError(PaypalActivity.this, getString(R.string.try_agian), false);
             }
         }
@@ -284,7 +287,7 @@ public class PaypalActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call<PaypalPayment2Response> call, Throwable t) {
             hidProgressDialog();
-            Functions.showError(PaypalActivity.this, getString(R.string.try_agian), false);
+            RetrofitErrorHelper.showErrorMsg(t, PaypalActivity.this);
         }
     };
 
@@ -310,9 +313,14 @@ public class PaypalActivity extends AppCompatActivity {
                     Functions.showError(PaypalActivity.this, "Please Enter Amount", false);
                     return;
                 }
-                Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
-                if (amount <= 0.0) {
-                    Functions.showError(PaypalActivity.this, "Please Enter Valid Amount", false);
+                try {
+                    Double amount = Double.valueOf(Functions.toStingEditText(edtAmount));
+                    if (amount <= 0.0) {
+                        Functions.showError(PaypalActivity.this, getString(R.string.invalid_amout), false);
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    Functions.showError(PaypalActivity.this, getString(R.string.invalid_amout), false);
                     return;
                 }
                 if (Functions.isFabAnimate(paypalFabInit)) {
@@ -409,7 +417,7 @@ public class PaypalActivity extends AppCompatActivity {
             payPal2Api.getPayPal1(paypalPayment2Request, paypal2Listener);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error", "Exception");
         }
 
     }
@@ -428,7 +436,7 @@ public class PaypalActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error", "Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -436,12 +444,16 @@ public class PaypalActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.fireIntentWithClearFlag(PaypalActivity.this, HomeActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(PaypalActivity.this, TopupActivity.class);
             }
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(PaypalActivity.this, TopupActivity.class);
     }
 }

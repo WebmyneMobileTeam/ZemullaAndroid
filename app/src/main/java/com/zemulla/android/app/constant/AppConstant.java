@@ -69,6 +69,7 @@ public class AppConstant {
     public static final String SendMoneyBantTransfer = ZWalletSVC + "SendMoneyBantTransferAD";
     public static final String IsValidSendWallet = ZWalletSVC + "IsValidSendWalletAD";
     public static final String SendMoneyW2W = ZWalletSVC + "SendMoneyW2WAD";
+    public static final String BANKLISTAD = ZWalletSVC + "BankListAD";
 
 
     public static final String KazangSVC = "Kazang.svc/json/";

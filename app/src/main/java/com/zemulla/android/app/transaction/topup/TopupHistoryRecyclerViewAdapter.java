@@ -30,8 +30,6 @@ import butterknife.ButterKnife;
  */
 public class TopupHistoryRecyclerViewAdapter<T> extends RecyclerView.Adapter<TopupHistoryRecyclerViewAdapter.HistoryViewHolder> {
     private final Context context;
-
-
     private List<Object> items;
 
 

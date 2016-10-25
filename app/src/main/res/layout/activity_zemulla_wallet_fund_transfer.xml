@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/big_text" />
 
                 <TextView
                     android:id="@+id/txtTransactionCharge"

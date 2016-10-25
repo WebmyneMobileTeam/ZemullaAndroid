@@ -110,7 +110,7 @@
                 <com.zemulla.android.app.widgets.TfTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:text="ZMW 1122.32"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/big_text" />
 
                 <com.zemulla.android.app.widgets.TfTextView
                     android:id="@+id/txtTransactionCharge"

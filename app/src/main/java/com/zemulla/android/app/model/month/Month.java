@@ -46,7 +46,7 @@ public class Month {
 
         List<Month> months = new ArrayList<>();
 
-        months.add(new Month(0, "Month", "Month"));
+        months.add(new Month(0, "Select Month", "Select Month"));
         months.add(new Month(1, "January", "01 - January"));
         months.add(new Month(2, "February", "02 - February"));
         months.add(new Month(3, "March", "03 - March"));

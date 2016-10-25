@@ -16,6 +16,7 @@ import com.zemulla.android.app.api.account.ForgotPasswordAPI;
 import com.zemulla.android.app.api.account.OTPGenValTemporaryAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.Functions;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.home.LogUtils;
 import com.zemulla.android.app.model.account.country.Country;
 import com.zemulla.android.app.model.account.forgotpassword.ForgotPasswordRequest;
@@ -205,14 +206,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
 
         }
 
         @Override
         public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
-
+            hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,ForgotPasswordActivity.this);
         }
     };
 
@@ -270,7 +272,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 otpGenValTemporaryAPI.otpGenValTemporary(otpGenValTemporaryRequest, submitotpGenValTemporaryResponseAPIListener);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
     }
 
@@ -295,13 +297,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
 
         @Override
         public void onFailure(Call<OTPGenValResponse> call, Throwable t) {
             hidProgressDialog();
+            RetrofitErrorHelper.showErrorMsg(t,ForgotPasswordActivity.this);
         }
     };
 
@@ -318,7 +321,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 countryPickerListener = null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
 
 

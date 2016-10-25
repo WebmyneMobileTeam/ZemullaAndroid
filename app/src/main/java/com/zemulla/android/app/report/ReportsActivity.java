@@ -131,7 +131,7 @@ public class ReportsActivity extends AppCompatActivity {
 
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d("error","Exception");
                 }
             }
 
@@ -223,7 +223,7 @@ public class ReportsActivity extends AppCompatActivity {
             try {
                 Functions.setToolbarWallet(toolbar, walletResponse, loginResponse);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -232,8 +232,7 @@ public class ReportsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Functions.fireIntentWithClearFlag(ReportsActivity.this, HomeActivity.class);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(ReportsActivity.this, HomeActivity.class);
             }
         });
     }
@@ -241,8 +240,7 @@ public class ReportsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Functions.fireIntentWithClearFlag(ReportsActivity.this, HomeActivity.class);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(ReportsActivity.this, HomeActivity.class);
     }
 
     private void initProgressDialog() {

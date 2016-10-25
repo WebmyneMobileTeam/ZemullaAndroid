@@ -7,11 +7,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.helper.ServiceDetails;
+import com.zemulla.android.app.topup.TopupActivity;
 import com.zemulla.android.app.topup.TopupTileBean;
 import com.zemulla.android.app.topup.TopupTileConfiguration;
 import com.zemulla.android.app.widgets.TfTextView;
@@ -74,7 +77,7 @@ public class TopUpTransactionHistoryActivity extends AppCompatActivity {
             try {
                 toolbar.setTitle(String.format("%s", "Topup Transcations"));
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -82,13 +85,18 @@ public class TopUpTransactionHistoryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(TopUpTransactionHistoryActivity.this, TopupActivity.class);
             }
         });
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(TopUpTransactionHistoryActivity.this, TopupActivity.class);
+    }
 
     private void initTabs() {
         topupTileBeen = TopupTileConfiguration.getAllTopupOptions();

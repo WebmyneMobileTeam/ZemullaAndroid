@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zemulla.android.app.R;
 import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.model.payment.getsupportedbankdetails.GetSupportedBankDetails;
+import com.zemulla.android.app.model.zwallet.RecepientBank;
 
 import java.util.List;
 
@@ -19,16 +20,17 @@ import java.util.List;
  */
 public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
     private final Context context;
-    public void setAsr(List<GetSupportedBankDetails> asr) {
+
+    public void setAsr(List<RecepientBank> asr) {
         this.asr = asr;
-        asr.add(0, new GetSupportedBankDetails(true));
+        asr.add(0, new RecepientBank());
         notifyDataSetChanged();
     }
 
-    private List<GetSupportedBankDetails> asr;
+    private List<RecepientBank> asr;
     private LayoutInflater inflater;
 
-    public CustomSpinnerAdapter(Context context, List<GetSupportedBankDetails> asr) {
+    public CustomSpinnerAdapter(Context context, List<RecepientBank> asr) {
         this.asr = asr;
         this.context = context;
         inflater = (LayoutInflater.from(context));
@@ -62,8 +64,8 @@ public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter 
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        GetSupportedBankDetails getSupportedBankDetails = asr.get(position);
-        viewHolder.txtTitle.setText(String.format("%s %s", getSupportedBankDetails.getBankName(), getSupportedBankDetails.getBranchName()));
+        RecepientBank getSupportedBankDetails = asr.get(position);
+        viewHolder.txtTitle.setText(String.format("%s", getSupportedBankDetails.getBankName()));
 //        txt.setPadding(16, 16, 16, 16);
 //        txt.setTypeface(Functions.getLatoFont(context));
 //        //   txt.setTextSize(18);
@@ -75,10 +77,10 @@ public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter 
 
     public View getView(int i, View view, ViewGroup viewgroup) {
         view = inflater.inflate(R.layout.spinner_list_header, null);
-        GetSupportedBankDetails getSupportedBankDetails = asr.get(i);
+        RecepientBank getSupportedBankDetails = asr.get(i);
         TextView txt = (TextView) view.findViewById(R.id.txtTitle);
         txt.setTypeface(Functions.getLatoFont(context));
-        txt.setText(String.format("%s %s", getSupportedBankDetails.getBankName(), getSupportedBankDetails.getBranchName()));
+        txt.setText(String.format("%s", getSupportedBankDetails.getBankName()));
         // txt.setTextSize(16);
 //        txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_down, 0);
         // txt.setText(asr.get(i));

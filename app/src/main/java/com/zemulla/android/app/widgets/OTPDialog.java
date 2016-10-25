@@ -66,10 +66,10 @@ public class OTPDialog {
                 Functions.hideKeyPad(context, v);
 
                 if (TextUtils.isEmpty(edtOTP.getText().toString().trim())) {
-                    Functions.showError(context, "Enter OTP", false);
+                    Functions.showError(context, "Please Enter OTP", false);
 
                 } else if (Functions.getLength(edtOTP) < 6) {
-                    Functions.showError(context, "Enter Valid OTP", false);
+                    Functions.showError(context, "Please Enter Valid OTP", false);
 
                 } else {
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusableInTouchMode="true"
     android:id="@+id/activity_topup_initial_transaction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <include layout="@layout/app_bar" />
@@ -108,7 +108,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/big_text" />
 
                 <TextView
                     android:id="@+id/txtTransactionCharge"
@@ -130,26 +130,27 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_height="?actionBarSize"
+                    android:gravity="bottom"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="36dp"
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/country_zm" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dimen_4dp">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_weight="1">
 
                         <EditText
                             android:id="@+id/edtNumber"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/dimen_16dp"
-                            android:hint="Enter Number"
+                            android:hint="@string/enter_mobile_number"
                             android:inputType="number"
                             android:maxLength="@integer/maxLength10" />
                     </android.support.design.widget.TextInputLayout>
@@ -167,7 +168,7 @@
                         android:drawablePadding="@dimen/dimen_16dp"
                         android:hint="Enter National ID"
                         android:inputType="text"
-                        android:maxLength="@integer/maxLength50" />
+                        android:maxLength="@integer/maxLength40" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout

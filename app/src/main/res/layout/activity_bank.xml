@@ -96,7 +96,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Payable Amount"
                     android:textSize="18sp" />
 
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:text="ZMW 0.00"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/big_text" />
 
                 <TextView
                     android:id="@+id/txtTransactionCharge"
@@ -153,7 +153,9 @@
                             android:layout_margin="@dimen/dimen_16dp"
                             android:hint="Enter Branch Name"
                             android:imeOptions="actionNext"
-                            android:maxLength="@integer/maxLength150" />
+                            android:maxLength="@integer/maxLength30"
+                            android:maxLines="1" />
+
 
                         <EditText
                             android:id="@+id/edtAccountName"
@@ -162,7 +164,8 @@
                             android:layout_margin="@dimen/dimen_16dp"
                             android:hint="Enter Account Name"
                             android:imeOptions="actionNext"
-                            android:maxLength="@integer/maxLength150" />
+                            android:maxLength="@integer/maxLength30"
+                            android:maxLines="1" />
 
                         <EditText
                             android:id="@+id/edtAccountNumber"
@@ -172,7 +175,8 @@
                             android:hint="Enter Account Number"
                             android:imeOptions="actionNext"
                             android:inputType="number"
-                            android:maxLength="@integer/maxLength150" />
+                            android:maxLength="@integer/maxLength16"
+                            android:maxLines="1" />
 
                         <EditText
                             android:id="@+id/edtSwiftCode"
@@ -181,7 +185,8 @@
                             android:layout_margin="@dimen/dimen_16dp"
                             android:hint="Enter Swift Code"
                             android:imeOptions="actionNext"
-                            android:maxLength="@integer/maxLength150" />
+                            android:maxLength="@integer/maxLength20"
+                            android:maxLines="1" />
 
                         <EditText
                             android:id="@+id/edtRemark"
@@ -193,7 +198,8 @@
                             android:imeOptions="actionDone"
                             android:inputType="textMultiLine"
                             android:lines="3"
-                            android:maxLength="@integer/maxLength500" />
+                            android:maxLength="@integer/maxLength500"
+                            android:maxLines="1" />
 
                     </LinearLayout>
                 </ScrollView>

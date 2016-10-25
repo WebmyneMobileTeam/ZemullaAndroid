@@ -7,11 +7,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.zemulla.android.app.R;
+import com.zemulla.android.app.emarket.MarketActivity;
 import com.zemulla.android.app.emarket.MarketConfiguration;
 import com.zemulla.android.app.emarket.MarketTileBean;
+import com.zemulla.android.app.fundtransfer.FundTransferActivity;
+import com.zemulla.android.app.helper.Functions;
 import com.zemulla.android.app.transaction.topup.TopupHistoryPageAdapter;
 
 import java.util.ArrayList;
@@ -56,7 +60,7 @@ public class EmarketTransactionActivity extends AppCompatActivity {
             try {
                 toolbar.setTitle(String.format("%s", "Emarket Transaction"));
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("error","Exception");
             }
         }
         setSupportActionBar(toolbar);
@@ -64,11 +68,16 @@ public class EmarketTransactionActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                Functions.fireIntentWithClearFlagWithWithPendingTransition(EmarketTransactionActivity.this, MarketActivity.class);
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Functions.fireIntentWithClearFlagWithWithPendingTransition(EmarketTransactionActivity.this, MarketActivity.class);
     }
 
     private void initTabs() {

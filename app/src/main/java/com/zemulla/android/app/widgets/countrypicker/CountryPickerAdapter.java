@@ -53,7 +53,7 @@ import com.zemulla.android.app.model.account.country.Country;
             viewHolder.mNameView.setText(country.getCountryName());
             viewHolder.mDialCode.setText(String.format("+%s", country.getCallingCode()));
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
         }
         return convertView;
     }
@@ -88,7 +88,7 @@ import com.zemulla.android.app.model.account.country.Country;
         try {
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("error","Exception");
             Log.d("test", country.getISO2Name().toLowerCase().trim());
         }
 

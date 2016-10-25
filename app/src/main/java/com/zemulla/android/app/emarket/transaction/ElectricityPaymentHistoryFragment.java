@@ -22,6 +22,7 @@ import com.zemulla.android.app.api.APIListener;
 import com.zemulla.android.app.api.reports.GetKazangElectricityDetailsAPI;
 import com.zemulla.android.app.constant.AppConstant;
 import com.zemulla.android.app.helper.PrefUtils;
+import com.zemulla.android.app.helper.RetrofitErrorHelper;
 import com.zemulla.android.app.helper.ServiceDetails;
 import com.zemulla.android.app.model.reports.getkazangelectricitydetails.ElectricityDetailsReportResponse;
 import com.zemulla.android.app.model.reports.gettopupapireportdetails.ReportRequest;
@@ -182,6 +183,7 @@ public class ElectricityPaymentHistoryFragment extends Fragment {
         public void onFailure(Call<ElectricityDetailsReportResponse> call, Throwable t) {
             progressBar.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
+            RetrofitErrorHelper.showErrorMsg(t,getActivity());
         }
     };
 
